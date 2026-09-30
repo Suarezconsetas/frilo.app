@@ -20,7 +20,9 @@ export default function Bienvenida() {
   return (
     <div className="fondo-oliva sobre-oliva">
       <main className="pantalla pantalla-marca" style={{ background: 'transparent' }}>
-        <Logo sobreOliva alto={64} />
+        <div>
+          <Logo sobreOliva alto={64} />
+        </div>
         <div>
           <h1 className="titular-marca">
             Tus finanzas, mejor con <strong>Frilo</strong>
