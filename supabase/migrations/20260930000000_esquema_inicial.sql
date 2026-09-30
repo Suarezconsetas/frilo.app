@@ -49,6 +49,7 @@ create table public.pagos (
   creado_en timestamptz not null default now()
 );
 create index on public.pagos (usuario_id, mes);
+create index on public.pagos (fuente_id);
 
 create table public.cobros (
   id uuid primary key default gen_random_uuid(),
@@ -103,21 +104,24 @@ alter table public.cobros enable row level security;
 alter table public.alertas enable row level security;
 alter table public.trm_diaria enable row level security;
 
-create policy perfiles_ver on public.perfiles for select using (id = auth.uid());
-create policy perfiles_editar on public.perfiles for update using (id = auth.uid()) with check (id = auth.uid());
+create policy perfiles_ver on public.perfiles for select using (id = (select auth.uid()));
+create policy perfiles_editar on public.perfiles for update using (id = (select auth.uid())) with check (id = (select auth.uid()));
 
 -- Autorizaciones: solo leer y agregar. Sin update ni delete.
-create policy autorizaciones_ver on public.autorizaciones for select using (usuario_id = auth.uid());
-create policy autorizaciones_agregar on public.autorizaciones for insert with check (usuario_id = auth.uid());
+create policy autorizaciones_ver on public.autorizaciones for select using (usuario_id = (select auth.uid()));
+create policy autorizaciones_agregar on public.autorizaciones for insert with check (usuario_id = (select auth.uid()));
 
-create policy fuentes_propias on public.fuentes_ingreso for all using (usuario_id = auth.uid()) with check (usuario_id = auth.uid());
-create policy pagos_propios on public.pagos for all using (usuario_id = auth.uid())
-  with check (usuario_id = auth.uid() and exists (select 1 from public.fuentes_ingreso f where f.id = fuente_id and f.usuario_id = auth.uid()));
-create policy cobros_propios on public.cobros for all using (usuario_id = auth.uid()) with check (usuario_id = auth.uid());
-create policy alertas_propias on public.alertas for all using (usuario_id = auth.uid()) with check (usuario_id = auth.uid());
+create policy fuentes_propias on public.fuentes_ingreso for all using (usuario_id = (select auth.uid())) with check (usuario_id = (select auth.uid()));
+create policy pagos_propios on public.pagos for all using (usuario_id = (select auth.uid()))
+  with check (usuario_id = (select auth.uid()) and exists (select 1 from public.fuentes_ingreso f where f.id = fuente_id and f.usuario_id = (select auth.uid())));
+create policy cobros_propios on public.cobros for all using (usuario_id = (select auth.uid())) with check (usuario_id = (select auth.uid()));
+create policy alertas_propias on public.alertas for all using (usuario_id = (select auth.uid())) with check (usuario_id = (select auth.uid()));
 
 -- TRM: lectura para usuarios con sesión; escribe solo la tarea (service role, que ignora RLS).
 create policy trm_leer on public.trm_diaria for select to authenticated using (true);
 
 -- Refuerzo: aunque falte una policy, las autorizaciones no se pueden editar ni borrar.
 revoke update, delete on public.autorizaciones from anon, authenticated;
+
+-- La función del disparador no debe poder llamarse desde la API.
+revoke execute on function public.crear_perfil() from public, anon, authenticated;
