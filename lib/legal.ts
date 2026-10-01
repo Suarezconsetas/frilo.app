@@ -11,8 +11,8 @@ export const LEGAL = {
   correoPrivacidad: 'nicolas.suarez.cr@gmail.com',
   telefono: '+57 304 533 7042',
   fechaActualizacion: '1 de octubre de 2026',
-  /** Pasar a false solo cuando un abogado haya revisado y aprobado ambos textos. */
-  esBorrador: true,
+  /** true muestra un aviso de borrador en las páginas legales. Revisados por un abogado: false. */
+  esBorrador: false,
 } as const;
 
 /** true si queda algún dato entre corchetes por completar. */

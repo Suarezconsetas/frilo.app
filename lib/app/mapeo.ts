@@ -3,8 +3,8 @@ import { parametrosDe, type Alerta, type ClaseRiesgo, type Cobro, type Moneda } 
 import { fuenteDe } from './derivados';
 import type { EstadoApp, FormaDePago, IngresoInicial } from './tipos';
 
-/** Versión del texto de autorización que firma el usuario. Se actualiza con la política real (fase 5). */
-export const VERSION_POLITICA = '2026-10-borrador';
+/** Versión del texto de autorización que firma el usuario. Cambiarla pide una autorización nueva al volver a entrar. */
+export const VERSION_POLITICA = '2026-10-01';
 
 /** En el perfil se guarda un rango, nunca la cifra exacta (Ley 1581 de 2012: solo lo necesario). */
 export function rangoIngreso(ingresoBrutoCop: number, anio = 2026): string {
@@ -102,4 +102,48 @@ export function autorizacionesPorAgregar(previas: AutorizacionPrevia[], marketin
   const mk = ultima('marketing_frilo');
   if ((marketingMarcada && !mk?.otorgada) || !mk) nuevas.push({ tipo: 'marketing_frilo', otorgada: marketingMarcada, version_politica: version });
   return nuevas;
+}
+
+/** Estado actual de la autorización de novedades: la última fila manda (las filas solo se agregan). */
+export function marketingOtorgado(previas: AutorizacionPrevia[]): boolean {
+  return previas.filter((p) => p.tipo === 'marketing_frilo').at(-1)?.otorgada ?? false;
+}
+
+/** Lo que el titular se lleva al pedir sus datos: todo lo que Frilo guarda de él, en un solo archivo. */
+export interface ExportacionDatos {
+  generado_en: string;
+  descripcion: string;
+  cuenta: { id: string; correo: string | null; creada_en: string | null };
+  perfil: Record<string, unknown> | null;
+  fuentes_ingreso: Record<string, unknown>[];
+  pagos: Record<string, unknown>[];
+  cobros: Record<string, unknown>[];
+  alertas: Record<string, unknown>[];
+  autorizaciones: Record<string, unknown>[];
+}
+
+export function armarExportacion(p: {
+  ahora: Date;
+  cuenta: { id: string; correo: string | null; creada_en: string | null };
+  perfil: Record<string, unknown> | null;
+  fuentes: Record<string, unknown>[];
+  pagos: Record<string, unknown>[];
+  cobros: Record<string, unknown>[];
+  alertas: Record<string, unknown>[];
+  autorizaciones: Record<string, unknown>[];
+}): ExportacionDatos {
+  // Los ids internos de la base no le sirven a nadie; se dejan los datos y las fechas.
+  const sinId = (filas: Record<string, unknown>[]) => filas.map(({ id: _id, usuario_id: _u, fuente_id: _f, ...resto }) => resto);
+  return {
+    generado_en: p.ahora.toISOString(),
+    descripcion:
+      'Estos son los datos personales que Frilo guarda sobre ti. Los puedes conservar, corregir desde la app o pedirnos que los borremos (Política de tratamiento de datos).',
+    cuenta: p.cuenta,
+    perfil: p.perfil,
+    fuentes_ingreso: sinId(p.fuentes),
+    pagos: sinId(p.pagos),
+    cobros: sinId(p.cobros),
+    alertas: sinId(p.alertas),
+    autorizaciones: sinId(p.autorizaciones),
+  };
 }

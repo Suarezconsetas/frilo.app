@@ -1,4 +1,4 @@
-import { autorizacionesPorAgregar, estadoDesdeFilas, filasDesdeEstado, rangoIngreso, VERSION_POLITICA } from '@/lib/app/mapeo';
+import { armarExportacion, autorizacionesPorAgregar, estadoDesdeFilas, filasDesdeEstado, marketingOtorgado, rangoIngreso, VERSION_POLITICA } from '@/lib/app/mapeo';
 import { ESTADO_VACIO, type EstadoApp } from '@/lib/app/tipos';
 
 const usd: EstadoApp = {
@@ -90,5 +90,46 @@ describe('autorizacionesPorAgregar (solo se agrega, nunca se edita)', () => {
       { tipo: 'marketing_frilo', otorgada: false, version_politica: 'vieja' },
     ];
     expect(autorizacionesPorAgregar(previas, false).map((n) => n.tipo)).toEqual(['tratamiento_datos']);
+  });
+});
+
+describe('marketingOtorgado', () => {
+  const fila = (otorgada: boolean) => ({ tipo: 'marketing_frilo', otorgada, version_politica: VERSION_POLITICA });
+  it('manda la última fila: se puede otorgar, retirar y volver a otorgar sin editar nada', () => {
+    expect(marketingOtorgado([])).toBe(false);
+    expect(marketingOtorgado([fila(true)])).toBe(true);
+    expect(marketingOtorgado([fila(true), fila(false)])).toBe(false);
+    expect(marketingOtorgado([fila(true), fila(false), fila(true)])).toBe(true);
+  });
+  it('ignora las filas de otro tipo', () => {
+    expect(marketingOtorgado([{ tipo: 'tratamiento_datos', otorgada: true, version_politica: VERSION_POLITICA }])).toBe(false);
+  });
+});
+
+describe('armarExportacion', () => {
+  const e = armarExportacion({
+    ahora: new Date('2026-10-01T12:00:00Z'),
+    cuenta: { id: 'u1', correo: 'a@b.co', creada_en: '2026-09-30T00:00:00Z' },
+    perfil: { correo: 'a@b.co', forma_de_pago: 'usd' },
+    fuentes: [{ id: 'f1', usuario_id: 'u1', nombre: 'Acme', moneda: 'USD' }],
+    pagos: [{ id: 'p1', usuario_id: 'u1', fuente_id: 'f1', mes: '2026-09', monto: 1750 }],
+    cobros: [{ id: 'c1', usuario_id: 'u1', mes: '2026-09', bolsillo: 'prima' }],
+    alertas: [{ id: 'l1', usuario_id: 'u1', umbral: 3500 }],
+    autorizaciones: [{ id: 1, usuario_id: 'u1', tipo: 'tratamiento_datos', otorgada: true, user_agent: 'Mozilla' }],
+  });
+  it('incluye todo lo que se guarda de la persona', () => {
+    expect(e.generado_en).toBe('2026-10-01T12:00:00.000Z');
+    expect(e.cuenta.correo).toBe('a@b.co');
+    expect(e.fuentes_ingreso[0]).toMatchObject({ nombre: 'Acme' });
+    expect(e.pagos[0]).toMatchObject({ mes: '2026-09', monto: 1750 });
+    expect(e.cobros[0]).toMatchObject({ bolsillo: 'prima' });
+    expect(e.alertas[0]).toMatchObject({ umbral: 3500 });
+    expect(e.autorizaciones[0]).toMatchObject({ tipo: 'tratamiento_datos', user_agent: 'Mozilla' });
+  });
+  it('quita los ids internos de la base', () => {
+    const txt = JSON.stringify({ ...e, cuenta: undefined });
+    expect(txt).not.toContain('usuario_id');
+    expect(txt).not.toContain('fuente_id');
+    expect(txt).not.toContain('"id"');
   });
 });

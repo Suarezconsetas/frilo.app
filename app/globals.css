@@ -1068,3 +1068,27 @@ details summary {
   align-items: center;
   min-height: 32px;
 }
+
+/* ── Mi cuenta ──────────────────────────────────────────────────────────── */
+.btn-peligro {
+  min-height: 48px;
+  border: 1px solid var(--error);
+  border-radius: var(--radius-m);
+  background: var(--superficie);
+  color: var(--error);
+  font-size: 15px;
+}
+.btn-peligro:not([disabled]):hover {
+  background: var(--tinte);
+}
+.zona-peligro {
+  border-color: var(--error);
+}
+.aviso-ok {
+  padding: var(--space-4);
+  border-radius: var(--radius-m);
+  background: var(--tinte);
+  color: var(--tinta);
+  font-size: 14px;
+  line-height: 21px;
+}

@@ -133,6 +133,9 @@ export default function Inicio() {
           <Link href="/ingreso" className="enlace">
             Editar mi ingreso
           </Link>
+          <Link href="/cuenta" className="enlace">
+            Mi cuenta
+          </Link>
           <button
             type="button"
             className="enlace"
