@@ -7,7 +7,7 @@ export const LEGAL = {
   /** Datos del responsable del tratamiento. Lo que quede entre corchetes se muestra como pendiente. */
   razonSocial: 'Nicolás Suárez Pardo',
   nit: '1018498427',
-  domicilio: 'Cra 6 # 48a - 47, [CIUDAD], Colombia',
+  domicilio: 'Cra 6 # 48a - 47, Bogotá, Colombia',
   correoPrivacidad: 'nicolas.suarez.cr@gmail.com',
   telefono: '+57 304 533 7042',
   fechaActualizacion: '1 de octubre de 2026',
