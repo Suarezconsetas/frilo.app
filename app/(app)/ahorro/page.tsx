@@ -2,6 +2,7 @@
 
 import { AVISOS, CUENTAS_MVP, compararCuentas } from '@/lib/calculos';
 import { bolsas, montoComparador, tasaProyeccion, type Bolsa } from '@/lib/app/derivados';
+import { AHORRO_EXPLICACION_LARGA } from '@/lib/app/textos';
 import { useMes } from '@/lib/app/usarMes';
 import { capitalizar, fechaCorta, nombreMes, pct, pesos } from '@/lib/formato';
 import { Logo } from '../../_ui/Logo';
@@ -90,6 +91,29 @@ export default function Ahorro() {
             </>
           }
         />
+
+        <section id="como-calculamos" className="tarjeta" style={{ scrollMarginTop: 16 }}>
+          <h2 className="titulo-tarjeta">¿Cómo calculamos tu ahorro?</h2>
+          <p className="texto-suave" style={{ margin: '8px 0 12px', fontSize: 14, lineHeight: '21px' }}>
+            {AHORRO_EXPLICACION_LARGA}
+          </p>
+          <div className="fila">
+            <div className="nombre">Tu ingreso del mes</div>
+            <div className="valor">{pesos(resumen.ingresoBrutoMes)}</div>
+          </div>
+          <div className="fila">
+            <div className="nombre">Prima (1/12)</div>
+            <div className="valor">{pesos(resumen.ahorroPrima)}</div>
+          </div>
+          <div className="fila">
+            <div className="nombre">Cesantías (1/12)</div>
+            <div className="valor">{pesos(resumen.ahorroCesantias)}</div>
+          </div>
+          <div className="fila">
+            <div className="nombre">Total que apartas al mes</div>
+            <div className="valor">{pesos(mensual)}</div>
+          </div>
+        </section>
 
         <p className="legal" style={{ margin: '0 4px' }}>
           Proyección con la tasa de la cuenta más alta ({pct(tasaProyeccion(), 2)} E.A.), suponiendo que recibes lo mismo cada mes desde{' '}

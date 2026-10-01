@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Segmento } from '@/lib/app/derivados';
+import { AHORRO_ES_OPCIONAL } from '@/lib/app/textos';
 import { pct, pesos } from '@/lib/formato';
 
 const COLOR: Record<Segmento['clave'], string> = {
@@ -66,7 +67,7 @@ export function Reparto({ segmentos }: { segmentos: Segmento[] }) {
             <Fila key={s.clave} s={s} />
           ))}
           <p className="ayuda" style={{ margin: '0 0 4px 22px' }}>
-            *Este gasto es opcional, pero lo puedes guardar como ahorro en caso de algún imprevisto.
+            *{AHORRO_ES_OPCIONAL}
           </p>
         </>
       )}

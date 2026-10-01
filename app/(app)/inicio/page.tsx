@@ -8,6 +8,7 @@ import { dolarVisible, escenarios, reparto } from '@/lib/app/derivados';
 import { useApp } from '@/lib/app/estado';
 import { useMes } from '@/lib/app/usarMes';
 import { capitalizar, nombreMes, pct, pesos, pesosConDecimales, usd } from '@/lib/formato';
+import { Comparacion } from '../../_ui/Comparacion';
 import { Icono } from '../../_ui/Icono';
 import { Logo } from '../../_ui/Logo';
 import { Reparto } from '../../_ui/Reparto';
@@ -75,52 +76,13 @@ export default function Inicio() {
 
       <div className="contenido" style={{ paddingTop: 16 }}>
         <section className="tarjeta">
-          {conAhorro ? (
-            <>
-              <h2 className="titulo-tarjeta" style={{ marginBottom: 14 }}>
-                Así se reparte tu ingreso
-              </h2>
-              <Reparto segmentos={reparto(resumen, true)} />
-            </>
-          ) : (
-            <>
-              <h2 className="titulo-tarjeta" style={{ marginBottom: 12 }}>
-                Comparación de los dos escenarios
-              </h2>
-              <div className="comparacion">
-                <div>
-                  <p>Con ahorro</p>
-                  <p>Disponible al mes</p>
-                  <strong>{pesos(e.conAhorro.disponible)}</strong>
-                  <p>Guardas al mes</p>
-                  <strong>{pesos(e.conAhorro.guardasAlMes)}</strong>
-                  <p>En un año juntas</p>
-                  <strong>{pesos(e.conAhorro.enUnAnio)}</strong>
-                </div>
-                <div>
-                  <p>Sin ahorro</p>
-                  <p>Disponible al mes</p>
-                  <strong>{pesos(e.sinAhorro.disponible)}</strong>
-                  <p>Guardas al mes</p>
-                  <strong>{pesos(0)}</strong>
-                  <p>En un año juntas</p>
-                  <strong>{pesos(0)}</strong>
-                </div>
-              </div>
-              <p style={{ marginTop: 14, fontSize: 14, lineHeight: '21px' }}>
-                Tienes {pesos(e.diferenciaMensual)} más al mes para gastar, pero dejas de juntar {pesos(e.conAhorro.enUnAnio)} en el año.
-              </p>
-              <div className="tarjeta-oliva sobre-oliva" style={{ marginTop: 14 }}>
-                <p style={{ fontSize: 14, lineHeight: '21px' }}>
-                  Guardar tu prima y tus cesantías en una cuenta con rentabilidad te ayuda a cubrir un imprevisto y puede ser tu primer paso para empezar a invertir.
-                </p>
-                <Link href="/ahorro" className="enlace" style={{ marginTop: 4, fontSize: 14, color: 'var(--manzana)' }}>
-                  Ver cuentas con rentabilidad
-                </Link>
-              </div>
-            </>
-          )}
+          <h2 className="titulo-tarjeta" style={{ marginBottom: 14 }}>
+            {conAhorro ? 'Así se reparte tu ingreso' : 'Así se reparte tu ingreso sin ahorro'}
+          </h2>
+          <Reparto segmentos={reparto(resumen, conAhorro)} />
         </section>
+
+        <Comparacion e={e} />
 
         {conDolar && trm && (
           <section className="tarjeta">

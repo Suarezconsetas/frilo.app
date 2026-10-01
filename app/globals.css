@@ -586,8 +586,12 @@ fieldset.campo {
   text-decoration: none;
 }
 .fila-reparto.total {
-  margin-top: var(--space-3);
-  border-top: 2px solid var(--tinta);
+  margin-top: var(--space-4);
+  min-height: 72px;
+  padding: 14px var(--space-4);
+  border-top: 0;
+  border-radius: var(--radius-m);
+  background: var(--tinte);
 }
 .fila-reparto .etiqueta {
   display: flex;
@@ -596,7 +600,17 @@ fieldset.campo {
   font-size: 15px;
 }
 .fila-reparto.total .etiqueta {
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
+}
+.fila-reparto.total .cifras strong {
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.fila-reparto.total .cifras small {
+  font-size: 13px;
 }
 .fila-reparto .muestra {
   flex-shrink: 0;

@@ -5,9 +5,11 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { CORREO_VALIDO, GOOGLE_ACTIVO, entrarConGoogle, mensajeDeError, pedirCodigo } from '@/lib/app/acceso';
 import { useApp } from '@/lib/app/estado';
 import { useMes } from '@/lib/app/usarMes';
+import { escenarios } from '@/lib/app/derivados';
+import { AHORRO_EXPLICACION_CORTA } from '@/lib/app/textos';
 import { capitalizar, nombreMes, pesos, usd } from '@/lib/formato';
 import { Logo } from '../_ui/Logo';
-import { Campo } from '../_ui/controles';
+import { Campo, Selector } from '../_ui/controles';
 
 /** "Guarda tu mes": primero el resultado, después la cuenta (Google o código por correo). */
 export default function Registro() {
@@ -18,6 +20,7 @@ export default function Registro() {
   const [marketing, setMarketing] = useState(false);
   const [error, setError] = useState<string>();
   const [enviando, setEnviando] = useState(false);
+  const [vista, setVista] = useState<'con' | 'sin'>('con');
 
   useEffect(() => {
     if (!listo) return;
@@ -58,6 +61,7 @@ export default function Registro() {
   }
 
   const mes = capitalizar(nombreMes(Number(mesHoy.slice(5, 7))));
+  const esc = resumen ? escenarios(resumen) : null;
   const cuanto = ingreso.moneda === 'USD' ? usd(ingreso.monto) : pesos(ingreso.monto);
 
   return (
@@ -66,10 +70,22 @@ export default function Registro() {
         <Logo sobreOliva alto={32} />
         {resumen ? (
           <>
-            <p className="suave" style={{ marginTop: 24, fontSize: 15 }}>
+            <p className="suave" style={{ margin: '24px 0 16px', fontSize: 15 }}>
               Con {cuanto} al mes, en {mes.toLowerCase()} te quedan
             </p>
-            <p className="cifra-xl">{pesos(resumen.disponible)}</p>
+            <Selector
+              sobreOliva
+              nombre="Escenario de cálculo"
+              valor={vista}
+              onCambio={setVista}
+              opciones={[
+                { valor: 'con', etiqueta: 'Con ahorro' },
+                { valor: 'sin', etiqueta: 'Sin ahorro' },
+              ]}
+            />
+            <p className="cifra-xl" style={{ marginTop: -8 }}>
+              {pesos(vista === 'con' ? esc!.conAhorro.disponible : esc!.sinAhorro.disponible)}
+            </p>
             <div className="chips">
               <div className="chip-oliva">
                 <p className="ayuda">Aportes a pagar</p>
@@ -77,9 +93,12 @@ export default function Registro() {
               </div>
               <div className="chip-oliva">
                 <p className="ayuda">Prima y cesantías</p>
-                <strong>{pesos(resumen.ahorroPrima + resumen.ahorroCesantias)}</strong>
+                <strong>{vista === 'con' ? pesos(esc!.conAhorro.guardasAlMes) : 'Sin ahorro'}</strong>
               </div>
             </div>
+            <p className="suave" style={{ marginTop: 14, fontSize: 13, lineHeight: '19px' }}>
+              {AHORRO_EXPLICACION_CORTA} Es opcional, pero ahorrarlo te ayuda a cubrir un imprevisto o a empezar a invertir.
+            </p>
           </>
         ) : (
           <p style={{ marginTop: 24 }}>{sinTrm ? 'No pudimos traer la TRM de hoy para calcular tu mes.' : 'Calculando tu mes…'}</p>
