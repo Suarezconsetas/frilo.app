@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, type FormEvent } from 'react';
 import { CORREO_VALIDO, GOOGLE_ACTIVO, entrarConGoogle, mensajeDeError, pedirCodigo } from '@/lib/app/acceso';
@@ -138,10 +139,14 @@ export default function Registro() {
         </label>
         <p className="legal">
           Al continuar autorizas el tratamiento de tus datos personales según la{' '}
-          <a href="#politica" style={{ fontWeight: 600 }}>
+          <Link href="/politica-de-datos" target="_blank" rel="noopener" style={{ fontWeight: 600 }}>
             Política de tratamiento de datos
-          </a>{' '}
-          de Frilo (Ley 1581 de 2012). Puedes consultar, corregir o borrar tus datos cuando quieras.
+          </Link>{' '}
+          de Frilo (Ley 1581 de 2012) y aceptas los{' '}
+          <Link href="/terminos" target="_blank" rel="noopener" style={{ fontWeight: 600 }}>
+            Términos de uso
+          </Link>
+          . Puedes consultar, corregir o pedir que borremos tus datos cuando quieras.
         </p>
       </form>
     </main>

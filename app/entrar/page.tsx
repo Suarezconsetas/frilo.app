@@ -87,10 +87,14 @@ function Formulario() {
         </button>
         <p className="legal">
           Al continuar autorizas el tratamiento de tus datos personales según la{' '}
-          <a href="#politica" style={{ fontWeight: 600 }}>
+          <Link href="/politica-de-datos" target="_blank" rel="noopener" style={{ fontWeight: 600 }}>
             Política de tratamiento de datos
-          </a>{' '}
-          de Frilo (Ley 1581 de 2012).
+          </Link>{' '}
+          de Frilo (Ley 1581 de 2012) y aceptas los{' '}
+          <Link href="/terminos" target="_blank" rel="noopener" style={{ fontWeight: 600 }}>
+            Términos de uso
+          </Link>
+          .
         </p>
         <p className="ayuda">
           ¿Primera vez? <Link href="/" style={{ fontWeight: 600 }}>Calcula tu mes</Link> y crea tu cuenta al final.

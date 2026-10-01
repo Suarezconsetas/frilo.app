@@ -97,6 +97,10 @@ export default function Bienvenida() {
           <Link href="/entrar" className="enlace" style={{ width: '100%', justifyContent: 'center', marginTop: 8, color: 'var(--oliva-suave)' }}>
             Ya tengo cuenta
           </Link>
+          <p className="enlaces-legales">
+            <Link href="/politica-de-datos">Política de datos</Link>
+            <Link href="/terminos">Términos de uso</Link>
+          </p>
         </div>
       </main>
     </div>

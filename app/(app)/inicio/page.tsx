@@ -145,6 +145,9 @@ export default function Inicio() {
             Cerrar sesión
           </button>
         </div>
+        <p className="ayuda" style={{ margin: '0 4px' }}>
+          <Link href="/politica-de-datos">Política de datos</Link> · <Link href="/terminos">Términos de uso</Link>
+        </p>
         {sesion?.user.email && (
           <p className="ayuda" style={{ margin: '0 4px' }}>
             Sesión iniciada con {sesion.user.email}

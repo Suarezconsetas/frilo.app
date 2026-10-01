@@ -1000,3 +1000,71 @@ details summary {
   background: var(--oliva);
   border-top: 1px solid var(--oliva-superficie);
 }
+
+/* ── Páginas legales ────────────────────────────────────────────────────── */
+.pantalla.ancha {
+  max-width: 720px;
+}
+.doc-legal {
+  gap: 0;
+}
+.doc-legal section {
+  margin-top: var(--space-6);
+}
+.doc-legal h2 {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+.doc-legal p,
+.doc-legal li {
+  font-size: 15px;
+  line-height: 23px;
+}
+.doc-legal p + p,
+.doc-legal p + ul,
+.doc-legal ul + p {
+  margin-top: var(--space-3);
+}
+.doc-legal ul {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.doc-legal a {
+  font-weight: 600;
+}
+.banner-borrador {
+  padding: var(--space-4);
+  border: 1px solid var(--borde-control);
+  border-radius: var(--radius-m);
+  background: var(--tinte);
+  font-size: 14px;
+  line-height: 21px;
+}
+.resumen-legal {
+  margin-top: 0 !important;
+  padding: var(--space-5);
+  border-radius: var(--radius-l);
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+}
+.resumen-legal h2 {
+  margin-top: 0;
+}
+.enlaces-legales {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  font-size: 12px;
+  line-height: 18px;
+}
+.enlaces-legales a {
+  color: var(--oliva-suave);
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+}
