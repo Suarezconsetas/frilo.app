@@ -6,6 +6,7 @@ import { Suspense, useEffect, useState, type FormEvent } from 'react';
 import { CORREO_VALIDO, GOOGLE_ACTIVO, LARGO_CODIGO, entrarConGoogle, mensajeDeError, pedirCodigo } from '@/lib/app/acceso';
 import { useApp } from '@/lib/app/estado';
 import { Icono } from '../_ui/Icono';
+import { BotonGoogle } from '../_ui/BotonGoogle';
 import { Logo } from '../_ui/Logo';
 import { Campo } from '../_ui/controles';
 
@@ -70,9 +71,7 @@ function Formulario() {
 
         {GOOGLE_ACTIVO && (
           <>
-            <button type="button" className="btn btn-secundario" style={{ minHeight: 52, borderRadius: 'var(--radius-l)', fontSize: 16 }} onClick={conGoogle}>
-              Continuar con Google
-            </button>
+            <BotonGoogle onClick={conGoogle} />
             <div className="separador" role="separator">
               o con tu correo
             </div>

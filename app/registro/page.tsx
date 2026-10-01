@@ -9,6 +9,7 @@ import { useMes } from '@/lib/app/usarMes';
 import { escenarios } from '@/lib/app/derivados';
 import { AHORRO_EXPLICACION_CORTA } from '@/lib/app/textos';
 import { capitalizar, nombreMes, pesos, usd } from '@/lib/formato';
+import { BotonGoogle } from '../_ui/BotonGoogle';
 import { Logo } from '../_ui/Logo';
 import { Campo, Selector } from '../_ui/controles';
 
@@ -114,9 +115,7 @@ export default function Registro() {
 
         {GOOGLE_ACTIVO && (
           <>
-            <button type="button" className="btn btn-secundario" style={{ minHeight: 52, borderRadius: 'var(--radius-l)', fontSize: 16 }} onClick={conGoogle}>
-              Continuar con Google
-            </button>
+            <BotonGoogle onClick={conGoogle} />
             <div className="separador" role="separator">
               o con tu correo
             </div>

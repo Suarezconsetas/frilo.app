@@ -1092,3 +1092,11 @@ details summary {
   font-size: 14px;
   line-height: 21px;
 }
+
+/* Botón de Google: blanco, con la G oficial a la izquierda del texto. */
+.btn-google {
+  min-height: 52px;
+  gap: var(--space-3);
+  border-radius: var(--radius-l);
+  font-size: 16px;
+}
