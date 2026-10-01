@@ -4,7 +4,7 @@ import { fuenteDe } from './derivados';
 import type { EstadoApp, FormaDePago, IngresoInicial } from './tipos';
 
 /** Versión del texto de autorización que firma el usuario. Cambiarla pide una autorización nueva al volver a entrar. */
-export const VERSION_POLITICA = '2026-10-01';
+export const VERSION_POLITICA = '2026-10-01-r2';
 
 /** En el perfil se guarda un rango, nunca la cifra exacta (Ley 1581 de 2012: solo lo necesario). */
 export function rangoIngreso(ingresoBrutoCop: number, anio = 2026): string {

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import { ProveedorApp } from '@/lib/app/estado';
+import { Analitica } from './_ui/Analitica';
 import { cargarDatosTrm } from '@/lib/trm-servidor';
 import './globals.css';
 
@@ -36,6 +37,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       {/* Las extensiones del navegador (LanguageTool, Grammarly…) agregan atributos a <html> y <body> antes de hidratar. */}
       <body suppressHydrationWarning>
         <ProveedorApp trm={trm}>{children}</ProveedorApp>
+        <Analitica />
       </body>
     </html>
   );

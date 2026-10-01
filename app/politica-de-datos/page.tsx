@@ -71,7 +71,7 @@ export default function PoliticaDeDatos() {
           <li>Enviarte las alertas del dólar que tú configures y los correos necesarios para el servicio (por ejemplo, el código para entrar).</li>
           <li>Conservar la prueba de tus autorizaciones, como exige la ley.</li>
           <li>Proteger el servicio, prevenir fraudes y atender solicitudes de autoridades competentes.</li>
-          <li>Mejorar Frilo con estadísticas de uso agregadas, sin identificarte. Si añadimos herramientas de analítica, lo diremos en esta política.</li>
+          <li>Mejorar Frilo con estadísticas de uso agregadas (páginas visitadas, país, navegador y tipo de dispositivo), sin identificarte, mediante Vercel Web Analytics.</li>
           <li>
             <strong>Solo si tú lo autorizas</strong> (casilla opcional): enviarte novedades, ofertas y recomendaciones de Frilo por correo. Puedes retirar esta
             autorización cuando quieras.
@@ -97,7 +97,7 @@ export default function PoliticaDeDatos() {
             <strong>Supabase:</strong> base de datos y autenticación (servidores en Estados Unidos).
           </li>
           <li>
-            <strong>Vercel:</strong> alojamiento de la aplicación.
+            <strong>Vercel:</strong> alojamiento de la aplicación y estadísticas de uso agregadas (Vercel Web Analytics).
           </li>
           <li>
             <strong>Resend:</strong> envío de correos (código de acceso y alertas).
@@ -181,7 +181,7 @@ export default function PoliticaDeDatos() {
       <Seccion n={11} titulo="Cookies y almacenamiento en tu dispositivo">
         <p>
           Usamos una cookie de sesión para mantenerte dentro de tu cuenta y guardamos en tu dispositivo (almacenamiento local) los cálculos de tu mes para que no
-          los pierdas. No usamos cookies publicitarias. Cerrar sesión borra esos datos de tu dispositivo.
+          los pierdas. No usamos cookies publicitarias. Las estadísticas de uso las medimos con Vercel Web Analytics, que no usa cookies ni te sigue entre sitios web: cuenta visitas a las páginas de Frilo de forma agregada y no identifica a las personas. Cerrar sesión borra esos datos de tu dispositivo.
         </p>
       </Seccion>
 
