@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { VERSION_POLITICA } from '@/lib/app/mapeo';
-import { LEGAL } from '@/lib/legal';
+import { HAY_DATOS_PENDIENTES, LEGAL } from '@/lib/legal';
 import { Icono } from './Icono';
 import { Logo } from './Logo';
 
@@ -23,7 +23,7 @@ export function PaginaLegal({ titulo, intro, children }: { titulo: string; intro
       <div className="contenido doc-legal">
         {LEGAL.esBorrador && (
           <p className="banner-borrador" role="note">
-            <strong>Borrador pendiente de revisión legal.</strong> Este texto aún no ha sido aprobado por un abogado. Los datos entre corchetes se completan antes de publicarlo.
+            <strong>Borrador pendiente de revisión legal.</strong> Este texto aún no ha sido aprobado por un abogado.{HAY_DATOS_PENDIENTES && ' Los datos entre corchetes se completan antes de publicarlo.'}
           </p>
         )}
         {children}
