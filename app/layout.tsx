@@ -27,13 +27,14 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1, them
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const trm = await cargarDatosTrm();
   return (
-    <html lang="es-CO">
+    <html lang="es-CO" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Clarity+City:wght@300;400;600;700&display=swap" rel="stylesheet" />
       </head>
-      <body>
+      {/* Las extensiones del navegador (LanguageTool, Grammarly…) agregan atributos a <html> y <body> antes de hidratar. */}
+      <body suppressHydrationWarning>
         <ProveedorApp trm={trm}>{children}</ProveedorApp>
       </body>
     </html>
