@@ -1,4 +1,4 @@
-import { bolsas, calcularMes, dolarVisible, escenarios, proyeccionAnual, reparto } from '@/lib/app/derivados';
+import { bolsas, calcularMes, contextoDolar, dolarVisible, escenarios, proyeccionAnual, reparto } from '@/lib/app/derivados';
 import type { IngresoInicial } from '@/lib/app/tipos';
 
 const usd1750: IngresoInicial = { cliente: 'Acme Inc.', moneda: 'USD', monto: 1750, clase: 1, publico: false };
@@ -101,5 +101,22 @@ describe('proyeccionAnual', () => {
     const a = proyeccionAnual(5_000_000);
     const b = proyeccionAnual(10_000_000);
     expect(b.total / a.total).toBeCloseTo(2, 8);
+  });
+});
+
+describe('contextoDolar', () => {
+  const trm = { fecha: '2026-10-01', hoy: 3312.84, variaciones: [{ referencia: 'mes' as const, fecha: '2026-09-01', trm: 3202.79, variacionAbs: 110.05, variacionPct: 0.0344 }] };
+  it('sin tasa propia se convierte a la TRM de hoy', () => {
+    expect(contextoDolar(usd1750, trm)).toEqual({ tasa: 3312.84, propia: false, trmHoy: 3312.84, variacionMes: 0.0344 });
+  });
+  it('con tasa propia muestra esa tasa y deja la TRM de hoy como referencia', () => {
+    expect(contextoDolar({ ...usd1750, tasaRecibida: 3300 }, trm)).toMatchObject({ tasa: 3300, propia: true, trmHoy: 3312.84 });
+  });
+  it('quien gana en pesos, o no tiene TRM, no ve contexto del dólar', () => {
+    expect(contextoDolar({ ...usd1750, moneda: 'COP' }, trm)).toBeNull();
+    expect(contextoDolar(usd1750, null)).toBeNull();
+  });
+  it('sin historial del mes no inventa la variación', () => {
+    expect(contextoDolar(usd1750, { ...trm, variaciones: [] })?.variacionMes).toBeNull();
   });
 });

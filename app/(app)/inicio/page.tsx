@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { AVISOS } from '@/lib/calculos';
-import { dolarVisible, escenarios, proyeccionAnual, reparto } from '@/lib/app/derivados';
+import { contextoDolar, dolarVisible, escenarios, proyeccionAnual, reparto } from '@/lib/app/derivados';
 import { useApp } from '@/lib/app/estado';
 import { useMes } from '@/lib/app/usarMes';
 import { capitalizar, nombreMes, pct, pesos, pesosConDecimales, usd } from '@/lib/formato';
@@ -40,6 +40,7 @@ export default function Inicio() {
   const conAhorro = vista === 'con';
   const recibiste = ingreso.moneda === 'USD' ? `Recibiste ${usd(ingreso.monto)} = ${pesos(resumen.recibidoMes)}` : `Recibiste ${pesos(resumen.recibidoMes)}`;
   const mensual = trm?.variaciones.find((v) => v.referencia === 'mes');
+  const dolar = contextoDolar(ingreso, trm);
 
   return (
     <main>
@@ -55,9 +56,22 @@ export default function Inicio() {
         <h1 className="titulo-pantalla" style={{ marginTop: 24 }}>
           {mes}
         </h1>
-        <p className="suave" style={{ margin: '4px 0 20px', fontSize: 15 }}>
+        <p className="suave" style={{ margin: dolar ? '4px 0 0' : '4px 0 20px', fontSize: 15 }}>
           {recibiste}
         </p>
+        {dolar && (
+          <p className="suave" style={{ margin: '4px 0 20px', fontSize: 13, lineHeight: '19px' }}>
+            {dolar.propia ? `A tu tasa de ${pesosConDecimales(dolar.tasa)} (la TRM de hoy es ${pesosConDecimales(dolar.trmHoy)})` : `A la TRM de hoy: ${pesosConDecimales(dolar.tasa)}`}
+            {dolar.variacionMes !== null &&
+              (dolar.variacionMes === 0
+                ? ' · igual que hace un mes'
+                : ` · ${pct(Math.abs(dolar.variacionMes), 1)} ${dolar.variacionMes > 0 ? 'más alta' : 'más baja'} que hace un mes`)}
+            {'. '}
+            <Link href="/dolar" style={{ color: 'var(--manzana)', fontWeight: 600 }}>
+              Ver tendencia
+            </Link>
+          </p>
+        )}
         <Selector
           sobreOliva
           nombre="Escenario de cálculo"

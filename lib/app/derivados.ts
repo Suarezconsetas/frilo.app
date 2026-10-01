@@ -14,7 +14,7 @@ import {
   type PagoMes,
   type ResumenMes,
 } from '@/lib/calculos';
-import type { EstadoApp, FormaDePago, IngresoInicial } from './tipos';
+import type { DatosTrm, EstadoApp, FormaDePago, IngresoInicial } from './tipos';
 
 export const ANIO_PARAMETROS = 2026;
 
@@ -179,4 +179,24 @@ export function proyeccionAnual(ingresoBrutoMes: number, cuentas: CuentaAhorro[]
   const mensual = ahorroMensual(ingresoBrutoMes).total;
   const aportado = mensual * 12;
   return { cuenta, mensual, aportado, rendimiento: total - aportado, total };
+}
+
+export interface ContextoDolar {
+  tasa: number; // la que se usó para convertir
+  propia: boolean; // true si es la tasa que el usuario dijo que le pagaron
+  trmHoy: number;
+  /** TRM de hoy frente a la de hace un mes (fracción); null si aún no hay historial. */
+  variacionMes: number | null;
+}
+
+/** A qué dólar se convirtió el ingreso y cómo está frente al mes pasado (para saber si está alto o bajo). */
+export function contextoDolar(ing: IngresoInicial, trm: DatosTrm | null): ContextoDolar | null {
+  if (ing.moneda !== 'USD' || !trm) return null;
+  const mes = trm.variaciones.find((v) => v.referencia === 'mes');
+  return {
+    tasa: ing.tasaRecibida ?? trm.hoy,
+    propia: ing.tasaRecibida !== undefined,
+    trmHoy: trm.hoy,
+    variacionMes: mes ? mes.variacionPct : null,
+  };
 }
