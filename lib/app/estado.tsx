@@ -8,7 +8,7 @@ import type { Session, SupabaseClient } from '@supabase/supabase-js';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { clienteNavegador } from '@/lib/supabase/cliente';
 import { calcularMes } from './derivados';
-import { cargarDeNube, guardarEnNube, registrarAutorizaciones } from './nube';
+import { cargarAlertas, cargarDeNube, guardarEnNube, registrarAutorizaciones } from './nube';
 import { ESTADO_VACIO, type DatosTrm, type EstadoApp } from './tipos';
 
 const CLAVE = 'frilo.estado.v1';
@@ -27,6 +27,8 @@ interface Contexto {
   sincronizando: boolean;
   errorNube: string | null;
   db: () => SupabaseClient;
+  /** Vuelve a leer las alertas de la cuenta (la tarea diaria puede haberlas cumplido). */
+  refrescarAlertas: () => Promise<void>;
   cerrarSesion: () => Promise<void>;
 }
 
@@ -42,8 +44,13 @@ function leer(): EstadoApp {
 }
 
 /** Lo que va a la nube: sin ids ni campos que solo sirven al navegador. */
-const instantanea = (e: EstadoApp) =>
-  JSON.stringify({ f: e.formaDePago, i: e.ingreso, m: e.mesInicio, a: e.arlVoluntaria, c: e.cobros, l: e.alertas });
+const instantanea = (e: EstadoApp) => ({
+  base: JSON.stringify({ f: e.formaDePago, i: e.ingreso, m: e.mesInicio, a: e.arlVoluntaria }),
+  cobros: JSON.stringify(e.cobros),
+  alertas: JSON.stringify(e.alertas),
+});
+type Instantanea = ReturnType<typeof instantanea>;
+const SIN_FOTO: Instantanea = { base: '', cobros: '', alertas: '' };
 
 export function ProveedorApp({ trm, children }: { trm: DatosTrm | null; children: ReactNode }) {
   const [estado, setEstado] = useState<EstadoApp>(ESTADO_VACIO);
@@ -54,7 +61,7 @@ export function ProveedorApp({ trm, children }: { trm: DatosTrm | null; children
   const [errorNube, setErrorNube] = useState<string | null>(null);
   const estadoRef = useRef(estado);
   estadoRef.current = estado;
-  const ultimoGuardado = useRef<string>('');
+  const ultimoGuardado = useRef<Instantanea>(SIN_FOTO);
 
   const db = useCallback(() => clienteNavegador(), []);
 
@@ -147,11 +154,13 @@ export function ProveedorApp({ trm, children }: { trm: DatosTrm | null; children
   useEffect(() => {
     if (!userId || enlazadoId !== userId) return;
     const foto = instantanea(estado);
-    if (foto === ultimoGuardado.current) return;
+    const previa = ultimoGuardado.current;
+    const partes = { cobros: foto.cobros !== previa.cobros, alertas: foto.alertas !== previa.alertas };
+    if (foto.base === previa.base && !partes.cobros && !partes.alertas) return;
     const t = setTimeout(async () => {
       try {
         const bruto = estado.ingreso ? (calcularMes(estado.ingreso, estado.arlVoluntaria, trm?.hoy ?? null)?.ingresoBrutoMes ?? null) : null;
-        const fuenteId = await guardarEnNube(clienteNavegador(), userId, estado, bruto);
+        const fuenteId = await guardarEnNube(clienteNavegador(), userId, estado, bruto, partes);
         ultimoGuardado.current = foto;
         setErrorNube(null);
         if (fuenteId && fuenteId !== estado.fuenteId) actualizar({ fuenteId });
@@ -163,16 +172,32 @@ export function ProveedorApp({ trm, children }: { trm: DatosTrm | null; children
     return () => clearTimeout(t);
   }, [estado, userId, enlazadoId, trm, actualizar]);
 
+  const refrescarAlertas = useCallback(async () => {
+    if (!userId) return;
+    try {
+      const alertas = await cargarAlertas(clienteNavegador(), userId);
+      // Se marca como ya guardado: es lo que dice la cuenta, no hay nada que subir.
+      ultimoGuardado.current = { ...ultimoGuardado.current, alertas: JSON.stringify(alertas) };
+      setEstado((previo) => {
+        const siguiente = { ...previo, alertas };
+        guardarLocal(siguiente);
+        return siguiente;
+      });
+    } catch (e) {
+      console.error('Frilo: no se pudieron refrescar las alertas', e);
+    }
+  }, [userId, guardarLocal]);
+
   const cerrarSesion = useCallback(async () => {
     await clienteNavegador().auth.signOut();
     setEnlazadoId(null);
-    ultimoGuardado.current = '';
+    ultimoGuardado.current = SIN_FOTO;
     reiniciar(); // en un equipo compartido no debe quedar nada de la persona anterior
   }, [reiniciar]);
 
   const valor = useMemo(
-    () => ({ estado, listo, actualizar, reiniciar, trm, sesion, sesionLista, sincronizando, errorNube, db, cerrarSesion }),
-    [estado, listo, actualizar, reiniciar, trm, sesion, sesionLista, sincronizando, errorNube, db, cerrarSesion],
+    () => ({ estado, listo, actualizar, reiniciar, trm, sesion, sesionLista, sincronizando, errorNube, db, refrescarAlertas, cerrarSesion }),
+    [estado, listo, actualizar, reiniciar, trm, sesion, sesionLista, sincronizando, errorNube, db, refrescarAlertas, cerrarSesion],
   );
   return <Ctx.Provider value={valor}>{children}</Ctx.Provider>;
 }

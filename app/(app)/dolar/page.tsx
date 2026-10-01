@@ -2,8 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, type FormEvent } from 'react';
-import { crearAlerta, costoConversionPct, evaluarAlerta, type Alerta } from '@/lib/calculos';
+import { costoConversionPct, crearAlerta, reactivarAlerta, type Alerta } from '@/lib/calculos';
 import { dolarVisible } from '@/lib/app/derivados';
+import { useApp } from '@/lib/app/estado';
 import { useMes } from '@/lib/app/usarMes';
 import { fechaLarga, leerNumero, pct, pctConSigno, pesos, pesosConDecimales, pesosConSigno, usd } from '@/lib/formato';
 import { Icono } from '../../_ui/Icono';
@@ -16,6 +17,7 @@ const ETIQUETA = { semana: 'Hace una semana', mes: 'Hace un mes', anio: 'Hace un
 export default function Dolar() {
   const router = useRouter();
   const { listo, ingreso, estado, trm, actualizar } = useMes();
+  const { refrescarAlertas, sesion } = useApp();
   const visible = dolarVisible(estado.formaDePago, ingreso);
 
   const [creando, setCreando] = useState(false);
@@ -28,20 +30,12 @@ export default function Dolar() {
     if (listo && !visible) router.replace('/inicio');
   }, [listo, visible, router]);
 
-  // Las alertas se evalúan con la TRM de hoy: solo disparan si la TRM cruza el umbral.
-  // (El aviso por correo llega con la tarea diaria y la cuenta; aquí se marca en pantalla.)
+  // Las alertas las evalúa la tarea diaria del servidor; aquí se lee su estado real (puede haberse cumplido).
   useEffect(() => {
-    if (!listo || !trm) return;
-    let cambio = false;
-    const evaluadas = estado.alertas.map((a) => {
-      const { alerta } = evaluarAlerta(a, trm.hoy);
-      if (alerta.estado !== a.estado || alerta.trmReferencia !== a.trmReferencia) cambio = true;
-      return alerta;
-    });
-    if (cambio) actualizar({ alertas: evaluadas });
-    // solo cuando cambia la TRM o termina de cargar
+    if (listo) void refrescarAlertas();
+    // solo al abrir la pantalla
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [listo, trm?.hoy]);
+  }, [listo]);
 
   if (!listo || !ingreso || !visible) return null;
 
@@ -131,11 +125,22 @@ export default function Dolar() {
                   Si {a.direccion === 'sube' ? 'sube de' : 'baja de'} {pesos(a.umbral)}
                 </p>
                 <p className="ayuda" style={{ marginTop: 2 }}>
-                  {a.estado === 'activa' ? 'Te avisamos una vez' : 'Ya se cumplió'}
+                  {a.estado === 'activa' ? 'Te avisamos por correo, una vez' : 'Ya se cumplió y te avisamos'}
                 </p>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span className={a.estado === 'activa' ? 'estado-activa' : 'estado-disparada'}>{a.estado === 'activa' ? 'Activa' : 'Cumplida'}</span>
+                {a.estado === 'disparada' && (
+                  <button
+                    type="button"
+                    className="enlace"
+                    style={{ background: 'none', border: 0, cursor: 'pointer', fontSize: 14 }}
+                    onClick={() => actualizar((prev) => ({ alertas: prev.alertas.map((x, j) => (j === i ? reactivarAlerta(x, datos.hoy) : x)) }))}
+                    aria-label={`Reactivar la alerta de ${pesos(a.umbral)}`}
+                  >
+                    Reactivar
+                  </button>
+                )}
                 <button
                   type="button"
                   className="enlace"
@@ -186,7 +191,7 @@ export default function Dolar() {
             </button>
           )}
           <p className="ayuda" style={{ marginTop: 12 }}>
-            Por ahora las alertas se guardan en este dispositivo. El aviso por correo llega cuando crees tu cuenta.
+            Revisamos el dólar cada mañana y, si cruza el valor que elegiste, te escribimos a {sesion?.user.email ?? 'tu correo'}.
           </p>
         </section>
 

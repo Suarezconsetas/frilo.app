@@ -1,6 +1,7 @@
 /** Lectura y escritura en Supabase del usuario con sesión. El RLS garantiza que solo toca lo suyo. */
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { autorizacionesPorAgregar, estadoDesdeFilas, filasDesdeEstado, type FilasLeidas } from './mapeo';
+import type { Alerta } from '@/lib/calculos';
 import type { EstadoApp } from './tipos';
 
 function ok<T>(r: { data: T; error: { message: string } | null }, donde: string): T {
@@ -49,7 +50,25 @@ export async function cargarDeNube(db: SupabaseClient, userId: string): Promise<
  * Guarda el estado completo del usuario. Devuelve el id de la fuente para no duplicarla.
  * `ingresoBrutoCop` solo sirve para calcular el rango del perfil; la cifra exacta no se guarda ahí.
  */
-export async function guardarEnNube(db: SupabaseClient, userId: string, estado: EstadoApp, ingresoBrutoCop: number | null): Promise<string | undefined> {
+/** Las alertas las puede cambiar la tarea diaria (al cumplirse): se leen aparte para mostrar su estado real. */
+export async function cargarAlertas(db: SupabaseClient, userId: string): Promise<Alerta[]> {
+  const filas = ok(await db.from('alertas').select('umbral, direccion, estado, trm_referencia').eq('usuario_id', userId).order('creado_en'), 'leer alertas');
+  return (filas ?? []).map((a) => ({
+    umbral: Number(a.umbral),
+    direccion: a.direccion as Alerta['direccion'],
+    estado: a.estado as Alerta['estado'],
+    trmReferencia: Number(a.trm_referencia),
+  }));
+}
+
+/** `partes` indica qué tablas pequeñas se reemplazan: así un cambio de otra cosa no pisa lo que la tarea diaria haya marcado. */
+export async function guardarEnNube(
+  db: SupabaseClient,
+  userId: string,
+  estado: EstadoApp,
+  ingresoBrutoCop: number | null,
+  partes: { cobros: boolean; alertas: boolean } = { cobros: true, alertas: true },
+): Promise<string | undefined> {
   const f = filasDesdeEstado(estado, ingresoBrutoCop);
 
   const guardarFuente = async (): Promise<string | undefined> => {
@@ -78,8 +97,8 @@ export async function guardarEnNube(db: SupabaseClient, userId: string, estado: 
   const [fuenteId] = await Promise.all([
     guardarFuente(),
     db.from('perfiles').update(f.perfil).eq('id', userId).then((r) => ok(r, 'guardar perfil')),
-    reemplazar('cobros', f.cobros),
-    reemplazar('alertas', f.alertas),
+    partes.cobros ? reemplazar('cobros', f.cobros) : Promise.resolve(),
+    partes.alertas ? reemplazar('alertas', f.alertas) : Promise.resolve(),
   ]);
   return fuenteId;
 }
