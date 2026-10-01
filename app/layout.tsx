@@ -7,9 +7,19 @@ import './globals.css';
 // La TRM viene de nuestra base (la llena la tarea diaria): se refresca cada hora, no por visita.
 export const revalidate = 3600;
 
+const URL_APP = process.env.NEXT_PUBLIC_APP_URL ?? 'https://frilo-app.vercel.app';
+const TITULO = 'Frilo · Tus finanzas, mejor con Frilo';
+const DESCRIPCION =
+  'Calcula cuánto pagar de planilla, sigue el dólar (TRM) y aparta tu prima y tus cesantías si trabajas por prestación de servicios o para el exterior.';
+
+// La imagen para compartir (opengraph-image / twitter-image) y los íconos salen de los archivos de esta carpeta.
 export const metadata: Metadata = {
-  title: 'Frilo',
-  description: 'Tus finanzas, mejor con Frilo. Más claridad, más libertad.',
+  metadataBase: new URL(URL_APP),
+  title: { default: TITULO, template: '%s · Frilo' },
+  description: DESCRIPCION,
+  applicationName: 'Frilo',
+  openGraph: { type: 'website', locale: 'es_CO', siteName: 'Frilo', title: TITULO, description: DESCRIPCION, url: '/' },
+  twitter: { card: 'summary_large_image', title: TITULO, description: DESCRIPCION },
 };
 
 export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#0F372D' };
