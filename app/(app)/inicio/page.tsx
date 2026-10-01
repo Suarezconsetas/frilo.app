@@ -1,9 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { AVISOS } from '@/lib/calculos';
 import { dolarVisible, escenarios, reparto } from '@/lib/app/derivados';
+import { useApp } from '@/lib/app/estado';
 import { useMes } from '@/lib/app/usarMes';
 import { capitalizar, nombreMes, pct, pesos, pesosConDecimales, usd } from '@/lib/formato';
 import { Icono } from '../../_ui/Icono';
@@ -14,7 +16,9 @@ import { Selector } from '../../_ui/controles';
 type Vista = 'con' | 'sin';
 
 export default function Inicio() {
-  const { listo, ingreso, resumen, sinTrm, trm, mesHoy, estado } = useMes();
+  const { listo, ingreso, resumen, sinTrm, trm, mesHoy, estado, errorNube } = useMes();
+  const { cerrarSesion, sesion } = useApp();
+  const router = useRouter();
   const [vista, setVista] = useState<Vista>('con');
 
   if (!listo || !ingreso) return null;
@@ -144,9 +148,32 @@ export default function Inicio() {
         <p className="legal" style={{ margin: '4px 4px 0' }}>
           {AVISOS.alcanceCalculos}
         </p>
-        <Link href="/ingreso" className="enlace" style={{ margin: '0 4px' }}>
-          Editar mi ingreso
-        </Link>
+        {errorNube && (
+          <p className="aviso-error" role="status">
+            {errorNube}
+          </p>
+        )}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 4px' }}>
+          <Link href="/ingreso" className="enlace">
+            Editar mi ingreso
+          </Link>
+          <button
+            type="button"
+            className="enlace"
+            style={{ background: 'none', border: 0, cursor: 'pointer', padding: 0 }}
+            onClick={async () => {
+              await cerrarSesion();
+              router.replace('/');
+            }}
+          >
+            Cerrar sesión
+          </button>
+        </div>
+        {sesion?.user.email && (
+          <p className="ayuda" style={{ margin: '0 4px' }}>
+            Sesión iniciada con {sesion.user.email}
+          </p>
+        )}
       </div>
     </main>
   );

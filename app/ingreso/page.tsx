@@ -23,9 +23,9 @@ type Errores = Partial<Record<'cliente' | 'monto' | 'tasa' | 'retencion', string
 
 export default function PrimerIngreso() {
   const router = useRouter();
-  const { estado, listo, actualizar, trm } = useApp();
+  const { estado, listo, actualizar, trm, sesion } = useApp();
   const previo = estado.ingreso;
-  const editando = !!previo;
+  const editando = !!previo && !!sesion;
 
   const [moneda, setMoneda] = useState<Moneda>('USD');
   const [cliente, setCliente] = useState('');
@@ -76,7 +76,7 @@ export default function PrimerIngreso() {
       publico: moneda === 'COP' && publico,
     };
     actualizar((e0) => ({ ingreso, mesInicio: e0.mesInicio ?? mesDe(hoyColombia()) }));
-    router.push(editando ? '/inicio' : '/registro');
+    router.push(sesion ? '/inicio' : '/registro');
   }
 
   return (

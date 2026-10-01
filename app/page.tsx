@@ -44,6 +44,9 @@ export default function Bienvenida() {
           <Link href="/ingreso" className="btn btn-marca" onClick={() => actualizar({ formaDePago: forma })}>
             Continuar
           </Link>
+          <Link href="/entrar" className="enlace" style={{ width: '100%', justifyContent: 'center', marginTop: 8, color: 'var(--oliva-suave)' }}>
+            Ya tengo cuenta
+          </Link>
         </div>
       </main>
     </div>

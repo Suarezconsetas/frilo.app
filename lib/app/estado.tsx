@@ -1,10 +1,14 @@
 'use client';
 
 /**
- * Estado de la app en el navegador. Hasta la fase 3 (registro) vive en localStorage de este
- * dispositivo; con sesión, los datos pasan a las tablas de Supabase con RLS.
+ * Estado de la app. Sin sesión vive en localStorage de este dispositivo; con sesión se sincroniza
+ * con las tablas de Supabase (RLS: cada usuario solo ve lo suyo).
  */
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import type { Session, SupabaseClient } from '@supabase/supabase-js';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { clienteNavegador } from '@/lib/supabase/cliente';
+import { calcularMes } from './derivados';
+import { cargarDeNube, guardarEnNube, registrarAutorizaciones } from './nube';
 import { ESTADO_VACIO, type DatosTrm, type EstadoApp } from './tipos';
 
 const CLAVE = 'frilo.estado.v1';
@@ -16,6 +20,14 @@ interface Contexto {
   actualizar: (cambios: Partial<EstadoApp> | ((e: EstadoApp) => Partial<EstadoApp>)) => void;
   reiniciar: () => void;
   trm: DatosTrm | null;
+  sesion: Session | null;
+  /** false hasta saber si hay sesión guardada. */
+  sesionLista: boolean;
+  /** Hay sesión pero aún no se trajeron/subieron sus datos. */
+  sincronizando: boolean;
+  errorNube: string | null;
+  db: () => SupabaseClient;
+  cerrarSesion: () => Promise<void>;
 }
 
 const Ctx = createContext<Contexto | null>(null);
@@ -29,16 +41,40 @@ function leer(): EstadoApp {
   }
 }
 
+/** Lo que va a la nube: sin ids ni campos que solo sirven al navegador. */
+const instantanea = (e: EstadoApp) =>
+  JSON.stringify({ f: e.formaDePago, i: e.ingreso, m: e.mesInicio, a: e.arlVoluntaria, c: e.cobros, l: e.alertas });
+
 export function ProveedorApp({ trm, children }: { trm: DatosTrm | null; children: ReactNode }) {
   const [estado, setEstado] = useState<EstadoApp>(ESTADO_VACIO);
   const [listo, setListo] = useState(false);
+  const [sesion, setSesion] = useState<Session | null>(null);
+  const [sesionLista, setSesionLista] = useState(false);
+  const [enlazadoId, setEnlazadoId] = useState<string | null>(null);
+  const [errorNube, setErrorNube] = useState<string | null>(null);
+  const estadoRef = useRef(estado);
+  estadoRef.current = estado;
+  const ultimoGuardado = useRef<string>('');
+
+  const db = useCallback(() => clienteNavegador(), []);
 
   useEffect(() => {
     setEstado(leer());
     setListo(true);
   }, []);
 
-  const guardar = useCallback((e: EstadoApp) => {
+  // Sesión: la guardada y los cambios (entrar, salir, renovar).
+  useEffect(() => {
+    const cliente = clienteNavegador();
+    cliente.auth.getSession().then(({ data }) => {
+      setSesion(data.session);
+      setSesionLista(true);
+    });
+    const { data } = cliente.auth.onAuthStateChange((_evento, s) => setSesion(s));
+    return () => data.subscription.unsubscribe();
+  }, []);
+
+  const guardarLocal = useCallback((e: EstadoApp) => {
     try {
       window.localStorage.setItem(CLAVE, JSON.stringify(e));
     } catch {
@@ -50,18 +86,94 @@ export function ProveedorApp({ trm, children }: { trm: DatosTrm | null; children
     (cambios) =>
       setEstado((previo) => {
         const siguiente = { ...previo, ...(typeof cambios === 'function' ? cambios(previo) : cambios) };
-        guardar(siguiente);
+        guardarLocal(siguiente);
         return siguiente;
       }),
-    [guardar],
+    [guardarLocal],
   );
 
   const reiniciar = useCallback(() => {
     setEstado(ESTADO_VACIO);
-    guardar(ESTADO_VACIO);
-  }, [guardar]);
+    guardarLocal(ESTADO_VACIO);
+  }, [guardarLocal]);
 
-  const valor = useMemo(() => ({ estado, listo, actualizar, reiniciar, trm }), [estado, listo, actualizar, reiniciar, trm]);
+  const userId = sesion?.user.id ?? null;
+  const sincronizando = !!userId && enlazadoId !== userId;
+
+  // Al iniciar sesión: autorizaciones, y luego los datos. Si la cuenta ya tenía datos, esos mandan
+  // (entrar a una cuenta existente no pisa lo guardado); si es nueva, se sube lo que escribió.
+  useEffect(() => {
+    if (!listo || !userId || enlazadoId === userId) return;
+    let cancelado = false;
+    (async () => {
+      const cliente = clienteNavegador();
+      const local = estadoRef.current;
+      try {
+        const [, remoto] = await Promise.all([
+          registrarAutorizaciones(cliente, userId, local.autorizacionPendiente?.marketing ?? false, navigator.userAgent),
+          cargarDeNube(cliente, userId),
+        ]);
+        if (cancelado) return;
+        if (remoto.ingreso) {
+          const fusionado: EstadoApp = { ...local, ...remoto, autorizacionPendiente: undefined, correoPendiente: undefined };
+          ultimoGuardado.current = instantanea(fusionado);
+          setEstado(fusionado);
+          guardarLocal(fusionado);
+        } else {
+          const base: EstadoApp = { ...local, autorizacionPendiente: undefined, correoPendiente: undefined };
+          const bruto = base.ingreso ? (calcularMes(base.ingreso, base.arlVoluntaria, trm?.hoy ?? null)?.ingresoBrutoMes ?? null) : null;
+          const fuenteId = await guardarEnNube(cliente, userId, base, bruto);
+          const fusionado = { ...base, fuenteId };
+          ultimoGuardado.current = instantanea(fusionado);
+          setEstado(fusionado);
+          guardarLocal(fusionado);
+        }
+        setErrorNube(null);
+      } catch (e) {
+        console.error('Frilo: no se pudo sincronizar', e);
+        if (!cancelado) setErrorNube('No pudimos sincronizar tus datos. Los seguimos guardando en este dispositivo.');
+      } finally {
+        if (!cancelado) setEnlazadoId(userId);
+      }
+    })();
+    return () => {
+      cancelado = true;
+    };
+    // trm solo se usa para el rango del perfil
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [listo, userId, enlazadoId]);
+
+  // Con sesión, cada cambio se guarda en la nube (con una pausa para no escribir en cada tecla).
+  useEffect(() => {
+    if (!userId || enlazadoId !== userId) return;
+    const foto = instantanea(estado);
+    if (foto === ultimoGuardado.current) return;
+    const t = setTimeout(async () => {
+      try {
+        const bruto = estado.ingreso ? (calcularMes(estado.ingreso, estado.arlVoluntaria, trm?.hoy ?? null)?.ingresoBrutoMes ?? null) : null;
+        const fuenteId = await guardarEnNube(clienteNavegador(), userId, estado, bruto);
+        ultimoGuardado.current = foto;
+        setErrorNube(null);
+        if (fuenteId && fuenteId !== estado.fuenteId) actualizar({ fuenteId });
+      } catch (e) {
+        console.error('Frilo: no se pudo guardar', e);
+        setErrorNube('No pudimos guardar tus últimos cambios. Los reintentamos con el próximo.');
+      }
+    }, 700);
+    return () => clearTimeout(t);
+  }, [estado, userId, enlazadoId, trm, actualizar]);
+
+  const cerrarSesion = useCallback(async () => {
+    await clienteNavegador().auth.signOut();
+    setEnlazadoId(null);
+    ultimoGuardado.current = '';
+    reiniciar(); // en un equipo compartido no debe quedar nada de la persona anterior
+  }, [reiniciar]);
+
+  const valor = useMemo(
+    () => ({ estado, listo, actualizar, reiniciar, trm, sesion, sesionLista, sincronizando, errorNube, db, cerrarSesion }),
+    [estado, listo, actualizar, reiniciar, trm, sesion, sesionLista, sincronizando, errorNube, db, cerrarSesion],
+  );
   return <Ctx.Provider value={valor}>{children}</Ctx.Provider>;
 }
 

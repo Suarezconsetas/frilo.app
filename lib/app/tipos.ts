@@ -21,8 +21,12 @@ export interface EstadoApp {
   arlVoluntaria: boolean;
   cobros: Cobro[];
   alertas: Alerta[];
-  /** Correo al que se pidió el código (la verificación real llega en la fase 3). */
+  /** Correo al que se pidió el código. */
   correoPendiente?: string;
+  /** Casilla de novedades marcada en el registro, a la espera de guardar las autorizaciones al iniciar sesión. */
+  autorizacionPendiente?: { marketing: boolean };
+  /** Id de la fuente de ingreso en la nube (cuando hay sesión). */
+  fuenteId?: string;
 }
 
 export const ESTADO_VACIO: EstadoApp = { arlVoluntaria: false, cobros: [], alertas: [] };

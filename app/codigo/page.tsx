@@ -3,24 +3,30 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState, type ClipboardEvent, type KeyboardEvent } from 'react';
+import { LARGO_CODIGO, mensajeDeError, pedirCodigo, verificarCodigo } from '@/lib/app/acceso';
 import { useApp } from '@/lib/app/estado';
 import { Icono } from '../_ui/Icono';
 
-const LARGO = 6;
+const LARGO = LARGO_CODIGO;
 const ESPERA = 45; // segundos para poder reenviar
 
-// FASE 3: aquí se verifica el código contra Supabase Auth (vence a los 10 minutos) y se reenvía con Resend.
-// Por ahora cualquier código de 6 dígitos deja entrar.
 export default function Codigo() {
   const router = useRouter();
-  const { estado, listo } = useApp();
+  const { estado, listo, sesion, db } = useApp();
   const [digitos, setDigitos] = useState<string[]>(Array(LARGO).fill(''));
   const [segundos, setSegundos] = useState(ESPERA);
+  const [error, setError] = useState<string>();
+  const [verificando, setVerificando] = useState(false);
+  const [reenviado, setReenviado] = useState(false);
   const casillas = useRef<(HTMLInputElement | null)[]>([]);
+  const correo = estado.correoPendiente;
+  const volver = estado.ingreso ? '/registro' : '/entrar';
 
   useEffect(() => {
-    if (listo && !estado.ingreso) router.replace('/');
-  }, [listo, estado.ingreso, router]);
+    if (!listo) return;
+    if (sesion) router.replace('/inicio');
+    else if (!correo) router.replace(volver);
+  }, [listo, sesion, correo, volver, router]);
 
   useEffect(() => {
     if (segundos <= 0) return;
@@ -29,7 +35,15 @@ export default function Codigo() {
   }, [segundos]);
 
   function poner(i: number, valor: string) {
-    const d = valor.replace(/\D/g, '').slice(-1);
+    const solo = valor.replace(/\D/g, '');
+    // Autocompletado del celular o pegado: llega el código entero en una sola casilla; se reparte.
+    if (solo.length > 1 && !digitos[i]) {
+      const relleno = solo.slice(0, LARGO - i);
+      setDigitos((prev) => prev.map((x, j) => (j >= i && j < i + relleno.length ? relleno[j - i]! : x)));
+      casillas.current[Math.min(i + relleno.length, LARGO - 1)]?.focus();
+      return;
+    }
+    const d = solo.slice(-1);
     setDigitos((prev) => prev.map((x, j) => (j === i ? d : x)));
     if (d && i < LARGO - 1) casillas.current[i + 1]?.focus();
   }
@@ -47,6 +61,34 @@ export default function Codigo() {
   }
 
   const completo = digitos.every(Boolean);
+
+  async function verificar() {
+    if (!completo || !correo) return;
+    setError(undefined);
+    setVerificando(true);
+    try {
+      await verificarCodigo(db(), correo, digitos.join(''));
+      router.push('/inicio'); // el proveedor guarda las autorizaciones y sincroniza los datos
+    } catch (e) {
+      setError(mensajeDeError(e, 'verificar'));
+      setDigitos(Array(LARGO).fill(''));
+      casillas.current[0]?.focus();
+      setVerificando(false);
+    }
+  }
+
+  async function reenviar() {
+    if (!correo) return;
+    setError(undefined);
+    try {
+      await pedirCodigo(db(), correo);
+      setSegundos(ESPERA);
+      setReenviado(true);
+    } catch (e) {
+      setError(mensajeDeError(e, 'enviar'));
+    }
+  }
+
   const reloj = `${Math.floor(segundos / 60)}:${String(segundos % 60).padStart(2, '0')}`;
 
   return (
@@ -56,17 +98,16 @@ export default function Codigo() {
         style={{ gap: 20 }}
         onSubmit={(e) => {
           e.preventDefault();
-          if (completo) router.push('/inicio');
+          void verificar();
         }}
       >
-        <Link href="/registro" className="volver" aria-label="Volver">
+        <Link href={volver} className="volver" aria-label="Volver">
           <Icono nombre="volver" />
         </Link>
         <div>
           <h1 className="titulo-pantalla">Revisa tu correo</h1>
           <p className="subtitulo">
-            Enviamos un código de 6 dígitos a <strong style={{ color: 'var(--tinta)', fontWeight: 600 }}>{estado.correoPendiente ?? 'tu correo'}</strong>. Vence en 10
-            minutos.
+            Enviamos un código de {LARGO} dígitos a <strong style={{ color: 'var(--tinta)', fontWeight: 600 }}>{correo ?? 'tu correo'}</strong>. Vence en 10 minutos.
           </p>
         </div>
 
@@ -80,19 +121,30 @@ export default function Codigo() {
                   casillas.current[i] = el;
                 }}
                 aria-label={`Dígito ${i + 1} de ${LARGO}`}
+                aria-invalid={error ? true : undefined}
+                aria-describedby={error ? 'error-codigo' : undefined}
                 inputMode="numeric"
                 autoComplete={i === 0 ? 'one-time-code' : 'off'}
-                maxLength={1}
                 value={d}
                 onChange={(e) => poner(i, e.target.value)}
                 onKeyDown={(e) => alBorrar(i, e)}
               />
             ))}
           </div>
+          {error && (
+            <span id="error-codigo" className="error" role="alert">
+              {error}
+            </span>
+          )}
+          {reenviado && !error && (
+            <span className="ayuda" role="status">
+              Te enviamos un código nuevo.
+            </span>
+          )}
         </fieldset>
 
-        <button type="submit" className="btn btn-primario" disabled={!completo}>
-          Verificar y entrar
+        <button type="submit" className="btn btn-primario" disabled={!completo || verificando}>
+          {verificando ? 'Verificando…' : 'Verificar y entrar'}
         </button>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -101,11 +153,11 @@ export default function Codigo() {
               Reenviar código en {reloj}
             </span>
           ) : (
-            <button type="button" className="enlace" style={{ background: 'none', border: 0, cursor: 'pointer', padding: 0, fontSize: 14 }} onClick={() => setSegundos(ESPERA)}>
+            <button type="button" className="enlace" style={{ background: 'none', border: 0, cursor: 'pointer', padding: 0, fontSize: 14 }} onClick={reenviar}>
               Reenviar código
             </button>
           )}
-          <Link href="/registro" className="enlace" style={{ fontSize: 14 }}>
+          <Link href={volver} className="enlace" style={{ fontSize: 14 }}>
             Cambiar correo
           </Link>
         </div>

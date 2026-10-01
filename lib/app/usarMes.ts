@@ -8,16 +8,19 @@ import { hoyColombia, mesDe } from './fechas';
 
 /**
  * Lo que necesitan las pantallas con datos: estado + TRM + el mes calculado.
- * Si no hay ingreso guardado manda a la bienvenida (`requerido`).
+ * Pide sesión y un ingreso guardado (`requerido`); si falta algo, manda a donde se resuelve.
  */
 export function useMes({ requerido = true }: { requerido?: boolean } = {}) {
-  const { estado, listo, trm, actualizar } = useApp();
+  const { estado, listo, trm, actualizar, sesion, sesionLista, sincronizando, errorNube } = useApp();
   const router = useRouter();
   const ingreso = estado.ingreso;
+  const cargando = !listo || !sesionLista || sincronizando;
 
   useEffect(() => {
-    if (requerido && listo && !ingreso) router.replace('/');
-  }, [requerido, listo, ingreso, router]);
+    if (!requerido || cargando) return;
+    if (!sesion) router.replace(ingreso ? '/registro' : '/');
+    else if (!ingreso) router.replace('/ingreso');
+  }, [requerido, cargando, sesion, ingreso, router]);
 
   const resumen = useMemo(
     () => (ingreso ? calcularMes(ingreso, estado.arlVoluntaria, trm?.hoy ?? null) : null),
@@ -26,7 +29,7 @@ export function useMes({ requerido = true }: { requerido?: boolean } = {}) {
 
   const hoy = listo ? hoyColombia() : '';
   return {
-    listo: listo && (!requerido || !!ingreso),
+    listo: !cargando && (!requerido || (!!sesion && !!ingreso)),
     estado,
     ingreso,
     trm,
@@ -34,6 +37,7 @@ export function useMes({ requerido = true }: { requerido?: boolean } = {}) {
     hoy,
     mesHoy: hoy ? mesDe(hoy) : '',
     actualizar,
+    errorNube,
     /** Ingreso en dólares pero sin TRM disponible: no se puede calcular. */
     sinTrm: !!ingreso && ingreso.moneda === 'USD' && !trm,
   };
