@@ -860,3 +860,64 @@ details summary {
   font-weight: 600;
   cursor: pointer;
 }
+
+/* ── Invitación al ahorro (Inicio) ──────────────────────────────────────── */
+.promo-ahorro {
+  margin-top: var(--space-4);
+  padding: var(--space-5);
+  border-radius: var(--radius-l);
+  background: var(--oliva);
+  color: #fff;
+}
+.promo-kicker {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--oliva-suave);
+}
+.promo-cifra {
+  margin-top: var(--space-2);
+  font-size: 38px;
+  line-height: 42px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--manzana);
+}
+.promo-sub {
+  margin-top: 2px;
+  font-size: 15px;
+  color: #fff;
+}
+.promo-desglose {
+  display: flex;
+  gap: 10px;
+  margin: var(--space-4) 0;
+}
+.promo-desglose > div {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: var(--radius-m);
+  background: var(--oliva-superficie);
+}
+.promo-desglose span {
+  display: block;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--oliva-suave);
+}
+.promo-desglose strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 16px;
+  line-height: 22px;
+}
+.promo-texto {
+  margin-bottom: var(--space-4);
+  font-size: 14px;
+  line-height: 21px;
+}
+.promo-legal {
+  margin-top: var(--space-3);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--oliva-suave);
+}

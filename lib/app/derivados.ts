@@ -1,6 +1,7 @@
 /** Cálculos de pantalla: toman lo que escribió el usuario y lo pasan por la lógica de `lib/calculos`. Funciones puras. */
 import {
   CUENTAS_MVP,
+  type CuentaAhorro,
   ahorroMensual,
   mesSiguiente,
   parametrosDe,
@@ -154,4 +155,28 @@ export function bolsas(ingresoBrutoMes: number, mesHoy: string, mesInicio: strin
 /** Monto sobre el que se muestra el rendimiento del comparador: seis meses de ahorro. */
 export function montoComparador(ingresoBrutoMes: number): { monto: number; dias: number; meses: number } {
   return { monto: ahorroMensual(ingresoBrutoMes).total * 6, dias: 182, meses: 6 };
+}
+
+export interface ProyeccionAnual {
+  cuenta: CuentaAhorro;
+  mensual: number; // lo que se aparta cada mes (prima + cesantías)
+  aportado: number; // lo que el usuario pone en 12 meses
+  rendimiento: number; // lo que rinde la cuenta
+  total: number; // aportado + rendimiento
+}
+
+/**
+ * Cuánto tendría en un año quien aparta su prima y sus cesantías cada mes en la cuenta con la tasa más alta
+ * (sin condiciones). El depósito va al final de cada mes y los rendimientos se capitalizan mensualmente,
+ * igual que en la proyección de la pantalla de Ahorro. Antes de impuestos.
+ */
+export function proyeccionAnual(ingresoBrutoMes: number, cuentas: CuentaAhorro[] = CUENTAS_MVP): ProyeccionAnual {
+  const cuenta = [...cuentas].sort((a, b) => b.tasaBaseEA - a.tasaBaseEA)[0];
+  if (!cuenta) throw new Error('No hay cuentas para proyectar');
+  const meses = Array.from({ length: 12 }, (_, i) => ({ mes: `2027-${String(i + 1).padStart(2, '0')}`, ingresoBrutoMes }));
+  const ultima = proyectarPrestaciones(meses, cuenta.tasaBaseEA).at(-1)!;
+  const total = ultima.saldoPrima + ultima.saldoCesantias;
+  const mensual = ahorroMensual(ingresoBrutoMes).total;
+  const aportado = mensual * 12;
+  return { cuenta, mensual, aportado, rendimiento: total - aportado, total };
 }

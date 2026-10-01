@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { AVISOS } from '@/lib/calculos';
-import { dolarVisible, escenarios, reparto } from '@/lib/app/derivados';
+import { dolarVisible, escenarios, proyeccionAnual, reparto } from '@/lib/app/derivados';
 import { useApp } from '@/lib/app/estado';
 import { useMes } from '@/lib/app/usarMes';
 import { capitalizar, nombreMes, pct, pesos, pesosConDecimales, usd } from '@/lib/formato';
@@ -82,7 +82,7 @@ export default function Inicio() {
           <Reparto segmentos={reparto(resumen, conAhorro)} />
         </section>
 
-        <Comparacion e={e} />
+        <Comparacion e={e} proy={proyeccionAnual(resumen.ingresoBrutoMes)} />
 
         {conDolar && trm && (
           <section className="tarjeta">

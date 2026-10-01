@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import type { Escenarios } from '@/lib/app/derivados';
+import { AVISOS } from '@/lib/calculos';
+import type { Escenarios, ProyeccionAnual } from '@/lib/app/derivados';
 import { AHORRO_EXPLICACION_CORTA, AHORRO_RECOMENDACION } from '@/lib/app/textos';
-import { pesos } from '@/lib/formato';
+import { fechaCorta, pct, pesos } from '@/lib/formato';
 
 /** Los dos escenarios lado a lado: con ahorro de prima y cesantías, y sin él. */
-export function Comparacion({ e }: { e: Escenarios }) {
+export function Comparacion({ e, proy }: { e: Escenarios; proy: ProyeccionAnual }) {
   return (
     <section className="tarjeta" aria-labelledby="comparacion-titulo">
       <h2 id="comparacion-titulo" className="titulo-tarjeta" style={{ marginBottom: 12 }}>
@@ -39,11 +40,29 @@ export function Comparacion({ e }: { e: Escenarios }) {
           Cómo lo calculamos
         </Link>
       </p>
-      <div className="tarjeta-oliva sobre-oliva" style={{ marginTop: 14 }}>
-        <p style={{ fontSize: 14, lineHeight: '21px' }}>{AHORRO_RECOMENDACION}</p>
-        <Link href="/ahorro" className="enlace" style={{ marginTop: 4, fontSize: 14, color: 'var(--manzana)' }}>
+      <div className="promo-ahorro sobre-oliva">
+        <p className="promo-kicker">Si apartas tu prima y tus cesantías en {proy.cuenta.entidad}</p>
+        <p className="promo-cifra">{pesos(proy.total)}</p>
+        <p className="promo-sub">podrías tener en un año</p>
+        <div className="promo-desglose">
+          <div>
+            <span>Tu ahorro</span>
+            <strong>{pesos(proy.aportado)}</strong>
+          </div>
+          <div>
+            <span>Rendimientos</span>
+            <strong>+{pesos(proy.rendimiento)}</strong>
+          </div>
+        </div>
+        <p className="promo-texto">{AHORRO_RECOMENDACION}</p>
+        <Link href="/ahorro" className="btn btn-marca">
           Ver cuentas con rentabilidad
+          <span aria-hidden="true">→</span>
         </Link>
+        <p className="promo-legal">
+          Proyección con {proy.cuenta.entidad} ({proy.cuenta.producto}), {pct(proy.cuenta.tasaBaseEA, 2)} E.A. según su información del{' '}
+          {fechaCorta(proy.cuenta.fechaConsulta)}, apartando {pesos(proy.mensual)} cada mes durante 12 meses. {AVISOS.rendimientos}
+        </p>
       </div>
     </section>
   );

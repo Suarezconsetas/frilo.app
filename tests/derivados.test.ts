@@ -1,4 +1,4 @@
-import { bolsas, calcularMes, dolarVisible, escenarios, reparto } from '@/lib/app/derivados';
+import { bolsas, calcularMes, dolarVisible, escenarios, proyeccionAnual, reparto } from '@/lib/app/derivados';
 import type { IngresoInicial } from '@/lib/app/tipos';
 
 const usd1750: IngresoInicial = { cliente: 'Acme Inc.', moneda: 'USD', monto: 1750, clase: 1, publico: false };
@@ -82,5 +82,24 @@ describe('bolsas de prima y cesantías', () => {
   });
   it('en el primer semestre el periodo de la prima es enero a junio', () => {
     expect(bolsas(1_000_000, '2026-03', '2026-03', []).prima.periodo).toBe('Enero a junio');
+  });
+});
+
+describe('proyeccionAnual', () => {
+  it('usa la cuenta de mayor tasa y suma 12 depósitos con sus rendimientos', () => {
+    const p = proyeccionAnual(9_938_520);
+    expect(p.cuenta.id).toBe('lulo-flex'); // 9,50% E.A., la más alta sin condiciones
+    expect(p.mensual).toBeCloseTo(1_656_420, 0);
+    expect(p.aportado).toBeCloseTo(19_877_040, 0); // 2 ingresos mensuales al año
+    // anualidad vencida: d · ((1+i)^12 − 1) / i, con i la tasa mensual equivalente a 9,5% E.A.
+    const i = Math.pow(1.095, 1 / 12) - 1;
+    expect(p.total).toBeCloseTo(1_656_420 * ((Math.pow(1 + i, 12) - 1) / i), 0);
+    expect(p.rendimiento).toBeGreaterThan(0);
+    expect(p.total).toBeCloseTo(p.aportado + p.rendimiento, 5);
+  });
+  it('la proyección es proporcional al ingreso', () => {
+    const a = proyeccionAnual(5_000_000);
+    const b = proyeccionAnual(10_000_000);
+    expect(b.total / a.total).toBeCloseTo(2, 8);
   });
 });
