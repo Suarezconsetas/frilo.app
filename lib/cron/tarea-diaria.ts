@@ -153,3 +153,51 @@ export function enviarConResend(apiKey: string, from: string, traer: typeof fetc
     }
   };
 }
+
+// ── Registro de cada ejecución ────────────────────────────────────────────
+
+/** Fila de `cron_ejecuciones`: qué pasó en esta corrida. No lleva datos personales. */
+export interface FilaEjecucion {
+  fecha: string;
+  ok: boolean;
+  trm_hoy: number | null;
+  trm_sincronizada: boolean;
+  trm_guardadas: number;
+  error_trm: string | null;
+  alertas_activas: number;
+  referencias_actualizadas: number;
+  disparadas: number;
+  correos_enviados: number;
+  correos_fallidos: number;
+  duracion_ms: number;
+  error: string | null;
+}
+
+/** La corrida es "ok" si la TRM se sincronizó y no hubo un error que la cortara. */
+export function filaDeEjecucion(r: Resultado | null, duracionMs: number, hoy: string, error?: string): FilaEjecucion {
+  return {
+    fecha: r?.fecha ?? hoy,
+    ok: !error && !!r?.trmSincronizada,
+    trm_hoy: r?.trmHoy ?? null,
+    trm_sincronizada: r?.trmSincronizada ?? false,
+    trm_guardadas: r?.trmGuardadas ?? 0,
+    error_trm: r?.errorTrm ? r.errorTrm.slice(0, 500) : null,
+    alertas_activas: r?.alertasActivas ?? 0,
+    referencias_actualizadas: r?.referenciasActualizadas ?? 0,
+    disparadas: r?.disparadas ?? 0,
+    correos_enviados: r?.correosEnviados ?? 0,
+    correos_fallidos: r?.correosFallidos ?? 0,
+    duracion_ms: Math.max(0, Math.round(duracionMs)),
+    error: error ? error.slice(0, 500) : null,
+  };
+}
+
+/** Guarda la fila. Si esto falla no debe tumbar la tarea: solo se avisa en el log. */
+export async function registrarEjecucion(db: SupabaseClient, fila: FilaEjecucion): Promise<void> {
+  try {
+    const { error } = await db.from('cron_ejecuciones').insert(fila);
+    if (error) console.error('Frilo cron: no se pudo registrar la ejecución:', error.message);
+  } catch (e) {
+    console.error('Frilo cron: no se pudo registrar la ejecución:', e instanceof Error ? e.message : e);
+  }
+}

@@ -10,7 +10,8 @@
     "test": "vitest run --globals",
     "typecheck": "tsc --noEmit",
     "verificar": "node --env-file=.env.local scripts/verificar-conexiones.mjs",
-    "trm:cargar": "node --env-file=.env.local scripts/cargar-trm.mjs"
+    "trm:cargar": "node --env-file=.env.local scripts/cargar-trm.mjs",
+    "cron:ver": "node --env-file=.env.local scripts/ver-ejecuciones.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.0",

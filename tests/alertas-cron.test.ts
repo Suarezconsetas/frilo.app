@@ -1,5 +1,6 @@
 import { evaluarAlerta } from '@/lib/calculos';
 import { construirCorreoAlerta, planificarAlertas, type AlertaFila } from '@/lib/cron/alertas';
+import { filaDeEjecucion } from '@/lib/cron/tarea-diaria';
 
 const fila = (o: Partial<AlertaFila> = {}): AlertaFila => ({
   id: 'a1',
@@ -70,5 +71,33 @@ describe('construirCorreoAlerta', () => {
   });
   it('es transaccional: sin lenguaje de marketing ni enlaces de baja de novedades', () => {
     expect(c.html.toLowerCase()).not.toContain('oferta');
+  });
+});
+
+describe('filaDeEjecucion', () => {
+  const resultado = {
+    fecha: '2026-10-07', trmHoy: 3216.01, trmSincronizada: true, trmGuardadas: 11,
+    alertasActivas: 3, referenciasActualizadas: 2, disparadas: 1, correosEnviados: 1, correosFallidos: 0,
+  };
+  it('una corrida normal queda ok y con todos los conteos', () => {
+    expect(filaDeEjecucion(resultado, 1234.6, '2026-10-07')).toEqual({
+      fecha: '2026-10-07', ok: true, trm_hoy: 3216.01, trm_sincronizada: true, trm_guardadas: 11, error_trm: null,
+      alertas_activas: 3, referencias_actualizadas: 2, disparadas: 1, correos_enviados: 1, correos_fallidos: 0,
+      duracion_ms: 1235, error: null,
+    });
+  });
+  it('si falló la fuente de la TRM la corrida no es ok y guarda el motivo', () => {
+    const f = filaDeEjecucion({ ...resultado, trmSincronizada: false, errorTrm: 'datos.gov.co respondió 503' }, 10, '2026-10-07');
+    expect(f.ok).toBe(false);
+    expect(f.error_trm).toBe('datos.gov.co respondió 503');
+  });
+  it('si la tarea se cortó con un error queda registrada con ceros y el mensaje', () => {
+    const f = filaDeEjecucion(null, 50, '2026-10-07', 'no se pudieron leer las alertas');
+    expect(f).toMatchObject({ ok: false, trm_hoy: null, alertas_activas: 0, correos_enviados: 0, error: 'no se pudieron leer las alertas', fecha: '2026-10-07' });
+  });
+  it('recorta los mensajes largos y no deja duraciones negativas', () => {
+    const f = filaDeEjecucion(null, -5, '2026-10-07', 'x'.repeat(2000));
+    expect(f.error).toHaveLength(500);
+    expect(f.duracion_ms).toBe(0);
   });
 });

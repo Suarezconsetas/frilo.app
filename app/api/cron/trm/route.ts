@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { timingSafeEqual } from 'node:crypto';
 import type { NextRequest } from 'next/server';
 import { hoyColombia } from '@/lib/app/fechas';
-import { ejecutarTareaDiaria, enviarConResend } from '@/lib/cron/tarea-diaria';
+import { ejecutarTareaDiaria, enviarConResend, filaDeEjecucion, registrarEjecucion } from '@/lib/cron/tarea-diaria';
 
 // La corre Vercel Cron cada día (vercel.json). Nunca se cachea.
 export const dynamic = 'force-dynamic';
@@ -28,19 +28,27 @@ export async function GET(req: NextRequest) {
     return Response.json({ ok: false, error: 'configuración incompleta' }, { status: 500 });
   }
 
+  const inicio = Date.now();
+  const hoy = hoyColombia();
+  const db = createClient(url, clave, { auth: { persistSession: false } });
+
   try {
     const resultado = await ejecutarTareaDiaria({
-      db: createClient(url, clave, { auth: { persistSession: false } }),
+      db,
       traer: fetch,
       enviarCorreo: enviarConResend(resend, remitente),
-      hoy: hoyColombia(),
+      hoy,
       urlApp: process.env.NEXT_PUBLIC_APP_URL ?? 'https://frilo-app.vercel.app',
     });
     console.log('Frilo cron:', JSON.stringify(resultado));
+    // Queda una fila por corrida en `cron_ejecuciones` (los logs de Vercel Hobby solo duran 1 hora).
+    await registrarEjecucion(db, filaDeEjecucion(resultado, Date.now() - inicio, hoy));
     // Si la fuente de la TRM falló, el cron se marca como fallido para que se note en Vercel.
     return Response.json({ ok: resultado.trmSincronizada, ...resultado }, { status: resultado.trmSincronizada ? 200 : 502 });
   } catch (e) {
-    console.error('Frilo cron: error', e instanceof Error ? e.message : e);
+    const mensaje = e instanceof Error ? e.message : 'error desconocido';
+    console.error('Frilo cron: error', mensaje);
+    await registrarEjecucion(db, filaDeEjecucion(null, Date.now() - inicio, hoy, mensaje));
     return Response.json({ ok: false, error: 'error en la tarea diaria' }, { status: 500 });
   }
 }
