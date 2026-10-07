@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { timingSafeEqual } from 'node:crypto';
 import type { NextRequest } from 'next/server';
 import { hoyColombia } from '@/lib/app/fechas';
+import { URL_SITIO } from '@/lib/sitio';
 import { ejecutarTareaDiaria, enviarConResend, filaDeEjecucion, registrarEjecucion } from '@/lib/cron/tarea-diaria';
 
 // La corre Vercel Cron cada día (vercel.json). Nunca se cachea.
@@ -38,7 +39,7 @@ export async function GET(req: NextRequest) {
       traer: fetch,
       enviarCorreo: enviarConResend(resend, remitente),
       hoy,
-      urlApp: process.env.NEXT_PUBLIC_APP_URL ?? 'https://frilo-app.vercel.app',
+      urlApp: URL_SITIO,
     });
     console.log('Frilo cron:', JSON.stringify(resultado));
     // Queda una fila por corrida en `cron_ejecuciones` (los logs de Vercel Hobby solo duran 1 hora).

@@ -3,20 +3,20 @@ import type { ReactNode } from 'react';
 import { ProveedorApp } from '@/lib/app/estado';
 import { Analitica } from './_ui/Analitica';
 import { Rendimiento } from './_ui/Rendimiento';
+import { URL_SITIO } from '@/lib/sitio';
 import { cargarDatosTrm } from '@/lib/trm-servidor';
 import './globals.css';
 
 // La TRM viene de nuestra base (la llena la tarea diaria): se refresca cada hora, no por visita.
 export const revalidate = 3600;
 
-const URL_APP = process.env.NEXT_PUBLIC_APP_URL ?? 'https://frilo-app.vercel.app';
 const TITULO = 'Frilo · Tus finanzas, mejor con Frilo';
 const DESCRIPCION =
   'Calcula cuánto pagar de planilla, sigue el dólar (TRM) y aparta tu prima y tus cesantías si trabajas por prestación de servicios o para el exterior.';
 
 // La imagen para compartir (opengraph-image / twitter-image) y los íconos salen de los archivos de esta carpeta.
 export const metadata: Metadata = {
-  metadataBase: new URL(URL_APP),
+  metadataBase: new URL(URL_SITIO),
   title: { default: TITULO, template: '%s · Frilo' },
   description: DESCRIPCION,
   applicationName: 'Frilo',
