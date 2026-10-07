@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import { ProveedorApp } from '@/lib/app/estado';
 import { Analitica } from './_ui/Analitica';
+import { Rendimiento } from './_ui/Rendimiento';
 import { cargarDatosTrm } from '@/lib/trm-servidor';
 import './globals.css';
 
@@ -38,6 +39,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       <body suppressHydrationWarning>
         <ProveedorApp trm={trm}>{children}</ProveedorApp>
         <Analitica />
+        <Rendimiento />
       </body>
     </html>
   );
