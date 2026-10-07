@@ -8,7 +8,7 @@ export const LEGAL = {
   razonSocial: 'Nicolás Suárez Pardo',
   nit: '1018498427',
   domicilio: 'Cra 6 # 48a - 47, Bogotá, Colombia',
-  correoPrivacidad: 'nicolas.suarez.cr@gmail.com',
+  correoPrivacidad: 'privacidad@frilo.dev',
   telefono: '+57 304 533 7042',
   fechaActualizacion: '7 de octubre de 2026',
   /** true muestra un aviso de borrador en las páginas legales. Revisados por un abogado: false. */
