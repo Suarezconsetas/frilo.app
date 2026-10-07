@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useApp } from '@/lib/app/estado';
 import type { FormaDePago } from '@/lib/app/tipos';
 import { Icono, type NombreIcono } from './_ui/Icono';
@@ -32,7 +32,18 @@ const QUE_PUEDES_SABER: { icono: NombreIcono; titulo: string; detalle: string }[
 export default function Bienvenida() {
   const { estado, actualizar } = useApp();
   const [elegida, setElegida] = useState<FormaDePago | null>(null);
-  const forma = elegida ?? estado.formaDePago ?? 'usd';
+  const [pidioElegir, setPidioElegir] = useState(false);
+  const opciones = useRef<HTMLFieldSetElement>(null);
+  // Sin opción por defecto: quien no ha elegido no avanza (solo se precarga lo que ya eligió antes).
+  const forma: FormaDePago | null = elegida ?? estado.formaDePago ?? null;
+
+  /** Primer toque sin elegir: baja hasta la pregunta y deja el foco en la primera opción. */
+  function irAElegir() {
+    setPidioElegir(true);
+    const reducirMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    opciones.current?.scrollIntoView({ behavior: reducirMovimiento ? 'auto' : 'smooth', block: 'center' });
+    opciones.current?.querySelector<HTMLButtonElement>('button')?.focus({ preventScroll: true });
+  }
 
   return (
     <div className="fondo-oliva sobre-oliva">
@@ -81,8 +92,13 @@ export default function Bienvenida() {
             ))}
           </ul>
         </section>
-        <fieldset className="opciones-pago">
+        <fieldset className="opciones-pago" ref={opciones}>
           <legend>¿Cómo te pagan?</legend>
+          {pidioElegir && !forma && (
+            <p className="pide-elegir" role="alert">
+              Elige una opción para continuar.
+            </p>
+          )}
           {OPCIONES.map((o) => (
             <button key={o.id} type="button" className="opcion-pago" aria-pressed={forma === o.id} onClick={() => setElegida(o.id)}>
               <strong>{o.titulo}</strong>
@@ -91,9 +107,16 @@ export default function Bienvenida() {
           ))}
         </fieldset>
         <div className="cta-fijo">
-          <Link href="/ingreso" className="btn btn-marca" onClick={() => actualizar({ formaDePago: forma })}>
-            Continuar
-          </Link>
+          {forma ? (
+            <Link href="/ingreso" className="btn btn-marca" onClick={() => actualizar({ formaDePago: forma })}>
+              Continuar
+            </Link>
+          ) : (
+            <button type="button" className="btn btn-marca" onClick={irAElegir}>
+              Elige cómo te pagan
+              <span aria-hidden="true">↓</span>
+            </button>
+          )}
           <Link href="/entrar" className="enlace" style={{ width: '100%', justifyContent: 'center', marginTop: 8, color: 'var(--oliva-suave)' }}>
             Ya tengo cuenta
           </Link>

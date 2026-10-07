@@ -1100,3 +1100,15 @@ details summary {
   border-radius: var(--radius-l);
   font-size: 16px;
 }
+
+/* Bienvenida: aviso al pedir que elija cómo le pagan. */
+.opciones-pago {
+  scroll-margin: var(--space-6);
+}
+.pide-elegir {
+  margin: calc(-1 * var(--space-1)) 0 var(--space-1);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--manzana);
+}

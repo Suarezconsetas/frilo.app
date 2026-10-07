@@ -6,7 +6,7 @@ import { useEffect, useState, type FormEvent } from 'react';
 import type { ClaseRiesgo, Moneda } from '@/lib/calculos';
 import { useApp } from '@/lib/app/estado';
 import { hoyColombia, mesDe } from '@/lib/app/fechas';
-import type { IngresoInicial } from '@/lib/app/tipos';
+import type { FormaDePago, IngresoInicial } from '@/lib/app/tipos';
 import { leerNumero } from '@/lib/formato';
 import { Icono } from '../_ui/Icono';
 import { Campo, Selector } from '../_ui/controles';
@@ -19,7 +19,7 @@ const CLASES: { valor: ClaseRiesgo; etiqueta: string }[] = [
   { valor: 5, etiqueta: 'V — Riesgo máximo' },
 ];
 
-type Errores = Partial<Record<'cliente' | 'monto' | 'tasa' | 'retencion', string>>;
+type Errores = Partial<Record<'forma' | 'cliente' | 'monto' | 'tasa' | 'retencion', string>>;
 
 export default function PrimerIngreso() {
   const router = useRouter();
@@ -34,10 +34,12 @@ export default function PrimerIngreso() {
   const [clase, setClase] = useState<ClaseRiesgo>(1);
   const [publico, setPublico] = useState(false);
   const [errores, setErrores] = useState<Errores>({});
+  const [mostrarPregunta, setMostrarPregunta] = useState(false);
 
   // Precarga: lo que ya guardó (editar ingreso) o la forma de pago que eligió al inicio.
   useEffect(() => {
     if (!listo) return;
+    if (!estado.formaDePago && !previo) setMostrarPregunta(true); // se queda visible aunque ya elija
     if (previo) {
       setMoneda(previo.moneda);
       setCliente(previo.cliente);
@@ -52,13 +54,24 @@ export default function PrimerIngreso() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listo]);
 
+  // Quien llegó sin pasar por la bienvenida (por ejemplo, entrando con Google) aún no dijo cómo le pagan.
+  const preguntarForma = !estado.formaDePago && !previo;
   const sinTrm = moneda === 'USD' && !trm;
+
+  function elegirForma(f: FormaDePago | '') {
+    if (!f) return;
+    actualizar({ formaDePago: f });
+    setMoneda(f === 'cop' ? 'COP' : 'USD');
+    setExtra('');
+    setErrores((e) => ({ ...e, forma: undefined }));
+  }
 
   function enviar(e: FormEvent) {
     e.preventDefault();
     const nuevos: Errores = {};
     const m = leerNumero(monto);
     const x = extra.trim() === '' ? undefined : leerNumero(extra);
+    if (preguntarForma) nuevos.forma = 'Elige cómo te pagan para continuar.';
     if (!cliente.trim()) nuevos.cliente = 'Escribe el nombre de quien te paga.';
     if (m === null || m <= 0) nuevos.monto = 'Escribe un monto mayor a cero, por ejemplo 1.750.';
     if (x === null) nuevos[moneda === 'USD' ? 'tasa' : 'retencion'] = 'Escribe solo números, por ejemplo 3.950.';
@@ -75,7 +88,12 @@ export default function PrimerIngreso() {
       clase,
       publico: moneda === 'COP' && publico,
     };
-    actualizar((e0) => ({ ingreso, mesInicio: e0.mesInicio ?? mesDe(hoyColombia()) }));
+    actualizar((e0) => ({
+      ingreso,
+      mesInicio: e0.mesInicio ?? mesDe(hoyColombia()),
+      // Quien llegó sin pasar por la pregunta (por ejemplo, entrando con Google) queda según la moneda que escribió.
+      formaDePago: e0.formaDePago ?? (moneda === 'USD' ? 'usd' : 'cop'),
+    }));
     router.push(sesion ? '/inicio' : '/registro');
   }
 
@@ -95,6 +113,27 @@ export default function PrimerIngreso() {
           <h1 className="titulo-pantalla">{editando ? 'Tu ingreso' : 'Tu primer ingreso'}</h1>
           <p className="subtitulo">{editando ? 'Cambia lo que necesites y recalculamos tu mes.' : 'Después puedes agregar más clientes o contratos.'}</p>
         </div>
+
+        {mostrarPregunta && (
+          <div className={`campo${errores.forma ? ' con-error' : ''}`}>
+            <span style={{ display: 'block', marginBottom: 8, fontSize: 14, fontWeight: 600 }}>¿Cómo te pagan?</span>
+            <Selector
+              nombre="Cómo te pagan"
+              valor={(estado.formaDePago ?? '') as FormaDePago | ''}
+              onCambio={elegirForma}
+              opciones={[
+                { valor: 'usd', etiqueta: 'Dólares' },
+                { valor: 'cop', etiqueta: 'Pesos' },
+                { valor: 'mixto', etiqueta: 'Ambos' },
+              ]}
+            />
+            {errores.forma && (
+              <span className="error" role="alert">
+                {errores.forma}
+              </span>
+            )}
+          </div>
+        )}
 
         {estado.formaDePago === 'mixto' && (
           <div className="campo">
