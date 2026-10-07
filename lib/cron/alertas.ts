@@ -54,7 +54,9 @@ export function construirCorreoAlerta(p: { direccion: Alerta['direccion']; umbra
   const verbo = sube ? 'subió' : 'bajó';
   const condicion = sube ? `suba de ${pesos(p.umbral)}` : `baje de ${pesos(p.umbral)}`;
   const asunto = `El dólar ${verbo} a ${pesosConDecimales(p.trm)}: se cumplió tu alerta`;
-  const enlace = `${p.urlApp.replace(/\/$/, '')}/dolar`;
+  const base = p.urlApp.replace(/\/$/, '');
+  const enlace = `${base}/dolar`;
+  const logo = `${base}/email/logo.png`; // PNG público: los correos no admiten SVG
 
   const texto = [
     `Se cumplió tu alerta del dólar.`,
@@ -74,7 +76,8 @@ export function construirCorreoAlerta(p: { direccion: Alerta['direccion']; umbra
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F3F6F4;padding:24px 12px;"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;">
 <tr><td style="background:#0F372D;border-radius:16px 16px 0 0;padding:24px;">
-<p style="margin:0;font-size:14px;color:#B5CCC1;">Alerta del dólar</p>
+<img src="${escapar(logo)}" width="48" height="48" alt="Frilo" style="display:block;border:0;outline:none;text-decoration:none;">
+<p style="margin:20px 0 0 0;font-size:14px;color:#B5CCC1;">Alerta del dólar</p>
 <p style="margin:8px 0 0 0;font-size:34px;line-height:40px;font-weight:700;color:#6FFF8F;">${escapar(pesosConDecimales(p.trm))}</p>
 <p style="margin:4px 0 0 0;font-size:15px;color:#FFFFFF;">El dólar ${verbo} hoy</p>
 </td></tr>

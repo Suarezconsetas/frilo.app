@@ -1,0 +1,19 @@
+<!-- Plantilla del correo con el código de acceso (Supabase → Authentication → Emails → "Confirm sign up" y "Magic link").
+     Asunto sugerido:  Tu código de Frilo: {{ .Token }}
+     El logo es un PNG público de https://frilo.dev/email/logo.png (los correos no admiten SVG). -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F3F6F4;padding:24px 12px;">
+  <tr><td align="center">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;">
+      <tr><td style="background:#0F372D;border-radius:16px 16px 0 0;padding:24px;">
+        <img src="https://frilo.dev/email/logo.png" width="48" height="48" alt="Frilo" style="display:block;border:0;outline:none;text-decoration:none;">
+        <p style="margin:20px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#B5CCC1;">Tu código para entrar</p>
+        <p style="margin:6px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:40px;line-height:46px;font-weight:700;letter-spacing:8px;color:#6FFF8F;">{{ .Token }}</p>
+      </td></tr>
+      <tr><td style="padding:24px;font-family:Helvetica,Arial,sans-serif;color:#0F372D;">
+        <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">Escribe este código en Frilo para entrar a tu cuenta. Vence en 10 minutos.</p>
+        <p style="margin:0;font-size:13px;line-height:19px;color:#4A6158;">Si no lo pediste tú, ignora este mensaje: nadie puede entrar sin el código.</p>
+      </td></tr>
+    </table>
+    <p style="margin:16px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#4A6158;">Más claridad, más libertad. Frilo</p>
+  </td></tr>
+</table>

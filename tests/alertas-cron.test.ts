@@ -60,6 +60,10 @@ describe('construirCorreoAlerta', () => {
     expect(c.texto).toContain('$3.512,40');
     expect(c.html).toContain('suba de $3.500');
   });
+  it('lleva el logo de Frilo como imagen pública con texto alternativo', () => {
+    expect(c.html).toContain('src="https://frilo-app.vercel.app/email/logo.png"');
+    expect(c.html).toContain('alt="Frilo"');
+  });
   it('enlaza a la pantalla del dólar sin doble barra', () => {
     expect(c.html).toContain('href="https://frilo-app.vercel.app/dolar"');
     expect(c.texto).toContain('https://frilo-app.vercel.app/dolar');
