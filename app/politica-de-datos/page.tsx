@@ -49,7 +49,7 @@ export default function PoliticaDeDatos() {
           </li>
           <li>
             <strong>Datos de la herramienta:</strong> el nombre de quien te paga, los montos que registras, la tasa que te pagaron o la retención practicada (si
-            decides escribirlas), los cobros de prima que marcas y las alertas del dólar que creas. Solo tú los ves.
+            decides escribirlas), los cobros de prima que marcas, los meses en que confirmas que apartaste tu ahorro y el monto, y las alertas del dólar que creas. Solo tú los ves.
           </li>
           <li>
             <strong>Prueba de tus autorizaciones:</strong> qué autorizaste, la fecha, la versión de esta política y el navegador desde el que lo hiciste.

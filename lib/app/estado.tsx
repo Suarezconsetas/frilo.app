@@ -8,6 +8,7 @@ import type { Session, SupabaseClient } from '@supabase/supabase-js';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { clienteNavegador } from '@/lib/supabase/cliente';
 import { calcularMes } from './derivados';
+import { hoyColombia } from './fechas';
 import { cargarAlertas, cargarDeNube, guardarEnNube, registrarAutorizaciones } from './nube';
 import { ESTADO_VACIO, type DatosTrm, type EstadoApp } from './tipos';
 
@@ -52,7 +53,13 @@ const instantanea = (e: EstadoApp) => ({
 type Instantanea = ReturnType<typeof instantanea>;
 const SIN_FOTO: Instantanea = { base: '', cobros: '', alertas: '' };
 
-export function ProveedorApp({ trm, children }: { trm: DatosTrm | null; children: ReactNode }) {
+export function ProveedorApp({ trm: trmInicial, children }: { trm: DatosTrm | null; children: ReactNode }) {
+  // La TRM llega con la página; si la app queda abierta (o guardada en el inicio del celular) pasan los días,
+  // así que se vuelve a pedir cuando es de otro día y la persona regresa a la app.
+  const [trm, setTrm] = useState<DatosTrm | null>(trmInicial);
+  const trmRef = useRef(trm);
+  trmRef.current = trm;
+  const ultimoIntentoTrm = useRef(0);
   const [estado, setEstado] = useState<EstadoApp>(ESTADO_VACIO);
   const [listo, setListo] = useState(false);
   const [sesion, setSesion] = useState<Session | null>(null);
@@ -79,6 +86,35 @@ export function ProveedorApp({ trm, children }: { trm: DatosTrm | null; children
     });
     const { data } = cliente.auth.onAuthStateChange((_evento, s) => setSesion(s));
     return () => data.subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    async function refrescarTrm() {
+      const ahora = Date.now();
+      if (ahora - ultimoIntentoTrm.current < 60_000) return; // como mucho una vez por minuto
+      if (trmRef.current?.fecha === hoyColombia()) return; // ya es la de hoy
+      ultimoIntentoTrm.current = ahora;
+      try {
+        const r = await fetch('/api/trm', { cache: 'no-store' });
+        if (!r.ok) return;
+        const datos = (await r.json()) as DatosTrm | null;
+        if (datos) setTrm(datos);
+      } catch {
+        /* sin conexión: se queda con lo que hay y reintenta al volver */
+      }
+    }
+    const alVolver = () => {
+      if (document.visibilityState === 'visible') void refrescarTrm();
+    };
+    void refrescarTrm();
+    document.addEventListener('visibilitychange', alVolver);
+    window.addEventListener('focus', alVolver);
+    window.addEventListener('pageshow', alVolver);
+    return () => {
+      document.removeEventListener('visibilitychange', alVolver);
+      window.removeEventListener('focus', alVolver);
+      window.removeEventListener('pageshow', alVolver);
+    };
   }, []);
 
   const guardarLocal = useCallback((e: EstadoApp) => {

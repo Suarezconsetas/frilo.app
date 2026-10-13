@@ -1112,3 +1112,54 @@ details summary {
   font-weight: 600;
   color: var(--manzana);
 }
+
+/* ── Lo que llevas guardado ─────────────────────────────────────────────── */
+.guardado-cifras {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-3) 0 var(--space-3);
+}
+.guardado-cifras .cifra-l {
+  font-size: 24px;
+  line-height: 30px;
+}
+.guardado-ok {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 12px var(--space-4);
+  border-radius: var(--radius-m);
+  background: var(--tinte);
+  font-size: 15px;
+  line-height: 22px;
+}
+.guardado-ok .icono-check {
+  background: var(--oliva);
+  color: var(--manzana);
+}
+.guardado-detalle {
+  margin-top: var(--space-3);
+  border-top: 1px solid var(--linea);
+}
+.guardado-detalle summary {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.guardado-detalle ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.guardado-detalle li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 10px 0;
+  border-top: 1px solid var(--linea);
+}

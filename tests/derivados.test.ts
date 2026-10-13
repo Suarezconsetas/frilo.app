@@ -1,4 +1,4 @@
-import { bolsas, calcularMes, contextoDolar, dolarVisible, escenarios, proyeccionAnual, reparto } from '@/lib/app/derivados';
+import { bolsas, calcularMes, contextoDolar, dolarVisible, escenarios, proyeccionAnual, reparto, resumenAhorro } from '@/lib/app/derivados';
 import type { IngresoInicial } from '@/lib/app/tipos';
 
 const usd1750: IngresoInicial = { cliente: 'Acme Inc.', moneda: 'USD', monto: 1750, clase: 1, publico: false };
@@ -118,5 +118,42 @@ describe('contextoDolar', () => {
   });
   it('sin historial del mes no inventa la variación', () => {
     expect(contextoDolar(usd1750, { ...trm, variaciones: [] })?.variacionMes).toBeNull();
+  });
+});
+
+describe('resumenAhorro', () => {
+  const ingreso = 9_938_520; // ahorra 1.656.420 al mes
+  it('sin confirmaciones, lo calculado crece mes a mes y todo queda pendiente', () => {
+    const r = resumenAhorro(ingreso, '2026-08', '2026-10', []);
+    expect(r.meses.map((m) => m.mes)).toEqual(['2026-08', '2026-09', '2026-10']);
+    expect(r.totalCalculado).toBeCloseTo(1_656_420 * 3, 0);
+    expect(r.totalConfirmado).toBe(0);
+    expect(r.diferencia).toBeCloseTo(1_656_420 * 3, 0);
+    expect(r.mesesSinConfirmar).toBe(3);
+  });
+  it('suma lo que la persona confirmó, aunque sea otro monto', () => {
+    const r = resumenAhorro(ingreso, '2026-08', '2026-10', [
+      { mes: '2026-08', monto: 1_656_420 },
+      { mes: '2026-09', monto: 1_000_000 },
+    ]);
+    expect(r.totalConfirmado).toBe(2_656_420);
+    expect(r.mesesSinConfirmar).toBe(1);
+    expect(r.meses[1]).toMatchObject({ mes: '2026-09', confirmado: 1_000_000 });
+    expect(r.meses[2]).toMatchObject({ mes: '2026-10', confirmado: null });
+    expect(r.diferencia).toBeCloseTo(1_656_420 * 3 - 2_656_420, 0);
+  });
+  it('si apartó más de lo calculado, la diferencia es negativa', () => {
+    const r = resumenAhorro(ingreso, '2026-10', '2026-10', [{ mes: '2026-10', monto: 2_000_000 }]);
+    expect(r.diferencia).toBeLessThan(0);
+    expect(r.mesesSinConfirmar).toBe(0);
+  });
+  it('si el inicio es posterior al mes de hoy, usa solo el mes de hoy', () => {
+    const r = resumenAhorro(ingreso, '2026-12', '2026-10', []);
+    expect(r.meses.map((m) => m.mes)).toEqual(['2026-10']);
+  });
+  it('lo confirmado de un mes anterior al inicio también se cuenta', () => {
+    const r = resumenAhorro(ingreso, '2026-10', '2026-10', [{ mes: '2026-07', monto: 500_000 }]);
+    expect(r.totalConfirmado).toBe(500_000);
+    expect(r.meses).toHaveLength(1);
   });
 });

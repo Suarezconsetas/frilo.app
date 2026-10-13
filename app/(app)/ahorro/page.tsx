@@ -1,10 +1,14 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { AVISOS, CUENTAS_MVP, compararCuentas } from '@/lib/calculos';
-import { bolsas, montoComparador, tasaProyeccion, type Bolsa } from '@/lib/app/derivados';
+import { bolsas, montoComparador, resumenAhorro, tasaProyeccion, type Bolsa } from '@/lib/app/derivados';
+import { useApp } from '@/lib/app/estado';
+import { confirmarAhorro, leerAhorrosConfirmados, quitarAhorroConfirmado, type AhorroConfirmado } from '@/lib/app/nube';
 import { AHORRO_EXPLICACION_LARGA } from '@/lib/app/textos';
 import { useMes } from '@/lib/app/usarMes';
 import { capitalizar, fechaCorta, nombreMes, pct, pesos } from '@/lib/formato';
+import { Guardado } from '../../_ui/Guardado';
 import { Logo } from '../../_ui/Logo';
 
 function TarjetaBolsillo({ titulo, b, pie, accion }: { titulo: string; b: Bolsa; pie: React.ReactNode; accion?: React.ReactNode }) {
@@ -30,6 +34,18 @@ function TarjetaBolsillo({ titulo, b, pie, accion }: { titulo: string; b: Bolsa;
 
 export default function Ahorro() {
   const { listo, ingreso, resumen, estado, mesHoy, actualizar } = useMes();
+  const { sesion, db } = useApp();
+  const userId = sesion?.user.id ?? null;
+  const [confirmados, setConfirmados] = useState<AhorroConfirmado[]>([]);
+  const [errorAhorro, setErrorAhorro] = useState<string>();
+
+  useEffect(() => {
+    if (!userId) return;
+    leerAhorrosConfirmados(db(), userId)
+      .then(setConfirmados)
+      .catch(() => setErrorAhorro('No pudimos traer lo que habías confirmado. Recarga la pantalla para intentarlo de nuevo.'));
+  }, [userId, db]);
+
   if (!listo || !ingreso || !resumen) return null;
 
   const mesInicio = estado.mesInicio ?? mesHoy;
@@ -38,6 +54,26 @@ export default function Ahorro() {
   const { monto, dias, meses } = montoComparador(resumen.ingresoBrutoMes);
   const cuentas = compararCuentas(monto, dias, CUENTAS_MVP);
   const mesFinal = (b: Bolsa) => nombreMes(Number(b.mesFinal.slice(5, 7)));
+
+  async function confirmar(mes: string, montoAhorro: number) {
+    setErrorAhorro(undefined);
+    try {
+      await confirmarAhorro(db(), userId!, mes, montoAhorro);
+      setConfirmados((prev) => [...prev.filter((c) => c.mes !== mes), { mes, monto: montoAhorro }]);
+    } catch {
+      setErrorAhorro('No pudimos guardar tu confirmación. Inténtalo de nuevo.');
+    }
+  }
+  async function quitarConfirmacion(mes: string) {
+    setErrorAhorro(undefined);
+    try {
+      await quitarAhorroConfirmado(db(), userId!, mes);
+      setConfirmados((prev) => prev.filter((c) => c.mes !== mes));
+    } catch {
+      setErrorAhorro('No pudimos quitar la confirmación. Inténtalo de nuevo.');
+    }
+  }
+  const guardado = resumenAhorro(resumen.ingresoBrutoMes, mesInicio, mesHoy, confirmados);
 
   function cobrarPrima() {
     actualizar((e) => ({ cobros: [...e.cobros, { mes: mesHoy, bolsillo: 'prima' }] }));
@@ -91,6 +127,8 @@ export default function Ahorro() {
             </>
           }
         />
+
+        <Guardado resumen={guardado} mesHoy={mesHoy} onConfirmar={confirmar} onQuitar={quitarConfirmacion} error={errorAhorro} />
 
         <section id="como-calculamos" className="tarjeta" style={{ scrollMarginTop: 16 }}>
           <h2 className="titulo-tarjeta">¿Cómo calculamos tu ahorro?</h2>

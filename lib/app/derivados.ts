@@ -200,3 +200,41 @@ export function contextoDolar(ing: IngresoInicial, trm: DatosTrm | null): Contex
     variacionMes: mes ? mes.variacionPct : null,
   };
 }
+
+// ── Lo que lleva guardado ─────────────────────────────────────────────────
+
+export interface MesAhorro {
+  mes: string;
+  sugerido: number; // lo que Frilo calcula que debía apartar ese mes (prima + cesantías)
+  confirmado: number | null; // lo que la persona confirmó que apartó; null si no lo ha confirmado
+}
+
+export interface ResumenAhorro {
+  meses: MesAhorro[];
+  totalCalculado: number;
+  totalConfirmado: number;
+  /** Calculado − confirmado: positivo = le falta confirmar o apartar; negativo = apartó más de lo calculado. */
+  diferencia: number;
+  mesesSinConfirmar: number;
+}
+
+/**
+ * Compara lo que Frilo calcula que debería llevar apartado (el mismo ingreso cada mes desde que empezó)
+ * con lo que la persona confirmó. Frilo no ve sus cuentas: lo confirmado es una declaración suya.
+ */
+export function resumenAhorro(ingresoBrutoMes: number, mesInicio: string, mesHoy: string, confirmados: { mes: string; monto: number }[]): ResumenAhorro {
+  const sugerido = ahorroMensual(ingresoBrutoMes).total;
+  const porMes = new Map(confirmados.map((c) => [c.mes, c.monto]));
+  const desde = mesInicio <= mesHoy ? mesInicio : mesHoy;
+  const meses = rango(desde, mesHoy).map((mes): MesAhorro => ({ mes, sugerido, confirmado: porMes.get(mes) ?? null }));
+  const totalCalculado = sugerido * meses.length;
+  // Cuenta todo lo confirmado, aunque sea de un mes anterior al inicio registrado.
+  const totalConfirmado = confirmados.reduce((suma, c) => suma + c.monto, 0);
+  return {
+    meses,
+    totalCalculado,
+    totalConfirmado,
+    diferencia: totalCalculado - totalConfirmado,
+    mesesSinConfirmar: meses.filter((m) => m.confirmado === null).length,
+  };
+}

@@ -116,6 +116,7 @@ describe('armarExportacion', () => {
     cobros: [{ id: 'c1', usuario_id: 'u1', mes: '2026-09', bolsillo: 'prima' }],
     alertas: [{ id: 'l1', usuario_id: 'u1', umbral: 3500 }],
     autorizaciones: [{ id: 1, usuario_id: 'u1', tipo: 'tratamiento_datos', otorgada: true, user_agent: 'Mozilla' }],
+    ahorros: [{ id: 'a1', usuario_id: 'u1', mes: '2026-09', monto: 1000000 }],
   });
   it('incluye todo lo que se guarda de la persona', () => {
     expect(e.generado_en).toBe('2026-10-01T12:00:00.000Z');
@@ -125,6 +126,7 @@ describe('armarExportacion', () => {
     expect(e.cobros[0]).toMatchObject({ bolsillo: 'prima' });
     expect(e.alertas[0]).toMatchObject({ umbral: 3500 });
     expect(e.autorizaciones[0]).toMatchObject({ tipo: 'tratamiento_datos', user_agent: 'Mozilla' });
+    expect(e.ahorros_confirmados[0]).toEqual({ mes: '2026-09', monto: 1000000 });
   });
   it('quita los ids internos de la base', () => {
     const txt = JSON.stringify({ ...e, cuenta: undefined });

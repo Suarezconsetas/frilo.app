@@ -126,13 +126,14 @@ export async function guardarMarketing(db: SupabaseClient, userId: string, otorg
 
 /** Todo lo que Frilo guarda de la persona, leído con su propia sesión (el RLS garantiza que solo es lo suyo). */
 export async function exportarMisDatos(db: SupabaseClient, userId: string, cuenta: { correo: string | null; creada_en: string | null }): Promise<ExportacionDatos> {
-  const [perfil, fuentes, pagos, cobros, alertas, autorizaciones] = await Promise.all([
+  const [perfil, fuentes, pagos, cobros, alertas, autorizaciones, ahorros] = await Promise.all([
     db.from('perfiles').select('correo, nombre, proveedor, creado_en, ciudad, forma_de_pago, rango_ingreso, clase_riesgo, arl_voluntaria').eq('id', userId).maybeSingle().then((r) => ok(r, 'leer perfil')),
     db.from('fuentes_ingreso').select('nombre, moneda, tipo_contrato, contratante, creado_en').eq('usuario_id', userId).order('creado_en').then((r) => ok(r, 'leer fuentes')),
     db.from('pagos').select('mes, monto, tasa_recibida, retencion_practicada, creado_en').eq('usuario_id', userId).order('mes').then((r) => ok(r, 'leer pagos')),
     db.from('cobros').select('mes, bolsillo, creado_en').eq('usuario_id', userId).order('creado_en').then((r) => ok(r, 'leer cobros')),
     db.from('alertas').select('umbral, direccion, estado, trm_referencia, creado_en').eq('usuario_id', userId).order('creado_en').then((r) => ok(r, 'leer alertas')),
     autorizacionesDe(db, userId),
+    db.from('ahorros_confirmados').select('mes, monto, creado_en, actualizado_en').eq('usuario_id', userId).order('mes').then((r) => ok(r, 'leer ahorros')),
   ]);
   return armarExportacion({
     ahora: new Date(),
@@ -143,5 +144,30 @@ export async function exportarMisDatos(db: SupabaseClient, userId: string, cuent
     cobros: (cobros ?? []) as Record<string, unknown>[],
     alertas: (alertas ?? []) as Record<string, unknown>[],
     autorizaciones: autorizaciones as unknown as Record<string, unknown>[],
+    ahorros: (ahorros ?? []) as Record<string, unknown>[],
   });
+}
+
+// ── Ahorro confirmado mes a mes ───────────────────────────────────────────
+
+export interface AhorroConfirmado {
+  mes: string;
+  monto: number;
+}
+
+export async function leerAhorrosConfirmados(db: SupabaseClient, userId: string): Promise<AhorroConfirmado[]> {
+  const filas = ok(await db.from('ahorros_confirmados').select('mes, monto').eq('usuario_id', userId).order('mes', { ascending: true }), 'leer ahorros');
+  return (filas ?? []).map((f) => ({ mes: String(f.mes), monto: Number(f.monto) }));
+}
+
+/** Confirmar (o corregir) lo que apartó un mes: una sola fila por mes. */
+export async function confirmarAhorro(db: SupabaseClient, userId: string, mes: string, monto: number) {
+  ok(
+    await db.from('ahorros_confirmados').upsert({ usuario_id: userId, mes, monto, actualizado_en: new Date().toISOString() }, { onConflict: 'usuario_id,mes' }),
+    'confirmar ahorro',
+  );
+}
+
+export async function quitarAhorroConfirmado(db: SupabaseClient, userId: string, mes: string) {
+  ok(await db.from('ahorros_confirmados').delete().eq('usuario_id', userId).eq('mes', mes), 'quitar ahorro');
 }
