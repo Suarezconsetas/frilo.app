@@ -1,4 +1,4 @@
-import { bolsas, calcularMes, contextoDolar, dolarVisible, escenarios, proyeccionAnual, reparto, resumenAhorro } from '@/lib/app/derivados';
+import { bolsas, calcularMes, contextoDolar, dolarVisible, escenarios, inicioDelPeriodo, proyeccionAnual, reparto, resumenAhorro } from '@/lib/app/derivados';
 import type { IngresoInicial } from '@/lib/app/tipos';
 
 const usd1750: IngresoInicial = { cliente: 'Acme Inc.', moneda: 'USD', monto: 1750, clase: 1, publico: false };
@@ -155,5 +155,55 @@ describe('resumenAhorro', () => {
     const r = resumenAhorro(ingreso, '2026-10', '2026-10', [{ mes: '2026-07', monto: 500_000 }]);
     expect(r.totalConfirmado).toBe(500_000);
     expect(r.meses).toHaveLength(1);
+  });
+});
+
+describe('resumenAhorro con cobros (descuento de retiros)', () => {
+  const ingreso = 9_938_520; // 1.656.420 al mes: 828.210 prima + 828.210 cesantías
+  const mensual = 1_656_420;
+  const conf = (meses: string[], monto = mensual) => meses.map((mes) => ({ mes, monto }));
+
+  it('el periodo de la prima es el semestre y el de las cesantías, el año', () => {
+    expect(inicioDelPeriodo('prima', '2026-09')).toBe('2026-07');
+    expect(inicioDelPeriodo('prima', '2026-03')).toBe('2026-01');
+    expect(inicioDelPeriodo('cesantias', '2026-09')).toBe('2026-01');
+  });
+  it('al cobrar la prima se descuenta su mitad de lo apartado en el semestre', () => {
+    const r = resumenAhorro(ingreso, '2026-07', '2026-09', conf(['2026-07', '2026-08', '2026-09']), [{ mes: '2026-09', bolsillo: 'prima' }]);
+    expect(r.retiros).toHaveLength(1);
+    expect(r.retiradoConfirmado).toBeCloseTo(mensual * 3 * 0.5, 0);
+    expect(r.retiradoCalculado).toBeCloseTo(mensual * 3 * 0.5, 0);
+    expect(r.totalConfirmado).toBeCloseTo(mensual * 3 * 0.5, 0);
+    expect(r.totalCalculado).toBeCloseTo(mensual * 3 * 0.5, 0);
+    expect(r.diferencia).toBeCloseTo(0, 0);
+  });
+  it('descuenta lo confirmado de verdad, no solo lo calculado', () => {
+    const r = resumenAhorro(ingreso, '2026-07', '2026-09', [{ mes: '2026-07', monto: 1_000_000 }], [{ mes: '2026-09', bolsillo: 'prima' }]);
+    expect(r.retiradoConfirmado).toBeCloseTo(500_000, 0); // la mitad de lo confirmado
+    expect(r.totalConfirmado).toBeCloseTo(500_000, 0);
+    expect(r.totalCalculado).toBeCloseTo(mensual * 3 * 0.5, 0);
+  });
+  it('un cobro de otro semestre no descuenta lo del semestre actual', () => {
+    const r = resumenAhorro(ingreso, '2026-01', '2026-09', conf(['2026-07', '2026-08', '2026-09']), [{ mes: '2026-06', bolsillo: 'prima' }]);
+    // enero a junio (6 meses calculados) se descuentan; de lo confirmado solo hay meses del segundo semestre
+    expect(r.retiradoCalculado).toBeCloseTo(mensual * 6 * 0.5, 0);
+    expect(r.retiradoConfirmado).toBe(0);
+    expect(r.totalConfirmado).toBeCloseTo(mensual * 3, 0);
+  });
+  it('un segundo cobro del mismo bolsillo solo descuenta lo apartado después del primero', () => {
+    const r = resumenAhorro(ingreso, '2026-07', '2026-09', conf(['2026-07', '2026-08', '2026-09']), [
+      { mes: '2026-08', bolsillo: 'prima' },
+      { mes: '2026-09', bolsillo: 'prima' },
+    ]);
+    expect(r.retiros[0]!.confirmado).toBeCloseTo(mensual * 2 * 0.5, 0); // julio y agosto
+    expect(r.retiros[1]!.confirmado).toBeCloseTo(mensual * 1 * 0.5, 0); // solo septiembre
+  });
+  it('los totales no quedan negativos y sin cobros todo sigue igual', () => {
+    const sin = resumenAhorro(ingreso, '2026-09', '2026-09', conf(['2026-09']));
+    expect(sin.retiros).toEqual([]);
+    expect(sin.totalConfirmado).toBeCloseTo(mensual, 0);
+    const r = resumenAhorro(ingreso, '2026-09', '2026-09', [], [{ mes: '2026-09', bolsillo: 'prima' }, { mes: '2026-09', bolsillo: 'cesantias' }]);
+    expect(r.totalConfirmado).toBeGreaterThanOrEqual(0);
+    expect(r.totalCalculado).toBeGreaterThanOrEqual(0);
   });
 });

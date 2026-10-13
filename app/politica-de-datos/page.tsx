@@ -73,7 +73,7 @@ export default function PoliticaDeDatos() {
           <li>Proteger el servicio, prevenir fraudes y atender solicitudes de autoridades competentes.</li>
           <li>Mejorar Frilo con estadísticas de uso agregadas (páginas visitadas, país, navegador y tipo de dispositivo), sin identificarte, mediante Vercel Web Analytics, y medir la velocidad de la aplicación (tiempos de carga) mediante Vercel Speed Insights.</li>
           <li>
-            <strong>Solo si tú lo autorizas</strong> (casilla opcional): enviarte novedades, ofertas y recomendaciones de Frilo por correo, entre ellas un resumen semanal del dólar con invitaciones a conocer cuentas de ahorro con rentabilidad. Cada correo trae un enlace para dejar de recibirlos. Puedes retirar esta
+            <strong>Solo si tú lo autorizas</strong> (casilla opcional): enviarte novedades, ofertas y recomendaciones de Frilo por correo, entre ellas un resumen semanal del dólar y un recordatorio a fin de mes, con invitaciones a conocer cuentas de ahorro con rentabilidad. Cada correo trae un enlace para dejar de recibirlos. Puedes retirar esta
             autorización cuando quieras.
           </li>
         </ul>

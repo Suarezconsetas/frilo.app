@@ -73,7 +73,7 @@ export default function Ahorro() {
       setErrorAhorro('No pudimos quitar la confirmación. Inténtalo de nuevo.');
     }
   }
-  const guardado = resumenAhorro(resumen.ingresoBrutoMes, mesInicio, mesHoy, confirmados);
+  const guardado = resumenAhorro(resumen.ingresoBrutoMes, mesInicio, mesHoy, confirmados, estado.cobros);
 
   function cobrarPrima() {
     actualizar((e) => ({ cobros: [...e.cobros, { mes: mesHoy, bolsillo: 'prima' }] }));

@@ -8,6 +8,7 @@ import { marketingOtorgado } from '@/lib/app/mapeo';
 import { normalizarRegistro, restarDias, trmVigente, type RegistroTrm } from '@/lib/calculos';
 import { construirCorreoAlerta, planificarAlertas, type AlertaFila } from './alertas';
 import { promocionDeEjemplo } from './mensajes';
+import { construirCorreoRecordatorio, montoSugerido } from './recordatorio';
 import { construirCorreoResumen, datosDeSemana } from './resumen';
 
 export interface CorreoSaliente {
@@ -62,7 +63,7 @@ async function sincronizarTrm({ db, traer, hoy }: Dependencias): Promise<{ guard
   }
 }
 
-async function trmDeHoy(db: SupabaseClient, hoy: string): Promise<number | null> {
+export async function trmDeHoy(db: SupabaseClient, hoy: string): Promise<number | null> {
   const { data } = await db.from('trm_diaria').select('valor, vigenciadesde, vigenciahasta').order('vigenciadesde', { ascending: false }).limit(30);
   if (!data?.length) return null;
   const serie: RegistroTrm[] = data.map((f) => ({ valor: Number(f.valor), vigenciadesde: String(f.vigenciadesde), vigenciahasta: String(f.vigenciahasta) }));
@@ -255,12 +256,91 @@ export async function ejecutarResumenSemanal(deps: DependenciasResumen): Promise
   return r;
 }
 
-/** Fila de `cron_ejecuciones` para el resumen semanal. */
-export function filaDeResumen(r: ResultadoResumen | null, duracionMs: number, hoy: string, error?: string): FilaEjecucion {
+export interface DependenciasRecordatorio {
+  db: SupabaseClient;
+  enviarCorreo: (c: CorreoSaliente) => Promise<void>;
+  hoy: string;
+  urlApp: string;
+  urlBaja: (usuarioId: string) => string;
+  /** TRM de hoy, para convertir los ingresos en dólares. */
+  trm: number | null;
+  /** Si viene, solo se envía un correo de muestra a esta dirección. */
+  prueba?: string;
+}
+
+/**
+ * Recordatorio de fin de mes. Va a quien autorizó novedades, tiene un ingreso registrado y todavía no
+ * confirmó lo que apartó este mes. Un único correo por persona y mes.
+ */
+export async function ejecutarRecordatorioMensual(deps: DependenciasRecordatorio): Promise<ResultadoResumen> {
+  const { db, hoy } = deps;
+  const mes = hoy.slice(0, 7);
+  const r: ResultadoResumen = { fecha: hoy, trmCierre: deps.trm, destinatarios: 0, enviados: 0, fallidos: 0 };
+  const promocion = promocionDeEjemplo();
+
+  const { data: perfiles } = deps.prueba
+    ? await db.from('perfiles').select('id, correo').eq('correo', deps.prueba)
+    : await db.from('perfiles').select('id, correo');
+  const ids = (perfiles ?? []).map((p) => String(p.id));
+  const autorizados = deps.prueba ? new Set(ids) : await usuariosConNovedades(db, ids);
+  const candidatos = (perfiles ?? []).filter((p) => autorizados.has(String(p.id)));
+  const idsCandidatos = candidatos.map((p) => String(p.id));
+
+  // Su último pago registrado (para calcular el monto) y lo que ya confirmó este mes.
+  const [{ data: fuentes }, { data: confirmados }] = await Promise.all([
+    idsCandidatos.length ? db.from('fuentes_ingreso').select('id, usuario_id, moneda').in('usuario_id', idsCandidatos) : Promise.resolve({ data: [] }),
+    idsCandidatos.length ? db.from('ahorros_confirmados').select('usuario_id').eq('mes', mes).in('usuario_id', idsCandidatos) : Promise.resolve({ data: [] }),
+  ]);
+  const yaConfirmaron = new Set((confirmados ?? []).map((c) => String(c.usuario_id)));
+  const fuenteIds = (fuentes ?? []).map((f) => String(f.id));
+  const { data: pagos } = fuenteIds.length
+    ? await db.from('pagos').select('fuente_id, mes, monto, tasa_recibida').in('fuente_id', fuenteIds).order('mes', { ascending: false })
+    : { data: [] };
+
+  for (const p of candidatos) {
+    const id = String(p.id);
+    if (yaConfirmaron.has(id)) continue;
+    const fuente = (fuentes ?? []).find((f) => String(f.usuario_id) === id);
+    const pago = fuente ? (pagos ?? []).find((x) => String(x.fuente_id) === String(fuente.id)) : undefined;
+    const monto = fuente && pago
+      ? montoSugerido({ moneda: String(fuente.moneda), monto: Number(pago.monto), tasaRecibida: pago.tasa_recibida === null ? null : Number(pago.tasa_recibida), trm: deps.trm })
+      : null;
+    if (monto === null && !deps.prueba) continue; // sin ingreso registrado no hay qué recordar
+    const aRecordar = monto ?? montoSugerido({ moneda: 'COP', monto: 5_000_000, tasaRecibida: null, trm: null })!;
+
+    r.destinatarios++;
+    const urlBaja = deps.urlBaja(id);
+    const c = construirCorreoRecordatorio({ mes, monto: aRecordar, urlApp: deps.urlApp, urlBaja, promocion });
+    try {
+      await deps.enviarCorreo({
+        para: String(p.correo),
+        asunto: deps.prueba ? `[Prueba] ${c.asunto}` : c.asunto,
+        html: c.html,
+        texto: c.texto,
+        idempotencia: `recordatorio-${id}-${mes}${deps.prueba ? '-prueba' : ''}`,
+        cabeceras: { 'List-Unsubscribe': `<${urlBaja}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' },
+      });
+      r.enviados++;
+    } catch (e) {
+      r.fallidos++;
+      console.error('Frilo: no se pudo enviar el recordatorio mensual:', e instanceof Error ? e.message : e);
+    }
+  }
+  return r;
+}
+
+/** Fila de `cron_ejecuciones` para el resumen semanal o el recordatorio mensual. */
+export function filaDeResumen(
+  r: ResultadoResumen | null,
+  duracionMs: number,
+  hoy: string,
+  error?: string,
+  tarea: 'resumen' | 'recordatorio' = 'resumen',
+): FilaEjecucion {
   const base = filaDeEjecucion(null, duracionMs, hoy, error);
   return {
     ...base,
-    tarea: 'resumen',
+    tarea,
     fecha: r?.fecha ?? hoy,
     ok: !error && !!r && !r.omitido && r.fallidos === 0,
     trm_hoy: r?.trmCierre ?? null,
@@ -290,7 +370,7 @@ export function enviarConResend(apiKey: string, from: string, traer: typeof fetc
 
 /** Fila de `cron_ejecuciones`: qué pasó en esta corrida. No lleva datos personales. */
 export interface FilaEjecucion {
-  tarea: 'trm' | 'resumen';
+  tarea: 'trm' | 'resumen' | 'recordatorio';
   fecha: string;
   ok: boolean;
   trm_hoy: number | null;

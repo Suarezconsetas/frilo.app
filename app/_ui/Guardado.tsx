@@ -76,7 +76,7 @@ export function Guardado({
         : 'Vas al día con tu cálculo. ¡Bien hecho!';
 
   return (
-    <section className="tarjeta" aria-labelledby="guardado-titulo">
+    <section id="guardado" className="tarjeta" aria-labelledby="guardado-titulo" style={{ scrollMarginTop: 16 }}>
       <h2 id="guardado-titulo" className="titulo-tarjeta">
         Lo que llevas guardado
       </h2>
@@ -98,6 +98,15 @@ export function Guardado({
         <div style={{ width: `${avance * 100}%` }} />
       </div>
       <p style={{ marginTop: 8, fontSize: 14, lineHeight: '21px' }}>{mensaje}</p>
+      {resumen.retiros.length > 0 && (
+        <p className="ayuda" style={{ marginTop: 6 }}>
+          Ya descontamos lo que cobraste:{' '}
+          {resumen.retiros
+            .map((r) => `${r.bolsillo === 'prima' ? 'la prima' : 'las cesantías'} de ${nombreMes(Number(r.mes.slice(5, 7)))} (${pesos(r.confirmado)} de lo que confirmaste)`)
+            .join(' y ')}
+          .
+        </p>
+      )}
 
       {mesActual && (
         <div style={{ marginTop: 14 }}>
@@ -173,8 +182,8 @@ export function Guardado({
       </details>
 
       <p className="legal" style={{ marginTop: 12 }}>
-        Frilo no ve tus cuentas ni mueve tu dinero: lo confirmado es lo que tú nos dices. El total no descuenta lo que hayas retirado, por ejemplo al cobrar tu
-        prima.
+        Frilo no ve tus cuentas ni mueve tu dinero: lo confirmado es lo que tú nos dices. Cuando marcas &ldquo;Ya cobré mi prima&rdquo; descontamos la mitad de
+        lo que apartaste en ese semestre (la otra mitad son tus cesantías).
       </p>
     </section>
   );

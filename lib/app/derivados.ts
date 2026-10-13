@@ -209,29 +209,83 @@ export interface MesAhorro {
   confirmado: number | null; // lo que la persona confirmó que apartó; null si no lo ha confirmado
 }
 
+export interface RetiroAhorro {
+  bolsillo: Bolsillo;
+  mes: string; // mes del cobro
+  calculado: number; // lo que Frilo calcula que había apartado en ese bolsillo y se retiró
+  confirmado: number; // la parte de lo confirmado por la persona que corresponde a ese bolsillo
+}
+
 export interface ResumenAhorro {
   meses: MesAhorro[];
+  retiros: RetiroAhorro[];
+  retiradoCalculado: number;
+  retiradoConfirmado: number;
+  /** Lo que Frilo calcula que debería llevar apartado, ya descontando lo que cobró. */
   totalCalculado: number;
+  /** Lo que la persona confirmó, ya descontando lo que cobró. */
   totalConfirmado: number;
   /** Calculado − confirmado: positivo = le falta confirmar o apartar; negativo = apartó más de lo calculado. */
   diferencia: number;
   mesesSinConfirmar: number;
 }
 
+/** Prima y cesantías se calculan con la misma fracción: cada bolsillo es la mitad de lo apartado. */
+const PARTE_DE_CADA_BOLSILLO = 0.5;
+
+/** Primer mes del periodo en que se acumula cada bolsillo: semestre para la prima, año para las cesantías. */
+export function inicioDelPeriodo(bolsillo: Bolsillo, mes: string): string {
+  const anio = mes.slice(0, 4);
+  const mm = Number(mes.slice(5, 7));
+  return bolsillo === 'prima' ? `${anio}-${mm <= 6 ? '01' : '07'}` : `${anio}-01`;
+}
+
 /**
  * Compara lo que Frilo calcula que debería llevar apartado (el mismo ingreso cada mes desde que empezó)
- * con lo que la persona confirmó. Frilo no ve sus cuentas: lo confirmado es una declaración suya.
+ * con lo que la persona confirmó, descontando lo que ya cobró (prima o cesantías). Frilo no ve sus
+ * cuentas: lo confirmado es una declaración suya.
+ *
+ * Al cobrar un bolsillo se descuenta su parte (la mitad) de lo apartado desde el cobro anterior del
+ * mismo bolsillo, o desde el inicio del periodo, hasta el mes del cobro.
  */
-export function resumenAhorro(ingresoBrutoMes: number, mesInicio: string, mesHoy: string, confirmados: { mes: string; monto: number }[]): ResumenAhorro {
+export function resumenAhorro(
+  ingresoBrutoMes: number,
+  mesInicio: string,
+  mesHoy: string,
+  confirmados: { mes: string; monto: number }[],
+  cobros: Cobro[] = [],
+): ResumenAhorro {
   const sugerido = ahorroMensual(ingresoBrutoMes).total;
   const porMes = new Map(confirmados.map((c) => [c.mes, c.monto]));
   const desde = mesInicio <= mesHoy ? mesInicio : mesHoy;
   const meses = rango(desde, mesHoy).map((mes): MesAhorro => ({ mes, sugerido, confirmado: porMes.get(mes) ?? null }));
-  const totalCalculado = sugerido * meses.length;
+
+  const retiros: RetiroAhorro[] = [];
+  const ordenados = [...cobros].filter((c) => c.mes <= mesHoy).sort((a, b) => a.mes.localeCompare(b.mes));
+  for (const cobro of ordenados) {
+    const periodo = inicioDelPeriodo(cobro.bolsillo, cobro.mes);
+    const anterior = retiros.filter((r) => r.bolsillo === cobro.bolsillo && r.mes < cobro.mes && r.mes >= periodo).at(-1);
+    const arranque = anterior ? mesSiguiente(anterior.mes) : periodo;
+    const mesesConfirmables = rango(arranque, cobro.mes);
+    const mesesCalculados = mesesConfirmables.filter((m) => m >= desde);
+    retiros.push({
+      bolsillo: cobro.bolsillo,
+      mes: cobro.mes,
+      calculado: sugerido * PARTE_DE_CADA_BOLSILLO * mesesCalculados.length,
+      confirmado: mesesConfirmables.reduce((suma, m) => suma + (porMes.get(m) ?? 0), 0) * PARTE_DE_CADA_BOLSILLO,
+    });
+  }
+
+  const retiradoCalculado = retiros.reduce((suma, r) => suma + r.calculado, 0);
+  const retiradoConfirmado = retiros.reduce((suma, r) => suma + r.confirmado, 0);
+  const totalCalculado = Math.max(0, sugerido * meses.length - retiradoCalculado);
   // Cuenta todo lo confirmado, aunque sea de un mes anterior al inicio registrado.
-  const totalConfirmado = confirmados.reduce((suma, c) => suma + c.monto, 0);
+  const totalConfirmado = Math.max(0, confirmados.reduce((suma, c) => suma + c.monto, 0) - retiradoConfirmado);
   return {
     meses,
+    retiros,
+    retiradoCalculado,
+    retiradoConfirmado,
     totalCalculado,
     totalConfirmado,
     diferencia: totalCalculado - totalConfirmado,
