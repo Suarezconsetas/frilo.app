@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 import { useApp } from '@/lib/app/estado';
 import type { FormaDePago } from '@/lib/app/tipos';
 import { Icono, type NombreIcono } from './_ui/Icono';
@@ -30,13 +31,19 @@ const QUE_PUEDES_SABER: { icono: NombreIcono; titulo: string; detalle: string }[
 ];
 
 export default function Bienvenida() {
-  const { actualizar } = useApp();
+  const router = useRouter();
+  const { actualizar, sesion, sesionLista } = useApp();
   const [elegida, setElegida] = useState<FormaDePago | null>(null);
   const [pidioElegir, setPidioElegir] = useState(false);
   const opciones = useRef<HTMLFieldSetElement>(null);
   // Sin opción por defecto y sin precarga: lo guardado de una visita anterior pudo venir del antiguo valor
   // por defecto (nunca de una elección explícita), así que aquí siempre hay que elegir.
   const forma: FormaDePago | null = elegida;
+
+  // Quien ya tiene sesión (la app guarda la sesión en el dispositivo) va directo a su inicio.
+  useEffect(() => {
+    if (sesionLista && sesion) router.replace('/inicio');
+  }, [sesionLista, sesion, router]);
 
   /** Primer toque sin elegir: baja hasta la pregunta y deja el foco en la primera opción. */
   function irAElegir() {
