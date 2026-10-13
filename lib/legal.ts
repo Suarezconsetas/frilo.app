@@ -10,7 +10,7 @@ export const LEGAL = {
   domicilio: 'Cra 6 # 48a - 47, Bogotá, Colombia',
   correoPrivacidad: 'privacidad@frilo.dev',
   telefono: '+57 304 533 7042',
-  fechaActualizacion: '7 de octubre de 2026',
+  fechaActualizacion: '13 de octubre de 2026',
   /** true muestra un aviso de borrador en las páginas legales. Revisados por un abogado: false. */
   esBorrador: false,
 } as const;

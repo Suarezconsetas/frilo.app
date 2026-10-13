@@ -138,7 +138,7 @@ export default function Cuenta() {
                 Novedades y ofertas de Frilo
               </p>
               <p className="texto-suave" style={{ marginTop: 6, fontSize: 14, lineHeight: '21px' }}>
-                Correos opcionales con novedades, ofertas y recomendaciones. Las alertas del dólar que creas no dependen de esto.
+                Correos opcionales con novedades, ofertas y recomendaciones, entre ellos un resumen del dólar cada viernes en la tarde. Las alertas del dólar que creas no dependen de esto.
               </p>
             </div>
             {novedades !== null && <Interruptor idEtiqueta="novedades-etiqueta" activo={novedades} onCambio={cambiarNovedades} />}

@@ -1,5 +1,6 @@
 import { evaluarAlerta } from '@/lib/calculos';
-import { construirCorreoAlerta, planificarAlertas, type AlertaFila } from '@/lib/cron/alertas';
+import { construirCorreoAlerta, debeRearmarse, MARGEN_REARME, planificarAlertas, type AlertaFila } from '@/lib/cron/alertas';
+import { promocionDeEjemplo } from '@/lib/cron/mensajes';
 import { filaDeEjecucion } from '@/lib/cron/tarea-diaria';
 
 const fila = (o: Partial<AlertaFila> = {}): AlertaFila => ({
@@ -85,7 +86,7 @@ describe('filaDeEjecucion', () => {
   };
   it('una corrida normal queda ok y con todos los conteos', () => {
     expect(filaDeEjecucion(resultado, 1234.6, '2026-10-07')).toEqual({
-      fecha: '2026-10-07', ok: true, trm_hoy: 3216.01, trm_sincronizada: true, trm_guardadas: 11, error_trm: null,
+      tarea: 'trm', fecha: '2026-10-07', ok: true, trm_hoy: 3216.01, trm_sincronizada: true, trm_guardadas: 11, error_trm: null,
       alertas_activas: 3, referencias_actualizadas: 2, disparadas: 1, correos_enviados: 1, correos_fallidos: 0,
       duracion_ms: 1235, error: null,
     });
@@ -103,5 +104,68 @@ describe('filaDeEjecucion', () => {
     const f = filaDeEjecucion(null, -5, '2026-10-07', 'x'.repeat(2000));
     expect(f.error).toHaveLength(500);
     expect(f.duracion_ms).toBe(0);
+  });
+});
+
+describe('alertas que se reactivan solas', () => {
+  const disparada = (o: Partial<AlertaFila> = {}) => fila({ estado: 'disparada', direccion: 'baja', umbral: 3200, trm_referencia: 3190, ...o });
+  it('el margen de reactivación es del 1%', () => {
+    expect(MARGEN_REARME).toBe(0.01);
+  });
+  it('una alerta de baja se reactiva cuando el dólar sube más del 1% sobre el umbral', () => {
+    expect(planificarAlertas([disparada()], 3232)).toEqual([{ tipo: 'rearmar', id: 'a1', trmNueva: 3232 }]);
+    expect(planificarAlertas([disparada()], 3300)).toEqual([{ tipo: 'rearmar', id: 'a1', trmNueva: 3300 }]);
+  });
+  it('no se reactiva si el dólar solo oscila cerca del umbral', () => {
+    expect(planificarAlertas([disparada()], 3190)).toEqual([]);
+    expect(planificarAlertas([disparada()], 3210)).toEqual([]);
+    expect(planificarAlertas([disparada()], 3231)).toEqual([]);
+  });
+  it('una alerta de subida se reactiva cuando el dólar baja más del 1% bajo el umbral', () => {
+    const f = disparada({ direccion: 'sube', umbral: 3500, trm_referencia: 3510 });
+    expect(planificarAlertas([f], 3465)).toEqual([{ tipo: 'rearmar', id: 'a1', trmNueva: 3465 }]);
+    expect(planificarAlertas([f], 3480)).toEqual([]);
+  });
+  it('después de reactivarse avisa de nuevo al volver a cruzar (ciclo completo)', () => {
+    // 1) cruza hacia abajo y avisa; 2) sube y se reactiva; 3) vuelve a bajar y avisa otra vez
+    const paso1 = planificarAlertas([fila({ direccion: 'baja', umbral: 3200, trm_referencia: 3250 })], 3194);
+    expect(paso1[0]).toMatchObject({ tipo: 'notificar', trmNueva: 3194 });
+    const paso2 = planificarAlertas([disparada({ trm_referencia: 3194 })], 3240);
+    expect(paso2).toEqual([{ tipo: 'rearmar', id: 'a1', trmNueva: 3240 }]);
+    const paso3 = planificarAlertas([fila({ direccion: 'baja', umbral: 3200, trm_referencia: 3240 })], 3190);
+    expect(paso3[0]).toMatchObject({ tipo: 'notificar', trmNueva: 3190 });
+  });
+  it('debeRearmarse es consistente con el margen', () => {
+    expect(debeRearmarse('baja', 3200, 3232)).toBe(true);
+    expect(debeRearmarse('baja', 3200, 3231.99)).toBe(false);
+    expect(debeRearmarse('sube', 3500, 3465)).toBe(true);
+    expect(debeRearmarse('sube', 3500, 3465.01)).toBe(false);
+  });
+});
+
+describe('mensajes motivadores y promoción en la alerta', () => {
+  const promo = promocionDeEjemplo();
+  it('la alerta de subida habla del esfuerzo que rinde más a fin de mes', () => {
+    const c = construirCorreoAlerta({ direccion: 'sube', umbral: 3500, trm: 3512.4, urlApp: 'https://frilo.dev' });
+    expect(c.texto).toContain('El esfuerzo que haces día a día puede verse mejor recompensado a fin de mes');
+    expect(c.html).toContain('Tu esfuerzo de cada día puede rendir más');
+  });
+  it('la alerta de bajada anima a planear y apartar sin prometer nada', () => {
+    const c = construirCorreoAlerta({ direccion: 'baja', umbral: 3200, trm: 3194.44, urlApp: 'https://frilo.dev' });
+    expect(c.texto).toContain('Cuando el dólar baja, tu trabajo vale lo mismo');
+    expect(c.texto).not.toMatch(/garantiz|asegur/i);
+  });
+  it('sin autorización de novedades NO lleva la invitación a ahorrar', () => {
+    const c = construirCorreoAlerta({ direccion: 'baja', umbral: 3200, trm: 3194.44, urlApp: 'https://frilo.dev', promocion: null });
+    expect(c.html).not.toContain('Pon a trabajar');
+    expect(c.texto).not.toContain('Pon a trabajar');
+  });
+  it('con autorización lleva la invitación con la cuenta de mayor tasa y el aviso de referencia', () => {
+    const c = construirCorreoAlerta({ direccion: 'baja', umbral: 3200, trm: 3194.44, urlApp: 'https://frilo.dev', promocion: promo });
+    expect(promo).not.toBeNull();
+    expect(c.texto).toContain('Pon a trabajar una parte de lo que ganas');
+    expect(c.texto).toContain(promo!.entidad);
+    expect(c.texto).toContain('no asesoría financiera');
+    expect(c.html).toContain('https://frilo.dev/ahorro');
   });
 });

@@ -22,7 +22,7 @@ const hora = (iso) => new Date(iso).toLocaleString('es-CO', { timeZone: 'America
 for (const r of data) {
   const trm = r.trm_hoy === null ? 'sin TRM' : `TRM $${Number(r.trm_hoy).toLocaleString('es-CO', { minimumFractionDigits: 2 })}`;
   console.log(
-    `${r.ok ? '✅' : '❌'} ${hora(r.ejecutada_en)} (hora de Colombia) · ${trm} · ${r.alertas_activas} alertas activas · ${r.disparadas} disparadas · ` +
+    `${r.ok ? '✅' : '❌'} ${r.tarea === 'resumen' ? 'RESUMEN' : 'DIARIA '} ${hora(r.ejecutada_en)} (hora de Colombia) · ${trm} · ${r.alertas_activas} alertas activas · ${r.disparadas} disparadas · ` +
       `${r.correos_enviados} correos enviados, ${r.correos_fallidos} fallidos · ${r.duracion_ms} ms` +
       (r.error_trm ? ` · TRM: ${r.error_trm}` : '') + (r.error ? ` · error: ${r.error}` : ''),
   );

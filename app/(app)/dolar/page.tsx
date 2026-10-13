@@ -125,7 +125,7 @@ export default function Dolar() {
                   Si {a.direccion === 'sube' ? 'sube de' : 'baja de'} {pesos(a.umbral)}
                 </p>
                 <p className="ayuda" style={{ marginTop: 2 }}>
-                  {a.estado === 'activa' ? 'Te avisamos por correo, una vez' : 'Ya se cumplió y te avisamos'}
+                  {a.estado === 'activa' ? 'Te avisamos por correo cada vez que cruce' : 'Se cumplió y te avisamos. Se reactiva sola si el dólar se aleja más del 1%'}
                 </p>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -191,7 +191,7 @@ export default function Dolar() {
             </button>
           )}
           <p className="ayuda" style={{ marginTop: 12 }}>
-            Revisamos el dólar cada mañana y, si cruza el valor que elegiste, te escribimos a {sesion?.user.email ?? 'tu correo'}.
+            Revisamos el dólar cada mañana y, cada vez que cruza el valor que elegiste, te escribimos a {sesion?.user.email ?? 'tu correo'}. Después de avisarte, la alerta se reactiva sola cuando el dólar se aleja más del 1% de ese valor; también puedes reactivarla con el botón.
           </p>
         </section>
 
