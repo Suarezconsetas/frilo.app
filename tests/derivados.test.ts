@@ -207,3 +207,24 @@ describe('resumenAhorro con cobros (descuento de retiros)', () => {
     expect(r.totalCalculado).toBeGreaterThanOrEqual(0);
   });
 });
+
+describe('resumenAhorro con el ingreso de cada mes', () => {
+  it('cada mes guardado usa su propio ingreso y un mes sin guardar toma el último guardado', () => {
+    const r = resumenAhorro(5_000_000, '2026-08', '2026-10', [], [], { '2026-08': 4_000_000, '2026-10': 6_000_000 });
+    const por = Object.fromEntries(r.meses.map((m) => [m.mes, m.sugerido]));
+    expect(por['2026-08']).toBeCloseTo(4_000_000 / 6, 0); // 16,67 %
+    expect(por['2026-09']).toBe(por['2026-08']);
+    expect(por['2026-10']).toBeCloseTo(1_000_000, 0);
+    expect(r.totalCalculado).toBeCloseTo((por['2026-08'] ?? 0) + (por['2026-09'] ?? 0) + (por['2026-10'] ?? 0), 0);
+  });
+  it('un cobro descuenta lo calculado de cada mes, no el ingreso actual por cada mes', () => {
+    const r = resumenAhorro(6_000_000, '2026-07', '2026-09', [], [{ mes: '2026-09', bolsillo: 'prima' }], { '2026-07': 3_000_000, '2026-08': 6_000_000 });
+    const sug = (b: number) => b / 6;
+    expect(r.retiradoCalculado).toBeCloseTo(0.5 * (sug(3_000_000) + sug(6_000_000) + sug(6_000_000)), 0);
+  });
+  it('sin ingresos guardados se comporta como antes', () => {
+    const a = resumenAhorro(5_000_000, '2026-08', '2026-10', []);
+    const b = resumenAhorro(5_000_000, '2026-08', '2026-10', [], [], {});
+    expect(b).toEqual(a);
+  });
+});

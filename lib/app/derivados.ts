@@ -241,7 +241,7 @@ export function inicioDelPeriodo(bolsillo: Bolsillo, mes: string): string {
 }
 
 /**
- * Compara lo que Frilo calcula que debería llevar apartado (el mismo ingreso cada mes desde que empezó)
+ * Compara lo que Frilo calcula que debería llevar apartado (con el ingreso guardado de cada mes)
  * con lo que la persona confirmó, descontando lo que ya cobró (prima o cesantías). Frilo no ve sus
  * cuentas: lo confirmado es una declaración suya.
  *
@@ -254,11 +254,19 @@ export function resumenAhorro(
   mesHoy: string,
   confirmados: { mes: string; monto: number }[],
   cobros: Cobro[] = [],
+  /** Ingreso bruto (en pesos) de cada mes guardado. Un mes sin guardar toma el del último mes guardado anterior. */
+  ingresosPorMes: Record<string, number> = {},
 ): ResumenAhorro {
-  const sugerido = ahorroMensual(ingresoBrutoMes).total;
+  const guardados = Object.keys(ingresosPorMes).sort();
+  const sugeridoDe = (mes: string): number => {
+    const previo = guardados.filter((g) => g <= mes).at(-1) ?? guardados[0];
+    const bruto = previo !== undefined ? ingresosPorMes[previo]! : ingresoBrutoMes;
+    return ahorroMensual(bruto).total;
+  };
+  const sugerido = sugeridoDe(mesHoy);
   const porMes = new Map(confirmados.map((c) => [c.mes, c.monto]));
   const desde = mesInicio <= mesHoy ? mesInicio : mesHoy;
-  const meses = rango(desde, mesHoy).map((mes): MesAhorro => ({ mes, sugerido, confirmado: porMes.get(mes) ?? null }));
+  const meses = rango(desde, mesHoy).map((mes): MesAhorro => ({ mes, sugerido: sugeridoDe(mes), confirmado: porMes.get(mes) ?? null }));
 
   const retiros: RetiroAhorro[] = [];
   const ordenados = [...cobros].filter((c) => c.mes <= mesHoy).sort((a, b) => a.mes.localeCompare(b.mes));
@@ -271,14 +279,14 @@ export function resumenAhorro(
     retiros.push({
       bolsillo: cobro.bolsillo,
       mes: cobro.mes,
-      calculado: sugerido * PARTE_DE_CADA_BOLSILLO * mesesCalculados.length,
+      calculado: mesesCalculados.reduce((suma, m) => suma + sugeridoDe(m), 0) * PARTE_DE_CADA_BOLSILLO,
       confirmado: mesesConfirmables.reduce((suma, m) => suma + (porMes.get(m) ?? 0), 0) * PARTE_DE_CADA_BOLSILLO,
     });
   }
 
   const retiradoCalculado = retiros.reduce((suma, r) => suma + r.calculado, 0);
   const retiradoConfirmado = retiros.reduce((suma, r) => suma + r.confirmado, 0);
-  const totalCalculado = Math.max(0, sugerido * meses.length - retiradoCalculado);
+  const totalCalculado = Math.max(0, meses.reduce((suma, m) => suma + m.sugerido, 0) - retiradoCalculado);
   // Cuenta todo lo confirmado, aunque sea de un mes anterior al inicio registrado.
   const totalConfirmado = Math.max(0, confirmados.reduce((suma, c) => suma + c.monto, 0) - retiradoConfirmado);
   return {

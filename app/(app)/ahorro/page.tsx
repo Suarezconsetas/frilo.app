@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { AVISOS, CUENTAS_MVP, compararCuentas } from '@/lib/calculos';
-import { bolsas, montoComparador, resumenAhorro, tasaProyeccion, type Bolsa } from '@/lib/app/derivados';
+import { bolsas, calcularMes, montoComparador, resumenAhorro, tasaProyeccion, type Bolsa } from '@/lib/app/derivados';
 import { useApp } from '@/lib/app/estado';
-import { confirmarAhorro, leerAhorrosConfirmados, quitarAhorroConfirmado, type AhorroConfirmado } from '@/lib/app/nube';
+import { confirmarAhorro, leerAhorrosConfirmados, leerPagosGuardados, quitarAhorroConfirmado, type AhorroConfirmado } from '@/lib/app/nube';
 import { AHORRO_EXPLICACION_LARGA } from '@/lib/app/textos';
 import { useMes } from '@/lib/app/usarMes';
 import { capitalizar, fechaCorta, nombreMes, pct, pesos } from '@/lib/formato';
@@ -33,11 +33,12 @@ function TarjetaBolsillo({ titulo, b, pie, accion }: { titulo: string; b: Bolsa;
 }
 
 export default function Ahorro() {
-  const { listo, ingreso, resumen, estado, mesHoy, actualizar } = useMes();
+  const { listo, ingreso, resumen, estado, mesHoy, actualizar, trm } = useMes();
   const { sesion, db } = useApp();
   const userId = sesion?.user.id ?? null;
   const [confirmados, setConfirmados] = useState<AhorroConfirmado[]>([]);
   const [errorAhorro, setErrorAhorro] = useState<string>();
+  const [pagos, setPagos] = useState<Awaited<ReturnType<typeof leerPagosGuardados>>>([]);
 
   useEffect(() => {
     if (!userId) return;
@@ -45,6 +46,18 @@ export default function Ahorro() {
       .then(setConfirmados)
       .catch(() => setErrorAhorro('No pudimos traer lo que habías confirmado. Recarga la pantalla para intentarlo de nuevo.'));
   }, [userId, db]);
+
+  // Los pagos de cada mes guardado; se vuelven a leer cuando la persona guarda otro mes o cambia su ingreso
+  // (el guardado en la nube espera unos instantes).
+  useEffect(() => {
+    if (!userId) return;
+    const t = setTimeout(() => {
+      leerPagosGuardados(db(), userId)
+        .then(setPagos)
+        .catch(() => setPagos([]));
+    }, 1500);
+    return () => clearTimeout(t);
+  }, [userId, db, estado.mesIngreso, estado.ingreso]);
 
   if (!listo || !ingreso || !resumen) return null;
 
@@ -73,7 +86,13 @@ export default function Ahorro() {
       setErrorAhorro('No pudimos quitar la confirmación. Inténtalo de nuevo.');
     }
   }
-  const guardado = resumenAhorro(resumen.ingresoBrutoMes, mesInicio, mesHoy, confirmados, estado.cobros);
+  // Ingreso bruto en pesos de cada mes guardado (los dólares se convierten con la tasa recibida de ese mes o la TRM de hoy).
+  const ingresosPorMes: Record<string, number> = {};
+  for (const p of pagos) {
+    const bruto = calcularMes({ ...ingreso, monto: p.monto, tasaRecibida: p.tasaRecibida, retencion: p.retencion }, estado.arlVoluntaria, trm?.hoy ?? null)?.ingresoBrutoMes;
+    if (bruto !== undefined) ingresosPorMes[p.mes] = bruto;
+  }
+  const guardado = resumenAhorro(resumen.ingresoBrutoMes, mesInicio, mesHoy, confirmados, estado.cobros, ingresosPorMes);
 
   function cobrarPrima() {
     actualizar((e) => ({ cobros: [...e.cobros, { mes: mesHoy, bolsillo: 'prima' }] }));

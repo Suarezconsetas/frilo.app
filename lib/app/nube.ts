@@ -170,3 +170,17 @@ export async function confirmarAhorro(db: SupabaseClient, userId: string, mes: s
 export async function quitarAhorroConfirmado(db: SupabaseClient, userId: string, mes: string) {
   ok(await db.from('ahorros_confirmados').delete().eq('usuario_id', userId).eq('mes', mes), 'quitar ahorro');
 }
+
+/** Pagos guardados mes a mes (uno por mes): con ellos se calcula lo guardado con el ingreso real de cada mes. */
+export async function leerPagosGuardados(db: SupabaseClient, userId: string): Promise<{ mes: string; monto: number; tasaRecibida?: number; retencion?: number }[]> {
+  const filas = ok(
+    await db.from('pagos').select('mes, monto, tasa_recibida, retencion_practicada').eq('usuario_id', userId).order('mes', { ascending: true }),
+    'leer pagos',
+  );
+  return (filas ?? []).map((f) => ({
+    mes: String(f.mes),
+    monto: Number(f.monto),
+    tasaRecibida: f.tasa_recibida === null ? undefined : Number(f.tasa_recibida),
+    retencion: f.retencion_practicada === null ? undefined : Number(f.retencion_practicada),
+  }));
+}
