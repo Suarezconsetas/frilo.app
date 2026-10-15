@@ -19,7 +19,7 @@ const CLASES: { valor: ClaseRiesgo; etiqueta: string }[] = [
   { valor: 5, etiqueta: 'V — Riesgo máximo' },
 ];
 
-type Errores = Partial<Record<'forma' | 'cliente' | 'monto' | 'tasa' | 'retencion', string>>;
+type Errores = Partial<Record<'forma' | 'cliente' | 'monto' | 'tasa' | 'retencion' | 'dia', string>>;
 
 export default function PrimerIngreso() {
   const router = useRouter();
@@ -33,6 +33,7 @@ export default function PrimerIngreso() {
   const [extra, setExtra] = useState(''); // tasa recibida (USD) o retención (COP)
   const [clase, setClase] = useState<ClaseRiesgo>(1);
   const [publico, setPublico] = useState(false);
+  const [dia, setDia] = useState('');
   const [errores, setErrores] = useState<Errores>({});
   const [mostrarPregunta, setMostrarPregunta] = useState(false);
 
@@ -47,6 +48,7 @@ export default function PrimerIngreso() {
       setExtra(String((previo.moneda === 'USD' ? previo.tasaRecibida : previo.retencion) ?? ''));
       setClase(previo.clase);
       setPublico(previo.publico);
+      setDia(estado.diaDePago ? String(estado.diaDePago) : '');
     } else if (estado.formaDePago === 'cop') {
       setMoneda('COP');
     }
@@ -76,6 +78,8 @@ export default function PrimerIngreso() {
     if (m === null || m <= 0) nuevos.monto = 'Escribe un monto mayor a cero, por ejemplo 1.750.';
     if (x === null) nuevos[moneda === 'USD' ? 'tasa' : 'retencion'] = 'Escribe solo números, por ejemplo 3.950.';
     if (moneda === 'USD' && x !== undefined && x !== null && x <= 0) nuevos.tasa = 'La tasa debe ser mayor a cero.';
+    const d = dia.trim() === '' ? undefined : Number(dia.trim());
+    if (d !== undefined && (!Number.isInteger(d) || d < 1 || d > 31)) nuevos.dia = 'Escribe un día del mes entre 1 y 31.';
     setErrores(nuevos);
     if (Object.keys(nuevos).length || sinTrm || m === null || x === null) return;
 
@@ -91,6 +95,9 @@ export default function PrimerIngreso() {
     actualizar((e0) => ({
       ingreso,
       mesInicio: e0.mesInicio ?? mesDe(hoyColombia()),
+      // Al editar el ingreso se guarda este mes (los meses anteriores quedan como estaban).
+      mesIngreso: mesDe(hoyColombia()),
+      diaDePago: d,
       // Quien llegó sin pasar por la pregunta (por ejemplo, entrando con Google) queda según la moneda que escribió.
       formaDePago: e0.formaDePago ?? (moneda === 'USD' ? 'usd' : 'cop'),
     }));
@@ -199,6 +206,15 @@ export default function PrimerIngreso() {
             {(p) => <input {...p} value={extra} onChange={(e) => setExtra(e.target.value)} inputMode="decimal" placeholder="$200.000" />}
           </Campo>
         )}
+
+        <Campo
+          id="dia-pago"
+          etiqueta="¿Qué día del mes te pagan? (opcional)"
+          ayuda="Ese día te avisamos en la app, y por correo si aceptaste novedades, para que guardes tu mes."
+          error={errores.dia}
+        >
+          {(p) => <input {...p} value={dia} onChange={(e) => setDia(e.target.value)} inputMode="numeric" placeholder="Por ejemplo 15" />}
+        </Campo>
 
         <Campo id="riesgo" etiqueta="Clase de riesgo de tu trabajo">
           {(p) => (

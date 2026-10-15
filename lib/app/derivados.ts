@@ -292,3 +292,17 @@ export function resumenAhorro(
     mesesSinConfirmar: meses.filter((m) => m.confirmado === null).length,
   };
 }
+
+// ── Guardar el mes ───────────────────────────────────────────────────────
+
+/**
+ * ¿Ya está guardado el mes de hoy? Cada mes guardado es un pago propio; los valores del ingreso
+ * siempre son los del último mes guardado (`mesIngreso`, o el de registro si aún no hay otro).
+ */
+export function mesEstaGuardado(mesIngreso: string | undefined, mesInicio: string | undefined, mesHoy: string): boolean {
+  const ultimo = mesIngreso ?? mesInicio;
+  return !!ultimo && ultimo >= mesHoy;
+}
+
+/** Último mes con ingreso guardado (el que se copia si la persona guarda el mes tal cual). */
+export const ultimoMesGuardado = (mesIngreso: string | undefined, mesInicio: string | undefined): string | undefined => mesIngreso ?? mesInicio;

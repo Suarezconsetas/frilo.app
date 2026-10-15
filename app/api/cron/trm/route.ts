@@ -5,6 +5,7 @@ import { esUltimoDiaDelMes, hoyColombia } from '@/lib/app/fechas';
 import { URL_SITIO } from '@/lib/sitio';
 import { urlDeBaja } from '@/lib/cron/baja';
 import {
+  ejecutarGuardarMes,
   ejecutarRecordatorioMensual,
   ejecutarTareaDiaria,
   enviarConResend,
@@ -75,6 +76,27 @@ export async function GET(req: NextRequest) {
         console.error('Frilo recordatorio: error', mensaje);
         await registrarEjecucion(db, filaDeResumen(null, Date.now() - inicioRecordatorio, hoy, mensaje, 'recordatorio'));
       }
+    }
+    // Cada día: aviso de "guarda tu mes" a quien hoy cumple su día de pago (el 1 si no lo indicó).
+    // `?guardarmes_prueba=correo` envía solo un correo de muestra a esa dirección.
+    const inicioGuardar = Date.now();
+    try {
+      const r = await ejecutarGuardarMes({
+        db,
+        enviarCorreo: enviarConResend(resend, remitente),
+        hoy,
+        urlApp: URL_SITIO,
+        urlBaja: (id) => urlDeBaja(URL_SITIO, id, clave),
+        prueba: new URL(req.url).searchParams.get('guardarmes_prueba') ?? undefined,
+      });
+      if (r.destinatarios > 0) {
+        console.log('Frilo guardar-mes:', JSON.stringify(r));
+        await registrarEjecucion(db, filaDeResumen(r, Date.now() - inicioGuardar, hoy, undefined, 'guardarmes'));
+      }
+    } catch (e) {
+      const mensaje = e instanceof Error ? e.message : 'error desconocido';
+      console.error('Frilo guardar-mes: error', mensaje);
+      await registrarEjecucion(db, filaDeResumen(null, Date.now() - inicioGuardar, hoy, mensaje, 'guardarmes'));
     }
     // Si la fuente de la TRM falló, el cron se marca como fallido para que se note en Vercel.
     return Response.json({ ok: resultado.trmSincronizada, ...resultado }, { status: resultado.trmSincronizada ? 200 : 502 });

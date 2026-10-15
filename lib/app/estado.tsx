@@ -46,7 +46,7 @@ function leer(): EstadoApp {
 
 /** Lo que va a la nube: sin ids ni campos que solo sirven al navegador. */
 const instantanea = (e: EstadoApp) => ({
-  base: JSON.stringify({ f: e.formaDePago, i: e.ingreso, m: e.mesInicio, a: e.arlVoluntaria }),
+  base: JSON.stringify({ f: e.formaDePago, i: e.ingreso, m: e.mesInicio, g: e.mesIngreso, d: e.diaDePago, a: e.arlVoluntaria }),
   cobros: JSON.stringify(e.cobros),
   alertas: JSON.stringify(e.alertas),
 });

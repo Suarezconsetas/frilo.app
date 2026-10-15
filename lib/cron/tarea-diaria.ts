@@ -8,6 +8,7 @@ import { marketingOtorgado } from '@/lib/app/mapeo';
 import { normalizarRegistro, restarDias, trmVigente, type RegistroTrm } from '@/lib/calculos';
 import { construirCorreoAlerta, planificarAlertas, type AlertaFila } from './alertas';
 import { promocionDeEjemplo } from './mensajes';
+import { construirCorreoGuardarMes, tocaAvisarHoy } from './guardarmes';
 import { construirCorreoRecordatorio, montoSugerido } from './recordatorio';
 import { construirCorreoResumen, datosDeSemana } from './resumen';
 
@@ -329,13 +330,74 @@ export async function ejecutarRecordatorioMensual(deps: DependenciasRecordatorio
   return r;
 }
 
+export interface DependenciasGuardarMes {
+  db: SupabaseClient;
+  enviarCorreo: (c: CorreoSaliente) => Promise<void>;
+  hoy: string;
+  urlApp: string;
+  urlBaja: (usuarioId: string) => string;
+  /** Si viene, solo se envía un correo de muestra a esta dirección (sin importar el día ni si ya guardó). */
+  prueba?: string;
+}
+
+/**
+ * Aviso del día de pago. Va a quien autorizó novedades, tiene un ingreso registrado, hoy es su día de pago
+ * (el 1 si no lo indicó) y todavía no guardó el mes. Un único correo por persona y mes.
+ */
+export async function ejecutarGuardarMes(deps: DependenciasGuardarMes): Promise<ResultadoResumen> {
+  const { db, hoy } = deps;
+  const mes = hoy.slice(0, 7);
+  const r: ResultadoResumen = { fecha: hoy, trmCierre: null, destinatarios: 0, enviados: 0, fallidos: 0 };
+
+  const { data: perfiles } = deps.prueba
+    ? await db.from('perfiles').select('id, correo, dia_de_pago').eq('correo', deps.prueba)
+    : await db.from('perfiles').select('id, correo, dia_de_pago');
+  const delDia = (perfiles ?? []).filter((p) => deps.prueba || tocaAvisarHoy(p.dia_de_pago as number | null, hoy));
+  const ids = delDia.map((p) => String(p.id));
+  if (!ids.length) return r;
+  const autorizados = deps.prueba ? new Set(ids) : await usuariosConNovedades(db, ids);
+  const candidatos = delDia.filter((p) => autorizados.has(String(p.id)));
+  const idsCandidatos = candidatos.map((p) => String(p.id));
+  if (!idsCandidatos.length) return r;
+
+  const { data: fuentes } = await db.from('fuentes_ingreso').select('id, usuario_id').in('usuario_id', idsCandidatos);
+  const fuenteIds = (fuentes ?? []).map((f) => String(f.id));
+  const { data: pagosMes } = fuenteIds.length ? await db.from('pagos').select('fuente_id').eq('mes', mes).in('fuente_id', fuenteIds) : { data: [] };
+  const fuenteDe = new Map((fuentes ?? []).map((f) => [String(f.usuario_id), String(f.id)]));
+  const yaGuardaron = new Set((pagosMes ?? []).map((x) => String(x.fuente_id)));
+
+  for (const p of candidatos) {
+    const id = String(p.id);
+    const fuente = fuenteDe.get(id);
+    if (!deps.prueba && (!fuente || yaGuardaron.has(fuente))) continue; // sin ingreso no hay qué guardar; ya lo guardó
+    r.destinatarios++;
+    const urlBaja = deps.urlBaja(id);
+    const c = construirCorreoGuardarMes({ mes, urlApp: deps.urlApp, urlBaja, diaDePago: p.dia_de_pago as number | null });
+    try {
+      await deps.enviarCorreo({
+        para: String(p.correo),
+        asunto: deps.prueba ? `[Prueba] ${c.asunto}` : c.asunto,
+        html: c.html,
+        texto: c.texto,
+        idempotencia: `guardarmes-${id}-${mes}${deps.prueba ? '-prueba' : ''}`,
+        cabeceras: { 'List-Unsubscribe': `<${urlBaja}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' },
+      });
+      r.enviados++;
+    } catch (e) {
+      r.fallidos++;
+      console.error('Frilo: no se pudo enviar el aviso de guardar el mes:', e instanceof Error ? e.message : e);
+    }
+  }
+  return r;
+}
+
 /** Fila de `cron_ejecuciones` para el resumen semanal o el recordatorio mensual. */
 export function filaDeResumen(
   r: ResultadoResumen | null,
   duracionMs: number,
   hoy: string,
   error?: string,
-  tarea: 'resumen' | 'recordatorio' = 'resumen',
+  tarea: 'resumen' | 'recordatorio' | 'guardarmes' = 'resumen',
 ): FilaEjecucion {
   const base = filaDeEjecucion(null, duracionMs, hoy, error);
   return {
@@ -370,7 +432,7 @@ export function enviarConResend(apiKey: string, from: string, traer: typeof fetc
 
 /** Fila de `cron_ejecuciones`: qué pasó en esta corrida. No lleva datos personales. */
 export interface FilaEjecucion {
-  tarea: 'trm' | 'resumen' | 'recordatorio';
+  tarea: 'trm' | 'resumen' | 'recordatorio' | 'guardarmes';
   fecha: string;
   ok: boolean;
   trm_hoy: number | null;

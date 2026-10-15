@@ -18,6 +18,10 @@ export interface EstadoApp {
   ingreso?: IngresoInicial;
   /** Mes (`YYYY-MM`) en que registró su primer ingreso: desde ahí se proyectan prima y cesantías. */
   mesInicio?: string;
+  /** Mes (`YYYY-MM`) al que corresponden los valores de `ingreso` guardados; si es anterior al mes de hoy, falta guardar este mes. */
+  mesIngreso?: string;
+  /** Día del mes (1-31) en que le pagan: ese día le avisamos que guarde su mes. */
+  diaDePago?: number;
   arlVoluntaria: boolean;
   cobros: Cobro[];
   alertas: Alerta[];

@@ -9,6 +9,7 @@ import { useApp } from '@/lib/app/estado';
 import { useMes } from '@/lib/app/usarMes';
 import { capitalizar, nombreMes, pct, pesos, pesosConDecimales, usd } from '@/lib/formato';
 import { Comparacion } from '../../_ui/Comparacion';
+import { GuardarMes } from '../../_ui/GuardarMes';
 import { Icono } from '../../_ui/Icono';
 import { Logo } from '../../_ui/Logo';
 import { Reparto } from '../../_ui/Reparto';
@@ -89,6 +90,8 @@ export default function Inicio() {
       </header>
 
       <div className="contenido" style={{ paddingTop: 16 }}>
+        <GuardarMes ingreso={ingreso} mesHoy={mesHoy} montoPesos={resumen.recibidoMes} />
+
         <section className="tarjeta">
           <h2 className="titulo-tarjeta" style={{ marginBottom: 14 }}>
             {conAhorro ? 'Así se reparte tu ingreso' : 'Así se reparte tu ingreso sin ahorro'}

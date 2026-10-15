@@ -23,7 +23,7 @@ export async function registrarAutorizaciones(db: SupabaseClient, userId: string
 
 export async function cargarDeNube(db: SupabaseClient, userId: string): Promise<Partial<EstadoApp>> {
   const [perfil, fuente, cobros, alertas] = await Promise.all([
-    db.from('perfiles').select('forma_de_pago, clase_riesgo, arl_voluntaria').eq('id', userId).maybeSingle().then((r) => ok(r, 'leer perfil')),
+    db.from('perfiles').select('forma_de_pago, clase_riesgo, arl_voluntaria, dia_de_pago').eq('id', userId).maybeSingle().then((r) => ok(r, 'leer perfil')),
     db
       .from('fuentes_ingreso')
       .select('id, nombre, moneda, contratante')
@@ -35,14 +35,13 @@ export async function cargarDeNube(db: SupabaseClient, userId: string): Promise<
     db.from('cobros').select('mes, bolsillo').eq('usuario_id', userId).order('creado_en').then((r) => ok(r, 'leer cobros')),
     db.from('alertas').select('umbral, direccion, estado, trm_referencia').eq('usuario_id', userId).order('creado_en').then((r) => ok(r, 'leer alertas')),
   ]);
-  const pago = fuente
-    ? ok(
-        await db.from('pagos').select('mes, monto, tasa_recibida, retencion_practicada').eq('fuente_id', fuente.id).order('mes', { ascending: true }).limit(1).maybeSingle(),
-        'leer pago',
-      )
+  // Un pago por mes guardado: manda el último; el primero marca desde cuándo se proyectan prima y cesantías.
+  const pagos = fuente
+    ? ok(await db.from('pagos').select('mes, monto, tasa_recibida, retencion_practicada').eq('fuente_id', fuente.id).order('mes', { ascending: true }), 'leer pagos')
     : null;
+  const pago = pagos?.at(-1) ?? null;
 
-  const filas: FilasLeidas = { perfil, fuente, pago, cobros: cobros ?? [], alertas: alertas ?? [] };
+  const filas: FilasLeidas = { perfil, fuente, pago, primerMes: pagos?.[0]?.mes ?? null, cobros: cobros ?? [], alertas: alertas ?? [] };
   return estadoDesdeFilas(filas);
 }
 
@@ -127,7 +126,7 @@ export async function guardarMarketing(db: SupabaseClient, userId: string, otorg
 /** Todo lo que Frilo guarda de la persona, leído con su propia sesión (el RLS garantiza que solo es lo suyo). */
 export async function exportarMisDatos(db: SupabaseClient, userId: string, cuenta: { correo: string | null; creada_en: string | null }): Promise<ExportacionDatos> {
   const [perfil, fuentes, pagos, cobros, alertas, autorizaciones, ahorros] = await Promise.all([
-    db.from('perfiles').select('correo, nombre, proveedor, creado_en, ciudad, forma_de_pago, rango_ingreso, clase_riesgo, arl_voluntaria').eq('id', userId).maybeSingle().then((r) => ok(r, 'leer perfil')),
+    db.from('perfiles').select('correo, nombre, proveedor, creado_en, ciudad, forma_de_pago, rango_ingreso, clase_riesgo, arl_voluntaria, dia_de_pago').eq('id', userId).maybeSingle().then((r) => ok(r, 'leer perfil')),
     db.from('fuentes_ingreso').select('nombre, moneda, tipo_contrato, contratante, creado_en').eq('usuario_id', userId).order('creado_en').then((r) => ok(r, 'leer fuentes')),
     db.from('pagos').select('mes, monto, tasa_recibida, retencion_practicada, creado_en').eq('usuario_id', userId).order('mes').then((r) => ok(r, 'leer pagos')),
     db.from('cobros').select('mes, bolsillo, creado_en').eq('usuario_id', userId).order('creado_en').then((r) => ok(r, 'leer cobros')),

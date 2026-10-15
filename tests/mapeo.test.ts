@@ -24,7 +24,7 @@ describe('rangoIngreso', () => {
 describe('estado ⇄ filas', () => {
   it('el perfil lleva el rango y no la cifra exacta', () => {
     const f = filasDesdeEstado(usd, 5_775_000);
-    expect(f.perfil).toEqual({ forma_de_pago: 'usd', rango_ingreso: '2 a 4 salarios mínimos', clase_riesgo: 2, arl_voluntaria: true });
+    expect(f.perfil).toEqual({ forma_de_pago: 'usd', rango_ingreso: '2 a 4 salarios mínimos', clase_riesgo: 2, arl_voluntaria: true, dia_de_pago: null });
     expect(JSON.stringify(f.perfil)).not.toContain('5775000');
   });
   it('un viaje de ida y vuelta conserva el ingreso, los cobros y las alertas', () => {
@@ -133,5 +133,27 @@ describe('armarExportacion', () => {
     expect(txt).not.toContain('usuario_id');
     expect(txt).not.toContain('fuente_id');
     expect(txt).not.toContain('"id"');
+  });
+});
+
+describe('guardar el mes', () => {
+  const base = { arlVoluntaria: false, cobros: [], alertas: [], formaDePago: 'usd' as const, mesInicio: '2026-10', ingreso: { cliente: 'Acme', moneda: 'USD' as const, monto: 3000, clase: 1 as const, publico: false } };
+  it('el pago se guarda en el mes del ingreso (mesIngreso) y no pisa el de registro', () => {
+    expect(filasDesdeEstado({ ...base, mesIngreso: '2026-11' }, 12_000_000).pago?.mes).toBe('2026-11');
+    expect(filasDesdeEstado(base, 12_000_000).pago?.mes).toBe('2026-10');
+  });
+  it('al leer: manda el último mes guardado y el primero marca el inicio; el día de pago se conserva', () => {
+    const e = estadoDesdeFilas({
+      perfil: { forma_de_pago: 'usd', clase_riesgo: 1, arl_voluntaria: false, dia_de_pago: 15 },
+      fuente: { id: 'f', nombre: 'Acme', moneda: 'USD', contratante: 'exterior' },
+      pago: { mes: '2026-11', monto: '3500', tasa_recibida: null, retencion_practicada: null },
+      primerMes: '2026-10',
+      cobros: [],
+      alertas: [],
+    });
+    expect(e.mesInicio).toBe('2026-10');
+    expect(e.mesIngreso).toBe('2026-11');
+    expect(e.ingreso?.monto).toBe(3500);
+    expect(e.diaDePago).toBe(15);
   });
 });

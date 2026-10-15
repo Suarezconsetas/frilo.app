@@ -4,7 +4,7 @@ import { fuenteDe } from './derivados';
 import type { EstadoApp, FormaDePago, IngresoInicial } from './tipos';
 
 /** Versión del texto de autorización que firma el usuario. Cambiarla pide una autorización nueva al volver a entrar. */
-export const VERSION_POLITICA = '2026-10-13-r3';
+export const VERSION_POLITICA = '2026-10-15';
 
 /** En el perfil se guarda un rango, nunca la cifra exacta (Ley 1581 de 2012: solo lo necesario). */
 export function rangoIngreso(ingresoBrutoCop: number, anio = 2026): string {
@@ -17,7 +17,7 @@ export function rangoIngreso(ingresoBrutoCop: number, anio = 2026): string {
 }
 
 export interface FilasNube {
-  perfil: { forma_de_pago: FormaDePago | null; rango_ingreso: string | null; clase_riesgo: number | null; arl_voluntaria: boolean };
+  perfil: { forma_de_pago: FormaDePago | null; rango_ingreso: string | null; clase_riesgo: number | null; arl_voluntaria: boolean; dia_de_pago: number | null };
   fuente: { nombre: string; moneda: Moneda; tipo_contrato: string; contratante: string } | null;
   pago: { mes: string; monto: number; tasa_recibida: number | null; retencion_practicada: number | null } | null;
   cobros: { mes: string; bolsillo: string }[];
@@ -33,11 +33,12 @@ export function filasDesdeEstado(e: EstadoApp, ingresoBrutoCop: number | null): 
       rango_ingreso: ingresoBrutoCop !== null ? rangoIngreso(ingresoBrutoCop) : null,
       clase_riesgo: ing?.clase ?? null,
       arl_voluntaria: e.arlVoluntaria,
+      dia_de_pago: e.diaDePago ?? null,
     },
     fuente: fuente ? { nombre: fuente.nombre, moneda: fuente.moneda, tipo_contrato: fuente.tipoContrato, contratante: fuente.contratante } : null,
     pago:
       ing && e.mesInicio
-        ? { mes: e.mesInicio, monto: ing.monto, tasa_recibida: ing.tasaRecibida ?? null, retencion_practicada: ing.retencion ?? null }
+        ? { mes: e.mesIngreso ?? e.mesInicio, monto: ing.monto, tasa_recibida: ing.tasaRecibida ?? null, retencion_practicada: ing.retencion ?? null }
         : null,
     cobros: e.cobros.map((c) => ({ mes: c.mes, bolsillo: c.bolsillo })),
     alertas: e.alertas.map((a) => ({ umbral: a.umbral, direccion: a.direccion, estado: a.estado, trm_referencia: a.trmReferencia })),
@@ -46,9 +47,12 @@ export function filasDesdeEstado(e: EstadoApp, ingresoBrutoCop: number | null): 
 
 /** Filas tal como las devuelve PostgREST (los numeric pueden llegar como texto). */
 export interface FilasLeidas {
-  perfil: { forma_de_pago: string | null; clase_riesgo: number | null; arl_voluntaria: boolean } | null;
+  perfil: { forma_de_pago: string | null; clase_riesgo: number | null; arl_voluntaria: boolean; dia_de_pago?: number | null } | null;
   fuente: { id: string; nombre: string; moneda: string; contratante: string } | null;
+  /** Último mes guardado (el que manda para los valores del ingreso). */
   pago: { mes: string; monto: number | string; tasa_recibida: number | string | null; retencion_practicada: number | string | null } | null;
+  /** Primer mes guardado: desde ahí se proyectan prima y cesantías. */
+  primerMes?: string | null;
   cobros: { mes: string; bolsillo: string }[];
   alertas: { umbral: number | string; direccion: string; estado: string; trm_referencia: number | string }[];
 }
@@ -59,6 +63,7 @@ export function estadoDesdeFilas(f: FilasLeidas): Partial<EstadoApp> {
   const cambios: Partial<EstadoApp> = {
     formaDePago: (f.perfil?.forma_de_pago as FormaDePago | null) ?? undefined,
     arlVoluntaria: f.perfil?.arl_voluntaria ?? false,
+    diaDePago: f.perfil?.dia_de_pago ?? undefined,
     fuenteId: f.fuente?.id,
     cobros: f.cobros.map((c): Cobro => ({ mes: c.mes, bolsillo: c.bolsillo as Cobro['bolsillo'] })),
     alertas: f.alertas.map(
@@ -76,7 +81,8 @@ export function estadoDesdeFilas(f: FilasLeidas): Partial<EstadoApp> {
       publico: f.fuente.contratante === 'publico',
     };
     cambios.ingreso = ingreso;
-    cambios.mesInicio = f.pago.mes;
+    cambios.mesInicio = f.primerMes ?? f.pago.mes;
+    cambios.mesIngreso = f.pago.mes;
   }
   return cambios;
 }
