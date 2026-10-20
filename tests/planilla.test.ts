@@ -7,12 +7,9 @@ describe('festivos de Colombia', () => {
   it('2026 coincide con el calendario oficial', () => {
     expect([...festivosCo(2026)].sort()).toEqual(FESTIVOS_2026);
   });
-  it('2027 tiene los 18 festivos y todos caen lunes salvo los fijos y la Semana Santa', () => {
-    const f = [...festivosCo(2027)].sort();
-    expect(f).toHaveLength(18);
-    expect(f).toContain('2027-03-25'); // jueves santo (Pascua 28-mar-2027)
-    expect(f).toContain('2027-03-26'); // viernes santo
-    expect(f).toContain('2027-01-11'); // Reyes (6-ene es miércoles → lunes 11)
+  it('2027 coincide con el calendario del brief (calendario-colombia.com, sin el 12 de julio)', () => {
+    const oficial = ['01-01', '01-11', '03-22', '03-25', '03-26', '05-01', '05-10', '05-31', '06-07', '07-05', '07-20', '08-07', '08-16', '10-18', '11-01', '11-15', '12-08', '12-25'].map((f) => `2027-${f}`);
+    expect([...festivosCo(2027)].sort()).toEqual(oficial);
   });
 });
 

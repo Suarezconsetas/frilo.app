@@ -73,7 +73,7 @@ export function RecordatorioPlanilla() {
       <Campo
         id="digitos-documento"
         etiqueta="Dos últimos dígitos de tu cédula o NIT"
-        ayuda="Solo guardamos esos dos dígitos, nunca el documento completo. Si usas NIT, los dos últimos antes del dígito de verificación."
+        ayuda="Solo guardamos esos dos dígitos, nunca el documento completo. Si usas NIT, son los dos últimos, incluyendo el dígito de verificación."
         error={error}
       >
         {(p) => <input {...p} value={texto} onChange={(e) => cambiarDigitos(e.target.value)} inputMode="numeric" maxLength={2} placeholder="Por ejemplo 89" autoComplete="off" />}
