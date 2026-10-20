@@ -88,11 +88,11 @@ describe('bolsas de prima y cesantías', () => {
 describe('proyeccionAnual', () => {
   it('usa la cuenta de mayor tasa y suma 12 depósitos con sus rendimientos', () => {
     const p = proyeccionAnual(9_938_520);
-    expect(p.cuenta.id).toBe('lulo-flex'); // 9,50% E.A., la más alta sin condiciones
+    expect(p.cuenta.id).toBe('pibank-cuenta'); // 11% E.A., la más alta sin condiciones (empata con Global66)
     expect(p.mensual).toBeCloseTo(1_656_420, 0);
     expect(p.aportado).toBeCloseTo(19_877_040, 0); // 2 ingresos mensuales al año
-    // anualidad vencida: d · ((1+i)^12 − 1) / i, con i la tasa mensual equivalente a 9,5% E.A.
-    const i = Math.pow(1.095, 1 / 12) - 1;
+    // anualidad vencida: d · ((1+i)^12 − 1) / i, con i la tasa mensual equivalente a 11% E.A.
+    const i = Math.pow(1.11, 1 / 12) - 1;
     expect(p.total).toBeCloseTo(1_656_420 * ((Math.pow(1 + i, 12) - 1) / i), 0);
     expect(p.rendimiento).toBeGreaterThan(0);
     expect(p.total).toBeCloseTo(p.aportado + p.rendimiento, 5);
@@ -238,5 +238,21 @@ describe('cuentas en dólares', () => {
       expect(c.url).toMatch(/^https:\/\//);
       expect(c.fechaConsulta).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     }
+  });
+});
+
+describe('comparador: cuentas con tope de saldo remunerado', () => {
+  it('rinde solo hasta el tope y lo demás no suma', async () => {
+    const { compararCuentas, rendimiento } = await import('@/lib/calculos');
+    const cuenta = { id: 't', entidad: 'T', producto: 'T', tasaBaseEA: 0.05, pagoRendimientos: 'diario' as const, fechaConsulta: '2026-10-20', verificada: true, url: 'https://t.co', patrocinado: false, topeRemunerado: 10_000_000 };
+    const [r] = compararCuentas(20_000_000, 182, [cuenta]);
+    expect(r?.rendimientoBase).toBeCloseTo(rendimiento(10_000_000, 182, 0.05), 6);
+    const [sin] = compararCuentas(5_000_000, 182, [cuenta]);
+    expect(sin?.rendimientoBase).toBeCloseTo(rendimiento(5_000_000, 182, 0.05), 6);
+  });
+  it('el comparador queda ordenado por tasa sin condiciones', async () => {
+    const { compararCuentas, CUENTAS_MVP } = await import('@/lib/calculos');
+    const tasas = compararCuentas(1_000_000, 30, CUENTAS_MVP).map((x) => x.cuenta.tasaBaseEA);
+    expect(tasas).toEqual([...tasas].sort((a, b) => b - a));
   });
 });

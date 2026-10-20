@@ -82,11 +82,11 @@ describe('rentabilidad y comparador de cuentas', () => {
     expect(rendimientoNeto(100_000, null)).toBeNull();
     expect(rendimientoNeto(100_000, 0.07)).toBeCloseTo(93_000, 6);
   });
-  it('ordena por tasa sin condiciones: Lulo 9,5% > Nu 9,30% > RappiPay 9%', () => {
+  it('ordena por tasa sin condiciones: Pibank y Global66 11% > Lulo 9,5% > RappiPay 9% > Nu 8,25% > Ualá 5%', () => {
     const r = compararCuentas(3_500_000, 180, CUENTAS_MVP);
-    expect(r.map((x) => x.cuenta.id)).toEqual(['lulo-flex', 'nu-cajitas', 'rappipay-bolsillos']);
-    expect(r[0]!.rendimientoCondicionado).not.toBeNull();
-    expect(r[1]!.rendimientoCondicionado).toBeNull();
+    expect(r.map((x) => x.cuenta.id)).toEqual(['pibank-cuenta', 'global66-cop', 'lulo-flex', 'rappipay-bolsillos', 'nu-cajitas', 'uala-deposito']);
+    expect(r[0]!.rendimientoCondicionado).toBeNull();
+    expect(r.find((x) => x.cuenta.id === 'lulo-flex')!.rendimientoCondicionado).not.toBeNull();
   });
   it('toda cuenta tiene fecha de consulta y URL', () => {
     for (const c of CUENTAS_MVP) {

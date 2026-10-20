@@ -19,12 +19,21 @@ Cada cuenta tiene `tasaBaseEA` (sin condiciones), `tasaCondicionadaEA` + `condic
 
 | Cuenta | Lista | Página |
 |---|---|---|
-| RappiPay · Bolsillos RappiCuenta | `CUENTAS_MVP` | https://www.rappipay.co/rappicuenta/alta-rentabilidad-cuentas/ |
-| Lulo Bank · Bolsillos Flex | `CUENTAS_MVP` | https://www.lulobank.com/ |
-| Nu · Cajitas | `CUENTAS_MVP` | https://www.nu.com.co/contratos-y-tarifas/cuenta |
-| Littio · Bolsillos en dólares (USDC) | `CUENTAS_USD` | https://www.littio.co/ |
-| Global66 · Cuenta en dólares | `CUENTAS_USD` | https://global66.com/co/cuenta-en-dolares/ |
-| Ualá | (pendiente) | https://www.uala.com.co/ |
+| Pibank · Cuenta Pibank | `CUENTAS_MVP` | https://www.pibank.co/cuenta-pibank/ |
+| Global66 · Cuenta global en pesos | `CUENTAS_MVP` | https://www.global66.com/co/cuenta-global/ |
+| Lulo Bank · Bolsillos Flex | `CUENTAS_MVP` | https://www.lulobank.com/ (ayuda: https://ayuda.lulobank.com/hc/es/articles/28625884138772) |
+| RappiPay · Bolsillos RappiCuenta | `CUENTAS_MVP` | https://www.rappipay.co/rappicuenta/ |
+| Nu · Cajitas | `CUENTAS_MVP` | https://www.nu.com.co/cuenta (contratos: https://www.nu.com.co/contratos-y-tarifas/cuenta) |
+| Ualá · Depósito remunerado | `CUENTAS_MVP` | https://www.uala.com.co/deposito-remunerado |
+| Global66 · Cuenta en dólares | `CUENTAS_USD` | https://www.global66.com/co/cuenta-global/ |
+| Littio · Bolsillos en dólares (USDC) | `CUENTAS_USD` | https://littio.co/cuenta-en-dolares (inicio: https://www.littio.co/) |
+
+### Trucos para páginas que no cargan
+
+- Si `WebFetch` da 403 o devuelve una página vacía, abre la página en el navegador integrado y usa `get_page_text` (así se leyeron Pibank y Global66).
+- Si la página es una aplicación de JavaScript (Ualá, Lulo), baja el HTML con `curl` y busca enlaces a `.pdf` o `.json`: los términos y condiciones suelen estar en un PDF (Ualá: `assets.ctfassets.net`; Lulo: `assets.lulobank.com`). Para leer PDFs sin herramientas, crea un entorno virtual en la carpeta temporal e instala `pypdf` ahí.
+- El centro de ayuda de Lulo está detrás de Cloudflare (403): si no se puede leer, marca Lulo como "no se pudo verificar".
+- Nu publica tres cifras distintas en la misma página (8,25%, 9,25% y "hasta 9,70%"): la regla de Frilo es usar la menor y decirlo en la nota de la cuenta.
 
 Si el usuario agrega una cuenta nueva, añádela a esta tabla y a `cuentas.ts`.
 

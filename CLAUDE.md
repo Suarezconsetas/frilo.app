@@ -16,7 +16,7 @@ Todo el producto está en español de Colombia. Cifras en pesos con punto de mil
 
 Viene en `calculadoras-freelance.zip` → copiar `src/lib/*` a `lib/calculos/` y `tests/*` a `tests/`. Son funciones puras con 58 pruebas; **no reescribir la lógica**, solo importarla. Las pruebas deben seguir pasando siempre.
 
-Módulos: `parametros` (SMLMV y tarifas 2026 con vigencia), `cuentas` (Lulo 9,50%, Nu 9,30%, RappiPay 9,00%, con fecha de consulta y campo `patrocinado`), `trm` (TRM vigente, panel de 4 referencias, alertas por cruce de umbral), `ingresos` (fuentes USD/COP, tasa recibida y retención opcionales), `aportes` (replica la hoja de Excel validada, reglas de ARL), `prestaciones` (prima y cesantías sintéticas: 1/12 cada una = 16,67%, proyección y cobros marcados por el usuario), `rentabilidad`, `metas`, `flujo` (resumen del mes) y `avisos` (textos legales).
+Módulos: `parametros` (SMLMV y tarifas 2026 con vigencia), `cuentas` (cuentas de ahorro en pesos y en dólares con tasa, fecha de consulta y campo `patrocinado`; los datos viven solo en `lib/calculos/cuentas.ts`), `trm` (TRM vigente, panel de 4 referencias, alertas por cruce de umbral), `ingresos` (fuentes USD/COP, tasa recibida y retención opcionales), `aportes` (replica la hoja de Excel validada, reglas de ARL), `prestaciones` (prima y cesantías sintéticas: 1/12 cada una = 16,67%, proyección y cobros marcados por el usuario), `rentabilidad`, `metas`, `flujo` (resumen del mes) y `avisos` (textos legales).
 
 Decisiones fijas:
 - Prima y cesantías se calculan sobre el ingreso bruto (antes de impuestos, sin IVA). Solo el 16,67%, sin ahorro extra para igualar intereses.

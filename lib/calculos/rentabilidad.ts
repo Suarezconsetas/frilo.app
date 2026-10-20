@@ -15,9 +15,13 @@ export function rendimientoNeto(bruto: number, retencion: number | null): number
 export function compararCuentas(saldo: number, dias: number, cuentas: CuentaAhorro[]) {
   return [...cuentas]
     .sort((a, b) => b.tasaBaseEA - a.tasaBaseEA)
-    .map((c) => ({
-      cuenta: c,
-      rendimientoBase: rendimiento(saldo, dias, c.tasaBaseEA),
-      rendimientoCondicionado: c.tasaCondicionadaEA !== undefined ? rendimiento(saldo, dias, c.tasaCondicionadaEA) : null,
-    }));
+    .map((c) => {
+      // Si la entidad solo remunera hasta cierto saldo, el rendimiento se calcula sobre ese tope.
+      const base = c.topeRemunerado !== undefined ? Math.min(saldo, c.topeRemunerado) : saldo;
+      return {
+        cuenta: c,
+        rendimientoBase: rendimiento(base, dias, c.tasaBaseEA),
+        rendimientoCondicionado: c.tasaCondicionadaEA !== undefined ? rendimiento(base, dias, c.tasaCondicionadaEA) : null,
+      };
+    });
 }

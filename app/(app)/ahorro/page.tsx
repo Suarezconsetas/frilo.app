@@ -168,9 +168,10 @@ export default function Ahorro() {
                   </p>
                   {c.tasaCondicionadaEA !== undefined && (
                     <span className="etiqueta-tinte">
-                      {pct(c.tasaCondicionadaEA, 0)} E.A. · {c.condicion}
+                      {pct(c.tasaCondicionadaEA, Number.isInteger(Math.round(c.tasaCondicionadaEA * 10000) / 100) ? 0 : 2)} E.A. · {c.condicion}
                     </span>
                   )}
+                  {c.fogafin === 'Sí' && <span className="etiqueta-tinte">Con seguro de depósitos Fogafín</span>}
                   {c.patrocinado && <span className="etiqueta-tinte">{AVISOS.patrocinado}</span>}
                 </div>
                 <div className="tasa">
@@ -178,6 +179,11 @@ export default function Ahorro() {
                   <small>E.A.</small>
                 </div>
               </div>
+              {c.nota && (
+                <p className="ayuda" style={{ marginTop: 8 }}>
+                  {c.nota}
+                </p>
+              )}
               <div className="pie">
                 <span>
                   Rendirías <strong style={{ fontWeight: 700 }}>+{pesos(rendimientoBase)}</strong>
@@ -189,7 +195,7 @@ export default function Ahorro() {
             </div>
           ))}
           <p className="legal" style={{ marginTop: 14 }}>
-            {AVISOS.comparador} {AVISOS.rendimientos}
+            {AVISOS.comparador} {AVISOS.rendimientos} Frilo no recibe pagos de estas entidades.
           </p>
         </section>
 
@@ -211,7 +217,7 @@ export default function Ahorro() {
                     </p>
                     {c.tasaCondicionadaEA !== undefined && (
                       <span className="etiqueta-tinte">
-                        {pct(c.tasaCondicionadaEA, 1)} E.A. · {c.condicion}
+                        {pct(c.tasaCondicionadaEA, 0)} E.A. · {c.condicion}
                       </span>
                     )}
                     {c.patrocinado && <span className="etiqueta-tinte">{AVISOS.patrocinado}</span>}
@@ -222,8 +228,13 @@ export default function Ahorro() {
                   </div>
                 </div>
                 {c.aviso && (
-                  <p className="ayuda" style={{ marginTop: 8 }}>
+                  <p className="ayuda" style={{ marginTop: 8, fontWeight: 600 }}>
                     {c.aviso}
+                  </p>
+                )}
+                {c.nota && (
+                  <p className="ayuda" style={{ marginTop: 8 }}>
+                    {c.nota}
                   </p>
                 )}
                 <div className="pie">
@@ -237,7 +248,7 @@ export default function Ahorro() {
               </div>
             ))}
             <p className="legal" style={{ marginTop: 14 }}>
-              Las tasas son las que informa cada entidad, antes de impuestos y pueden cambiar. Guardar en dólares tiene riesgo cambiario: si el dólar baja, tus ahorros valen menos pesos. Información de referencia, no asesoría financiera.
+              Las tasas son las que informa cada entidad, antes de impuestos y pueden cambiar. Guardar en dólares tiene riesgo cambiario: si el dólar baja, tus ahorros valen menos pesos. Frilo no recibe pagos de estas entidades. Información de referencia, no asesoría financiera.
             </p>
           </section>
         )}

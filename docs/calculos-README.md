@@ -13,7 +13,7 @@ npm run typecheck
 | Archivo | Qué hace |
 |---|---|
 | `parametros.ts` | SMLMV, tarifas, tramos FSP… por año. Para 2027 se agrega un año, no se toca el código. |
-| `cuentas.ts` | Cuentas de ahorro del MVP (Lulo, RappiPay, Nu) con tasa y fecha de consulta. |
+| `cuentas.ts` | Cuentas de ahorro (pesos y dólares) con tasa y fecha de consulta. |
 | `ingresos.ts` | Fuentes de ingreso con moneda (USD/COP), conversión, tasa recibida y retención. |
 | `trm.ts` | TRM vigente por fecha, panel de 4 referencias y alertas por cruce de umbral. |
 | `aportes.ts` | Aportes a seguridad social (replica la hoja de Excel) y reglas de ARL. |
