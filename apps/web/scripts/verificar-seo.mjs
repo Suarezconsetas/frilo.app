@@ -18,6 +18,8 @@ const estados = (() => {
   return m;
 })();
 
+// Para vistas previas protegidas por Vercel: VERIFICAR_COOKIE="_vercel_jwt=…" (se obtiene abriendo el enlace compartido).
+const cabeceras = process.env.VERIFICAR_COOKIE ? { Cookie: process.env.VERIFICAR_COOKIE } : {};
 const decod = (s) => s.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 const quitaTags = (s) => decod(s.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
 const meta = (html, nombre) => decod(html.match(new RegExp(`<meta name="${nombre}" content="([^"]*)"`))?.[1] ?? '');
@@ -31,7 +33,7 @@ const enlaces = new Set();
 
 for (const p of paginas) {
   const estado = estados[p.id] ?? 'pendiente';
-  const r = await fetch(base + p.ruta, { redirect: 'manual' }).catch(() => null);
+  const r = await fetch(base + p.ruta, { redirect: 'manual', headers: cabeceras }).catch(() => null);
   if (!r || r.status !== 200) {
     if (estado === 'construida') problemas.push(`${p.ruta}: respondió ${r?.status ?? 'sin respuesta'} (debería ser 200)`);
     else ok.push(`${p.ruta}: ${r?.status ?? '—'} (${estado}, aún no construida)`);
@@ -108,7 +110,7 @@ for (const p of paginas) {
 // Enlaces internos sin 404
 const vistos = [...enlaces].filter((h) => !/\.(png|jpg|svg|ico|css|js|webmanifest|txt|xml)$/.test(h) && !h.startsWith('/_next') && !h.startsWith('/og/'));
 for (const h of vistos.sort()) {
-  const r = await fetch(base + h, { redirect: 'manual' }).catch(() => null);
+  const r = await fetch(base + h, { redirect: 'manual', headers: cabeceras }).catch(() => null);
   if (!r || r.status >= 400) problemas.push(`enlace roto: ${h} → ${r?.status ?? 'sin respuesta'}`);
 }
 

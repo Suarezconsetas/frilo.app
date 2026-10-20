@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: '/:ruta(inicio|aportes|ahorro|dolar|cuenta|cuenta-eliminada|ingreso|registro|codigo)',
+        source: '/:ruta(inicio|aportes|ahorro|dolar|cuenta|cuenta-eliminada|ingreso|registro|codigo|bienvenida)',
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
       },
     ];

@@ -6,6 +6,8 @@ import { NextResponse, type NextRequest } from 'next/server';
 export async function GET(req: NextRequest) {
   const { searchParams, origin } = new URL(req.url);
   const code = searchParams.get('code');
+  // A dónde seguir tras entrar: solo rutas internas conocidas (nunca una dirección que venga en la URL).
+  const siguiente = ['/bienvenida', '/inicio'].includes(searchParams.get('siguiente') ?? '') ? searchParams.get('siguiente')! : '/inicio';
   const fallo = (motivo: string) => NextResponse.redirect(`${origin}/entrar?error=${motivo}`);
 
   if (searchParams.get('error')) return fallo('google');
@@ -15,11 +17,12 @@ export async function GET(req: NextRequest) {
   const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
     cookies: {
       getAll: () => jar.getAll(),
-      setAll: (lista: { name: string; value: string; options: CookieOptions }[]) => lista.forEach(({ name, value, options }) => jar.set(name, value, options)),
+      setAll: (lista: { name: string; value: string; options: CookieOptions }[]) =>
+        lista.forEach(({ name, value, options }) => jar.set(name, value, { ...options, ...(process.env.NEXT_PUBLIC_COOKIE_DOMAIN ? { domain: process.env.NEXT_PUBLIC_COOKIE_DOMAIN } : {}) })),
     },
   });
 
   const { error } = await supabase.auth.exchangeCodeForSession(code);
   if (error) return fallo('sesion');
-  return NextResponse.redirect(`${origin}/inicio`);
+  return NextResponse.redirect(`${origin}${siguiente}`);
 }
