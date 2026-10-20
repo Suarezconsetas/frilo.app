@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Calculadora de cesantías e intereses de cesantías 2026 | Frilo</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Clarity+City:wght@300;400;600;700&display=swap">
+<style>
+body{margin:0;background:#F3F6F4;color:#0F372D;font-family:"Clarity City","Helvetica Neue",Helvetica,Arial,sans-serif}
+a{color:#0F372D}a:hover{color:#0A2820}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;box-sizing:border-box}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:16px;font-weight:600;font-size:16px;text-decoration:none;box-sizing:border-box}
+.btn-m{background:#6FFF8F;color:#0F372D}.btn-m:hover{color:#0F372D}
+.card{background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
+.field{width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font:600 18px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
+.prose h2{font-size:30px;line-height:1.2;margin:56px 0 16px;letter-spacing:-0.01em}
+.prose p,.prose li{font-size:17px;line-height:1.65;color:#2B4A40}
+table.t{width:100%;border-collapse:collapse;font-size:15px}
+table.t th,table.t td{padding:12px 16px;text-align:left;border-top:1px solid #D6E0DA}
+table.t thead th{background:#E6EEE9;border-top:0}
+summary{cursor:pointer;font-weight:600;font-size:17px;padding:18px 0}
+details{border-bottom:1px solid #D6E0DA}
+</style>
+</helmet>
+<div>
+<dc-import name="Header" activo="calculadoras" hint-size="100%,80px"></dc-import>
+
+<main class="wrap" style="padding-top: 32px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 32px">
+<nav aria-label="Ruta de navegación" style="font-size: 14px; color: #4A6158; display: flex; gap: 8px; flex-wrap: wrap"><a href="Main.dc.html" style="color: #4A6158">Inicio</a><span aria-hidden="true">/</span><a href="CalculadorasHub.dc.html" style="color: #4A6158">Calculadoras</a><span aria-hidden="true">/</span><span aria-current="page">Cesantías e intereses</span></nav>
+
+<header style="display: flex; flex-direction: column; gap: 16px; max-width: 820px">
+<h1 style="margin: 0; font-size: clamp(34px, 4.4vw, 52px); line-height: 1.08; letter-spacing: -0.02em">Calculadora de cesantías e intereses de cesantías 2026</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #2B4A40">Las cesantías equivalen a un mes de salario por año trabajado: salario × días trabajados ÷ 360. Los intereses de cesantías son el 12% anual sobre ese valor y los paga el empleador. Esta calculadora de intereses de cesantías en Colombia sirve con contrato laboral o como independiente.</p>
+<p style="margin: 0; font-size: 14px; color: #4A6158">Actualizada el 20 de octubre de 2026 · Revisada por el equipo de finanzas Frilo · <a href="#como" style="color: #4A6158">Cómo calculamos</a></p>
+</header>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<form class="card" aria-label="Calculadora de cesantías" style="flex: 1 1 380px; display: flex; flex-direction: column; gap: 20px; padding: 28px">
+<div role="group" aria-label="Tipo de contrato" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); background: #E6EEE9; border-radius: 12px; padding: 4px; gap: 4px">
+<button type="button" aria-pressed="{{pLab}}" onClick="{{setLab}}" style="{{eLab}}">Tengo contrato laboral</button>
+<button type="button" aria-pressed="{{pInd}}" onClick="{{setInd}}" style="{{eInd}}">Soy independiente</button>
+</div>
+<sc-if value="{{esLab}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="salario" style="font-weight: 600">Salario mensual (COP)</label><input id="salario" class="field" inputmode="numeric" value="{{salarioTxt}}" onChange="{{onSalario}}"><span style="font-size: 13px; color: #4A6158">Si ganas hasta 2 salarios mínimos, súmale el auxilio de transporte: $249.095 en 2026.</span></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="dias" style="font-weight: 600">Días trabajados</label><input id="dias" class="field" inputmode="numeric" value="{{dias}}" onChange="{{onDias}}"></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="anio" style="font-weight: 600">Año</label><select id="anio" class="field"><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option></select></div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{esInd}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="ingresoInd" style="font-weight: 600">Ingreso mensual bruto (COP)</label><input id="ingresoInd" class="field" inputmode="numeric" value="{{ingresoTxt}}" onChange="{{onIngreso}}"><span style="font-size: 13px; color: #4A6158">Tu contrato no genera cesantías: calculamos cuánto apartar para tener las tuyas.</span></div>
+</sc-if>
+</form>
+
+<section aria-label="Resultado" style="flex: 1 1 420px; background: #0F372D; color: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box">
+<span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #6FFF8F"><img src="/_blob/34387cbc3838c02c4d9ef15a15b5d70e" alt="" style="height: 24px; width: auto; display: block">Calculado con Frilo</span>
+<div><p style="margin: 0; color: #B5CCC1; font-size: 14px">{{l1}}</p><p style="margin: 6px 0 0; color: #6FFF8F; font-size: 44px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em">{{v1}}</p></div>
+<div style="background: #164538; border-radius: 16px; padding: 18px 20px; display: flex; justify-content: space-between; gap: 16px"><span style="color: #B5CCC1">{{l2}}</span><span style="font-weight: 700; font-size: 20px">{{v2}}</span></div>
+<p style="margin: 0; color: #B5CCC1; font-size: 15px; line-height: 1.5">{{nota}}</p>
+<a class="btn btn-m" href="{{ctaHref}}">{{cta}}</a>
+<p style="margin: 0; font-size: 12px; line-height: 18px; color: #B5CCC1">Cálculo estimado. No incluye sanciones, descuentos ni impuestos.</p>
+</section>
+</div>
+
+<dc-import name="BannerRendimiento" variante="cesantias" hint-size="100%,480px"></dc-import>
+
+<article class="prose" style="max-width: 780px">
+<h2 id="como" style="margin-top: 16px">Cómo se calculan las cesantías y sus intereses</h2>
+<div style="overflow-x: auto; border: 1px solid #D6E0DA; border-radius: 16px; background: #FFFFFF">
+<table class="t">
+<thead><tr><th scope="col">Concepto</th><th scope="col">Fórmula</th><th scope="col">Cuándo se paga</th></tr></thead>
+<tbody>
+<tr><td>Cesantías</td><td>Salario × días ÷ 360</td><td>Consignación al fondo a más tardar el 14 de febrero</td></tr>
+<tr><td>Intereses de cesantías</td><td>Cesantías × días × 12% ÷ 360</td><td>Al trabajador a más tardar el 31 de enero</td></tr>
+</tbody>
+</table>
+</div>
+<p>Ejemplo: salario de $3.000.000 y 360 días trabajados en 2025. Como gana más de 2 salarios mínimos, no suma auxilio de transporte.</p>
+<ol><li>Cesantías: $3.000.000 × 360 ÷ 360 = $3.000.000, que se consignan al fondo.</li><li>Intereses: $3.000.000 × 360 × 12% ÷ 360 = $360.000, que se pagan al trabajador.</li></ol>
+
+<h2>Calcular cesantías de años anteriores</h2>
+<p>Elige el año en la calculadora: la fórmula es la misma y solo cambian el salario mínimo y el auxilio de transporte de ese año. </p>
+<div style="overflow-x: auto; border: 1px solid #D6E0DA; border-radius: 16px; background: #FFFFFF">
+<table class="t">
+<caption style="text-align: left; padding: 12px 16px; font-size: 14px; color: #4A6158">Salario mínimo y auxilio de transporte por año (fuente histórica: <a href="https://www.gerencie.com/historico-del-salario-minimo-en-colombia.html" target="_blank" rel="noopener">Gerencie</a>)</caption>
+<thead><tr><th scope="col">Año</th><th scope="col">Salario mínimo</th><th scope="col">Auxilio de transporte</th></tr></thead>
+<tbody>
+<tr><td>2026</td><td>$1.750.905 (Decreto 1469 de 2025)</td><td>$249.095 (Decreto 1470 de 2025)</td></tr>
+<tr><td>2025</td><td>$1.423.500</td><td>$200.000</td></tr>
+<tr><td>2024</td><td>$1.300.000</td><td>$162.000</td></tr>
+<tr><td>2023</td><td>$1.160.000</td><td>$140.606</td></tr>
+<tr><td>2022</td><td>$1.000.000</td><td>$117.172</td></tr>
+<tr><td>2021</td><td>$908.526</td><td>$106.454</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Si eres independiente: cuánto apartar para tus propias cesantías</h2>
+<p>Aparta el 8,33% de cada pago. Lee la guía completa de <a href="Guia.dc.html">cesantías para independientes</a> y, si además quieres saber cuánto pagas de planilla, usa la <a href="Calculadora.dc.html">calculadora de aportes para independientes</a>.</p>
+
+<h2>Calculadora de cesantías de Porvenir y otros fondos</h2>
+<p>Porvenir, Protección, Colfondos y Skandia muestran tu saldo en sus portales. Esta calculadora sirve para verificar que el valor consignado coincide con lo que te corresponde. Si no coincide, pide el detalle de la liquidación a tu empleador antes de reclamar al fondo.</p>
+
+<h2>Preguntas frecuentes</h2>
+<details><summary>¿Cuándo pagan los intereses de cesantías en 2026?</summary><p>Los intereses de las cesantías de 2025 se pagan directamente al trabajador a más tardar el 31 de enero de 2026. Las cesantías se consignan al fondo a más tardar el 14 de febrero.</p></details>
+<details><summary>¿Qué pasa si el empleador no consigna las cesantías a tiempo?</summary><p>Debe pagar una sanción moratoria: un día de salario por cada día de retraso en la consignación (<a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_0050_1990.html" target="_blank" rel="noopener">Ley 50 de 1990, artículo 99</a>).</p></details>
+<details><summary>¿El auxilio de transporte se incluye en las cesantías?</summary><p>Sí. Si ganas hasta 2 salarios mínimos y tienes derecho al auxilio de transporte ($249.095 en 2026), se suma al salario para liquidar las cesantías y sus intereses.</p></details>
+<details><summary>¿Un independiente tiene derecho a cesantías?</summary><p>No por su contrato. Puede crear las suyas apartando el 8,33% de cada pago. <a href="Guia.dc.html">Ver la guía</a>.</p></details>
+
+<div style="margin: 40px 0"><dc-import name="BannerRegistro" variante="prima" hint-size="100%,460px"></dc-import></div>
+
+<h2>Fuentes</h2>
+<ul><li><a href="http://www.secretariasenado.gov.co/senado/basedoc/codigo_sustantivo_trabajo.html" target="_blank" rel="noopener">Código Sustantivo del Trabajo</a>, artículos 249 y siguientes</li><li><a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_0050_1990.html" target="_blank" rel="noopener">Ley 50 de 1990</a>, artículo 99</li><li>Ley 52 de 1975 (intereses de cesantías)</li><li><a href="https://acmineria.com.co/wp-content/uploads/2025/12/DECRETO-1469-DEL-29-DE-DICIEMBRE-DE-2025.pdf" target="_blank" rel="noopener">Decreto 1469 de 2025</a> (salario mínimo 2026)</li><li><a href="https://cancilleria.gov.co/normograma/compilacion/docs/decreto_1470_2025.htm" target="_blank" rel="noopener">Decreto 1470 de 2025</a> (auxilio de transporte 2026)</li></ul>
+</article>
+</main>
+
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5000}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { modo: 'laboral', salario: 3000000, dias: 360, ingreso: 8000000 };
+}
+renderVals() {
+var self = this;
+var fmt = function (x) { return '$' + Math.round(x).toLocaleString('es-CO'); };
+var num = function (e) { var v = parseInt(String(e.target.value).replace(/\D/g, ''), 10); return isNaN(v) ? 0 : v; };
+var on = 'min-height: 44px; border: 0; border-radius: 9px; background: #FFFFFF; color: #0F372D; font: 700 15px/1.2 inherit; padding: 8px; cursor: pointer; box-shadow: 0 1px 2px rgba(15,55,45,0.15)';
+var off = 'min-height: 44px; border: 0; border-radius: 9px; background: transparent; color: #4A6158; font: 600 15px/1.2 inherit; padding: 8px; cursor: pointer';
+var lab = this.state.modo === 'laboral';
+var dias = Math.min(Math.max(this.state.dias || 0, 0), 360);
+var ces = this.state.salario * dias / 360;
+var intr = ces * dias * 0.12 / 360;
+var mes = Math.round(this.state.ingreso * 0.0833 / 100) * 100;
+return {
+esLab: lab, esInd: !lab,
+pLab: lab ? 'true' : 'false', pInd: lab ? 'false' : 'true',
+eLab: lab ? on : off, eInd: lab ? off : on,
+salarioTxt: this.state.salario.toLocaleString('es-CO'),
+ingresoTxt: this.state.ingreso.toLocaleString('es-CO'),
+dias: String(this.state.dias),
+l1: lab ? 'Tus cesantías' : 'Aparta cada mes para tus cesantías',
+v1: lab ? fmt(ces) : fmt(mes),
+l2: lab ? 'Intereses de cesantías (12%)' : 'En 12 meses tendrías',
+v2: lab ? fmt(intr) : fmt(mes * 12),
+nota: lab ? 'Las cesantías van a tu fondo; los intereses te los paga directamente el empleador.' : 'Más los intereses que te pague la cuenta donde las guardes.',
+cta: lab ? '¿Trabajas también por tu cuenta? Prueba Frilo' : 'Lleva tus cesantías en Frilo',
+ctaHref: 'https://frilo.dev',
+setLab: function () { self.setState({ modo: 'laboral' }); },
+setInd: function () { self.setState({ modo: 'independiente' }); },
+onSalario: function (e) { self.setState({ salario: num(e) }); },
+onDias: function (e) { self.setState({ dias: num(e) }); },
+onIngreso: function (e) { self.setState({ ingreso: num(e) }); }
+};
+}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Frilo · banner de registro</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Clarity+City:wght@300;400;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<section id="registro" aria-label="Crea tu cuenta en Frilo" style="font-family: 'Clarity City', 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #0F372D; color: #FFFFFF; border-radius: 24px; padding: 32px; box-sizing: border-box; width: 100%; display: flex; flex-wrap: wrap; gap: 28px; align-items: center">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<span style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #6FFF8F"><img src="/_blob/34387cbc3838c02c4d9ef15a15b5d70e" alt="" style="height: 28px; width: auto; display: block">{{eyebrow}}</span>
+<p style="margin: 0; font-size: 28px; line-height: 1.2; font-weight: 700; letter-spacing: -0.015em">{{titulo}}</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15px; color: #B5CCC1">
+<sc-for list="{{puntos}}" as="p" hint-placeholder-count="3">
+<li style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6FFF8F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; margin-top: 2px"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>{{p.texto}}</span></li>
+</sc-for>
+</ul>
+</div>
+
+<div style="flex: 1 1 340px; min-width: 0; background: #164538; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 14px; box-sizing: border-box">
+<sc-if value="{{paso1}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="font-weight: 700; font-size: 18px">Crea tu cuenta gratis</span>
+<a href="https://frilo.dev" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border-radius: 14px; background: #FFFFFF; color: #0F372D; font-weight: 700; font-size: 16px; text-decoration: none">[Botón oficial de Google] Continuar con Google</a>
+<div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: #B5CCC1"><span aria-hidden="true" style="flex: 1; height: 1px; background: #24503F"></span>o con tu correo<span aria-hidden="true" style="flex: 1; height: 1px; background: #24503F"></span></div>
+<label for="reg-correo" style="position: absolute; width: 1px; height: 1px; overflow: hidden">Correo electrónico</label>
+<input id="reg-correo" type="email" autocomplete="email" placeholder="tu@correo.com" value="{{correo}}" onChange="{{onCorreo}}" style="min-height: 52px; border: 0; border-radius: 12px; padding: 0 16px; font: 600 17px/1 inherit; color: #0F372D; background: #FFFFFF; box-sizing: border-box; width: 100%">
+<button type="button" onClick="{{enviar}}" style="min-height: 52px; border: 0; border-radius: 14px; background: linear-gradient(100deg, #6FFF8F 0%, #2FB35E 100%); color: #0F372D; font: 700 16px/1 inherit; cursor: pointer">{{cta}}</button>
+</div>
+</sc-if>
+<sc-if value="{{paso2}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="font-weight: 700; font-size: 18px">Revisa tu correo</span>
+<span style="font-size: 14px; color: #B5CCC1">Te enviamos un código de 6 dígitos a {{correoMostrado}}.</span>
+<label for="reg-codigo" style="font-size: 14px; color: #B5CCC1">Código</label>
+<input id="reg-codigo" inputmode="numeric" maxlength="6" placeholder="000000" style="min-height: 52px; border: 0; border-radius: 12px; padding: 0 16px; font: 700 22px/1 inherit; letter-spacing: 0.3em; color: #0F372D; background: #FFFFFF; box-sizing: border-box; width: 100%">
+<a href="https://frilo.dev" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 14px; background: linear-gradient(100deg, #6FFF8F 0%, #2FB35E 100%); color: #0F372D; font-weight: 700; font-size: 16px; text-decoration: none">Verificar y entrar</a>
+<button type="button" onClick="{{volver}}" style="min-height: 44px; border: 1px solid #B5CCC1; border-radius: 12px; background: transparent; color: #FFFFFF; font: 600 14px/1 inherit; cursor: pointer">Usar otro correo</button>
+</div>
+</sc-if>
+<span style="font-size: 12px; line-height: 18px; color: #B5CCC1">Al continuar aceptas los <a href="#" style="color: #FFFFFF">Términos de uso</a> y la <a href="#" style="color: #FFFFFF">Política de datos</a>. No vendemos tus datos.</span>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"variante":{"editor":"enum","options":["recordatorio","dolar","prima","aportes","general"],"default":"recordatorio"},"$preview":{"width":1200,"height":460}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { paso: 1, correo: '' };
+}
+renderVals() {
+var self = this;
+var v = this.props.variante || 'recordatorio';
+var textos = {
+recordatorio: { eyebrow: 'Recordatorio de pago de la planilla', titulo: 'Que no se te pase la fecha de pago: te avisamos cada mes.', cta: 'Activar mi recordatorio', puntos: ['Correo 3 días hábiles antes y el mismo día de tu fecha límite.', 'Calculado con los dos últimos dígitos de tu documento y los festivos de Colombia.', 'Gratis. Lo apagas cuando quieras.'] },
+dolar: { eyebrow: 'Alerta del dólar', titulo: 'Te avisamos cuando el dólar llegue a tu precio.', cta: 'Crear mi alerta', puntos: ['Pon tu valor objetivo y recibe un correo cuando la TRM llegue.', 'La TRM oficial de la Superintendencia Financiera.', 'Gratis. La apagas cuando quieras.'] },
+prima: { eyebrow: 'Prima y cesantías', titulo: 'Lleva tu prima y tus cesantías mes a mes.', cta: 'Empezar a ahorrar', puntos: ['Te decimos cuánto apartar de cada pago.', 'Ves cuánto llevas y cuánto rendiría en una cuenta.', 'Marca cuándo cobraste tu prima.'] },
+aportes: { eyebrow: 'Tu planilla, cada mes', titulo: 'Guarda tu cálculo y recibe el valor de tu planilla cada mes.', cta: 'Guardar mi cálculo', puntos: ['El valor exacto de salud, pensión y ARL con tu ingreso.', 'Recordatorio de tu fecha límite de pago.', 'Funciona si cobras en pesos o en dólares.'] },
+general: { eyebrow: 'Frilo, gratis', titulo: 'Tus finanzas de freelancer en un solo lugar.', cta: 'Crear mi cuenta', puntos: ['Planilla, prima, cesantías y dólar.', 'Recordatorios y alertas por correo.', 'Sin costo y sin vender tus datos.'] }
+};
+var t = textos[v] || textos.general;
+return {
+eyebrow: t.eyebrow, titulo: t.titulo, cta: t.cta,
+puntos: t.puntos.map(function (x) { return { texto: x }; }),
+paso1: this.state.paso === 1, paso2: this.state.paso === 2,
+correo: this.state.correo,
+correoMostrado: this.state.correo || 'tu correo',
+onCorreo: function (e) { self.setState({ correo: e.target.value }); },
+enviar: function () { self.setState({ paso: 2 }); },
+volver: function () { self.setState({ paso: 1 }); }
+};
+}
+}
+</script>
+</body>
+</html>

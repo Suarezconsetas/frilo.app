@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Calculadoras para independientes y contratistas | Frilo</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Clarity+City:wght@300;400;600;700&display=swap">
+<style>
+body{margin:0;background:#F3F6F4;color:#0F372D;font-family:"Clarity City","Helvetica Neue",Helvetica,Arial,sans-serif}
+a{color:#0F372D}a:hover{color:#0A2820}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;box-sizing:border-box}
+.card{background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+</style>
+</helmet>
+<div>
+<dc-import name="Header" activo="calculadoras" hint-size="100%,80px"></dc-import>
+
+<main class="wrap" style="padding-top: 32px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 48px">
+<nav aria-label="Ruta de navegación" style="font-size: 14px; color: #4A6158; display: flex; gap: 8px"><a href="Main.dc.html" style="color: #4A6158">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Calculadoras</span></nav>
+
+<header style="display: flex; flex-direction: column; gap: 16px; max-width: 820px">
+<h1 style="margin: 0; font-size: clamp(34px, 4.4vw, 52px); line-height: 1.08; letter-spacing: -0.02em">Calculadoras para independientes y contratistas en Colombia</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #2B4A40">Calcula gratis y sin registro cuánto pagas de planilla, cuándo vence, cuánto apartar para tu prima y tus cesantías y cuánto valen tus dólares hoy. Todas usan las cifras oficiales de 2026 y muestran sus fuentes.</p>
+</header>
+
+<section aria-labelledby="g-aportes" style="display: flex; flex-direction: column; gap: 16px">
+<h2 id="g-aportes" style="margin: 0; font-size: 26px">Aportes a seguridad social</h2>
+<div class="grid">
+<a href="Calculadora.dc.html" class="card" style="text-decoration: none; display: flex; flex-direction: column; gap: 8px"><span style="font-weight: 700; font-size: 19px">Calculadora de aportes para independientes 2026</span><span style="color: #4A6158; line-height: 1.5">Salud, pensión, ARL y Fondo de Solidaridad sobre el 40% de lo que facturas.</span></a>
+<a href="FechaPago.dc.html" class="card" style="text-decoration: none; display: flex; flex-direction: column; gap: 8px"><span style="font-weight: 700; font-size: 19px">Fechas de pago de la planilla de seguridad social 2026</span><span style="color: #4A6158; line-height: 1.5">Tu día límite según los dos últimos dígitos de tu documento.</span></a>
+</div>
+</section>
+
+<section aria-labelledby="g-prima" style="display: flex; flex-direction: column; gap: 16px">
+<h2 id="g-prima" style="margin: 0; font-size: 26px">Prima y cesantías</h2>
+<div class="grid">
+<a href="Cesantias.dc.html" class="card" style="text-decoration: none; display: flex; flex-direction: column; gap: 8px"><span style="font-weight: 700; font-size: 19px">Calculadora de cesantías e intereses de cesantías 2026</span><span style="color: #4A6158; line-height: 1.5">Con contrato laboral o como independiente, para este año o años anteriores.</span></a>
+<div class="card" style="display: flex; flex-direction: column; gap: 8px; background: #E6EEE9; border-style: dashed"><span style="font-weight: 700; font-size: 19px">Calculadora de prima para independientes</span><span style="color: #4A6158; line-height: 1.5">Próximamente · pendiente de keyword research.</span></div>
+</div>
+</section>
+
+<section aria-labelledby="g-dolar" style="display: flex; flex-direction: column; gap: 16px">
+<h2 id="g-dolar" style="margin: 0; font-size: 26px">Dólar</h2>
+<div class="grid">
+<a href="DolarHoy.dc.html" class="card" style="text-decoration: none; display: flex; flex-direction: column; gap: 8px"><span style="font-weight: 700; font-size: 19px">Dólar hoy en Colombia (TRM)</span><span style="color: #4A6158; line-height: 1.5">La TRM oficial, el conversor y alertas por correo.</span></a>
+<div class="card" style="display: flex; flex-direction: column; gap: 8px; background: #E6EEE9; border-style: dashed"><span style="font-weight: 700; font-size: 19px">De dólares a pesos, con planilla</span><span style="color: #4A6158; line-height: 1.5">Próximamente · pendiente de keyword research.</span></div>
+</div>
+</section>
+
+<section aria-labelledby="g-ahorro" style="display: flex; flex-direction: column; gap: 16px">
+<h2 id="g-ahorro" style="margin: 0; font-size: 26px">Ahorro</h2>
+<div class="grid">
+<a href="InteresCompuesto.dc.html" class="card" style="text-decoration: none; display: flex; flex-direction: column; gap: 8px"><span style="font-weight: 700; font-size: 19px">Calculadora de interés compuesto y simulador de ahorro</span><span style="color: #4A6158; line-height: 1.5">Cuánto crece lo que apartas cada mes, con tu tasa y tu plazo.</span></a>
+<a href="CuentasRentables.dc.html" class="card" style="text-decoration: none; display: flex; flex-direction: column; gap: 8px"><span style="font-weight: 700; font-size: 19px">Cuentas de ahorro de alto rendimiento en Colombia</span><span style="color: #4A6158; line-height: 1.5">Guía comparativa por tasa, costos y respaldo de Fogafín.</span></a>
+</div>
+</section>
+
+<dc-import name="BannerRegistro" variante="general" hint-size="100%,460px"></dc-import>
+</main>
+
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2800}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

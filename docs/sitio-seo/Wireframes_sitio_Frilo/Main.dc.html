@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Frilo: calculadoras de aportes y cesantías para independientes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Clarity+City:wght@300;400;600;700&display=swap">
+<style>
+body{margin:0;background:#F3F6F4;color:#0F372D;font-family:"Clarity City","Helvetica Neue",Helvetica,Arial,sans-serif}
+a{color:#0F372D}a:hover{color:#0A2820}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;box-sizing:border-box}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:16px;font-weight:600;font-size:16px;text-decoration:none;box-sizing:border-box}
+.btn-m{background:#6FFF8F;color:#0F372D}.btn-m:hover{color:#0F372D}
+.btn-grad{background:linear-gradient(100deg,#6FFF8F 0%,#2FB35E 100%);color:#0F372D;font-weight:700}.btn-grad:hover{color:#0F372D}
+.card{background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+summary{cursor:pointer;font-weight:600;font-size:17px;padding:20px 0}
+details{border-bottom:1px solid #D6E0DA}
+</style>
+</helmet>
+<div style="background: #F3F6F4">
+
+<dc-import name="Header" activo="inicio" hint-size="100%,80px"></dc-import>
+
+<section style="background: #0F372D; color: #FFFFFF; padding: 64px 0 96px">
+<div class="wrap" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 56px; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 24px">
+<h1 style="margin: 0; display: flex; align-items: center; gap: 20px"><img src="/_blob/34387cbc3838c02c4d9ef15a15b5d70e" alt="" style="height: clamp(72px, 8vw, 104px); width: auto; display: block"><img src="/_blob/00d18b0804a41bfd4b8dc73e11787dbc" alt="Frilo" style="height: clamp(52px, 5.8vw, 76px); width: auto; display: block"></h1>
+<h2 style="margin: 0; font-size: clamp(28px, 3.4vw, 42px); line-height: 1.12; font-weight: 700; letter-spacing: -0.02em">Calculadoras gratis para independientes: aportes, cesantías y planilla</h2>
+<p style="margin: 0; font-size: 19px; line-height: 1.5; color: #B5CCC1; max-width: 560px">Sabes cuánto cobras; Frilo te dice cuánto es tuyo. Calcula tu planilla de seguridad social, aparta tu prima y tus cesantías, ponlas a rendir y sigue el dólar. Para freelancers y contratistas en Colombia, en pesos o en dólares.</p>
+<form style="display: flex; flex-direction: column; gap: 12px; background: #164538; border-radius: 24px; padding: 20px; max-width: 560px">
+<label for="hero-ingreso" style="font-weight: 600; font-size: 15px">¿Cuánto cobras al mes?</label>
+<div style="display: flex; gap: 12px; flex-wrap: wrap">
+<div style="display: flex; flex: 1 1 220px; min-height: 52px; border-radius: 12px; background: #FFFFFF; overflow: hidden">
+<select aria-label="Moneda" style="border: 0; background: #E6EEE9; color: #0F372D; font: 600 15px/1 inherit; padding: 0 12px"><option>COP</option><option>USD</option></select>
+<input id="hero-ingreso" inputmode="numeric" placeholder="8.000.000" style="flex: 1; min-width: 0; border: 0; padding: 0 16px; font: 600 18px/1 inherit; color: #0F372D">
+</div>
+<a class="btn btn-m" href="Calculadora.dc.html">Ver mi mes</a>
+</div>
+<p style="margin: 0; font-size: 13px; color: #B5CCC1">Sin registro para ver tu resultado. Antes de impuestos y sin IVA.</p>
+</form>
+</div>
+<div class="card" style="border: 0; padding: 28px; display: flex; flex-direction: column; gap: 20px; color: #0F372D">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap"><p style="margin: 0; font-weight: 600; font-size: 17px; display: inline-flex; align-items: center; gap: 10px"><img src="/_blob/f3656da70462c6952d82c0d3b2018938" alt="" style="height: 26px; width: auto; display: block">Así se ve tu mes</p><p style="margin: 0; font-size: 13px; color: #4A6158">Ejemplo con $8.000.000</p></div>
+<div><p style="margin: 0; font-size: 13px; color: #4A6158">Te queda para gastos y metas</p><p style="margin: 4px 0 0; font-size: 44px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em">$5.738.500</p></div>
+<div role="img" aria-label="Reparto: 72% disponible, 12% aportes, 8% prima, 8% cesantías" style="display: flex; height: 16px; border-radius: 999px; overflow: hidden; gap: 2px"><div style="width: 71.7%; background: #0F372D"></div><div style="width: 11.6%; background: #BFCBC5"></div><div style="width: 8.35%; background: #2FB35E"></div><div style="width: 8.35%; background: #6FFF8F"></div></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 16px; background: #F3F6F4; border-radius: 12px"><span style="font-size: 13px; color: #4A6158">Planilla (salud, pensión, ARL)</span><span style="font-size: 20px; font-weight: 700">$928.700</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 16px; background: #F3F6F4; border-radius: 12px"><span style="font-size: 13px; color: #4A6158">Aparta para prima</span><span style="font-size: 20px; font-weight: 700">$666.400</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 16px; background: #F3F6F4; border-radius: 12px"><span style="font-size: 13px; color: #4A6158">Aparta para cesantías</span><span style="font-size: 20px; font-weight: 700">$666.400</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 16px; background: #F3F6F4; border-radius: 12px"><span style="font-size: 13px; color: #4A6158">Dólar hoy (TRM)</span><span style="font-size: 20px; font-weight: 700">[$X.XXX,XX]</span></div>
+</div>
+<p style="margin: 0; font-size: 12px; line-height: 18px; color: #4A6158">Cálculo estimado con el salario mínimo 2026 y ARL riesgo I. No incluye el 4x1000, retenciones ni renta.</p>
+</div>
+</div>
+</section>
+
+<section aria-label="Fuentes" style="border-bottom: 1px solid #D6E0DA; background: #FFFFFF">
+<div class="wrap" style="display: flex; flex-wrap: wrap; gap: 12px 40px; justify-content: center; padding-top: 20px; padding-bottom: 20px; font-size: 14px; color: #4A6158">
+<span>Salario mínimo 2026: $1.750.905 (Decreto 1469 de 2025)</span><span>TRM oficial de la Superintendencia Financiera</span><span>Tarifas de la Ley 100 de 1993 y la Ley 797 de 2003</span>
+</div>
+</section>
+
+<section style="padding: 96px 0">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div style="max-width: 760px; display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-size: 40px; line-height: 1.1; letter-spacing: -0.015em">¿Qué tiene que calcular un independiente cada mes?</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.5; color: #4A6158">Tu contrato no trae prima ni cesantías y la planilla corre por tu cuenta. Trabajar por prestación de servicios o para afuera te da libertad, pero te deja tres cuentas que nadie hace por ti.</p>
+</div>
+<ol class="grid3" style="list-style: none; margin: 0; padding: 0">
+<li class="card" style="display: flex; flex-direction: column; gap: 12px"><span style="font-size: 14px; font-weight: 700; color: #1E7A43">01</span><p style="margin: 0; font-size: 18px; font-weight: 600">El dólar cambia todos los días</p><p style="margin: 0; color: #4A6158; line-height: 1.5">Facturas lo mismo y recibes distinto. No sabes cuánto entra hasta que cambias.</p></li>
+<li class="card" style="display: flex; flex-direction: column; gap: 12px"><span style="font-size: 14px; font-weight: 700; color: #1E7A43">02</span><p style="margin: 0; font-size: 18px; font-weight: 600">La planilla la calculas tú</p><p style="margin: 0; color: #4A6158; line-height: 1.5">Salud, pensión y ARL sobre el 40% de lo que facturas, con topes y redondeos.</p></li>
+<li class="card" style="display: flex; flex-direction: column; gap: 12px"><span style="font-size: 14px; font-weight: 700; color: #1E7A43">03</span><p style="margin: 0; font-size: 18px; font-weight: 600">Nadie te aparta prima ni cesantías</p><p style="margin: 0; color: #4A6158; line-height: 1.5">Si no las ahorras tú, en junio y en diciembre no hay colchón. Y si las apartas en una cuenta sin rentabilidad, pierden valor.</p></li>
+</ol>
+</div>
+</section>
+
+<section id="funciones" style="padding: 0 0 72px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 24px">
+<h2 style="margin: 0 0 8px; font-size: 36px; letter-spacing: -0.015em; display: flex; align-items: center; gap: 14px"><img src="/_blob/f3656da70462c6952d82c0d3b2018938" alt="" style="height: 36px; width: auto; display: block">Todo lo que calcula Frilo: planilla, cesantías y dólar</h2>
+<article class="card" style="padding: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<span style="font-size: 14px; font-weight: 600; color: #4A6158">01 · Aportes</span>
+<h3 style="margin: 0; font-size: 32px; line-height: 1.15">Sabe exactamente cuánto pagar de planilla</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.5; color: #4A6158">Salud, pensión, ARL y Fondo de Solidaridad sobre tu IBC, con el mismo redondeo de la PILA. Te avisamos tu fecha límite según tu documento y te llevamos a pagar.</p>
+<div style="display: flex; gap: 16px; flex-wrap: wrap"><a href="Calculadora.dc.html" style="font-weight: 600">Calculadora de aportes para independientes</a><a href="GuiaIBC.dc.html" style="font-weight: 600">Qué es el IBC y cómo se calcula</a></div>
+</div>
+<div style="background: #E6EEE9; border-radius: 16px; min-height: 260px; display: flex; align-items: center; justify-content: center; color: #4A6158; font-size: 14px">[Captura real de la app: desglose de aportes]</div>
+</article>
+<article class="card" style="padding: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: center">
+<div style="background: #E6EEE9; border-radius: 16px; min-height: 260px; display: flex; align-items: center; justify-content: center; color: #4A6158; font-size: 14px">[Captura real de la app: bolsillos de prima y cesantías]</div>
+<div style="display: flex; flex-direction: column; gap: 16px">
+<span style="font-size: 14px; font-weight: 600; color: #4A6158">02 · Prima y cesantías</span>
+<h3 style="margin: 0; font-size: 32px; line-height: 1.15">Arma tu propia prima y tus cesantías, y ponlas a rendir</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.5; color: #4A6158">Aparta el 8,33% para cada una en cada pago y mira cuánto llevas. Compara cuentas de ahorro por tasa, con fecha de consulta, y marca cuándo cobras tu prima.</p>
+<div style="display: flex; gap: 16px; flex-wrap: wrap"><a href="Cesantias.dc.html" style="font-weight: 600">Calculadora de cesantías e intereses</a><a href="Guia.dc.html" style="font-weight: 600">Cesantías para independientes</a></div>
+</div>
+</article>
+<article class="card" style="padding: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<span style="font-size: 14px; font-weight: 600; color: #4A6158">03 · Dólar</span>
+<h3 style="margin: 0; font-size: 32px; line-height: 1.15">Sigue el dólar y cobra en el mejor momento</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.5; color: #4A6158">La TRM de hoy frente a hace una semana, un mes y un año. Pon un valor objetivo y te avisamos por correo cuando el dólar llegue.</p>
+<div style="display: flex; gap: 16px; flex-wrap: wrap"><a href="DolarHoy.dc.html" style="font-weight: 600">Dólar hoy en Colombia</a><a href="GuiaRecibirDolares.dc.html" style="font-weight: 600">Cómo recibir pagos en dólares</a></div>
+</div>
+<div style="background: #E6EEE9; border-radius: 16px; min-height: 260px; display: flex; align-items: center; justify-content: center; color: #4A6158; font-size: 14px">[Captura real de la app: panel de TRM y alerta]</div>
+</article>
+</div>
+</section>
+
+<section aria-labelledby="rinde" style="padding: 0 0 96px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 24px">
+<h2 id="rinde" style="margin: 0; font-size: 36px; letter-spacing: -0.015em">Calcula cuánto rendirían tu prima y tus cesantías</h2>
+<dc-import name="BannerRendimiento" variante="prima" hint-size="100%,480px"></dc-import>
+</div>
+</section>
+
+<section style="padding: 0 0 96px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 32px">
+<h2 style="margin: 0; font-size: 36px; letter-spacing: -0.015em">Calculadoras para freelancers en dólares y contratistas por prestación de servicios</h2>
+<div class="grid3">
+<a href="GuiaRecibirDolares.dc.html" class="card" style="text-decoration: none; display: flex; flex-direction: column; gap: 10px"><span style="font-size: 18px; font-weight: 600">Te pagan en dólares desde afuera</span><span style="color: #4A6158; line-height: 1.5">Contractor o freelancer con clientes en el exterior.</span><span style="font-weight: 600; margin-top: 8px">Cómo recibir y convertir tus pagos</span></a>
+<a href="Calculadora.dc.html" class="card" style="text-decoration: none; display: flex; flex-direction: column; gap: 10px"><span style="font-size: 18px; font-weight: 600">Tienes contrato por prestación de servicios</span><span style="color: #4A6158; line-height: 1.5">Contratista en pesos con una o varias empresas en Colombia.</span><span style="font-weight: 600; margin-top: 8px">Calcula tu planilla de contratista</span></a>
+<a href="Calculadora.dc.html" class="card" style="text-decoration: none; display: flex; flex-direction: column; gap: 10px"><span style="font-size: 18px; font-weight: 600">Te ofrecieron un contrato y quieres saber cuánto te queda</span><span style="color: #4A6158; line-height: 1.5">Compara la oferta antes de firmar.</span><span style="font-weight: 600; margin-top: 8px">Simula tu ingreso neto</span></a>
+</div>
+</div>
+</section>
+
+<section style="background: #FFFFFF; padding: 96px 0; border-top: 1px solid #D6E0DA; border-bottom: 1px solid #D6E0DA">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap">
+<div style="display: flex; flex-direction: column; gap: 8px"><h2 style="margin: 0; font-size: 36px; letter-spacing: -0.015em">Calculadora de aportes, de cesantías y de fecha de pago de la planilla</h2><p style="margin: 0; color: #4A6158; font-size: 17px">Úsalas sin registrarte. Crea tu cuenta solo si quieres guardar.</p></div>
+<a href="CalculadorasHub.dc.html" style="font-weight: 600">Todas las calculadoras</a>
+</div>
+<div class="grid3">
+<a href="Calculadora.dc.html" class="card" style="text-decoration: none; background: #F3F6F4; display: flex; flex-direction: column; gap: 8px"><span style="font-weight: 600; font-size: 17px">Calculadora de aportes para independientes 2026</span><span style="color: #4A6158; font-size: 15px">Salud, pensión, ARL y FSP sobre tu IBC.</span></a>
+<a href="Cesantias.dc.html" class="card" style="text-decoration: none; background: #F3F6F4; display: flex; flex-direction: column; gap: 8px"><span style="font-weight: 600; font-size: 17px">Calculadora de cesantías e intereses</span><span style="color: #4A6158; font-size: 15px">Cesantías e intereses del 12%, con contrato o como independiente.</span></a>
+<a href="FechaPago.dc.html" class="card" style="text-decoration: none; background: #F3F6F4; display: flex; flex-direction: column; gap: 8px"><span style="font-weight: 600; font-size: 17px">Fecha de pago de la planilla</span><span style="color: #4A6158; font-size: 15px">Según los dos últimos dígitos de tu documento.</span></a>
+<a href="DolarHoy.dc.html" class="card" style="text-decoration: none; background: #F3F6F4; display: flex; flex-direction: column; gap: 8px"><span style="font-weight: 600; font-size: 17px">Dólar hoy en Colombia (TRM)</span><span style="color: #4A6158; font-size: 15px">Hoy, hace una semana, un mes y un año.</span></a>
+<a href="#" class="card" style="text-decoration: none; background: #F3F6F4; display: flex; flex-direction: column; gap: 8px"><span style="font-weight: 600; font-size: 17px">Calculadora de prima para independientes</span><span style="color: #4A6158; font-size: 15px">Cuánto apartar y cuánto tendrás en junio.</span></a>
+<a href="InteresCompuesto.dc.html" class="card" style="text-decoration: none; background: #F3F6F4; display: flex; flex-direction: column; gap: 8px"><span style="font-weight: 600; font-size: 17px">Calculadora de interés compuesto</span><span style="color: #4A6158; font-size: 15px">Simula cuánto rinden tu prima y tus cesantías.</span></a>
+</div>
+</div>
+</section>
+
+<section style="padding: 96px 0">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 720px"><h2 style="margin: 0; font-size: 36px; letter-spacing: -0.015em">Calcular aportes con Frilo, con una hoja de cálculo o con el simulador del operador</h2><p style="margin: 0; color: #4A6158; font-size: 17px">Una comparación honesta, incluido lo que Frilo no hace.</p></div>
+<div style="overflow-x: auto; border: 1px solid #D6E0DA; border-radius: 16px; background: #FFFFFF">
+<table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 15px">
+<thead><tr style="background: #E6EEE9; text-align: left"><th scope="col" style="padding: 16px 20px"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden">Función</span></th><th scope="col" style="padding: 16px 20px">Frilo</th><th scope="col" style="padding: 16px 20px">Hoja de cálculo</th><th scope="col" style="padding: 16px 20px">Simulador del operador PILA</th></tr></thead>
+<tbody>
+<tr style="border-top: 1px solid #D6E0DA"><th scope="row" style="padding: 16px 20px; text-align: left; font-weight: 400">Calcula aportes con la regla del 40%</th><td style="padding: 16px 20px; font-weight: 600">Sí</td><td style="padding: 16px 20px">A mano</td><td style="padding: 16px 20px">Sí</td></tr>
+<tr style="border-top: 1px solid #D6E0DA"><th scope="row" style="padding: 16px 20px; text-align: left; font-weight: 400">Convierte dólares con la TRM oficial</th><td style="padding: 16px 20px; font-weight: 600">Sí</td><td style="padding: 16px 20px">A mano</td><td style="padding: 16px 20px">No</td></tr>
+<tr style="border-top: 1px solid #D6E0DA"><th scope="row" style="padding: 16px 20px; text-align: left; font-weight: 400">Aparta prima y cesantías</th><td style="padding: 16px 20px; font-weight: 600">Sí</td><td style="padding: 16px 20px">A mano</td><td style="padding: 16px 20px">No</td></tr>
+<tr style="border-top: 1px solid #D6E0DA"><th scope="row" style="padding: 16px 20px; text-align: left; font-weight: 400">Compara cuentas donde ponerlas a rendir</th><td style="padding: 16px 20px; font-weight: 600">Sí</td><td style="padding: 16px 20px">No</td><td style="padding: 16px 20px">No</td></tr>
+<tr style="border-top: 1px solid #D6E0DA"><th scope="row" style="padding: 16px 20px; text-align: left; font-weight: 400">Alertas del dólar por correo</th><td style="padding: 16px 20px; font-weight: 600">Sí</td><td style="padding: 16px 20px">No</td><td style="padding: 16px 20px">No</td></tr>
+<tr style="border-top: 1px solid #D6E0DA"><th scope="row" style="padding: 16px 20px; text-align: left; font-weight: 400">Paga la planilla</th><td style="padding: 16px 20px; font-weight: 600">No, te lleva al operador</td><td style="padding: 16px 20px">No</td><td style="padding: 16px 20px; font-weight: 600">Sí</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section style="padding: 0 0 96px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap"><h2 style="margin: 0; font-size: 36px; letter-spacing: -0.015em">Guías para calcular y pagar tu planilla de seguridad social</h2><a href="GuiasHub.dc.html" style="font-weight: 600">Todas las guías</a></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+<a href="GuiaDescargarPlanilla.dc.html" class="card" style="text-decoration: none; padding: 0; overflow: hidden; display: flex; flex-direction: column"><div style="height: 140px; background: #E6EEE9"></div><div style="padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; font-weight: 600; color: #4A6158">Aportes</span><span style="font-size: 18px; font-weight: 600">Cómo descargar y verificar tu planilla de seguridad social</span></div></a>
+<a href="GuiaIBC.dc.html" class="card" style="text-decoration: none; padding: 0; overflow: hidden; display: flex; flex-direction: column"><div style="height: 140px; background: #E6EEE9"></div><div style="padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; font-weight: 600; color: #4A6158">Aportes</span><span style="font-size: 18px; font-weight: 600">IBC para independientes: qué es y cómo se calcula</span></div></a>
+<a href="Guia.dc.html" class="card" style="text-decoration: none; padding: 0; overflow: hidden; display: flex; flex-direction: column"><div style="height: 140px; background: #E6EEE9"></div><div style="padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; font-weight: 600; color: #4A6158">Prima y cesantías</span><span style="font-size: 18px; font-weight: 600">Cesantías para independientes: cómo crear las tuyas</span></div></a>
+<a href="GuiaRecibirDolares.dc.html" class="card" style="text-decoration: none; padding: 0; overflow: hidden; display: flex; flex-direction: column"><div style="height: 140px; background: #E6EEE9"></div><div style="padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; font-weight: 600; color: #4A6158">Dólar</span><span style="font-size: 18px; font-weight: 600">Cómo recibir pagos del exterior en dólares en Colombia</span></div></a>
+<a href="CuentasRentables.dc.html" class="card" style="text-decoration: none; padding: 0; overflow: hidden; display: flex; flex-direction: column"><div style="height: 140px; background: #E6EEE9"></div><div style="padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; font-weight: 600; color: #4A6158">Ahorro</span><span style="font-size: 18px; font-weight: 600">Cuentas de ahorro de alto rendimiento en Colombia</span></div></a>
+</div>
+</div>
+</section>
+
+<section id="preguntas" style="background: #FFFFFF; padding: 96px 0; border-top: 1px solid #D6E0DA">
+<div class="wrap" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 12px"><h2 style="margin: 0; font-size: 36px; letter-spacing: -0.015em">Preguntas frecuentes sobre Frilo y sus calculadoras</h2><p style="margin: 0; color: #4A6158; font-size: 17px; line-height: 1.5">Lo que decide si Frilo te sirve.</p></div>
+<div>
+<details open="open"><summary>¿Frilo es gratis?</summary><p style="margin: 0 0 20px; color: #4A6158; line-height: 1.6">Sí. Las calculadoras se usan sin registro. Crear una cuenta es gratis y sirve para guardar tus cálculos y recibir alertas.</p></details>
+<details><summary>¿Las cuentas que recomienda Frilo le pagan?</summary><p style="margin: 0 0 20px; color: #4A6158; line-height: 1.6">No. Frilo es un proyecto nuevo y gratuito: ninguna entidad nos paga por aparecer y el orden de las comparativas es siempre por tasa. No vendemos tus datos.</p></details>
+<details><summary>¿Frilo paga mi planilla?</summary><p style="margin: 0 0 20px; color: #4A6158; line-height: 1.6">No. Calcula el valor y te lleva al operador para que la pagues tú.</p></details>
+<details><summary>¿Sirve si me pagan en pesos?</summary><p style="margin: 0 0 20px; color: #4A6158; line-height: 1.6">Sí. Funciona para contratos de prestación de servicios en pesos, en dólares o de ambas formas.</p></details>
+<details><summary>¿De dónde sale la TRM?</summary><p style="margin: 0 0 20px; color: #4A6158; line-height: 1.6">Del dato oficial que publica la Superintendencia Financiera en Datos Abiertos Colombia.</p></details>
+<details><summary>¿Es asesoría financiera?</summary><p style="margin: 0 0 20px; color: #4A6158; line-height: 1.6">No. Son cálculos y simulaciones con fines informativos.</p></details>
+</div>
+</div>
+</section>
+
+<section style="padding: 96px 0">
+<div class="wrap">
+<div style="background: #0F372D; border-radius: 24px; padding: 64px 40px; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; color: #FFFFFF">
+<img src="/_blob/34387cbc3838c02c4d9ef15a15b5d70e" alt="" style="height: 88px; width: auto; display: block">
+<p style="margin: 0; font-size: clamp(30px, 4vw, 44px); font-weight: 700; letter-spacing: -0.02em; max-width: 720px">Más claridad, más libertad.</p>
+<p style="margin: 0; color: #B5CCC1; font-size: 18px">Haz tu primer cálculo en menos de un minuto.</p>
+<a class="btn btn-grad" href="https://frilo.dev">Probar la app gratis</a>
+</div>
+</div>
+</section>
+
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":6400}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

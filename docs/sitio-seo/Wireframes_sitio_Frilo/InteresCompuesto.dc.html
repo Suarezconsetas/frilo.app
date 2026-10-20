@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Calculadora de interés compuesto y simulador de ahorro | Frilo</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Clarity+City:wght@300;400;600;700&display=swap">
+<style>
+body{margin:0;background:#F3F6F4;color:#0F372D;font-family:"Clarity City","Helvetica Neue",Helvetica,Arial,sans-serif}
+a{color:#0F372D}a:hover{color:#0A2820}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;box-sizing:border-box}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:16px;font-weight:600;font-size:16px;text-decoration:none;box-sizing:border-box}
+.btn-m{background:#6FFF8F;color:#0F372D}.btn-m:hover{color:#0F372D}
+.card{background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
+.field{width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font:600 18px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
+.prose h2{font-size:30px;line-height:1.2;margin:56px 0 16px;letter-spacing:-0.01em}
+.prose p,.prose li{font-size:17px;line-height:1.65;color:#2B4A40}
+table.t{width:100%;border-collapse:collapse;font-size:15px}
+table.t th,table.t td{padding:12px 16px;text-align:left;border-top:1px solid #D6E0DA}
+table.t thead th{background:#E6EEE9;border-top:0}
+summary{cursor:pointer;font-weight:600;font-size:17px;padding:18px 0}
+details{border-bottom:1px solid #D6E0DA}
+</style>
+</helmet>
+<div>
+<dc-import name="Header" activo="calculadoras" hint-size="100%,80px"></dc-import>
+
+<main class="wrap" style="padding-top: 32px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 32px">
+<nav aria-label="Ruta de navegación" style="font-size: 14px; color: #4A6158; display: flex; gap: 8px; flex-wrap: wrap"><a href="Main.dc.html" style="color: #4A6158">Inicio</a><span aria-hidden="true">/</span><a href="CalculadorasHub.dc.html" style="color: #4A6158">Calculadoras</a><span aria-hidden="true">/</span><span aria-current="page">Interés compuesto</span></nav>
+
+<header style="display: flex; flex-direction: column; gap: 16px; max-width: 840px">
+<h1 style="margin: 0; font-size: clamp(34px, 4.4vw, 52px); line-height: 1.08; letter-spacing: -0.02em">Calculadora de interés compuesto: simula cuánto rinde tu ahorro</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #2B4A40">El interés compuesto suma los intereses a tu saldo para que también generen intereses. La fórmula es saldo final = capital × (1 + i)<sup>n</sup>, más lo que aportes cada mes. Usa esta calculadora de interés compuesto para saber cuánto tendrás, cuánto ahorrar al mes para llegar a una meta o cuánto tiempo te tomará.</p>
+<p style="margin: 0; font-size: 14px; color: #4A6158">Actualizada el 20 de octubre de 2026 · Por Nicolás Suárez · Revisada por el equipo de finanzas Frilo · <a href="#como" style="color: #4A6158">Cómo calculamos</a></p>
+</header>
+
+<div role="group" aria-label="¿Qué quieres calcular?" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 6px; background: #E6EEE9; border-radius: 16px; padding: 6px; max-width: 840px">
+<button type="button" aria-pressed="{{p1}}" onClick="{{m1}}" style="{{e1}}">¿Cuánto tendré?</button>
+<button type="button" aria-pressed="{{p2}}" onClick="{{m2}}" style="{{e2}}">¿Cuánto debo ahorrar al mes?</button>
+<button type="button" aria-pressed="{{p3}}" onClick="{{m3}}" style="{{e3}}">¿Cuánto tiempo tardo?</button>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<form class="card" aria-label="Calculadora de interés compuesto" style="flex: 1 1 380px; display: flex; flex-direction: column; gap: 18px; padding: 28px">
+<div style="background: #E6EEE9; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-weight: 600; font-size: 15px">Atajo: mi prima y mis cesantías</span>
+<div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center">
+<label for="ic-ingreso" style="font-size: 13px; color: #4A6158; flex: 1 1 100%">Tu ingreso mensual (COP)</label>
+<input id="ic-ingreso" class="field" inputmode="numeric" value="{{ingresoTxt}}" onChange="{{onIngreso}}" style="flex: 1 1 160px; min-height: 44px">
+<button type="button" onClick="{{usarPreset}}" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 12px; background: #0F372D; color: #6FFF8F; font: 700 14px/1 inherit; cursor: pointer">Usar el 16,66%</button>
+</div>
+</div>
+<sc-if value="{{conMeta}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="ic-meta" style="font-weight: 600">Tu meta de ahorro (COP)</label><input id="ic-meta" class="field" inputmode="numeric" value="{{metaTxt}}" onChange="{{onMeta}}"></div>
+</sc-if>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="ic-inicial" style="font-weight: 600">Monto inicial</label><input id="ic-inicial" class="field" inputmode="numeric" value="{{inicialTxt}}" onChange="{{onInicial}}"></div>
+<sc-if value="{{conAporte}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="ic-aporte" style="font-weight: 600">Aporte mensual</label><input id="ic-aporte" class="field" inputmode="numeric" value="{{aporteTxt}}" onChange="{{onAporte}}"></div>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="ic-tasa" style="font-weight: 600">Tasa anual (%)</label><input id="ic-tasa" class="field" inputmode="decimal" value="{{tasa}}" onChange="{{onTasa}}"></div>
+<sc-if value="{{conPlazo}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="ic-meses" style="font-weight: 600">Plazo</label><div style="display: flex; gap: 8px"><input id="ic-meses" class="field" inputmode="numeric" value="{{plazo}}" onChange="{{onPlazo}}" style="flex: 1 1 0; min-width: 0"><select aria-label="Unidad del plazo" class="field" value="{{unidad}}" onChange="{{onUnidad}}" style="flex: 0 0 104px; padding: 0 8px"><option value="meses">meses</option><option value="anios">años</option></select></div></div>
+</sc-if>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="ic-rango" style="font-weight: 600">Comparar con una tasa ± (puntos)</label><input id="ic-rango" class="field" inputmode="decimal" value="{{rango}}" onChange="{{onRango}}"><span style="font-size: 13px; color: #4A6158">Ve qué pasa si la tasa baja o sube: las tasas de las cuentas cambian seguido.</span></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="ic-tipo" style="font-weight: 600">Tipo de tasa</label><select id="ic-tipo" class="field" value="{{tipo}}" onChange="{{onTipo}}"><option value="ea">Efectiva anual (E.A.)</option><option value="nominal">Nominal anual</option></select></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="ic-cap" style="font-weight: 600">Capitalización</label><select id="ic-cap" class="field" value="{{cap}}" onChange="{{onCap}}"><option value="365">Diaria</option><option value="12">Mensual</option><option value="4">Trimestral</option><option value="2">Semestral</option><option value="1">Anual</option></select></div>
+</div>
+<span style="font-size: 13px; color: #4A6158">Con tasa E.A. la capitalización ya está incluida en la tasa; solo cambia el resultado si la tasa es nominal.</span>
+<label style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px; cursor: pointer">
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Descontar retención en la fuente</span><span style="font-size: 13px; color: #4A6158">7% de los intereses (tarifa 2026 para rendimientos financieros)</span></span>
+<input type="checkbox" checked="{{ret}}" onChange="{{onRet}}" style="width: 24px; height: 24px; accent-color: #0F372D">
+</label>
+</form>
+
+<section aria-label="Resultado" style="flex: 1 1 440px; background: #0F372D; color: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box">
+<span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #6FFF8F"><img src="/_blob/34387cbc3838c02c4d9ef15a15b5d70e" alt="" style="height: 24px; width: auto; display: block">Calculado con Frilo</span>
+<div><p style="margin: 0; color: #B5CCC1; font-size: 14px">{{titular}}</p><p style="margin: 6px 0 0; color: #6FFF8F; font-size: 44px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em">{{principal}}</p><p style="margin: 6px 0 0; color: #B5CCC1; font-size: 14px">{{subtitular}}</p></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<div style="background: #164538; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #B5CCC1">Capital aportado</span><span style="font-size: 19px; font-weight: 700">{{ahorradoTxt}}</span></div>
+<div style="background: #164538; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #B5CCC1">Intereses</span><span style="font-size: 19px; font-weight: 700; color: #6FFF8F">{{interesTxt}}</span></div>
+<div style="background: #164538; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #B5CCC1">Capital + intereses</span><span style="font-size: 19px; font-weight: 700">{{totalTxt}}</span></div>
+</div>
+<sc-if value="{{ret}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0; font-size: 13px; color: #B5CCC1">Retención en la fuente estimada: {{retTxt}} (ya descontada).</p>
+</sc-if>
+<div role="img" aria-label="{{graficoAlt}}" style="display: flex; align-items: flex-end; gap: 6px; height: 150px; padding-top: 8px">
+<sc-for list="{{barras}}" as="b" hint-placeholder-count="6">
+<div style="flex: 1 1 0; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; gap: 6px; align-items: stretch">
+<div style="{{b.columna}}"><div style="{{b.interes}}"></div><div style="{{b.aporte}}"></div></div>
+<span style="font-size: 11px; color: #B5CCC1; text-align: center">{{b.label}}</span>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: #B5CCC1"><span style="display: inline-flex; align-items: center; gap: 6px"><span aria-hidden="true" style="width: 12px; height: 12px; border-radius: 3px; background: #B5CCC1"></span>Capital aportado</span><span style="display: inline-flex; align-items: center; gap: 6px"><span aria-hidden="true" style="width: 12px; height: 12px; border-radius: 3px; background: #6FFF8F"></span>Intereses</span><span>· {{regla72}}</span></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{escenarios}}" as="e" hint-placeholder-count="3">
+<div style="{{e.estilo}}"><span style="font-size: 12px; color: #B5CCC1">{{e.label}}</span><span style="font-size: 17px; font-weight: 700">{{e.total}}</span></div>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 12px; line-height: 18px; color: #B5CCC1">Simulación con tasa constante, sin 4x1000. No es asesoría financiera.</p>
+<a href="CuentasRentables.dc.html" class="btn btn-m">Compara cuentas de ahorro de alto rendimiento</a>
+</section>
+</div>
+
+<section aria-labelledby="h-proy" style="display: flex; flex-direction: column; gap: 12px">
+<h2 id="h-proy" style="margin: 0; font-size: 26px">Proyección de tu ahorro año a año</h2>
+<div style="overflow-x: auto; border: 1px solid #D6E0DA; border-radius: 16px; background: #FFFFFF; max-height: 420px">
+<table class="t" style="min-width: 560px">
+<thead><tr><th scope="col">Periodo</th><th scope="col">Capital aportado</th><th scope="col">Intereses acumulados</th><th scope="col">Saldo</th></tr></thead>
+<tbody>
+<sc-for list="{{tabla}}" as="r" hint-placeholder-count="3">
+<tr><td>{{r.periodo}}</td><td>{{r.aportado}}</td><td>{{r.interes}}</td><td style="font-weight: 700">{{r.saldo}}</td></tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+</section>
+
+<article class="prose" style="max-width: 800px">
+<h2 style="margin-top: 16px">Cómo usar la calculadora de interés compuesto</h2>
+<p>Elige qué quieres saber:</p>
+<ol>
+<li><strong>¿Cuánto tendré?</strong> Escribe tu monto inicial, tu aporte mensual, la tasa y el plazo.</li>
+<li><strong>¿Cuánto debo ahorrar al mes?</strong> Escribe tu meta y el plazo: te decimos el aporte mensual que necesitas.</li>
+<li><strong>¿Cuánto tiempo tardo?</strong> Escribe tu meta y tu aporte: te decimos en cuántos meses llegas.</li>
+</ol>
+<p>Si eres independiente, usa el atajo de prima y cesantías: aparta el 16,66% de tu ingreso (8,33% para cada una).</p>
+
+<h2 id="como">Qué es el interés compuesto y cómo se calcula</h2>
+<p>Con un solo depósito, el saldo final es C × (1 + i)<sup>n</sup>, donde C es el capital, i la tasa de cada periodo y n el número de periodos. Si además aportas cada mes, se suma el valor futuro de esos aportes:</p>
+<p style="background: #FFFFFF; border: 1px solid #D6E0DA; border-radius: 12px; padding: 16px; font-family: ui-monospace, Menlo, monospace; font-size: 15px">Saldo = C × (1 + i)<sup>n</sup> + A × [(1 + i)<sup>n</sup> − 1] ÷ i</p>
+<p>Aquí A es el aporte mensual e i la tasa mensual equivalente: i = (1 + E.A.)<sup>1/12</sup> − 1. Al 9% E.A., i ≈ 0,72% mensual. Si tu tasa es nominal, primero se convierte a E.A. según la capitalización.</p>
+<div style="overflow-x: auto; border: 1px solid #D6E0DA; border-radius: 16px; background: #FFFFFF">
+<table class="t">
+<thead><tr><th scope="col">Concepto</th><th scope="col">Interés simple</th><th scope="col">Interés compuesto</th></tr></thead>
+<tbody>
+<tr><td>Sobre qué se calcula</td><td>Solo el capital</td><td>Capital + intereses acumulados</td></tr>
+<tr><td>$1.000.000 al 10% E.A. por 3 años</td><td>$1.300.000</td><td>$1.331.000</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>¿Cuánto crecen $1.000.000 con interés compuesto?</h2>
+<div style="overflow-x: auto; border: 1px solid #D6E0DA; border-radius: 16px; background: #FFFFFF">
+<table class="t">
+<caption style="text-align: left; padding: 12px 16px; font-size: 14px; color: #4A6158">Un solo depósito, sin aportes, antes de retención en la fuente</caption>
+<thead><tr><th scope="col">Plazo</th><th scope="col">Al 9% E.A.</th><th scope="col">Al 11% E.A.</th></tr></thead>
+<tbody>
+<sc-for list="{{referencia}}" as="f" hint-placeholder-count="4">
+<tr><td>{{f.plazo}}</td><td>{{f.a}}</td><td>{{f.b}}</td></tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+
+<h2>Simulador de ahorro mensual: ejemplo con tu prima y tus cesantías</h2>
+<p>Si facturas $8.000.000 al mes y apartas el 16,66% ($1.332.800) durante 12 meses en una cuenta al 9% E.A., terminarías con $16.643.072: $15.993.600 que aportaste y $649.472 de intereses, antes de retención en la fuente. Al 11% E.A., la tasa más alta sin condiciones que encontramos el 20 de octubre de 2026, los intereses serían mayores. ¿No sabes cuánto apartar? Usa la <a href="Calculadora.dc.html">calculadora de aportes</a>.</p>
+
+<h2>Cómo calcular los intereses de una cuenta de ahorros</h2>
+<ol>
+<li>Convierte la tasa E.A. a tasa diaria: (1 + E.A.)<sup>1/365</sup> − 1.</li>
+<li>Multiplica tu saldo de cada día por esa tasa: así liquidan casi todas las cuentas.</li>
+<li>Suma los intereses del mes. Algunas cuentas los abonan a diario y otras el primer día del mes siguiente.</li>
+<li>Resta la retención en la fuente: en 2026 es el 7% de los intereses, sin base mínima (<a href="https://www.gerencie.com/tabla-de-retencion-en-la-fuente-2026.html" target="_blank" rel="noopener">tabla de retención 2026</a>).</li>
+</ol>
+<p>Compara tasas reales en <a href="CuentasRentables.dc.html">cuentas de ahorro de alto rendimiento en Colombia</a>.</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #4A6158"><strong style="color: #0F372D">Fuentes oficiales:</strong> <a href="https://www.superfinanciera.gov.co/" target="_blank" rel="noopener">Superintendencia Financiera de Colombia</a> · <a href="https://www.fogafin.gov.co/" target="_blank" rel="noopener">Fogafín</a> · <a href="https://www.banrep.gov.co/" target="_blank" rel="noopener">Banco de la República</a></p>
+<h2>Preguntas frecuentes</h2>
+<details><summary>¿Qué diferencia hay entre tasa E.A. y tasa nominal?</summary><p>La tasa efectiva anual (E.A.) ya incluye el efecto de capitalizar los intereses. La nominal no: hay que convertirla según cuántas veces al año se capitaliza. Un 9% nominal con capitalización mensual equivale a cerca de 9,38% E.A.</p></details>
+<details><summary>¿El 4x1000 afecta lo que rinde mi ahorro?</summary><p>El 4x1000 (GMF) se cobra cuando retiras o transfieres dinero, no sobre los intereses. Puedes marcar una sola cuenta como exenta, con un tope mensual que define cada entidad según la ley (por ejemplo, Nu informa hasta $16 millones al mes).</p></details>
+<details><summary>¿Los rendimientos de una cuenta de ahorros pagan retención en la fuente?</summary><p>Sí. En 2026 la retención en la fuente sobre intereses o rendimientos financieros es del 7%, sin base mínima (<a href="https://www.gerencie.com/tabla-de-retencion-en-la-fuente-2026.html" target="_blank" rel="noopener">tabla de retención 2026</a>). Activa la opción en la calculadora para verla descontada.</p></details>
+<details><summary>¿Es mejor capitalización diaria o mensual?</summary><p>Si la tasa que te dan es efectiva anual (E.A.), da igual: la capitalización ya está incluida. Solo importa cuando la tasa es nominal; ahí, entre más frecuente la capitalización, más rinde.</p></details>
+<details><summary>¿Qué es la regla del 72?</summary><p>Un atajo para estimar en cuántos años se duplica tu dinero: divide 72 entre la tasa anual. Al 9% E.A. tu ahorro se duplica en unos 8 años.</p></details>
+<details><summary>¿Esta calculadora sirve para inversiones o solo para ahorro?</summary><p>Sirve para cualquier tasa que se mantenga fija. En inversiones como fondos o acciones la rentabilidad no está garantizada y puede ser negativa. No es asesoría financiera.</p></details>
+</article>
+
+<dc-import name="BannerRegistro" variante="prima" hint-size="100%,460px"></dc-import>
+
+<section aria-labelledby="h-otras" style="display: flex; flex-direction: column; gap: 16px">
+<h2 id="h-otras" style="margin: 0; font-size: 26px">Otras calculadoras para independientes</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+<a href="Calculadora.dc.html" class="card" style="text-decoration: none; font-weight: 600">Calculadora de aportes para independientes</a>
+<a href="Cesantias.dc.html" class="card" style="text-decoration: none; font-weight: 600">Calculadora de cesantías e intereses</a>
+<a href="FechaPago.dc.html" class="card" style="text-decoration: none; font-weight: 600">Fecha de pago de la planilla</a>
+<a href="CuentasRentables.dc.html" class="card" style="text-decoration: none; font-weight: 600">Cuentas de ahorro de alto rendimiento</a>
+</div>
+</section>
+</main>
+
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4800}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { modo: 'saldo', inicial: 0, aporte: 1332800, meta: 20000000, tasa: '9', plazo: 12, unidad: 'meses', rango: '2', cap: '365', tipo: 'ea', ingreso: 8000000, ret: false };
+}
+renderVals() {
+var self = this;
+var st = this.state;
+var fmt = function (x) { return '$' + Math.round(x).toLocaleString('es-CO'); };
+var num = function (e) { var v = parseInt(String(e.target.value).replace(/\D/g, ''), 10); return isNaN(v) ? 0 : v; };
+var dec = function (x) { return (parseFloat(String(x).replace(',', '.')) || 0) / 100; };
+var P = st.inicial || 0;
+var meta = st.meta || 0;
+var k = parseInt(st.cap, 10) || 12;
+var aEA = function (t) { return st.tipo === 'nominal' ? Math.pow(1 + t / k, k) - 1 : t; };
+var tasa = dec(st.tasa);
+var rm = Math.pow(1 + aEA(tasa), 1 / 12) - 1;
+var modo = st.modo;
+var n = Math.min(Math.max(st.unidad === 'anios' ? (st.plazo || 0) * 12 : (st.plazo || 0), 0), 600);
+var A = st.aporte || 0;
+var noLlega = false;
+if (modo === 'meta') {
+var g = Math.pow(1 + rm, n);
+var necesario = n > 0 ? (rm > 0 ? (meta - P * g) * rm / (g - 1) : (meta - P) / n) : 0;
+A = Math.max(Math.ceil(necesario / 1000) * 1000, 0);
+}
+if (modo === 'tiempo') {
+var x = P; var m = 0;
+while (x < meta && m < 600) { x = x * (1 + rm) + A; m++; }
+noLlega = x < meta;
+n = m;
+}
+var simular = function (t) { var r = Math.pow(1 + aEA(t), 1 / 12) - 1; var out = []; var s = P; for (var j = 1; j <= n; j++) { s = s * (1 + r) + A; out.push(s); } return out; };
+var saldos = simular(tasa);
+var bruto = n ? saldos[n - 1] : P;
+var aportado = P + A * n;
+var interesBruto = Math.max(bruto - aportado, 0);
+var retencion = st.ret ? interesBruto * 0.07 : 0;
+var total = bruto - retencion;
+var pctTxt = function (t) { return (t * 100).toLocaleString('es-CO', { maximumFractionDigits: 2 }) + '%'; };
+var rango = dec(st.rango);
+var finDe = function (t) { var arr = simular(t); var b = n ? arr[n - 1] : P; return b - (st.ret ? Math.max(b - aportado, 0) * 0.07 : 0); };
+var base = 'background: #164538; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 4px';
+var escenarios = [
+{ label: 'Al ' + pctTxt(Math.max(tasa - rango, 0)), total: fmt(finDe(Math.max(tasa - rango, 0))), estilo: base },
+{ label: 'Al ' + pctTxt(tasa) + ' (tu tasa)', total: fmt(total), estilo: base + '; box-shadow: inset 0 0 0 2px #6FFF8F' },
+{ label: 'Al ' + pctTxt(tasa + rango), total: fmt(finDe(tasa + rango)), estilo: base }
+];
+var pasos = Math.min(n, 8) || 1;
+var barras = [];
+var maxV = bruto || 1;
+for (var b = 1; b <= pasos; b++) {
+var idx = Math.max(Math.round(b * n / pasos) - 1, 0);
+var sv = n ? saldos[idx] : P;
+var ap = P + A * (idx + 1);
+var hT = Math.max(4, Math.round(sv / maxV * 100));
+var hA = Math.round(Math.min(ap, sv) / sv * 100);
+barras.push({ label: n > 24 ? 'Año ' + Math.round((idx + 1) / 12) : 'Mes ' + (idx + 1), columna: 'height: ' + hT + '%; display: flex; flex-direction: column; border-radius: 6px 6px 2px 2px; overflow: hidden', interes: 'flex: ' + (100 - hA) + ' 1 0; background: #6FFF8F', aporte: 'flex: ' + hA + ' 1 0; background: #B5CCC1' });
+}
+var tabla = [];
+var paso = n > 24 ? 12 : (n > 12 ? 3 : 1);
+for (var q = paso; q <= n; q += paso) { var aq = P + A * q; tabla.push({ periodo: n > 24 ? 'Año ' + (q / 12) : 'Mes ' + q, aportado: fmt(aq), interes: fmt(saldos[q - 1] - aq), saldo: fmt(saldos[q - 1]) }); }
+if (n > 0 && n % paso !== 0) { var af = P + A * n; tabla.push({ periodo: 'Mes ' + n, aportado: fmt(af), interes: fmt(saldos[n - 1] - af), saldo: fmt(saldos[n - 1]) }); }
+var fv = function (t, anios) { return fmt(1000000 * Math.pow(1 + t, anios)); };
+var referencia = [1, 5, 10, 20].map(function (a) { return { plazo: a === 1 ? '1 año' : a + ' años', a: fv(0.09, a), b: fv(0.11, a) }; });
+var ea = aEA(tasa);
+var on = 'min-height: 48px; border: 0; border-radius: 12px; background: #FFFFFF; color: #0F372D; font: 700 15px/1.2 inherit; padding: 8px 12px; cursor: pointer; box-shadow: 0 1px 2px rgba(15,55,45,0.15)';
+var off = 'min-height: 48px; border: 0; border-radius: 12px; background: transparent; color: #4A6158; font: 600 15px/1.2 inherit; padding: 8px 12px; cursor: pointer';
+var titular, principal, subtitular;
+if (modo === 'meta') { titular = 'Para llegar a ' + fmt(meta) + ' en ' + n + ' meses debes ahorrar al mes'; principal = fmt(A); subtitular = 'Terminarías con ' + fmt(total) + '.'; }
+else if (modo === 'tiempo') { titular = 'Llegas a ' + fmt(meta) + ' en'; principal = noLlega ? 'Más de 50 años' : (function () { var an = Math.floor(n / 12); var me = n % 12; var tA = an ? an + (an === 1 ? ' año' : ' años') : ''; var tM = me ? me + (me === 1 ? ' mes' : ' meses') : ''; return tA && tM ? tA + ' y ' + tM : (tA || tM || '0 meses'); })(); subtitular = noLlega ? 'Sube el aporte mensual o la tasa.' : 'Ahorrando ' + fmt(A) + ' al mes.'; }
+else { titular = 'Capital + intereses en ' + n + ' meses'; principal = fmt(total); subtitular = 'Ahorrando ' + fmt(A) + ' al mes.'; }
+return {
+p1: modo === 'saldo' ? 'true' : 'false', p2: modo === 'meta' ? 'true' : 'false', p3: modo === 'tiempo' ? 'true' : 'false',
+e1: modo === 'saldo' ? on : off, e2: modo === 'meta' ? on : off, e3: modo === 'tiempo' ? on : off,
+m1: function () { self.setState({ modo: 'saldo' }); },
+m2: function () { self.setState({ modo: 'meta' }); },
+m3: function () { self.setState({ modo: 'tiempo' }); },
+conMeta: modo !== 'saldo', conAporte: modo !== 'meta', conPlazo: modo !== 'tiempo',
+titular: titular, principal: principal, subtitular: subtitular,
+inicialTxt: P.toLocaleString('es-CO'), aporteTxt: (st.aporte || 0).toLocaleString('es-CO'), metaTxt: meta.toLocaleString('es-CO'),
+ingresoTxt: st.ingreso.toLocaleString('es-CO'),
+tasa: st.tasa, plazo: String(st.plazo), unidad: st.unidad, rango: st.rango, cap: st.cap, tipo: st.tipo, ret: st.ret,
+totalTxt: fmt(total), ahorradoTxt: fmt(aportado), interesTxt: fmt(interesBruto - retencion), retTxt: fmt(retencion),
+regla72: ea > 0 ? 'Regla del 72: tu dinero se duplica en unos ' + Math.round(72 / (ea * 100)) + ' años' : 'Sin tasa no hay crecimiento',
+escenarios: escenarios, barras: barras, tabla: tabla, referencia: referencia,
+graficoAlt: 'Crecimiento del saldo hasta ' + fmt(bruto) + ' en ' + n + ' meses: capital aportado e intereses',
+onInicial: function (e) { self.setState({ inicial: num(e) }); },
+onAporte: function (e) { self.setState({ aporte: num(e) }); },
+onMeta: function (e) { self.setState({ meta: num(e) }); },
+onTasa: function (e) { self.setState({ tasa: String(e.target.value) }); },
+onPlazo: function (e) { self.setState({ plazo: num(e) }); },
+onUnidad: function (e) { self.setState({ unidad: e.target.value }); },
+onRango: function (e) { self.setState({ rango: String(e.target.value) }); },
+onCap: function (e) { self.setState({ cap: e.target.value }); },
+onTipo: function (e) { self.setState({ tipo: e.target.value }); },
+onRet: function (e) { self.setState({ ret: e.target.checked }); },
+onIngreso: function (e) { self.setState({ ingreso: num(e) }); },
+usarPreset: function () { self.setState({ aporte: Math.round(self.state.ingreso * 0.1666 / 100) * 100 }); }
+};
+}
+}
+</script>
+</body>
+</html>

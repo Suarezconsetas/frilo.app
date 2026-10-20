@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Fechas de pago de la planilla de seguridad social 2026 | Frilo</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Clarity+City:wght@300;400;600;700&display=swap">
+<style>
+body{margin:0;background:#F3F6F4;color:#0F372D;font-family:"Clarity City","Helvetica Neue",Helvetica,Arial,sans-serif}
+a{color:#0F372D}a:hover{color:#0A2820}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;box-sizing:border-box}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:16px;font-weight:600;font-size:16px;text-decoration:none;box-sizing:border-box}
+.btn-grad{background:linear-gradient(100deg,#6FFF8F 0%,#2FB35E 100%);color:#0F372D;font-weight:700}.btn-grad:hover{color:#0F372D}
+.card{background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
+.field{width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font:700 22px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box;letter-spacing:0.1em}
+.prose h2{font-size:30px;line-height:1.2;margin:56px 0 16px;letter-spacing:-0.01em}
+.prose p,.prose li{font-size:17px;line-height:1.65;color:#2B4A40}
+table.t{width:100%;border-collapse:collapse;font-size:15px}
+table.t th,table.t td{padding:10px 16px;text-align:left;border-top:1px solid #D6E0DA}
+table.t thead th{background:#E6EEE9;border-top:0}
+summary{cursor:pointer;font-weight:600;font-size:17px;padding:18px 0}
+details{border-bottom:1px solid #D6E0DA}
+</style>
+</helmet>
+<div>
+<dc-import name="Header" activo="calculadoras" hint-size="100%,80px"></dc-import>
+
+<main class="wrap" style="padding-top: 32px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 32px">
+<nav aria-label="Ruta de navegación" style="font-size: 14px; color: #4A6158; display: flex; gap: 8px; flex-wrap: wrap"><a href="Main.dc.html" style="color: #4A6158">Inicio</a><span aria-hidden="true">/</span><a href="CalculadorasHub.dc.html" style="color: #4A6158">Calculadoras</a><span aria-hidden="true">/</span><span aria-current="page">Fecha de pago de la planilla</span></nav>
+
+<header style="display: flex; flex-direction: column; gap: 16px; max-width: 820px">
+<h1 style="margin: 0; font-size: clamp(34px, 4.4vw, 52px); line-height: 1.08; letter-spacing: -0.02em">Fechas de pago de la planilla de seguridad social 2026</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #2B4A40">La fecha de pago de la planilla de seguridad social depende de los dos últimos dígitos de tu documento: va del segundo al decimosexto día hábil de cada mes. Escribe tus dígitos y te decimos tu día límite.</p>
+<p style="margin: 0; font-size: 14px; color: #4A6158">Actualizada el 20 de octubre de 2026 · Revisada por el equipo de finanzas Frilo · Fuente: <a href="https://normativa.colpensiones.gov.co/compilacion/docs/decreto_1990_2016.htm" target="_blank" rel="noopener" style="color: #4A6158">Decreto 1990 de 2016, artículo 3.2.2.1</a></p>
+</header>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch">
+<form class="card" aria-label="Buscar mi fecha de pago" style="flex: 1 1 340px; display: flex; flex-direction: column; gap: 12px; padding: 28px">
+<label for="digitos" style="font-weight: 600; font-size: 17px">Dos últimos dígitos de tu documento</label>
+<input id="digitos" class="field" inputmode="numeric" maxlength="2" value="{{digitos}}" onChange="{{onDig}}" style="max-width: 160px">
+<span style="font-size: 13px; color: #4A6158">Ejemplo: si tu cédula termina en 1.234.567<strong>89</strong>, escribe 89.</span>
+<label for="mes" style="font-weight: 600; font-size: 17px; margin-top: 8px">Mes en que vas a pagar</label>
+<select id="mes" class="field" value="{{mes}}" onChange="{{onMes}}" style="font-size: 18px; letter-spacing: 0">
+<sc-for list="{{meses}}" as="o" hint-placeholder-count="12">
+<option value="{{o.v}}">{{o.t}}</option>
+</sc-for>
+</select>
+</form>
+<section aria-label="Tu fecha límite" style="flex: 1 1 420px; background: #0F372D; color: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 14px; box-sizing: border-box">
+<span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #6FFF8F"><img src="/_blob/34387cbc3838c02c4d9ef15a15b5d70e" alt="" style="height: 24px; width: auto; display: block">Calculado con Frilo</span>
+<p style="margin: 0; color: #B5CCC1; font-size: 14px">Tu fecha límite de pago es el</p>
+<p style="margin: 0; color: #6FFF8F; font-size: 44px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em">{{diaTxt}}</p>
+<p style="margin: 0; color: #FFFFFF; font-size: 20px; font-weight: 700">{{fechaTxt}}</p>
+<p style="margin: 0; color: #B5CCC1; font-size: 15px">Contamos los días hábiles sin sábados, domingos ni festivos de Colombia. Paga antes para evitar intereses de mora.</p>
+<a class="btn btn-grad" href="#registro">Recibir el recordatorio cada mes</a>
+</section>
+</div>
+
+<dc-import name="BannerRegistro" variante="recordatorio" hint-size="100%,460px"></dc-import>
+
+<article class="prose" style="max-width: 820px">
+<h2 style="margin-top: 16px">Calendario de pago según los dos últimos dígitos del documento</h2>
+<div style="overflow-x: auto; border: 1px solid #D6E0DA; border-radius: 16px; background: #FFFFFF">
+<table class="t">
+<caption style="text-align: left; padding: 12px 16px; font-size: 14px; color: #4A6158">Día hábil límite de pago según el artículo 3.2.2.1 del Decreto 1990 de 2016. Aplica a todos los aportantes, incluidos los independientes.</caption>
+<thead><tr><th scope="col">Dos últimos dígitos</th><th scope="col">Día hábil del mes</th></tr></thead>
+<tbody>
+<sc-for list="{{tabla}}" as="r" hint-placeholder-count="15">
+<tr><td>{{r.rango}}</td><td>{{r.dia}}</td></tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+
+<h2>Qué pasa si pagas la planilla después de la fecha</h2>
+<p>Pagas intereses de mora por cada día de retraso, liquidados a la tasa de usura vigente (los calcula el operador al liquidar la planilla). Si dejas de pagar, la <a href="https://www.ugpp.gov.co/" target="_blank" rel="noopener">UGPP</a> puede cobrarte los aportes con sanciones, y tu EPS puede suspender la atención mientras estés en mora. Si se te pasó la fecha, paga cuanto antes: los intereses crecen cada día.</p>
+
+<h2>Fechas para independientes</h2>
+<p>Los independientes cotizan mes vencido: lo que facturas en octubre se paga en la planilla de noviembre (<a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma_pdf.php?i=87624" target="_blank" rel="noopener">Decreto 1273 de 2018</a>). Si aún no sabes cuánto pagar, usa la <a href="Calculadora.dc.html">calculadora de aportes para independientes</a>. Después de pagar, aprende a <a href="GuiaDescargarPlanilla.dc.html">descargar y verificar tu planilla de seguridad social</a>.</p>
+
+<p style="font-size: 15px; line-height: 1.6; color: #4A6158"><strong style="color: #0F372D">Fuentes oficiales:</strong> <a href="https://normativa.colpensiones.gov.co/compilacion/docs/decreto_1990_2016.htm" target="_blank" rel="noopener">Decreto 1990 de 2016</a> · <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma_pdf.php?i=87624" target="_blank" rel="noopener">Decreto 1273 de 2018</a> · <a href="https://www.minsalud.gov.co/" target="_blank" rel="noopener">Ministerio de Salud</a> · <a href="https://www.ugpp.gov.co/" target="_blank" rel="noopener">UGPP</a></p>
+<h2>Preguntas frecuentes</h2>
+<details><summary>¿Qué pasa si la fecha cae en festivo?</summary><p>No puede caer en festivo: el plazo se cuenta en días hábiles, así que los sábados, domingos y festivos no cuentan. Por eso tu fecha cambia de un mes a otro aunque tus dígitos sean los mismos.</p></details>
+<details><summary>¿Uso los dígitos de la cédula o del NIT?</summary><p>Los dos últimos dígitos del documento con el que pagas la planilla. Si pagas con tu NIT, toma los dos últimos dígitos incluyendo el dígito de verificación.</p></details>
+<details><summary>¿Puedo pagar antes de mi fecha?</summary><p>Sí. La fecha es el límite, no el único día posible. Puedes pagar desde que el operador habilita el periodo.</p></details>
+<details><summary>¿Frilo me puede avisar cada mes?</summary><p>Sí. Crea tu cuenta gratis, escribe los dos últimos dígitos de tu documento y te enviamos un correo 3 días hábiles antes y el mismo día de tu fecha límite.</p></details>
+</article>
+</main>
+
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4200}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { digitos: '89', mes: '10' };
+}
+renderVals() {
+var self = this;
+var festivos2026 = ['2026-01-01','2026-01-12','2026-03-23','2026-04-02','2026-04-03','2026-05-01','2026-05-18','2026-06-08','2026-06-15','2026-06-29','2026-07-20','2026-08-07','2026-08-17','2026-10-12','2026-11-02','2026-11-16','2026-12-08','2026-12-25'];
+var nombresMes = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var nombresDia = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+var p2 = function (x) { return (x < 10 ? '0' : '') + x; };
+var diaHabil = function (mesIdx, n) {
+var c = 0;
+for (var d = 1; d <= 31; d++) {
+var f = new Date(2026, mesIdx, d);
+if (f.getMonth() !== mesIdx) { break; }
+var iso = '2026-' + p2(mesIdx + 1) + '-' + p2(d);
+var dow = f.getDay();
+if (dow !== 0 && dow !== 6 && festivos2026.indexOf(iso) < 0) { c++; if (c === n) { return f; } }
+}
+return null;
+};
+var rangos = [[0,7,2],[8,14,3],[15,21,4],[22,28,5],[29,35,6],[36,42,7],[43,49,8],[50,56,9],[57,63,10],[64,69,11],[70,75,12],[76,81,13],[82,87,14],[88,93,15],[94,99,16]];
+var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+var d = parseInt(this.state.digitos, 10);
+var dia = null;
+for (var i = 0; i < rangos.length; i++) { if (!isNaN(d) && d >= rangos[i][0] && d <= rangos[i][1]) { dia = rangos[i][2]; } }
+var mi = parseInt(this.state.mes, 10);
+var fecha = dia ? diaHabil(mi, dia) : null;
+return {
+digitos: this.state.digitos,
+mes: this.state.mes,
+meses: nombresMes.map(function (n, i) { return { v: String(i), t: n.charAt(0).toUpperCase() + n.slice(1) + ' de 2026' }; }),
+onMes: function (e) { self.setState({ mes: e.target.value }); },
+fechaTxt: fecha ? 'En ' + nombresMes[mi] + ' de 2026: ' + nombresDia[fecha.getDay()] + ' ' + fecha.getDate() + ' de ' + nombresMes[mi] : 'Escribe tus dos dígitos para ver la fecha',
+diaTxt: dia ? 'día hábil ' + dia : 'Escribe dos dígitos',
+tabla: rangos.map(function (r) { return { rango: pad(r[0]) + ' a ' + pad(r[1]), dia: 'Día hábil ' + r[2] }; }),
+onDig: function (e) { self.setState({ digitos: String(e.target.value).replace(/\D/g, '').slice(0, 2) }); }
+};
+}
+}
+</script>
+</body>
+</html>

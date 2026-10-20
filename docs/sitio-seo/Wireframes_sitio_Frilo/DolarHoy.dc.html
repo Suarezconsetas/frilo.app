@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Dólar hoy en Colombia: precio y TRM actualizada | Frilo</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Clarity+City:wght@300;400;600;700&display=swap">
+<style>
+body{margin:0;background:#F3F6F4;color:#0F372D;font-family:"Clarity City","Helvetica Neue",Helvetica,Arial,sans-serif}
+a{color:#0F372D}a:hover{color:#0A2820}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;box-sizing:border-box}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:16px;font-weight:600;font-size:16px;text-decoration:none;box-sizing:border-box}
+.btn-p{background:#0F372D;color:#6FFF8F}.btn-p:hover{background:#0A2820;color:#6FFF8F}
+.btn-m{background:#6FFF8F;color:#0F372D}.btn-m:hover{color:#0F372D}
+.card{background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
+.field{width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font:600 18px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
+table.t{width:100%;border-collapse:collapse;font-size:15px}
+table.t th,table.t td{padding:12px 16px;text-align:left;border-top:1px solid #D6E0DA}
+table.t thead th{background:#E6EEE9;border-top:0}
+summary{cursor:pointer;font-weight:600;font-size:17px;padding:18px 0}
+details{border-bottom:1px solid #D6E0DA}
+</style>
+</helmet>
+<div>
+
+<dc-import name="Header" activo="dolar" hint-size="100%,80px"></dc-import>
+
+<section style="background: #0F372D; color: #FFFFFF; padding: 40px 0 64px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 28px">
+<nav aria-label="Ruta de navegación" style="font-size: 14px; color: #B5CCC1; display: flex; gap: 8px"><a href="Main.dc.html" style="color: #B5CCC1">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Dólar hoy</span></nav>
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 860px">
+<h1 style="margin: 0; font-size: clamp(32px, 4vw, 46px); letter-spacing: -0.02em">Dólar hoy en Colombia: TRM del [jueves 15 de octubre de 2026]</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.5">El valor del dólar hoy en Colombia es [X.XXX,XX] pesos, según la TRM oficial vigente desde el [fecha]. El precio del dólar colombiano hoy [subió/bajó] [X,XX%] frente a ayer.</p>
+<p style="margin: 0; color: #B5CCC1; font-size: 14px">Fuente: Superintendencia Financiera vía datos.gov.co · Actualizado [hora] · Se actualiza cada día hábil</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+<div style="flex: 1 1 300px; background: #164538; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 8px">
+<span style="color: #B5CCC1; font-size: 14px">1 dólar hoy</span>
+<span style="color: #6FFF8F; font-size: 56px; line-height: 1; font-weight: 700; letter-spacing: -0.02em">[$X.XXX,XX]</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; color: #7BEA9A; font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>[+$XX,XX (+X,XX%)] frente a ayer</span>
+</div>
+<div style="flex: 2 1 520px; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px">
+<div style="background: #164538; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 6px"><span style="color: #B5CCC1; font-size: 14px">Hace una semana</span><span style="font-size: 26px; font-weight: 700">[$X.XXX,XX]</span><span style="font-size: 14px; color: #B5CCC1">[sube X,XX%]</span></div>
+<div style="background: #164538; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 6px"><span style="color: #B5CCC1; font-size: 14px">Hace un mes</span><span style="font-size: 26px; font-weight: 700">[$X.XXX,XX]</span><span style="font-size: 14px; color: #B5CCC1">[baja X,XX%]</span></div>
+<div style="background: #164538; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 6px"><span style="color: #B5CCC1; font-size: 14px">Hace un año</span><span style="font-size: 26px; font-weight: 700">[$X.XXX,XX]</span><span style="font-size: 14px; color: #B5CCC1">[sube X,XX%]</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<main class="wrap" style="padding-top: 40px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 32px">
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch">
+<section class="card" aria-labelledby="h-grafico" style="flex: 2 1 560px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center">
+<h2 id="h-grafico" style="margin: 0; font-size: 22px">Precio del dólar hoy en Colombia: cómo se ha movido</h2>
+<div role="group" aria-label="Periodo" style="display: flex; background: #E6EEE9; border-radius: 12px; padding: 4px; gap: 4px">
+<button type="button" style="min-height: 36px; padding: 0 14px; border: 0; border-radius: 9px; background: transparent; font: 600 14px/1 inherit; color: #4A6158">7 días</button>
+<button type="button" aria-pressed="true" style="min-height: 36px; padding: 0 14px; border: 0; border-radius: 9px; background: #FFFFFF; font: 700 14px/1 inherit; color: #0F372D">30 días</button>
+<button type="button" style="min-height: 36px; padding: 0 14px; border: 0; border-radius: 9px; background: transparent; font: 600 14px/1 inherit; color: #4A6158">1 año</button>
+</div>
+</div>
+<div style="height: 280px; background: #F3F6F4; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #4A6158; font-size: 14px">[Gráfico de línea de la TRM con datos de datos.gov.co]</div>
+</section>
+
+<section aria-labelledby="h-alerta" style="flex: 1 1 320px; background: #0F372D; color: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box">
+<h2 id="h-alerta" style="margin: 0; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 18px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>Avísame cuando el dólar llegue a…</h2>
+<label for="alerta-valor" style="font-size: 14px; color: #B5CCC1">Valor objetivo (COP)</label>
+<input id="alerta-valor" class="field" inputmode="numeric" placeholder="4.300">
+<label for="alerta-correo" style="font-size: 14px; color: #B5CCC1">Tu correo</label>
+<input id="alerta-correo" class="field" type="email" placeholder="tu@correo.com">
+<a class="btn btn-m" href="https://frilo.dev">Crear alerta gratis</a>
+<span style="font-size: 12px; color: #B5CCC1">Crea tu cuenta con un código que te llega al correo.</span>
+</section>
+</div>
+
+<section class="card" aria-labelledby="h-conv" style="display: flex; flex-direction: column; gap: 16px">
+<h2 id="h-conv" style="margin: 0; font-size: 22px">Convierte dólares a pesos con la TRM de hoy</h2>
+<div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end">
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 8px"><label for="usd" style="font-weight: 600">Dólares</label><input id="usd" class="field" inputmode="numeric" placeholder="2.000"></div>
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 8px"><span style="font-weight: 600">Pesos con la TRM de hoy</span><span style="min-height: 52px; display: flex; align-items: center; font-size: 22px; font-weight: 700">[$X.XXX.XXX]</span></div>
+<a class="btn btn-p" href="Calculadora.dc.html" style="flex: 0 1 auto">Ver cuánto pago de planilla</a>
+</div>
+<span style="font-size: 13px; color: #4A6158">Tu banco o plataforma aplica su propia tasa y comisiones; la TRM es la referencia oficial. <a href="GuiaRecibirDolares.dc.html" style="color: #4A6158">Cómo recibir pagos del exterior en dólares</a>.</span>
+</section>
+
+<dc-import name="BannerRendimiento" variante="dolar" hint-size="100%,480px"></dc-import>
+
+<section aria-labelledby="h-tabla" style="display: flex; flex-direction: column; gap: 16px">
+<h2 id="h-tabla" style="margin: 0; font-size: 24px">TRM de los últimos 30 días</h2>
+<div style="overflow-x: auto; border: 1px solid #D6E0DA; border-radius: 16px; background: #FFFFFF; max-height: 420px">
+<table class="t">
+<caption style="text-align: left; padding: 12px 16px; font-size: 14px; color: #4A6158">TRM oficial por fecha de vigencia. Fuente: Superintendencia Financiera.</caption>
+<thead><tr><th scope="col">Fecha</th><th scope="col">TRM</th><th scope="col">Variación diaria</th></tr></thead>
+<tbody>
+<tr><td>[15 oct 2026]</td><td>[$X.XXX,XX]</td><td>[+X,XX%]</td></tr>
+<tr><td>[14 oct 2026]</td><td>[$X.XXX,XX]</td><td>[−X,XX%]</td></tr>
+<tr><td>[13 oct 2026]</td><td>[$X.XXX,XX]</td><td>[+X,XX%]</td></tr>
+<tr><td colspan="3" style="color: #4A6158">[… 30 filas, en texto plano: sin páginas por fecha]</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="card" aria-labelledby="h-trm" style="display: flex; flex-direction: column; gap: 12px">
+<h2 id="h-trm" style="margin: 0; font-size: 24px">¿Qué es la TRM y por qué cambia?</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.65; color: #2B4A40">La TRM (Tasa Representativa del Mercado) es el promedio de las operaciones de compra y venta de dólares del día hábil anterior, que certifica la Superintendencia Financiera. Cambia cada día hábil según la oferta y la demanda de dólares, y queda vigente también los fines de semana y festivos hasta la siguiente publicación. Tu banco no te paga la TRM: usa su propia tasa de compra.</p>
+</section>
+
+<section aria-labelledby="h-faq" style="max-width: 820px">
+<p style="font-size: 15px; line-height: 1.6; color: #4A6158"><strong style="color: #0F372D">Fuentes oficiales:</strong> <a href="https://www.banrep.gov.co/" target="_blank" rel="noopener">Banco de la República</a> · <a href="https://www.superfinanciera.gov.co/" target="_blank" rel="noopener">Superintendencia Financiera de Colombia</a> · <a href="https://www.datos.gov.co/" target="_blank" rel="noopener">datos.gov.co (TRM histórica)</a></p>
+<h2 id="h-faq" style="margin: 0 0 8px; font-size: 24px">Preguntas frecuentes sobre el dólar hoy</h2>
+<details><summary>¿A cómo está el dólar en Colombia hoy?</summary><p style="margin: 0 0 18px; color: #4A6158; line-height: 1.6">Hoy la TRM está en [X.XXX,XX] pesos por dólar, vigente desde el [fecha].</p></details>
+<details><summary>¿La TRM es el precio al que me compran los dólares?</summary><p style="margin: 0 0 18px; color: #4A6158; line-height: 1.6">No exactamente. La TRM es la referencia oficial. Bancos y plataformas compran tus dólares con su propia tasa, normalmente por debajo de la TRM, y pueden cobrar comisión.</p></details>
+<details><summary>¿Qué TRM uso para calcular mi planilla si me pagan en dólares?</summary><p style="margin: 0 0 18px; color: #4A6158; line-height: 1.6">Cotizas sobre el valor en pesos que recibiste. Para estimarlo, usa la TRM del día del pago y la <a href="Calculadora.dc.html">calculadora de aportes</a>.</p></details>
+<details><summary>¿Necesito una cuenta en dólares para recibir pagos del exterior?</summary><p style="margin: 0 0 18px; color: #4A6158; line-height: 1.6">No. Puedes recibirlos en tu cuenta en pesos, y el banco los convierte. Una cuenta en dólares te deja elegir cuándo cambiarlos. Compara opciones en <a href="GuiaCuentaDolares.dc.html">cuenta en dólares en Colombia</a>.</p></details>
+</section>
+</main>
+
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4000}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Calculadora de aportes para independientes 2026 | Frilo</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Clarity+City:wght@300;400;600;700&display=swap">
+<style>
+body{margin:0;background:#F3F6F4;color:#0F372D;font-family:"Clarity City","Helvetica Neue",Helvetica,Arial,sans-serif}
+a{color:#0F372D}a:hover{color:#0A2820}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;box-sizing:border-box}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:16px;font-weight:600;font-size:16px;text-decoration:none;box-sizing:border-box}
+.btn-p{background:#0F372D;color:#6FFF8F}.btn-p:hover{background:#0A2820;color:#6FFF8F}
+.btn-m{background:#6FFF8F;color:#0F372D}.btn-m:hover{color:#0F372D}
+.btn-g{border:1px solid #B5CCC1;color:#FFFFFF}.btn-g:hover{color:#FFFFFF}
+.card{background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
+.field{width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font:600 18px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
+.prose h2{font-size:30px;line-height:1.2;margin:56px 0 16px;letter-spacing:-0.01em}
+.prose h3{font-size:20px;margin:28px 0 8px}
+.prose p,.prose li{font-size:17px;line-height:1.65;color:#2B4A40}
+table.t{width:100%;border-collapse:collapse;font-size:15px}
+table.t th,table.t td{padding:12px 16px;text-align:left;border-top:1px solid #D6E0DA}
+table.t thead th{background:#E6EEE9;border-top:0}
+summary{cursor:pointer;font-weight:600;font-size:17px;padding:18px 0}
+details{border-bottom:1px solid #D6E0DA}
+</style>
+</helmet>
+<div style="background: #F3F6F4">
+
+<dc-import name="Header" activo="calculadoras" hint-size="100%,80px"></dc-import>
+
+<main class="wrap" style="padding-top: 32px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 32px">
+<nav aria-label="Ruta de navegación" style="font-size: 14px; color: #4A6158; display: flex; gap: 8px; flex-wrap: wrap"><a href="Main.dc.html" style="color: #4A6158">Inicio</a><span aria-hidden="true">/</span><a href="CalculadorasHub.dc.html" style="color: #4A6158">Calculadoras</a><span aria-hidden="true">/</span><span aria-current="page">Aportes para independientes</span></nav>
+
+<header style="display: flex; flex-direction: column; gap: 16px; max-width: 820px">
+<h1 style="margin: 0; font-size: clamp(34px, 4.4vw, 52px); line-height: 1.08; letter-spacing: -0.02em">Calculadora de aportes para independientes 2026</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #2B4A40">Un independiente cotiza sobre el 40% de lo que factura (IBC). Sobre esa base paga 12,5% de salud, 16% de pensión, ARL según su riesgo y, desde 4 salarios mínimos, Fondo de Solidaridad. Escribe tu ingreso y la calculadora hace la liquidación de aportes en línea.</p>
+<p style="margin: 0; font-size: 14px; color: #4A6158">Actualizada el 20 de octubre de 2026 · Por Nicolás Suárez · Revisada por el equipo de finanzas Frilo · <a href="#metodo" style="color: #4A6158">Cómo calculamos</a></p>
+</header>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<form class="card" aria-label="Calculadora de aportes" style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 20px; padding: 28px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="ingreso" style="font-weight: 600">Ingreso mensual bruto (COP)</label>
+<input id="ingreso" class="field" inputmode="numeric" value="{{ingresoTxt}}" onChange="{{onIngreso}}">
+<span style="font-size: 13px; color: #4A6158">Antes de impuestos y sin IVA. ¿Te pagan en dólares? <a href="DolarHoy.dc.html" style="color: #4A6158">Convierte con la TRM de hoy</a></span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="riesgo" style="font-weight: 600">Clase de riesgo ARL</label>
+<select id="riesgo" class="field" value="{{riesgo}}" onChange="{{onRiesgo}}">
+<option value="0">I · oficina, trabajo digital (0,522%)</option>
+<option value="1">II (1,044%)</option>
+<option value="2">III (2,436%)</option>
+<option value="3">IV (4,350%) · la paga el contratante</option>
+<option value="4">V (6,960%) · la paga el contratante</option>
+</select>
+</div>
+<label style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px; cursor: pointer">
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Incluir ARL</span><span style="font-size: 13px; color: #4A6158">Voluntaria si trabajas por tu cuenta en riesgo I a III</span></span>
+<input type="checkbox" checked="{{arl}}" onChange="{{onArl}}" style="width: 24px; height: 24px; accent-color: #0F372D">
+</label>
+</form>
+
+<section aria-label="Resultado" style="flex: 1 1 420px; background: #0F372D; color: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box">
+<span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #6FFF8F"><img src="/_blob/34387cbc3838c02c4d9ef15a15b5d70e" alt="" style="height: 24px; width: auto; display: block">Calculado con Frilo</span>
+<div><p style="margin: 0; color: #B5CCC1; font-size: 14px">Total a pagar de planilla al mes</p><p style="margin: 6px 0 0; color: #6FFF8F; font-size: 44px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em">{{totalTxt}}</p><p style="margin: 6px 0 0; color: #B5CCC1; font-size: 14px"><a href="GuiaIBC.dc.html" style="color: #FFFFFF">IBC</a>: {{ibcTxt}} (40% de tu ingreso, ajustado a topes)</p></div>
+<div style="display: flex; flex-direction: column; background: #164538; border-radius: 16px; padding: 4px 20px">
+<sc-for list="{{filas}}" as="f" hint-placeholder-count="4">
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid #24503F"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">{{f.nombre}}</span><span style="font-size: 13px; color: #B5CCC1">{{f.detalle}}</span></span><span style="font-weight: 700; font-size: 18px">{{f.valor}}</span></div>
+</sc-for>
+</div>
+<div style="background: #164538; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-weight: 600">Aparta {{primaTxt}} para tu prima y {{primaTxt}} para tus cesantías</p>
+<p style="margin: 0; color: #B5CCC1; font-size: 15px">Te quedan {{quedaTxt}} para gastos y metas. Si guardas esos {{apartaTxt}} al mes en una cuenta al {{tasaTxt}} E.A. (tasa de ejemplo), en un año tendrías cerca de <strong style="color: #6FFF8F">{{rendTxt}}</strong> de intereses.</p>
+<a href="CuentasRentables.dc.html" style="color: #6FFF8F; font-weight: 600; font-size: 15px">Ver cuentas que pagan más por tu ahorro</a>
+</div>
+<div style="display: flex; gap: 12px; flex-wrap: wrap">
+<a class="btn btn-m" href="https://frilo.dev" style="flex: 1 1 220px">Guardar y recibir el recordatorio de pago</a>
+<a class="btn btn-g" href="#operadores" style="flex: 0 1 auto">Dónde pagar la planilla</a>
+</div>
+<p style="margin: 0; font-size: 12px; line-height: 18px; color: #B5CCC1">Estimado para independientes y contratistas por prestación de servicios. No incluye el 4x1000, retenciones ni renta.</p>
+</section>
+</div>
+
+<dc-import name="BannerRendimiento" variante="aportes" hint-size="100%,480px"></dc-import>
+
+<div style="display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+<nav aria-label="En esta página" class="card" style="flex: 0 1 260px; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+<span style="font-weight: 600">En esta página</span>
+<a href="#metodo">Cómo se calculan los aportes</a>
+<a href="#arl">Tarifas de ARL</a>
+<a href="#fsp">Fondo de Solidaridad</a>
+<a href="#ejemplo">Ejemplo de liquidación</a>
+<a href="#operadores">Dónde pagar la planilla</a>
+<a href="#faq">Preguntas frecuentes</a>
+<a href="#fuentes">Fuentes</a>
+</nav>
+
+<article class="prose" style="flex: 999 1 560px; min-width: 0; max-width: 780px">
+<h2 id="metodo" style="margin-top: 0">Cómo se calculan los aportes de un independiente</h2>
+<p>Si trabajas por prestación de servicios, cotizas sobre el 40% de lo que facturas cada mes. A ese valor se le llama <a href="GuiaIBC.dc.html">Ingreso Base de Cotización (IBC)</a> y no puede ser menor a un salario mínimo ni mayor a 25. La calculadora de aportes como independiente sigue estos pasos:</p>
+<div style="overflow-x: auto; border: 1px solid #D6E0DA; border-radius: 16px; background: #FFFFFF">
+<table class="t">
+<caption style="text-align: left; padding: 12px 16px; font-size: 14px; color: #4A6158">Fórmula de los aportes de un independiente en 2026 (salario mínimo: $1.750.905)</caption>
+<thead><tr><th scope="col">Paso</th><th scope="col">Concepto</th><th scope="col">Cálculo</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>IBC</td><td>Ingreso × 40%, entre $1.750.905 y $43.772.625</td></tr>
+<tr><td>2</td><td>Salud</td><td>IBC × 12,5%</td></tr>
+<tr><td>3</td><td>Pensión</td><td>IBC × 16%</td></tr>
+<tr><td>4</td><td>ARL</td><td>IBC × tarifa de tu clase de riesgo</td></tr>
+<tr><td>5</td><td>Fondo de Solidaridad</td><td>IBC × 1% a 2%, desde 4 salarios mínimos</td></tr>
+</tbody>
+</table>
+</div>
+<p>La PILA redondea cada aporte al múltiplo de 100 más cercano.</p>
+
+<h2 id="arl">Tarifas de ARL por clase de riesgo</h2>
+<p>La tarifa de ARL depende del riesgo de tu actividad. Si eres contratista en riesgo I, II o III pagas tú la ARL; en riesgo IV y V la paga el contratante.</p>
+<div style="overflow-x: auto; border: 1px solid #D6E0DA; border-radius: 16px; background: #FFFFFF">
+<table class="t">
+<caption style="text-align: left; padding: 12px 16px; font-size: 14px; color: #4A6158">Tarifa de cotización a riesgos laborales por clase (Decreto 1772 de 1994; Decreto 723 de 2013 para contratistas)</caption>
+<thead><tr><th scope="col">Clase</th><th scope="col">Tarifa sobre el IBC</th><th scope="col">Ejemplos de actividad</th><th scope="col">Quién paga</th></tr></thead>
+<tbody>
+<tr><td>I</td><td>0,522%</td><td>Trabajo de oficina, diseño, programación, consultoría</td><td>El contratista</td></tr>
+<tr><td>II</td><td>1,044%</td><td>Algunos procesos de manufactura y comercio</td><td>El contratista</td></tr>
+<tr><td>III</td><td>2,436%</td><td>Conductores, algunos procesos industriales</td><td>El contratista</td></tr>
+<tr><td>IV</td><td>4,350%</td><td>Actividades de alto riesgo</td><td>El contratante</td></tr>
+<tr><td>V</td><td>6,960%</td><td>Actividades de riesgo máximo, como trabajo en alturas o minería</td><td>El contratante</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="fsp">Fondo de Solidaridad Pensional</h2>
+<p>Si tu IBC llega a 4 salarios mínimos ($7.003.620 en 2026) pagas un aporte adicional al Fondo de Solidaridad Pensional. La reforma pensional (Ley 2381 de 2024) entraría en vigencia el 1 de abril de 2027, así que en 2026 sigue esta tabla:</p>
+<div style="overflow-x: auto; border: 1px solid #D6E0DA; border-radius: 16px; background: #FFFFFF">
+<table class="t">
+<caption style="text-align: left; padding: 12px 16px; font-size: 14px; color: #4A6158">Aporte al Fondo de Solidaridad Pensional según el IBC (Ley 797 de 2003)</caption>
+<thead><tr><th scope="col">IBC en salarios mínimos</th><th scope="col">IBC en pesos (2026)</th><th scope="col">Aporte</th></tr></thead>
+<tbody>
+<tr><td>Menos de 4</td><td>Menos de $7.003.620</td><td>0%</td></tr>
+<tr><td>De 4 a menos de 16</td><td>$7.003.620 a $28.014.479</td><td>1%</td></tr>
+<tr><td>De 16 a 17</td><td>$28.014.480 a $29.765.385</td><td>1,2%</td></tr>
+<tr><td>De 17 a 18</td><td>$29.765.385 a $31.516.290</td><td>1,4%</td></tr>
+<tr><td>De 18 a 19</td><td>$31.516.290 a $33.267.195</td><td>1,6%</td></tr>
+<tr><td>De 19 a 20</td><td>$33.267.195 a $35.018.100</td><td>1,8%</td></tr>
+<tr><td>Más de 20</td><td>Más de $35.018.100</td><td>2%</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="ejemplo">Ejemplo de liquidación de aportes: facturas $8.000.000 al mes</h2>
+<ol>
+<li>IBC: $8.000.000 × 40% = $3.200.000</li>
+<li>Salud: $3.200.000 × 12,5% = $400.000</li>
+<li>Pensión: $3.200.000 × 16% = $512.000</li>
+<li>ARL riesgo I: $3.200.000 × 0,522% = $16.700 (redondeado)</li>
+<li>Fondo de Solidaridad: no aplica (IBC menor a 4 salarios mínimos)</li>
+<li>Total a pagar: $928.700</li>
+</ol>
+
+<h2 id="operadores">Dónde pagar la planilla: Mi Planilla, SOI, Pago Simple, Compensar y otros operadores</h2>
+<p>Frilo calcula el valor, pero la planilla se paga en un operador de información autorizado. Estos son los más usados por independientes:</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px">
+<div class="card" style="padding: 18px"><p style="margin: 0; font-weight: 600; color: #0F372D">Miplanilla</p><p style="margin: 6px 0 0; font-size: 15px">Tiene un portal para independientes donde liquidas, pagas y descargas tu certificado.</p></div>
+<div class="card" style="padding: 18px"><p style="margin: 0; font-weight: 600; color: #0F372D">Aportes en Línea</p><p style="margin: 6px 0 0; font-size: 15px">Liquida planillas y genera certificados de aportes en línea.</p></div>
+<div class="card" style="padding: 18px"><p style="margin: 0; font-weight: 600; color: #0F372D">Pago Simple</p><p style="margin: 6px 0 0; font-size: 15px">Pago de la planilla y consulta de pagos y certificados.</p></div>
+<div class="card" style="padding: 18px"><p style="margin: 0; font-weight: 600; color: #0F372D">SOI y Enlace Operativo</p><p style="margin: 6px 0 0; font-size: 15px">Otros operadores autorizados para liquidar y pagar la PILA.</p></div>
+</div>
+<p>Después de pagar, <a href="GuiaDescargarPlanilla.dc.html">descarga y verifica tu planilla de seguridad social</a> y revisa tu <a href="FechaPago.dc.html">fecha de pago de la planilla</a> del próximo mes.</p>
+
+<aside style="margin: 40px 0; background: #E6EEE9; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-weight: 600; font-size: 17px">Que no se te pase la fecha de pago</span>
+<span style="color: #4A6158">Con tu cuenta te avisamos cada mes según los dos últimos dígitos de tu documento.</span>
+<a class="btn btn-p" href="https://frilo.dev" style="align-self: flex-start">Probar la app gratis</a>
+</aside>
+
+<h2 id="faq">Preguntas frecuentes sobre aportes de independientes</h2>
+<details><summary>¿Puedo calcular la liquidación de mi planilla antes de pagar?</summary><p>Sí. Esta calculadora hace la liquidación de aportes con las tarifas y el redondeo de la PILA. El valor final lo confirma el operador al liquidar tu planilla.</p></details>
+<details><summary>¿El resultado es el mismo que me da Mi Planilla o SOI?</summary><p>Usamos la misma fórmula (40% del ingreso, tarifas de 2026 y redondeo a 100). Puede haber diferencias si reportas novedades, días incompletos o una clase de riesgo distinta.</p></details>
+<details><summary>¿Tengo que pagar ARL si trabajo desde mi casa?</summary><p>Depende de tu contrato. Si tienes un contrato de prestación de servicios de más de un mes, la ARL es obligatoria (Decreto 723 de 2013): en riesgo I a III la pagas tú y en IV y V la paga el contratante. Si trabajas por tu cuenta, sin contrato, en riesgo I a III es voluntaria.</p></details>
+<details><summary>¿Qué pasa si facturo menos de un salario mínimo?</summary><p>Cotizas igual sobre un salario mínimo ($1.750.905 en 2026), porque es la base mínima de cotización. Por eso la calculadora nunca usa un IBC menor.</p></details>
+<details><summary>¿Cómo cotizo si tengo varios contratos?</summary><p>Sumas lo que facturas en el mes por todos tus contratos y sacas el 40% de esa suma. El IBC sigue con el tope de 25 salarios mínimos.</p></details>
+<details><summary>¿Si me pagan en dólares, qué TRM uso?</summary><p>Usa el valor en pesos de lo que recibiste. Si necesitas convertir, toma la TRM del día en que te pagaron. Puedes consultarla en <a href="DolarHoy.dc.html">dólar hoy en Colombia</a>.</p></details>
+<details><summary>¿Y si trabajo por cuenta propia, sin contrato de prestación de servicios?</summary><p>Desde el <a href="https://www.ugpp.gov.co/wp-content/uploads/2026/07/Decreto_379_de_2026_MinSalud.pdf" target="_blank" rel="noopener">Decreto 379 de 2026</a>, primero descuentas tus costos (o aplicas la presunción de costos de la UGPP) y sacas el 40% del ingreso neto. Esta calculadora está pensada para contratistas de prestación de servicios.</p></details>
+
+<h2 id="fuentes">Fuentes</h2>
+<ul><li><a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_0100_1993.html" target="_blank" rel="noopener">Ley 100 de 1993</a></li><li><a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_0797_2003.html" target="_blank" rel="noopener">Ley 797 de 2003</a> (Fondo de Solidaridad Pensional)</li><li><a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_2277_2022.html" target="_blank" rel="noopener">Ley 2277 de 2022</a>, artículo 89</li><li><a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_2381_2024.html" target="_blank" rel="noopener">Ley 2381 de 2024</a> (reforma pensional, vigente desde el 1 de abril de 2027)</li><li><a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma_pdf.php?i=87624" target="_blank" rel="noopener">Decreto 1273 de 2018</a></li><li><a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma_pdf.php?i=52627" target="_blank" rel="noopener">Decreto 723 de 2013</a> (ARL de contratistas)</li><li>Decreto 1772 de 1994 (tarifas de riesgos laborales)</li><li><a href="https://www.ugpp.gov.co/wp-content/uploads/2026/07/Decreto_379_de_2026_MinSalud.pdf" target="_blank" rel="noopener">Decreto 379 de 2026</a> (independientes por cuenta propia)</li><li><a href="https://acmineria.com.co/wp-content/uploads/2025/12/DECRETO-1469-DEL-29-DE-DICIEMBRE-DE-2025.pdf" target="_blank" rel="noopener">Decreto 1469 de 2025</a> (salario mínimo 2026)</li><li><a href="https://www.ugpp.gov.co/" target="_blank" rel="noopener">UGPP</a>, entidad que fiscaliza los aportes</li></ul>
+</article>
+</div>
+
+<dc-import name="BannerRegistro" variante="aportes" hint-size="100%,460px"></dc-import>
+
+<section style="display: flex; flex-direction: column; gap: 20px">
+<h2 style="margin: 0; font-size: 28px">Otras calculadoras y guías para independientes</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+<a href="FechaPago.dc.html" class="card" style="text-decoration: none; font-weight: 600">Fecha de pago de la planilla</a>
+<a href="GuiaDescargarPlanilla.dc.html" class="card" style="text-decoration: none; font-weight: 600">Cómo descargar la planilla de seguridad social</a>
+<a href="Cesantias.dc.html" class="card" style="text-decoration: none; font-weight: 600">Calculadora de cesantías e intereses</a>
+<a href="DolarHoy.dc.html" class="card" style="text-decoration: none; font-weight: 600">Dólar hoy en Colombia (TRM)</a>
+</div>
+</section>
+</main>
+
+<dc-import name="Footer" hint-size="100%,520px"></dc-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"tasaEjemplo":{"editor":"float","min":0,"max":20,"step":0.25,"unit":"% E.A.","default":9},"$preview":{"width":1440,"height":5600}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { ingreso: 8000000, riesgo: '0', arl: true };
+}
+renderVals() {
+var SM = 1750905;
+var tasas = [0.00522, 0.01044, 0.02436, 0.0435, 0.0696];
+var nombres = ['I', 'II', 'III', 'IV', 'V'];
+var r100 = function (x) { return Math.round(x / 100) * 100; };
+var fmt = function (x) { return '$' + Math.round(x).toLocaleString('es-CO'); };
+var ing = this.state.ingreso || 0;
+var ibc = Math.min(Math.max(ing * 0.4, SM), SM * 25);
+var salud = r100(ibc * 0.125);
+var pension = r100(ibc * 0.16);
+var idx = parseInt(this.state.riesgo, 10) || 0;
+var pagaContratante = idx >= 3;
+var arl = this.state.arl && !pagaContratante ? r100(ibc * tasas[idx]) : 0;
+var n = ibc / SM;
+var pct = n < 4 ? 0 : n < 16 ? 0.01 : n < 17 ? 0.012 : n < 18 ? 0.014 : n < 19 ? 0.016 : n < 20 ? 0.018 : 0.02;
+var fsp = r100(ibc * pct);
+var total = salud + pension + arl + fsp;
+var prima = r100(ing * 0.0833);
+var aparta = prima * 2;
+var ea = (this.props.tasaEjemplo == null ? 9 : this.props.tasaEjemplo) / 100;
+var rm = Math.pow(1 + ea, 1 / 12) - 1;
+var fv = rm > 0 ? aparta * (Math.pow(1 + rm, 12) - 1) / rm : aparta * 12;
+var self = this;
+return {
+ingresoTxt: ing.toLocaleString('es-CO'),
+riesgo: this.state.riesgo,
+arl: this.state.arl,
+ibcTxt: fmt(ibc),
+totalTxt: fmt(total),
+primaTxt: fmt(prima),
+apartaTxt: fmt(aparta),
+quedaTxt: fmt(ing - total - aparta),
+tasaTxt: (ea * 100).toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%',
+rendTxt: fmt(fv - aparta * 12),
+filas: [
+{ nombre: 'Salud', detalle: '12,5% del IBC', valor: fmt(salud) },
+{ nombre: 'Pensión', detalle: '16% del IBC', valor: fmt(pension) },
+{ nombre: 'ARL', detalle: pagaContratante ? 'Riesgo ' + nombres[idx] + ': la paga el contratante' : (this.state.arl ? 'Riesgo ' + nombres[idx] : 'No incluida'), valor: fmt(arl) },
+{ nombre: 'Fondo de Solidaridad', detalle: pct ? (pct * 100).toLocaleString('es-CO') + '% del IBC' : 'No aplica: IBC menor a 4 salarios mínimos', valor: fmt(fsp) }
+],
+onIngreso: function (e) { var v = parseInt(String(e.target.value).replace(/\D/g, ''), 10); self.setState({ ingreso: isNaN(v) ? 0 : v }); },
+onRiesgo: function (e) { self.setState({ riesgo: e.target.value }); },
+onArl: function (e) { self.setState({ arl: e.target.checked }); }
+};
+}
+}
+</script>
+</body>
+</html>

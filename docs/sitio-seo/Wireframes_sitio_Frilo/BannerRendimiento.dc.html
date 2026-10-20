@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Frilo · banner de rendimiento</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Clarity+City:wght@300;400;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<aside aria-label="Cuentas de ahorro con rentabilidad" style="font-family: 'Clarity City', 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #0F372D; color: #FFFFFF; border-radius: 24px; padding: 32px; box-sizing: border-box; width: 100%; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; align-items: flex-start">
+<div style="display: flex; flex-direction: column; gap: 10px; flex: 1 1 420px; min-width: 0">
+<span style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #6FFF8F"><img src="/_blob/34387cbc3838c02c4d9ef15a15b5d70e" alt="" style="height: 24px; width: auto; display: block">{{eyebrow}}</span>
+<p style="margin: 0; font-size: 28px; line-height: 1.2; font-weight: 700; letter-spacing: -0.015em">{{titulo}}</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #B5CCC1">{{texto}}</p>
+</div>
+<span style="font-size: 12px; font-weight: 600; color: #0F372D; background: #B5CCC1; border-radius: 999px; padding: 4px 10px">Información de referencia</span>
+</div>
+
+<ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px">
+<sc-for list="{{cuentas}}" as="c" hint-placeholder-count="3">
+<li style="background: #164538; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 12px; font-weight: 700; color: #6FFF8F">{{c.pos}}</span>
+<span style="font-weight: 700; font-size: 17px">{{c.nombre}}</span>
+<span style="font-size: 30px; line-height: 1; font-weight: 700; color: #6FFF8F; letter-spacing: -0.015em">{{c.tasa}}</span>
+<span style="font-size: 13px; color: #B5CCC1">{{c.detalle}}</span>
+<a href="{{c.href}}" target="_blank" rel="noopener" style="margin-top: 4px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; border-radius: 12px; background: #6FFF8F; color: #0F372D; font-weight: 700; font-size: 15px; text-decoration: none">Ver cuenta en {{c.nombre}}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+</li>
+</sc-for>
+</ol>
+
+<div style="display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; align-items: center">
+<a href="CuentasRentables.dc.html" style="color: #6FFF8F; font-weight: 600; font-size: 15px">Compara cuentas de ahorro de alto rendimiento</a>
+<span style="font-size: 12px; line-height: 18px; color: #B5CCC1; max-width: 640px">Tasas consultadas el 20 de octubre de 2026 en la web de cada entidad: la más alta sin condiciones en pesos (empata con Global66) y la más alta en dólares. Frilo no recibe pagos de estas entidades. No es asesoría financiera.</span>
+</div>
+</aside>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"variante":{"editor":"enum","options":["prima","cesantias","aportes","dolar","guia"],"default":"prima"},"$preview":{"width":1200,"height":560}}'>
+class Component extends DCLogic {
+renderVals() {
+var v = this.props.variante || 'prima';
+var textos = {
+prima: { eyebrow: 'Tu prima, trabajando para ti', titulo: 'Lo que apartas para junio y diciembre puede rendir mientras llega.', texto: 'Guarda tu prima en una cuenta de ahorro que pague intereses diarios y retíralos cuando la necesites, sin plazos.' },
+cesantias: { eyebrow: 'Tus cesantías, con intereses', titulo: 'Un fondo te paga intereses por tus cesantías. Tu cuenta también puede hacerlo.', texto: 'Si eres independiente, aparta el 8,33% de cada pago en una cuenta que rinda y tendrás tu colchón de febrero con intereses.' },
+aportes: { eyebrow: 'Ya sabes cuánto es la planilla', titulo: 'Ahora haz que lo que te queda trabaje: aparta tu prima y tus cesantías en una cuenta que rinda.', texto: 'La planilla protege tu salud y tu pensión. La prima y las cesantías nadie te las aparta: hazlo en una cuenta con rentabilidad diaria.' },
+dolar: { eyebrow: '¿Ya cambiaste tus dólares?', titulo: 'Los pesos que no vas a usar este mes pueden rendir desde hoy.', texto: 'Mientras esperas la prima o el próximo pago, mueve el excedente a una cuenta de ahorro que pague intereses diarios.' },
+guia: { eyebrow: 'Del plan a la acción', titulo: 'Abre tu bolsillo de prima y cesantías en una cuenta que rinda.', texto: 'La cuenta en pesos y la cuenta en dólares que más pagan hoy, sin plazo fijo y con retiro cuando quieras.' }
+};
+var t = textos[v] || textos.prima;
+return {
+eyebrow: t.eyebrow,
+titulo: t.titulo,
+texto: t.texto,
+cuentas: [
+{ pos: 'La más alta en pesos', nombre: 'Pibank', tasa: '11% E.A.', detalle: 'Cuenta Pibank · $0 cuota de manejo · Fogafín · sin condiciones', href: 'https://www.pibank.co/cuenta-pibank/' },
+{ pos: 'La más alta en dólares', nombre: 'Littio', tasa: 'Hasta 8% E.A.', detalle: 'En dólares (USDC), sin garantía de rendimiento · no vigilada por la Superfinanciera ni cubierta por Fogafín', href: 'https://littio.co/cuenta-en-dolares' }
+]
+};
+}
+}
+</script>
+</body>
+</html>
