@@ -1,5 +1,5 @@
 /** Lógica pura de la tarea diaria: qué alertas se disparan y cómo se ve el correo. Sin red ni base de datos. */
-import { evaluarAlerta, type Alerta } from '@/lib/calculos';
+import type { Alerta } from '@/lib/calculos';
 import { pesos, pesosConDecimales } from '@/lib/formato';
 import { mensajeDeAlerta, motivadorHtml, promocionHtml, promocionTexto, type Promocion } from './mensajes';
 import { boton, envolverCorreo, escapar, parrafo, sinBarraFinal } from './plantilla';
@@ -25,13 +25,16 @@ export type Accion =
  */
 export const MARGEN_REARME = 0.01;
 
+/** 'sube': la TRM llegó o pasó del valor; 'baja': llegó o bajó de él. */
+export const cumpleUmbral = (direccion: Alerta['direccion'], umbral: number, trm: number): boolean => (direccion === 'sube' ? trm >= umbral : trm <= umbral);
+
 export function debeRearmarse(direccion: Alerta['direccion'], umbral: number, trm: number): boolean {
   return direccion === 'sube' ? trm <= umbral * (1 - MARGEN_REARME) : trm >= umbral * (1 + MARGEN_REARME);
 }
 
 /**
- * - Alerta activa: dispara si la TRM CRUZÓ el umbral desde la última vez; si no, solo actualiza su referencia.
- *   Una TRM que sigue del otro lado del umbral no vuelve a avisar.
+ * - Alerta activa: dispara apenas la TRM llega al valor elegido; si no, solo actualiza su referencia.
+ *   Después de avisar queda 'disparada' y no vuelve a avisar hasta reactivarse.
  * - Alerta disparada: se reactiva sola cuando el dólar se aleja del umbral más del margen.
  */
 export function planificarAlertas(filas: AlertaFila[], trmHoy: number): Accion[] {
@@ -44,12 +47,14 @@ export function planificarAlertas(filas: AlertaFila[], trmHoy: number): Accion[]
       continue;
     }
     if (f.estado !== 'activa') continue;
-    const alerta: Alerta = { umbral, direccion, estado: 'activa', trmReferencia: Number(f.trm_referencia) };
-    const { alerta: nueva, notificar } = evaluarAlerta(alerta, trmHoy);
-    if (notificar) {
-      acciones.push({ tipo: 'notificar', id: f.id, usuarioId: f.usuario_id, direccion, umbral, trmAnterior: alerta.trmReferencia, trmNueva: trmHoy });
-    } else if (nueva.trmReferencia !== alerta.trmReferencia) {
-      acciones.push({ tipo: 'actualizar_referencia', id: f.id, trmNueva: nueva.trmReferencia });
+    const trmAnterior = Number(f.trm_referencia);
+    // Una alerta activa está "armada": se creó con el dólar del otro lado del valor elegido (la pantalla no deja
+    // crearla si ya se cumple). Por eso avisa apenas la TRM llega al valor, sin depender de la referencia guardada,
+    // que puede quedar desactualizada si la alerta se guardó desde un dispositivo con datos viejos.
+    if (cumpleUmbral(direccion, umbral, trmHoy)) {
+      acciones.push({ tipo: 'notificar', id: f.id, usuarioId: f.usuario_id, direccion, umbral, trmAnterior, trmNueva: trmHoy });
+    } else if (trmAnterior !== trmHoy) {
+      acciones.push({ tipo: 'actualizar_referencia', id: f.id, trmNueva: trmHoy });
     }
   }
   return acciones;

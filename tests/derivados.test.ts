@@ -228,3 +228,15 @@ describe('resumenAhorro con el ingreso de cada mes', () => {
     expect(b).toEqual(a);
   });
 });
+
+describe('cuentas en dólares', () => {
+  it('van aparte del comparador en pesos y cada una trae fuente y fecha', async () => {
+    const { CUENTAS_MVP, CUENTAS_USD } = await import('@/lib/calculos');
+    const idsMvp = new Set(CUENTAS_MVP.map((c) => c.id));
+    for (const c of CUENTAS_USD) {
+      expect(idsMvp.has(c.id)).toBe(false);
+      expect(c.url).toMatch(/^https:\/\//);
+      expect(c.fechaConsulta).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    }
+  });
+});

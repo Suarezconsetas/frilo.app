@@ -1,4 +1,3 @@
-import { evaluarAlerta } from '@/lib/calculos';
 import { construirCorreoAlerta, debeRearmarse, MARGEN_REARME, planificarAlertas, type AlertaFila } from '@/lib/cron/alertas';
 import { promocionDeEjemplo } from '@/lib/cron/mensajes';
 import { filaDeEjecucion } from '@/lib/cron/tarea-diaria';
@@ -26,9 +25,13 @@ describe('planificarAlertas', () => {
   it('si la TRM no llega al umbral solo actualiza la referencia', () => {
     expect(planificarAlertas([fila()], 3450)).toEqual([{ tipo: 'actualizar_referencia', id: 'a1', trmNueva: 3450 }]);
   });
-  it('no avisa de nuevo si la TRM ya estaba del otro lado del umbral (no cruzó)', () => {
-    // creada cuando el dólar ya estaba arriba de 3.500: no debe disparar de inmediato
-    expect(planificarAlertas([fila({ trm_referencia: 3600 })], 3650)).toEqual([{ tipo: 'actualizar_referencia', id: 'a1', trmNueva: 3650 }]);
+  it('avisa aunque la referencia guardada ya estuviera del otro lado (referencia vieja o desactualizada)', () => {
+    // alerta de baja de 3.200 con una referencia ya por debajo: igual debe avisar cuando la TRM está por debajo
+    const f = fila({ direccion: 'baja', umbral: 3200, trm_referencia: 3156.32 });
+    expect(planificarAlertas([f], 3156.32)).toMatchObject([{ tipo: 'notificar', direccion: 'baja', umbral: 3200 }]);
+  });
+  it('una alerta activa avisa una sola vez: después queda disparada y no vuelve a avisar sola', () => {
+    expect(planificarAlertas([fila({ estado: 'disparada', trm_referencia: 3510 })], 3650)).toEqual([]);
   });
   it('si no cambió la TRM no hay nada que hacer', () => {
     expect(planificarAlertas([fila()], 3400)).toEqual([]);
@@ -36,11 +39,11 @@ describe('planificarAlertas', () => {
   it('ignora las alertas que ya se dispararon', () => {
     expect(planificarAlertas([fila({ estado: 'disparada' })], 3600)).toEqual([]);
   });
-  it('coincide con evaluarAlerta de lib/calculos en un barrido de casos', () => {
+  it('avisa si y solo si la TRM llegó al valor, sin importar la referencia', () => {
     for (const direccion of ['sube', 'baja'] as const) {
       for (const ref of [3200, 3500, 3800]) {
         for (const hoy of [3100, 3500, 3501, 3900]) {
-          const esperado = evaluarAlerta({ umbral: 3500, direccion, estado: 'activa', trmReferencia: ref }, hoy).notificar;
+          const esperado = direccion === 'sube' ? hoy >= 3500 : hoy <= 3500;
           const acciones = planificarAlertas([fila({ direccion, trm_referencia: ref })], hoy);
           expect(acciones.some((a) => a.tipo === 'notificar')).toBe(esperado);
         }

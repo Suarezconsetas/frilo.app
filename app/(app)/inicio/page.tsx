@@ -132,12 +132,15 @@ export default function Inicio() {
             {errorNube}
           </p>
         )}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 4px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, margin: '0 4px' }}>
           <Link href="/ingreso" className="enlace">
             Editar mi ingreso
           </Link>
           <Link href="/cuenta" className="enlace">
             Mi cuenta
+          </Link>
+          <Link href="/instalar" className="enlace">
+            Agregar al inicio
           </Link>
           <button
             type="button"

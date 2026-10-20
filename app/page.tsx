@@ -131,6 +131,7 @@ export default function Bienvenida() {
           <p className="enlaces-legales">
             <Link href="/politica-de-datos">Política de datos</Link>
             <Link href="/terminos">Términos de uso</Link>
+            <Link href="/instalar">Agregar al inicio</Link>
           </p>
         </div>
       </main>

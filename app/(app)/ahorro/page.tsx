@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { AVISOS, CUENTAS_MVP, compararCuentas } from '@/lib/calculos';
-import { bolsas, calcularMes, montoComparador, resumenAhorro, tasaProyeccion, type Bolsa } from '@/lib/app/derivados';
+import { AVISOS, CUENTAS_MVP, CUENTAS_USD, compararCuentas } from '@/lib/calculos';
+import { bolsas, calcularMes, dolarVisible, montoComparador, resumenAhorro, tasaProyeccion, type Bolsa } from '@/lib/app/derivados';
 import { useApp } from '@/lib/app/estado';
 import { confirmarAhorro, leerAhorrosConfirmados, leerPagosGuardados, quitarAhorroConfirmado, type AhorroConfirmado } from '@/lib/app/nube';
 import { AHORRO_EXPLICACION_LARGA } from '@/lib/app/textos';
 import { useMes } from '@/lib/app/usarMes';
-import { capitalizar, fechaCorta, nombreMes, pct, pesos } from '@/lib/formato';
+import { capitalizar, fechaCorta, nombreMes, pct, pesos, usd } from '@/lib/formato';
 import { Guardado } from '../../_ui/Guardado';
 import { Logo } from '../../_ui/Logo';
 
@@ -66,6 +66,10 @@ export default function Ahorro() {
   const mensual = resumen.ahorroPrima + resumen.ahorroCesantias;
   const { monto, dias, meses } = montoComparador(resumen.ingresoBrutoMes);
   const cuentas = compararCuentas(monto, dias, CUENTAS_MVP);
+  // Cuentas en dólares: solo para quien cobra en dólares y solo las verificadas. El ejemplo usa lo que apartaría en 6 meses, en dólares.
+  const mostrarUsd = dolarVisible(estado.formaDePago, ingreso);
+  const montoUsd = Math.max(100, Math.round(monto / (trm?.hoy ?? 4000)));
+  const cuentasUsd = mostrarUsd ? compararCuentas(montoUsd, dias, CUENTAS_USD.filter((c) => c.verificada)) : [];
   const mesFinal = (b: Bolsa) => nombreMes(Number(b.mesFinal.slice(5, 7)));
 
   async function confirmar(mes: string, montoAhorro: number) {
@@ -188,6 +192,55 @@ export default function Ahorro() {
             {AVISOS.comparador} {AVISOS.rendimientos}
           </p>
         </section>
+
+        {cuentasUsd.length > 0 && (
+          <section className="tarjeta" aria-labelledby="en-dolares">
+            <h2 id="en-dolares" className="titulo-tarjeta">
+              ¿Prefieres guardar en dólares?
+            </h2>
+            <p className="texto-suave" style={{ margin: '6px 0 14px', fontSize: 14, lineHeight: '21px' }}>
+              Cuentas para guardar tus dólares sin convertirlos a pesos. Rendimiento de {usd(montoUsd)} durante {meses} meses, en dólares.
+            </p>
+            {cuentasUsd.map(({ cuenta: c, rendimientoBase }) => (
+              <div key={c.id} className="cuenta">
+                <div className="cabeza">
+                  <div>
+                    <p className="entidad">{c.entidad}</p>
+                    <p className="ayuda" style={{ marginTop: 2 }}>
+                      {c.producto} · consultada el {fechaCorta(c.fechaConsulta)}
+                    </p>
+                    {c.tasaCondicionadaEA !== undefined && (
+                      <span className="etiqueta-tinte">
+                        {pct(c.tasaCondicionadaEA, 1)} E.A. · {c.condicion}
+                      </span>
+                    )}
+                    {c.patrocinado && <span className="etiqueta-tinte">{AVISOS.patrocinado}</span>}
+                  </div>
+                  <div className="tasa">
+                    <strong>{pct(c.tasaBaseEA, 2)}</strong>
+                    <small>E.A. en USD</small>
+                  </div>
+                </div>
+                {c.aviso && (
+                  <p className="ayuda" style={{ marginTop: 8 }}>
+                    {c.aviso}
+                  </p>
+                )}
+                <div className="pie">
+                  <span>
+                    Rendirías <strong style={{ fontWeight: 700 }}>+{usd(Math.round(rendimientoBase * 100) / 100)}</strong>
+                  </span>
+                  <a href={c.url} target="_blank" rel={c.patrocinado ? 'sponsored noopener noreferrer' : 'noopener noreferrer'} className="enlace">
+                    Ir a {c.entidad}
+                  </a>
+                </div>
+              </div>
+            ))}
+            <p className="legal" style={{ marginTop: 14 }}>
+              Las tasas son las que informa cada entidad, antes de impuestos y pueden cambiar. Guardar en dólares tiene riesgo cambiario: si el dólar baja, tus ahorros valen menos pesos. Información de referencia, no asesoría financiera.
+            </p>
+          </section>
+        )}
 
         <section id="como-calculamos" className="tarjeta" style={{ scrollMarginTop: 16 }}>
           <h2 className="titulo-tarjeta">¿Cómo calculamos tu ahorro?</h2>
