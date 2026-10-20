@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { timingSafeEqual } from 'node:crypto';
 import type { NextRequest } from 'next/server';
 import { esUltimoDiaDelMes, hoyColombia } from '@/lib/app/fechas';
+import { festivosPorValidar } from '@/lib/app/planilla';
 import { URL_SITIO } from '@/lib/sitio';
 import { urlDeBaja, urlDeBajaPlanilla } from '@/lib/cron/baja';
 import {
@@ -122,6 +123,11 @@ export async function GET(req: NextRequest) {
       const mensaje = e instanceof Error ? e.message : 'error desconocido';
       console.error('Frilo planilla: error', mensaje);
       await registrarEjecucion(db, filaDeResumen(null, Date.now() - inicioPlanilla, hoy, mensaje, 'planilla'));
+    }
+    // El día 1 de cada mes: si los festivos del año en uso no se han validado contra el calendario oficial, queda un aviso visible.
+    const sinValidar = festivosPorValidar(hoy);
+    if (sinValidar !== null && hoy.endsWith('-01')) {
+      await registrarEjecucion(db, filaDeResumen(null, 0, hoy, `Festivos de ${sinValidar} sin validar contra el calendario oficial (lib/app/planilla.ts)`, 'planilla'));
     }
     // Si la fuente de la TRM falló, el cron se marca como fallido para que se note en Vercel.
     return Response.json({ ok: resultado.trmSincronizada, ...resultado }, { status: resultado.trmSincronizada ? 200 : 502 });

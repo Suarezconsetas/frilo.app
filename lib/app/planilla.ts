@@ -34,6 +34,26 @@ function alLunes(d: Date): Date {
   return dow === 1 ? d : sumar(d, (8 - dow) % 7);
 }
 
+/**
+ * Excepciones a la regla: si una ley crea, elimina o traslada un festivo, se agrega aquí (`YYYY-MM-DD`) sin tocar el
+ * algoritmo. Ejemplo: `2029: { agregar: ['2029-05-02'], quitar: ['2029-10-15'] }`.
+ */
+export const EXCEPCIONES_FESTIVOS: Record<number, { agregar?: string[]; quitar?: string[] }> = {};
+
+/**
+ * Último año cuya lista se confirmó contra el calendario oficial (ver `tests/planilla.test.ts`, listas de referencia).
+ * Cada diciembre se revisa el año siguiente y se sube este número. Mientras tanto el algoritmo sigue calculando,
+ * pero la tarea diaria deja un aviso visible (`festivosPorValidar`).
+ */
+export const ULTIMO_ANIO_FESTIVOS_VALIDADO = 2027;
+
+/** Año de festivos que falta validar para `hoy` (`YYYY-MM-DD`), o null. En diciembre se mira también el año siguiente. */
+export function festivosPorValidar(hoy: string): number | null {
+  const anio = Number(hoy.slice(0, 4));
+  const necesario = Number(hoy.slice(5, 7)) === 12 ? anio + 1 : anio;
+  return necesario > ULTIMO_ANIO_FESTIVOS_VALIDADO ? necesario : null;
+}
+
 const cache = new Map<number, Set<string>>();
 
 /** Festivos de Colombia de un año (`YYYY-MM-DD`): fijos, trasladados a lunes y los que dependen de la Semana Santa. */
@@ -54,6 +74,9 @@ export function festivosCo(anio: number): Set<string> {
     alLunes(sumar(p, 68)), // Sagrado Corazón
   ];
   const set = new Set(f.map(aIso));
+  const ex = EXCEPCIONES_FESTIVOS[anio];
+  for (const d of ex?.agregar ?? []) set.add(d);
+  for (const d of ex?.quitar ?? []) set.delete(d);
   cache.set(anio, set);
   return set;
 }

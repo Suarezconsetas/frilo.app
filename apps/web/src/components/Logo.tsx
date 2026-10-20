@@ -1,0 +1,24 @@
+/** Isotipo (la F) y wordmark. Manzana solo sobre oliva; oliva sobre fondos claros; nunca menos de 24 px de alto. */
+type Tono = 'manzana' | 'oliva';
+
+export function Isotipo({ tono = 'oliva', alto = 34, className }: { tono?: Tono; alto?: number; className?: string }) {
+  // Decorativo: el texto "Frilo" lo aporta el wordmark o un `sr-only` (el H1 de la Home lleva texto real).
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={`/logos/isotipo-${tono}.svg`} alt="" aria-hidden="true" height={Math.max(24, alto)} style={{ height: Math.max(24, alto), width: 'auto' }} className={className} />;
+}
+
+export function Wordmark({ tono = 'oliva', alto = 24, className }: { tono?: Tono; alto?: number; className?: string }) {
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={`/logos/wordmark-${tono}.svg`} alt="" aria-hidden="true" height={Math.max(24, alto)} style={{ height: Math.max(24, alto), width: 'auto' }} className={className} />;
+}
+
+/** Isotipo + wordmark con nombre accesible "Frilo". */
+export function LogoFrilo({ tono = 'oliva', alto = 34 }: { tono?: Tono; alto?: number }) {
+  return (
+    <span className="logo-frilo" style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+      <Isotipo tono={tono} alto={alto} />
+      <Wordmark tono={tono} alto={Math.round(alto * 0.7)} />
+      <span className="sr-only">Frilo</span>
+    </span>
+  );
+}

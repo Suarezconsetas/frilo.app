@@ -10,3 +10,5 @@ export * from './prestaciones';
 export * from './metas';
 export * from './flujo';
 export * from './avisos';
+export * from './interes';
+export * from './cuenta-propia';

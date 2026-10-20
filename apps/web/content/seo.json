@@ -1,0 +1,2771 @@
+[
+  {
+    "id": "Home",
+    "nombre": "Inicio",
+    "ruta": "/",
+    "tipo": "Home",
+    "wireframe": "Main.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/",
+    "keyword": "frilo",
+    "title": "Frilo: calculadoras de aportes y cesantías para independientes",
+    "description": "Calcula tu planilla de independiente, aparta tu prima y tus cesantías y sigue el dólar. Gratis, en pesos o en dólares, sin registro.",
+    "h1": "Frilo",
+    "ogType": "website",
+    "tiposSchema": "Organization + WebSite + Person + WebPage + FAQPage",
+    "breadcrumb": "—",
+    "frecuencia": "Mensual",
+    "notas": "Compite por marca. El title empieza con la marca, por eso no lleva sufijo. La demanda no de marca llega por los enlaces a P01, P03 y P10. Medir \"frilo\" y \"app para independientes\" en Ranki.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "description": "Calcula tu planilla de independiente, aparta tu prima y tus cesantías y sigue el dólar. Gratis, en pesos o en dólares, sin registro.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20"
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://frilo.dev/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Frilo es gratis?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. Las calculadoras se usan sin registro. Crear una cuenta es gratis y sirve para guardar tus cálculos y recibir alertas."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Las cuentas que recomienda Frilo le pagan?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Frilo es un proyecto nuevo y gratuito: ninguna entidad nos paga por aparecer y el orden de las comparativas es siempre por tasa. No vendemos tus datos."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Frilo paga mi planilla?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Calcula el valor y te lleva al operador para que la pagues tú."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Sirve si me pagan en pesos?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. Funciona para contratos de prestación de servicios en pesos, en dólares o de ambas formas."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿De dónde sale la TRM?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Del dato oficial que publica la Superintendencia Financiera en Datos Abiertos Colombia."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Es asesoría financiera?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Son cálculos y simulaciones con fines informativos."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "Hub-C",
+    "nombre": "Hub de calculadoras",
+    "ruta": "/calculadoras",
+    "tipo": "Hub",
+    "wireframe": "CalculadorasHub.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/calculadoras",
+    "keyword": "calculadoras para independientes",
+    "title": "Calculadoras para independientes y contratistas | Frilo",
+    "description": "Calculadoras gratis para independientes en Colombia: aportes, fecha de pago de la planilla, cesantías e intereses y dólar hoy. Sin registro.",
+    "h1": "Calculadoras para independientes y contratistas en Colombia",
+    "ogType": "website",
+    "tiposSchema": "CollectionPage + ItemList + BreadcrumbList",
+    "breadcrumb": "Inicio › Calculadoras",
+    "frecuencia": "Cuando se agregue una calculadora",
+    "notas": "Keyword sin volumen medido: incluirla en Ranki. Su rol principal es repartir autoridad a P01, P03, P05 y P10.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "CollectionPage",
+          "@id": "https://frilo.dev/calculadoras",
+          "url": "https://frilo.dev/calculadoras",
+          "name": "Calculadoras para independientes y contratistas en Colombia",
+          "description": "Calculadoras gratis para independientes en Colombia: aportes, fecha de pago de la planilla, cesantías e intereses y dólar hoy. Sin registro.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "url": "https://frilo.dev/calculadoras/aportes-independientes",
+                "name": "Calculadora de aportes para independientes 2026"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "url": "https://frilo.dev/calculadoras/fecha-pago-planilla",
+                "name": "Fechas de pago de la planilla de seguridad social 2026"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "url": "https://frilo.dev/calculadoras/cesantias",
+                "name": "Calculadora de cesantías e intereses de cesantías 2026"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "url": "https://frilo.dev/calculadoras/interes-compuesto",
+                "name": "Calculadora de interés compuesto: simula cuánto rinde tu ahorro"
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "url": "https://frilo.dev/dolar-hoy",
+                "name": "Dólar hoy en Colombia: TRM del [fecha dinámica]"
+              }
+            ]
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Calculadoras"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "P01",
+    "nombre": "Calculadora de aportes",
+    "ruta": "/calculadoras/aportes-independientes",
+    "tipo": "Herramienta",
+    "wireframe": "Calculadora.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/calculadoras/aportes-independientes",
+    "keyword": "calculadora de aportes",
+    "title": "Calculadora de aportes para independientes 2026 | Frilo",
+    "description": "Calcula cuánto pagas de salud, pensión, ARL y Fondo de Solidaridad como independiente o contratista en 2026. Gratis y sin registro.",
+    "h1": "Calculadora de aportes para independientes 2026",
+    "ogType": "website",
+    "tiposSchema": "WebPage + WebApplication + FAQPage + BreadcrumbList",
+    "breadcrumb": "Inicio › Calculadoras › Aportes para independientes",
+    "frecuencia": "Anual (1.ª quincena de diciembre) y cuando cambie una norma",
+    "notas": "Pico de enero (4.400 búsquedas vs. 1.600 en meses bajos). Actualizar año y cifras antes del 15 de diciembre.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/calculadoras/aportes-independientes",
+          "url": "https://frilo.dev/calculadoras/aportes-independientes",
+          "name": "Calculadora de aportes para independientes 2026",
+          "description": "Calcula cuánto pagas de salud, pensión, ARL y Fondo de Solidaridad como independiente o contratista en 2026. Gratis y sin registro.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "mainEntity": {
+            "@id": "https://frilo.dev/calculadoras/aportes-independientes#app"
+          },
+          "author": {
+            "@id": "https://frilo.dev/#nicolas"
+          },
+          "reviewedBy": {
+            "@type": "Organization",
+            "name": "Equipo de finanzas Frilo",
+            "parentOrganization": {
+              "@id": "https://frilo.dev/#organization"
+            }
+          },
+          "lastReviewed": "2026-10-20"
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://frilo.dev/calculadoras/aportes-independientes#app",
+          "name": "Calculadora de aportes para independientes 2026",
+          "url": "https://frilo.dev/calculadoras/aportes-independientes",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Web",
+          "inLanguage": "es-CO",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "COP"
+          },
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          },
+          "dateModified": "2026-10-20"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Calculadoras",
+              "item": "https://frilo.dev/calculadoras"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Aportes para independientes"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://frilo.dev/calculadoras/aportes-independientes#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Puedo calcular la liquidación de mi planilla antes de pagar?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. Esta calculadora hace la liquidación de aportes con las tarifas y el redondeo de la PILA. El valor final lo confirma el operador al liquidar tu planilla."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿El resultado es el mismo que me da Mi Planilla o SOI?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Usamos la misma fórmula (40% del ingreso, tarifas de 2026 y redondeo a 100). Puede haber diferencias si reportas novedades, días incompletos o una clase de riesgo distinta."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Tengo que pagar ARL si trabajo desde mi casa?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Depende de tu contrato. Si tienes un contrato de prestación de servicios de más de un mes, la ARL es obligatoria (Decreto 723 de 2013): en riesgo I a III la pagas tú y en IV y V la paga el contratante. Si trabajas por tu cuenta, sin contrato, en riesgo I a III es voluntaria."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué pasa si facturo menos de un salario mínimo?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Cotizas igual sobre un salario mínimo ($1.750.905 en 2026), porque es la base mínima de cotización. Por eso la calculadora nunca usa un IBC menor."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cómo cotizo si tengo varios contratos?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sumas lo que facturas en el mes por todos tus contratos y sacas el 40% de esa suma. El IBC sigue con el tope de 25 salarios mínimos."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Si me pagan en dólares, qué TRM uso?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Usa el valor en pesos de lo que recibiste. Si necesitas convertir, toma la TRM del día en que te pagaron. Puedes consultarla en dólar hoy en Colombia."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Y si trabajo por cuenta propia, sin contrato de prestación de servicios?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Desde el Decreto 379 de 2026, primero descuentas tus costos (o aplicas la presunción de costos de la UGPP) y sacas el 40% del ingreso neto. Esta calculadora está pensada para contratistas de prestación de servicios."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "P02",
+    "nombre": "Guía del IBC",
+    "ruta": "/guias/ibc-independientes",
+    "tipo": "Guía",
+    "wireframe": "GuiaIBC.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/guias/ibc-independientes",
+    "keyword": "ibc para independientes",
+    "title": "IBC para independientes 2026: qué es y cómo calcularlo | Frilo",
+    "description": "Qué es el IBC de un independiente, cómo calcularlo en 2026 con el 40% de tus ingresos y cómo cambiarlo en SOI. Con calculadora gratis.",
+    "h1": "IBC para independientes 2026: qué es y cómo calcularlo",
+    "ogType": "article",
+    "tiposSchema": "Article + FAQPage + BreadcrumbList",
+    "breadcrumb": "Inicio › Guías › IBC para independientes",
+    "frecuencia": "Anual (diciembre)",
+    "notas": "\"calculadora ibc independientes\" tiene más volumen (110) pero se queda como secundaria para no competir con P01, que ya calcula el IBC.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/guias/ibc-independientes",
+          "url": "https://frilo.dev/guias/ibc-independientes",
+          "name": "IBC para independientes 2026: qué es y cómo calcularlo",
+          "description": "Qué es el IBC de un independiente, cómo calcularlo en 2026 con el 40% de tus ingresos y cómo cambiarlo en SOI. Con calculadora gratis.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "reviewedBy": {
+            "@type": "Organization",
+            "name": "Equipo de finanzas Frilo",
+            "parentOrganization": {
+              "@id": "https://frilo.dev/#organization"
+            }
+          },
+          "lastReviewed": "2026-10-20",
+          "mainEntity": {
+            "@id": "https://frilo.dev/guias/ibc-independientes#article"
+          }
+        },
+        {
+          "@type": "Article",
+          "@id": "https://frilo.dev/guias/ibc-independientes#article",
+          "headline": "IBC para independientes 2026: qué es y cómo calcularlo",
+          "description": "Qué es el IBC de un independiente, cómo calcularlo en 2026 con el 40% de tus ingresos y cómo cambiarlo en SOI. Con calculadora gratis.",
+          "mainEntityOfPage": "https://frilo.dev/guias/ibc-independientes",
+          "inLanguage": "es-CO",
+          "author": {
+            "@id": "https://frilo.dev/#nicolas"
+          },
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          },
+          "datePublished": "2026-10-20",
+          "dateModified": "2026-10-20",
+          "image": "https://frilo.dev/og/guias/ibc-independientes.png"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Guías",
+              "item": "https://frilo.dev/guias"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "IBC para independientes"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://frilo.dev/guias/ibc-independientes#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿El IBC se calcula sobre lo facturado o sobre lo recibido?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Si tienes contrato de prestación de servicios, sobre el 40% del valor mensualizado del contrato, sin IVA. Como cotizas mes vencido, pagas en la planilla del mes siguiente. Si trabajas por cuenta propia, sin contrato de prestación de servicios, primero descuentas tus costos y sacas el 40% del ingreso neto (Decreto 379 de 2026)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Puedo cotizar sobre un IBC mayor al 40%?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. El 40% es la base mínima, no la máxima (artículo 89 de la Ley 2277 de 2022). Puedes cotizar sobre más para mejorar tu pensión futura, sin pasar de 25 salarios mínimos ($43.772.625 en 2026)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué pasa si no reporto bien mi IBC?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "La UGPP fiscaliza los aportes de los independientes y puede cobrar lo que faltó, con intereses y sanciones. Guarda tus facturas y las planillas pagadas."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "P03",
+    "nombre": "Calculadora de cesantías",
+    "ruta": "/calculadoras/cesantias",
+    "tipo": "Herramienta",
+    "wireframe": "Cesantias.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/calculadoras/cesantias",
+    "keyword": "calculadora de intereses de cesantías",
+    "title": "Calculadora de cesantías e intereses de cesantías 2026 | Frilo",
+    "description": "Calcula tus cesantías y los intereses del 12% en 2026, con contrato laboral o como independiente. Incluye años anteriores. Sin registro.",
+    "h1": "Calculadora de cesantías e intereses de cesantías 2026",
+    "ogType": "website",
+    "tiposSchema": "WebPage + WebApplication + FAQPage + BreadcrumbList",
+    "breadcrumb": "Inicio › Calculadoras › Cesantías e intereses",
+    "frecuencia": "Anual (diciembre)",
+    "notas": "El H1 cubre \"calculadora de cesantías\" e \"intereses de cesantías\" por separado. Se mantiene: Google trata ambas formas como la misma intención y el H1 suena natural. Usar la frase exacta en el primer párrafo.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/calculadoras/cesantias",
+          "url": "https://frilo.dev/calculadoras/cesantias",
+          "name": "Calculadora de cesantías e intereses de cesantías 2026",
+          "description": "Calcula tus cesantías y los intereses del 12% en 2026, con contrato laboral o como independiente. Incluye años anteriores. Sin registro.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "mainEntity": {
+            "@id": "https://frilo.dev/calculadoras/cesantias#app"
+          },
+          "author": {
+            "@id": "https://frilo.dev/#nicolas"
+          },
+          "reviewedBy": {
+            "@type": "Organization",
+            "name": "Equipo de finanzas Frilo",
+            "parentOrganization": {
+              "@id": "https://frilo.dev/#organization"
+            }
+          },
+          "lastReviewed": "2026-10-20"
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://frilo.dev/calculadoras/cesantias#app",
+          "name": "Calculadora de cesantías e intereses de cesantías 2026",
+          "url": "https://frilo.dev/calculadoras/cesantias",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Web",
+          "inLanguage": "es-CO",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "COP"
+          },
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          },
+          "dateModified": "2026-10-20"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Calculadoras",
+              "item": "https://frilo.dev/calculadoras"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Cesantías e intereses"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://frilo.dev/calculadoras/cesantias#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Cuándo pagan los intereses de cesantías en 2026?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Los intereses de las cesantías de 2025 se pagan directamente al trabajador a más tardar el 31 de enero de 2026. Las cesantías se consignan al fondo a más tardar el 14 de febrero."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué pasa si el empleador no consigna las cesantías a tiempo?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Debe pagar una sanción moratoria: un día de salario por cada día de retraso en la consignación (Ley 50 de 1990, artículo 99)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿El auxilio de transporte se incluye en las cesantías?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. Si ganas hasta 2 salarios mínimos y tienes derecho al auxilio de transporte ($249.095 en 2026), se suma al salario para liquidar las cesantías y sus intereses."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Un independiente tiene derecho a cesantías?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No por su contrato. Puede crear las suyas apartando el 8,33% de cada pago. Ver la guía."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "P04",
+    "nombre": "Descargar planilla",
+    "ruta": "/guias/descargar-planilla-seguridad-social",
+    "tipo": "Guía",
+    "wireframe": "GuiaDescargarPlanilla.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/guias/descargar-planilla-seguridad-social",
+    "keyword": "descargar planilla de seguridad social",
+    "title": "Descargar planilla de seguridad social: paso a paso | Frilo",
+    "description": "Descarga tu planilla de seguridad social, verifica que el pago quedó registrado y conoce qué cambia si eres independiente. Guía 2026.",
+    "h1": "Cómo descargar y verificar tu planilla de seguridad social",
+    "ogType": "article",
+    "tiposSchema": "Article + FAQPage + BreadcrumbList",
+    "breadcrumb": "Inicio › Guías › Descargar la planilla",
+    "frecuencia": "Semestral (revisar enlaces de operadores)",
+    "notas": "El title lleva la frase exacta y el H1 suma la variante \"verificar\" (210). Grupo informativo con mejor relación volumen/dificultad.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/guias/descargar-planilla-seguridad-social",
+          "url": "https://frilo.dev/guias/descargar-planilla-seguridad-social",
+          "name": "Cómo descargar y verificar tu planilla de seguridad social",
+          "description": "Descarga tu planilla de seguridad social, verifica que el pago quedó registrado y conoce qué cambia si eres independiente. Guía 2026.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "reviewedBy": {
+            "@type": "Organization",
+            "name": "Equipo de finanzas Frilo",
+            "parentOrganization": {
+              "@id": "https://frilo.dev/#organization"
+            }
+          },
+          "lastReviewed": "2026-10-20",
+          "mainEntity": {
+            "@id": "https://frilo.dev/guias/descargar-planilla-seguridad-social#article"
+          }
+        },
+        {
+          "@type": "Article",
+          "@id": "https://frilo.dev/guias/descargar-planilla-seguridad-social#article",
+          "headline": "Cómo descargar y verificar tu planilla de seguridad social",
+          "description": "Descarga tu planilla de seguridad social, verifica que el pago quedó registrado y conoce qué cambia si eres independiente. Guía 2026.",
+          "mainEntityOfPage": "https://frilo.dev/guias/descargar-planilla-seguridad-social",
+          "inLanguage": "es-CO",
+          "author": {
+            "@id": "https://frilo.dev/#nicolas"
+          },
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          },
+          "datePublished": "2026-10-20",
+          "dateModified": "2026-10-20",
+          "image": "https://frilo.dev/og/guias/descargar-planilla-seguridad-social.png"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Guías",
+              "item": "https://frilo.dev/guias"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Descargar la planilla"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://frilo.dev/guias/descargar-planilla-seguridad-social#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Puedo descargar la planilla si pagué en otro operador?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Cada operador guarda solo las planillas que se pagaron con él. Entra al portal del operador donde hiciste el pago."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cuánto tarda en aparecer el pago?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Depende del operador y del medio de pago. Si no aparece, revisa con el número de planilla en el portal del operador o comunícate con su línea de atención."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿La planilla sirve como certificado para mi contratante?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. Los contratantes suelen pedir la planilla pagada del periodo para pagar tus honorarios, porque deben verificar que cotizaste."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "P05",
+    "nombre": "Fecha de pago de la planilla",
+    "ruta": "/calculadoras/fecha-pago-planilla",
+    "tipo": "Herramienta",
+    "wireframe": "FechaPago.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/calculadoras/fecha-pago-planilla",
+    "keyword": "fecha de pago planilla seguridad social",
+    "title": "Fechas de pago de la planilla de seguridad social 2026 | Frilo",
+    "description": "Consulta la fecha límite para pagar la planilla de seguridad social en 2026 según los últimos dígitos de tu documento. Calendario completo.",
+    "h1": "Fechas de pago de la planilla de seguridad social 2026",
+    "ogType": "website",
+    "tiposSchema": "WebPage + WebApplication + FAQPage + BreadcrumbList",
+    "breadcrumb": "Inicio › Calculadoras › Fecha de pago de la planilla",
+    "frecuencia": "Anual (cargar festivos del año siguiente antes del 1-dic)",
+    "notas": "Alimenta el recordatorio de pago (registro). URL sin año.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/calculadoras/fecha-pago-planilla",
+          "url": "https://frilo.dev/calculadoras/fecha-pago-planilla",
+          "name": "Fechas de pago de la planilla de seguridad social 2026",
+          "description": "Consulta la fecha límite para pagar la planilla de seguridad social en 2026 según los últimos dígitos de tu documento. Calendario completo.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "mainEntity": {
+            "@id": "https://frilo.dev/calculadoras/fecha-pago-planilla#app"
+          },
+          "author": {
+            "@id": "https://frilo.dev/#nicolas"
+          },
+          "reviewedBy": {
+            "@type": "Organization",
+            "name": "Equipo de finanzas Frilo",
+            "parentOrganization": {
+              "@id": "https://frilo.dev/#organization"
+            }
+          },
+          "lastReviewed": "2026-10-20"
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://frilo.dev/calculadoras/fecha-pago-planilla#app",
+          "name": "Fechas de pago de la planilla de seguridad social 2026",
+          "url": "https://frilo.dev/calculadoras/fecha-pago-planilla",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Web",
+          "inLanguage": "es-CO",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "COP"
+          },
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          },
+          "dateModified": "2026-10-20"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Calculadoras",
+              "item": "https://frilo.dev/calculadoras"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Fecha de pago de la planilla"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://frilo.dev/calculadoras/fecha-pago-planilla#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Qué pasa si la fecha cae en festivo?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No puede caer en festivo: el plazo se cuenta en días hábiles, así que los sábados, domingos y festivos no cuentan. Por eso tu fecha cambia de un mes a otro aunque tus dígitos sean los mismos."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Uso los dígitos de la cédula o del NIT?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Los dos últimos dígitos del documento con el que pagas la planilla. Si pagas con tu NIT, toma los dos últimos dígitos incluyendo el dígito de verificación."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Puedo pagar antes de mi fecha?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. La fecha es el límite, no el único día posible. Puedes pagar desde que el operador habilita el periodo."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Frilo me puede avisar cada mes?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. Crea tu cuenta gratis, escribe los dos últimos dígitos de tu documento y te enviamos un correo 3 días hábiles antes y el mismo día de tu fecha límite."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "P06",
+    "nombre": "Glosario: SLN",
+    "ruta": "/glosario/sln",
+    "tipo": "Glosario",
+    "wireframe": "GlosarioSLN.dc.html",
+    "estado": "Wireframe aprobado (falta tabla de siglas)",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/glosario/sln",
+    "keyword": "sln en planilla de seguridad social",
+    "title": "Qué significa SLN en la planilla de seguridad social | Frilo",
+    "description": "Te explicamos qué significa la novedad SLN en la planilla de seguridad social, cuándo se reporta y cómo afecta tus aportes.",
+    "h1": "Qué significa SLN en la planilla de seguridad social",
+    "ogType": "article",
+    "tiposSchema": "WebPage + DefinedTerm (en DefinedTermSet) + BreadcrumbList",
+    "breadcrumb": "Inicio › Glosario › SLN",
+    "frecuencia": "Cuando cambie la resolución de la PILA",
+    "notas": "Pendiente: lista completa de siglas de novedades PILA.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/glosario/sln",
+          "url": "https://frilo.dev/glosario/sln",
+          "name": "Qué significa SLN en la planilla de seguridad social",
+          "description": "Te explicamos qué significa la novedad SLN en la planilla de seguridad social, cuándo se reporta y cómo afecta tus aportes.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "author": {
+            "@id": "https://frilo.dev/#nicolas"
+          },
+          "reviewedBy": {
+            "@type": "Organization",
+            "name": "Equipo de finanzas Frilo",
+            "parentOrganization": {
+              "@id": "https://frilo.dev/#organization"
+            }
+          },
+          "lastReviewed": "2026-10-20",
+          "mainEntity": {
+            "@id": "https://frilo.dev/glosario/sln#term"
+          }
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://frilo.dev/glosario/sln#term",
+          "name": "SLN",
+          "alternateName": "Suspensión temporal del contrato o licencia no remunerada",
+          "description": "[Primera oración visible de la página]",
+          "inDefinedTermSet": {
+            "@type": "DefinedTermSet",
+            "@id": "https://frilo.dev/glosario",
+            "name": "Glosario de seguridad social para independientes"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Glosario",
+              "item": "https://frilo.dev/glosario"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "SLN"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "P07",
+    "nombre": "Dólar hoy",
+    "ruta": "/dolar-hoy",
+    "tipo": "Utilidad con datos en vivo",
+    "wireframe": "DolarHoy.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/dolar-hoy",
+    "keyword": "dolar hoy colombia",
+    "title": "Dólar hoy en Colombia: precio y TRM actualizada | Frilo",
+    "description": "Consulta el precio del dólar hoy en Colombia y la TRM oficial del día, con histórico, conversor de dólares a pesos y alertas por correo.",
+    "h1": "Dólar hoy en Colombia: TRM del [fecha dinámica]",
+    "ogType": "website",
+    "tiposSchema": "WebPage + FAQPage + BreadcrumbList + Dataset (opcional)",
+    "breadcrumb": "Inicio › Dólar hoy",
+    "frecuencia": "Diaria (revalidate 86400 s)",
+    "notas": "KD 46 a 74 y conversor de Google en la SERP: tomar la estimación de clics como techo. Página única, sin URLs por fecha.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/dolar-hoy",
+          "url": "https://frilo.dev/dolar-hoy",
+          "name": "Dólar hoy en Colombia: TRM del [fecha dinámica]",
+          "description": "Consulta el precio del dólar hoy en Colombia y la TRM oficial del día, con histórico, conversor de dólares a pesos y alertas por correo.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "author": {
+            "@id": "https://frilo.dev/#nicolas"
+          },
+          "reviewedBy": {
+            "@type": "Organization",
+            "name": "Equipo de finanzas Frilo",
+            "parentOrganization": {
+              "@id": "https://frilo.dev/#organization"
+            }
+          }
+        },
+        {
+          "@type": "Dataset",
+          "name": "TRM de los últimos 30 días",
+          "description": "Tasa Representativa del Mercado (pesos por dólar) certificada por la Superintendencia Financiera de Colombia.",
+          "creator": {
+            "@type": "GovernmentOrganization",
+            "name": "Superintendencia Financiera de Colombia"
+          },
+          "distribution": {
+            "@type": "DataDownload",
+            "encodingFormat": "application/json",
+            "contentUrl": "https://www.datos.gov.co/resource/32sa-8pi3.json"
+          },
+          "temporalCoverage": "[últimos 30 días, dinámico]",
+          "dateModified": "[fecha de la TRM, dinámica]"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Dólar hoy"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://frilo.dev/dolar-hoy#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿A cómo está el dólar en Colombia hoy?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Hoy la TRM está en [X.XXX,XX] pesos por dólar, vigente desde el [fecha]."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿La TRM es el precio al que me compran los dólares?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No exactamente. La TRM es la referencia oficial. Bancos y plataformas compran tus dólares con su propia tasa, normalmente por debajo de la TRM, y pueden cobrar comisión."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué TRM uso para calcular mi planilla si me pagan en dólares?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Cotizas sobre el valor en pesos que recibiste. Para estimarlo, usa la TRM del día del pago y la calculadora de aportes."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Necesito una cuenta en dólares para recibir pagos del exterior?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Puedes recibirlos en tu cuenta en pesos, y el banco los convierte. Una cuenta en dólares te deja elegir cuándo cambiarlos. Compara opciones en cuenta en dólares en Colombia."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "P08",
+    "nombre": "Cuenta en dólares",
+    "ruta": "/guias/cuenta-en-dolares-colombia",
+    "tipo": "Guía comparativa",
+    "wireframe": "GuiaCuentaDolares.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/guias/cuenta-en-dolares-colombia",
+    "keyword": "cuenta en dolares en colombia",
+    "title": "Cuenta en dólares en Colombia: opciones y requisitos | Frilo",
+    "description": "Compara las opciones para tener una cuenta en dólares en Colombia: requisitos, costos y tiempos de apertura. Guía para freelancers en 2026.",
+    "h1": "Cuenta en dólares en Colombia: opciones, requisitos y costos",
+    "ogType": "article",
+    "tiposSchema": "Article + FAQPage + BreadcrumbList",
+    "breadcrumb": "Inicio › Guías › Cuenta en dólares",
+    "frecuencia": "Trimestral (requisitos y costos de cada entidad)",
+    "notas": "La keyword de más volumen es de marca (\"cuenta en dolares bancolombia\", 720): solo en la tabla, nunca en title, H1 ni URL.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/guias/cuenta-en-dolares-colombia",
+          "url": "https://frilo.dev/guias/cuenta-en-dolares-colombia",
+          "name": "Cuenta en dólares en Colombia: opciones, requisitos y costos",
+          "description": "Compara las opciones para tener una cuenta en dólares en Colombia: requisitos, costos y tiempos de apertura. Guía para freelancers en 2026.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "reviewedBy": {
+            "@type": "Organization",
+            "name": "Equipo de finanzas Frilo",
+            "parentOrganization": {
+              "@id": "https://frilo.dev/#organization"
+            }
+          },
+          "lastReviewed": "2026-10-20",
+          "mainEntity": {
+            "@id": "https://frilo.dev/guias/cuenta-en-dolares-colombia#article"
+          }
+        },
+        {
+          "@type": "Article",
+          "@id": "https://frilo.dev/guias/cuenta-en-dolares-colombia#article",
+          "headline": "Cuenta en dólares en Colombia: opciones, requisitos y costos",
+          "description": "Compara las opciones para tener una cuenta en dólares en Colombia: requisitos, costos y tiempos de apertura. Guía para freelancers en 2026.",
+          "mainEntityOfPage": "https://frilo.dev/guias/cuenta-en-dolares-colombia",
+          "inLanguage": "es-CO",
+          "author": {
+            "@id": "https://frilo.dev/#nicolas"
+          },
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          },
+          "datePublished": "2026-10-20",
+          "dateModified": "2026-10-20",
+          "image": "https://frilo.dev/og/guias/cuenta-en-dolares-colombia.png"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Guías",
+              "item": "https://frilo.dev/guias"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Cuenta en dólares"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://frilo.dev/guias/cuenta-en-dolares-colombia#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Un freelancer puede abrir una cuenta en dólares en Colombia?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. Puedes abrirla en un banco con filial en el exterior o usar una plataforma digital. Revisa si la entidad está vigilada por la Superintendencia Financiera: algunas plataformas, como Littio, no lo están y no tienen el respaldo de Fogafín."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Tengo que declarar una cuenta en dólares?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Los saldos y los ingresos en dólares se incluyen en tu declaración de renta. En lo cambiario, la DIAN explica que las operaciones de canalización obligatoria se hacen por intermediarios del mercado cambiario o por cuentas de compensación registradas en el Banco de la República, con declaración de cambio, y que debes guardar los soportes por cinco años. Revisa tu caso en la página de control cambiario de la DIAN."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cuánto cobran por recibir una transferencia en dólares?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Depende de la entidad. Por ejemplo, Littio cobra USD 2,99 por recibir desde EE. UU. o Europa (consultado el 20 de octubre de 2026). Además, al pasar a pesos se aplica la tasa de la entidad, no la TRM."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "P09",
+    "nombre": "Recibir pagos en dólares",
+    "ruta": "/guias/recibir-pagos-en-dolares-colombia",
+    "tipo": "Guía",
+    "wireframe": "GuiaRecibirDolares.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/guias/recibir-pagos-en-dolares-colombia",
+    "keyword": "como recibir pagos en dolares en colombia",
+    "title": "Cómo recibir pagos del exterior en dólares en Colombia | Frilo",
+    "description": "Recibe pagos del exterior en dólares en Colombia: opciones, costos, tiempos y qué debes declarar. Guía para freelancers e independientes.",
+    "h1": "Cómo recibir pagos del exterior en dólares en Colombia",
+    "ogType": "article",
+    "tiposSchema": "Article + FAQPage + BreadcrumbList",
+    "breadcrumb": "Inicio › Guías › Recibir pagos en dólares",
+    "frecuencia": "Trimestral",
+    "notas": "Volumen bajo (10) pero es el tema con más encaje con el perfil que cobra en dólares. Medir en Ranki \"recibir pagos del exterior colombia\" y \"recibir dólares en colombia\".",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/guias/recibir-pagos-en-dolares-colombia",
+          "url": "https://frilo.dev/guias/recibir-pagos-en-dolares-colombia",
+          "name": "Cómo recibir pagos del exterior en dólares en Colombia",
+          "description": "Recibe pagos del exterior en dólares en Colombia: opciones, costos, tiempos y qué debes declarar. Guía para freelancers e independientes.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "reviewedBy": {
+            "@type": "Organization",
+            "name": "Equipo de finanzas Frilo",
+            "parentOrganization": {
+              "@id": "https://frilo.dev/#organization"
+            }
+          },
+          "lastReviewed": "2026-10-20",
+          "mainEntity": {
+            "@id": "https://frilo.dev/guias/recibir-pagos-en-dolares-colombia#article"
+          }
+        },
+        {
+          "@type": "Article",
+          "@id": "https://frilo.dev/guias/recibir-pagos-en-dolares-colombia#article",
+          "headline": "Cómo recibir pagos del exterior en dólares en Colombia",
+          "description": "Recibe pagos del exterior en dólares en Colombia: opciones, costos, tiempos y qué debes declarar. Guía para freelancers e independientes.",
+          "mainEntityOfPage": "https://frilo.dev/guias/recibir-pagos-en-dolares-colombia",
+          "inLanguage": "es-CO",
+          "author": {
+            "@id": "https://frilo.dev/#nicolas"
+          },
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          },
+          "datePublished": "2026-10-20",
+          "dateModified": "2026-10-20",
+          "image": "https://frilo.dev/og/guias/recibir-pagos-en-dolares-colombia.png"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Guías",
+              "item": "https://frilo.dev/guias"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Recibir pagos en dólares"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://frilo.dev/guias/recibir-pagos-en-dolares-colombia#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Puedo recibir dólares en una cuenta en pesos?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. El banco recibe la transferencia y la convierte a pesos con su propia tasa, que suele ser menor que la TRM. Compara esa tasa y la comisión antes de elegir."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué TRM se usa para calcular la planilla?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Cotizas sobre el valor en pesos de lo que recibiste. Para estimarlo, usa la TRM del día del pago y luego la calculadora de aportes."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Tengo que pagar impuestos por recibir dólares?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Los pagos del exterior son ingresos y cuentan para tu declaración de renta como cualquier otro ingreso. Para las obligaciones cambiarias, consulta la página de control cambiario de la DIAN."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "P10",
+    "nombre": "Calculadora de interés compuesto",
+    "ruta": "/calculadoras/interes-compuesto",
+    "tipo": "Herramienta",
+    "wireframe": "InteresCompuesto.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/calculadoras/interes-compuesto",
+    "keyword": "calculadora interés compuesto",
+    "title": "Calculadora de interés compuesto y simulador de ahorro | Frilo",
+    "description": "Simula cuánto crece tu ahorro con interés compuesto: monto inicial, aporte mensual, tasa efectiva anual y plazo. Gratis y sin registro.",
+    "h1": "Calculadora de interés compuesto: simula cuánto rinde tu ahorro",
+    "ogType": "website",
+    "tiposSchema": "WebPage + WebApplication + FAQPage + BreadcrumbList",
+    "breadcrumb": "Inicio › Calculadoras › Interés compuesto",
+    "frecuencia": "Cuando cambien las tasas de referencia o la retención",
+    "notas": "Mayor volumen del sitio sin contar dólar hoy (5.400). La SERP no tiene un competidor colombiano con contexto local.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/calculadoras/interes-compuesto",
+          "url": "https://frilo.dev/calculadoras/interes-compuesto",
+          "name": "Calculadora de interés compuesto: simula cuánto rinde tu ahorro",
+          "description": "Simula cuánto crece tu ahorro con interés compuesto: monto inicial, aporte mensual, tasa efectiva anual y plazo. Gratis y sin registro.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "mainEntity": {
+            "@id": "https://frilo.dev/calculadoras/interes-compuesto#app"
+          },
+          "author": {
+            "@id": "https://frilo.dev/#nicolas"
+          },
+          "reviewedBy": {
+            "@type": "Organization",
+            "name": "Equipo de finanzas Frilo",
+            "parentOrganization": {
+              "@id": "https://frilo.dev/#organization"
+            }
+          },
+          "lastReviewed": "2026-10-20"
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://frilo.dev/calculadoras/interes-compuesto#app",
+          "name": "Calculadora de interés compuesto: simula cuánto rinde tu ahorro",
+          "url": "https://frilo.dev/calculadoras/interes-compuesto",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Web",
+          "inLanguage": "es-CO",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "COP"
+          },
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          },
+          "dateModified": "2026-10-20"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Calculadoras",
+              "item": "https://frilo.dev/calculadoras"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Interés compuesto"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://frilo.dev/calculadoras/interes-compuesto#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Qué diferencia hay entre tasa E.A. y tasa nominal?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "La tasa efectiva anual (E.A.) ya incluye el efecto de capitalizar los intereses. La nominal no: hay que convertirla según cuántas veces al año se capitaliza. Un 9% nominal con capitalización mensual equivale a cerca de 9,38% E.A."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿El 4x1000 afecta lo que rinde mi ahorro?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El 4x1000 (GMF) se cobra cuando retiras o transfieres dinero, no sobre los intereses. Puedes marcar una sola cuenta como exenta, con un tope mensual que define cada entidad según la ley (por ejemplo, Nu informa hasta $16 millones al mes)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Los rendimientos de una cuenta de ahorros pagan retención en la fuente?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. En 2026 la retención en la fuente sobre intereses o rendimientos financieros es del 7%, sin base mínima (tabla de retención 2026). Activa la opción en la calculadora para verla descontada."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Es mejor capitalización diaria o mensual?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Si la tasa que te dan es efectiva anual (E.A.), da igual: la capitalización ya está incluida. Solo importa cuando la tasa es nominal; ahí, entre más frecuente la capitalización, más rinde."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué es la regla del 72?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Un atajo para estimar en cuántos años se duplica tu dinero: divide 72 entre la tasa anual. Al 9% E.A. tu ahorro se duplica en unos 8 años."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Esta calculadora sirve para inversiones o solo para ahorro?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sirve para cualquier tasa que se mantenga fija. En inversiones como fondos o acciones la rentabilidad no está garantizada y puede ser negativa. No es asesoría financiera."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "P11",
+    "nombre": "Cuentas de ahorro de alto rendimiento",
+    "ruta": "/guias/cuentas-de-ahorro-alto-rendimiento",
+    "tipo": "Guía comparativa",
+    "wireframe": "CuentasRentables.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/guias/cuentas-de-ahorro-alto-rendimiento",
+    "keyword": "cuentas de ahorro de alto rendimiento",
+    "title": "Cuentas de ahorro de alto rendimiento en Colombia 2026 | Frilo",
+    "description": "Compara las cuentas de ahorro con mayor rentabilidad en Colombia: tasa EA, cuota de manejo, 4x1000 y respaldo de Fogafín. Datos de 2026.",
+    "h1": "Cuentas de ahorro de alto rendimiento en Colombia: cuáles pagan más en 2026",
+    "ogType": "article",
+    "tiposSchema": "Article + ItemList de DepositAccount + FAQPage + BreadcrumbList",
+    "breadcrumb": "Inicio › Guías › Cuentas de ahorro de alto rendimiento",
+    "frecuencia": "Semanal (verificación de tasas de cada lunes)",
+    "notas": "Las marcas (Lulo, Nu, RappiPay, Pibank, Ualá, Global66) solo van en la tabla. Sin Review ni AggregateRating.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/guias/cuentas-de-ahorro-alto-rendimiento",
+          "url": "https://frilo.dev/guias/cuentas-de-ahorro-alto-rendimiento",
+          "name": "Cuentas de ahorro de alto rendimiento en Colombia: cuáles pagan más en 2026",
+          "description": "Compara las cuentas de ahorro con mayor rentabilidad en Colombia: tasa EA, cuota de manejo, 4x1000 y respaldo de Fogafín. Datos de 2026.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "reviewedBy": {
+            "@type": "Organization",
+            "name": "Equipo de finanzas Frilo",
+            "parentOrganization": {
+              "@id": "https://frilo.dev/#organization"
+            }
+          },
+          "lastReviewed": "2026-10-20",
+          "mainEntity": {
+            "@id": "https://frilo.dev/guias/cuentas-de-ahorro-alto-rendimiento#article"
+          }
+        },
+        {
+          "@type": "Article",
+          "@id": "https://frilo.dev/guias/cuentas-de-ahorro-alto-rendimiento#article",
+          "headline": "Cuentas de ahorro de alto rendimiento en Colombia: cuáles pagan más en 2026",
+          "description": "Compara las cuentas de ahorro con mayor rentabilidad en Colombia: tasa EA, cuota de manejo, 4x1000 y respaldo de Fogafín. Datos de 2026.",
+          "mainEntityOfPage": "https://frilo.dev/guias/cuentas-de-ahorro-alto-rendimiento",
+          "inLanguage": "es-CO",
+          "author": {
+            "@id": "https://frilo.dev/#nicolas"
+          },
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          },
+          "datePublished": "2026-10-20",
+          "dateModified": "2026-10-20",
+          "image": "https://frilo.dev/og/guias/cuentas-de-ahorro-alto-rendimiento.png"
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://frilo.dev/guias/cuentas-de-ahorro-alto-rendimiento#cuentas",
+          "name": "Cuentas de ahorro con mayor rentabilidad en Colombia",
+          "itemListOrder": "https://schema.org/ItemListOrderDescending",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@type": "DepositAccount",
+                "name": "Cuenta Pibank",
+                "provider": {
+                  "@type": "BankOrCreditUnion",
+                  "name": "Pibank"
+                },
+                "interestRate": {
+                  "@type": "QuantitativeValue",
+                  "value": 11.0,
+                  "unitText": "% E.A."
+                }
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@type": "DepositAccount",
+                "name": "Cuenta global en pesos",
+                "provider": {
+                  "@type": "BankOrCreditUnion",
+                  "name": "Global66"
+                },
+                "interestRate": {
+                  "@type": "QuantitativeValue",
+                  "value": 11.0,
+                  "unitText": "% E.A."
+                }
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "item": {
+                "@type": "DepositAccount",
+                "name": "Bolsillos Lulo Bank",
+                "provider": {
+                  "@type": "BankOrCreditUnion",
+                  "name": "Lulo Bank"
+                },
+                "interestRate": {
+                  "@type": "QuantitativeValue",
+                  "value": 9.5,
+                  "unitText": "% E.A."
+                }
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "item": {
+                "@type": "DepositAccount",
+                "name": "Bolsillos RappiPay",
+                "provider": {
+                  "@type": "BankOrCreditUnion",
+                  "name": "RappiPay"
+                },
+                "interestRate": {
+                  "@type": "QuantitativeValue",
+                  "value": 9.0,
+                  "unitText": "% E.A."
+                }
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "item": {
+                "@type": "DepositAccount",
+                "name": "Cajitas Nu",
+                "provider": {
+                  "@type": "BankOrCreditUnion",
+                  "name": "Nu Colombia"
+                },
+                "interestRate": {
+                  "@type": "QuantitativeValue",
+                  "value": 8.25,
+                  "unitText": "% E.A."
+                }
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 6,
+              "item": {
+                "@type": "DepositAccount",
+                "name": "Cuenta Ualá",
+                "provider": {
+                  "@type": "BankOrCreditUnion",
+                  "name": "Ualá"
+                },
+                "interestRate": {
+                  "@type": "QuantitativeValue",
+                  "value": 5.0,
+                  "unitText": "% E.A."
+                }
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Guías",
+              "item": "https://frilo.dev/guias"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Cuentas de ahorro de alto rendimiento"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://frilo.dev/guias/cuentas-de-ahorro-alto-rendimiento#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Qué cuenta de ahorros paga más en Colombia?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Al 20 de octubre de 2026, Pibank y Global66 (en pesos) pagan 11% E.A. sin condiciones. Ualá llega a 10,5% E.A. si haces al menos $400.000 en compras al mes con su tarjeta."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Dónde pongo a rendir mi dinero si lo voy a necesitar pronto?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "En una cuenta de ahorros sin plazo fijo, que liquide intereses sobre el saldo diario. Así gana mientras tanto y puedes sacarlo cuando lo necesites. Un CDT paga una tasa fija pero amarra el dinero al plazo."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Lulo Bank, Nu, RappiPay, Pibank, Ualá y Global66 son seguros?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Las seis están vigiladas por la Superintendencia Financiera. Pibank, Global66 (en pesos), RappiPay, Nu (hasta $50 millones) y Ualá tienen el respaldo del seguro de depósitos de Fogafín. Lulo Bank no lo menciona en la página que consultamos; puedes confirmarlo en el listado de entidades inscritas de Fogafín y la vigilancia de cada una en la Superintendencia Financiera."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué hacer con la prima?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Lo más común es usarla para gastos de junio y diciembre, pagar deudas caras o reforzar tu fondo de emergencias. Si no la vas a usar de inmediato, déjala en una cuenta que rinda mientras decides."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿En qué invertir la prima?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ahorrar no es lo mismo que invertir. Una cuenta de ahorros vigilada protege el dinero y paga una tasa conocida. Fondos, acciones o activos digitales pueden rendir más, pero también perder. Esta guía solo compara cuentas de ahorro y no es asesoría financiera."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Los intereses de la cuenta pagan impuestos?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí. Los rendimientos pueden tener retención en la fuente y cuentan para tu declaración de renta. En 2026 la retención sobre intereses o rendimientos financieros es del 7% (tabla de retención 2026). Pibank y Nu la muestran en sus simuladores."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "P12",
+    "nombre": "Cesantías para independientes",
+    "ruta": "/guias/cesantias-independientes",
+    "tipo": "Guía",
+    "wireframe": "Guia.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/guias/cesantias-independientes",
+    "keyword": "cesantías para independientes",
+    "title": "Cesantías para independientes: cómo crear las tuyas | Frilo",
+    "description": "Si trabajas por prestación de servicios no tienes cesantías. Aprende cuánto apartar cada mes, dónde guardarlas y cómo hacerlas rendir.",
+    "h1": "Cesantías para independientes: cómo crear las tuyas si tu contrato no las trae",
+    "ogType": "article",
+    "tiposSchema": "Article + FAQPage + BreadcrumbList",
+    "breadcrumb": "Inicio › Guías › Cesantías para independientes",
+    "frecuencia": "Anual",
+    "notas": "CAMBIO: el research asignaba \"dónde guardar las cesantías\", pero el H1 y la URL apuntan a \"cesantías para independientes\". Se toma esa como objetivo y las otras dos pasan a H2. Ninguna tiene volumen medido: medirlas en Ranki antes del forecast.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/guias/cesantias-independientes",
+          "url": "https://frilo.dev/guias/cesantias-independientes",
+          "name": "Cesantías para independientes: cómo crear las tuyas si tu contrato no las trae",
+          "description": "Si trabajas por prestación de servicios no tienes cesantías. Aprende cuánto apartar cada mes, dónde guardarlas y cómo hacerlas rendir.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "reviewedBy": {
+            "@type": "Organization",
+            "name": "Equipo de finanzas Frilo",
+            "parentOrganization": {
+              "@id": "https://frilo.dev/#organization"
+            }
+          },
+          "lastReviewed": "2026-10-20",
+          "mainEntity": {
+            "@id": "https://frilo.dev/guias/cesantias-independientes#article"
+          }
+        },
+        {
+          "@type": "Article",
+          "@id": "https://frilo.dev/guias/cesantias-independientes#article",
+          "headline": "Cesantías para independientes: cómo crear las tuyas si tu contrato no las trae",
+          "description": "Si trabajas por prestación de servicios no tienes cesantías. Aprende cuánto apartar cada mes, dónde guardarlas y cómo hacerlas rendir.",
+          "mainEntityOfPage": "https://frilo.dev/guias/cesantias-independientes",
+          "inLanguage": "es-CO",
+          "author": {
+            "@id": "https://frilo.dev/#nicolas"
+          },
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          },
+          "datePublished": "2026-10-20",
+          "dateModified": "2026-10-20",
+          "image": "https://frilo.dev/og/guias/cesantias-independientes.png"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Guías",
+              "item": "https://frilo.dev/guias"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Cesantías para independientes"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://frilo.dev/guias/cesantias-independientes#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Un independiente puede afiliarse a un fondo de cesantías?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí, como ahorro voluntario. Puedes aportar en cualquier momento del año, directamente en fondos como Porvenir o Protección, o por planilla asistida en operadores como Aportes en Línea o Miplanilla. El aporte llega hasta la doceava parte (1/12) de tus ingresos del año anterior, y los fondos ofrecen portafolios de corto y largo plazo. Puedes retirar con más flexibilidad que un empleado, según las reglas de cada fondo. (Porvenir, Miplanilla)"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Lo que ahorro como cesantías propias paga impuestos?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Depende de dónde las guardes. En un fondo de cesantías, los aportes voluntarios pueden deducirse de la renta hasta 1/12 de tus ingresos, dentro de los topes de rentas exentas, si el dinero se queda en el fondo al menos hasta el 31 de diciembre del año en que aportaste. En una cuenta de ahorros no hay ese beneficio, y los intereses tienen retención en la fuente del 7%."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué pasa si un mes no me pagan?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No apartas ese mes y retomas cuando vuelvas a cobrar. Por eso conviene que la cuenta no tenga plazo fijo: el ahorro se adapta a tus ingresos."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "Hub-G",
+    "nombre": "Hub de guías",
+    "ruta": "/guias",
+    "tipo": "Hub",
+    "wireframe": "GuiasHub.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/guias",
+    "keyword": "guías para independientes",
+    "title": "Guías para independientes y freelancers en Colombia | Frilo",
+    "description": "Guías claras sobre planilla, IBC, prima, cesantías y pagos en dólares para independientes y freelancers en Colombia, con fuentes oficiales.",
+    "h1": "Guías para independientes y freelancers en Colombia",
+    "ogType": "website",
+    "tiposSchema": "CollectionPage + ItemList + BreadcrumbList",
+    "breadcrumb": "Inicio › Guías",
+    "frecuencia": "Cuando se publique una guía",
+    "notas": "Keyword sin volumen medido.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "CollectionPage",
+          "@id": "https://frilo.dev/guias",
+          "url": "https://frilo.dev/guias",
+          "name": "Guías para independientes y freelancers en Colombia",
+          "description": "Guías claras sobre planilla, IBC, prima, cesantías y pagos en dólares para independientes y freelancers en Colombia, con fuentes oficiales.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "url": "https://frilo.dev/guias/ibc-independientes",
+                "name": "IBC para independientes 2026: qué es y cómo calcularlo"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "url": "https://frilo.dev/guias/descargar-planilla-seguridad-social",
+                "name": "Cómo descargar y verificar tu planilla de seguridad social"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "url": "https://frilo.dev/guias/cesantias-independientes",
+                "name": "Cesantías para independientes: cómo crear las tuyas si tu contrato no las trae"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "url": "https://frilo.dev/guias/cuenta-en-dolares-colombia",
+                "name": "Cuenta en dólares en Colombia: opciones, requisitos y costos"
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "url": "https://frilo.dev/guias/recibir-pagos-en-dolares-colombia",
+                "name": "Cómo recibir pagos del exterior en dólares en Colombia"
+              },
+              {
+                "@type": "ListItem",
+                "position": 6,
+                "url": "https://frilo.dev/guias/cuentas-de-ahorro-alto-rendimiento",
+                "name": "Cuentas de ahorro de alto rendimiento en Colombia: cuáles pagan más en 2026"
+              }
+            ]
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Guías"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "Hub-Glo",
+    "nombre": "Hub del glosario",
+    "ruta": "/glosario",
+    "tipo": "Hub",
+    "wireframe": "— (falta wireframe)",
+    "estado": "Por diseñar",
+    "robots": "index, follow (cuando tenga 3 o más entradas; antes, noindex)",
+    "enSitemap": false,
+    "canonical": "https://frilo.dev/glosario",
+    "keyword": "glosario seguridad social",
+    "title": "Glosario de seguridad social para independientes | Frilo",
+    "description": "Qué significan las siglas de la planilla de seguridad social: SLN, IBC, PILA, ARL y FSP, explicadas para independientes en Colombia.",
+    "h1": "Glosario de seguridad social para independientes",
+    "ogType": "website",
+    "tiposSchema": "CollectionPage + DefinedTermSet + BreadcrumbList",
+    "breadcrumb": "Inicio › Glosario",
+    "frecuencia": "Cuando se agregue una entrada",
+    "notas": "Lo pide el breadcrumb de P06 y el @id del DefinedTermSet. Propuesta: lanzar con SLN y entradas cortas de IBC, PILA, ARL y FSP que enlacen a sus guías.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "CollectionPage",
+          "@id": "https://frilo.dev/glosario",
+          "url": "https://frilo.dev/glosario",
+          "name": "Glosario de seguridad social para independientes",
+          "description": "Qué significan las siglas de la planilla de seguridad social: SLN, IBC, PILA, ARL y FSP, explicadas para independientes en Colombia.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "mainEntity": {
+            "@type": "DefinedTermSet",
+            "@id": "https://frilo.dev/glosario",
+            "name": "Glosario de seguridad social para independientes",
+            "hasDefinedTerm": [
+              {
+                "@id": "https://frilo.dev/glosario/sln#term"
+              }
+            ]
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Glosario"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "Inst-1",
+    "nombre": "Quiénes somos",
+    "ruta": "/quienes-somos",
+    "tipo": "Institucional",
+    "wireframe": "— (falta wireframe)",
+    "estado": "Por diseñar",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/quienes-somos",
+    "keyword": "No aplica (marca)",
+    "title": "Quiénes somos: la app de finanzas para independientes | Frilo",
+    "description": "Frilo es una app gratuita para freelancers y contratistas en Colombia. Conoce quién la hace, cómo revisamos los datos y qué no hacemos.",
+    "h1": "Quiénes somos",
+    "ogType": "website",
+    "tiposSchema": "AboutPage + Person + BreadcrumbList",
+    "breadcrumb": "Inicio › Quiénes somos",
+    "frecuencia": "Anual",
+    "notas": "Es la URL del Person (Nicolás Suárez) en el JSON-LD. Señal E-E-A-T para contenido financiero.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "AboutPage",
+          "@id": "https://frilo.dev/quienes-somos",
+          "url": "https://frilo.dev/quienes-somos",
+          "name": "Quiénes somos",
+          "description": "Frilo es una app gratuita para freelancers y contratistas en Colombia. Conoce quién la hace, cómo revisamos los datos y qué no hacemos.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20",
+          "mainEntity": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Quiénes somos"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "Inst-2",
+    "nombre": "Metodología",
+    "ruta": "/metodologia",
+    "tipo": "Institucional",
+    "wireframe": "— (falta wireframe)",
+    "estado": "Por diseñar",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/metodologia",
+    "keyword": "No aplica",
+    "title": "Metodología: cómo calculamos y revisamos los datos | Frilo",
+    "description": "Así calculamos los aportes, cesantías y tasas que muestra Frilo: fuentes oficiales, fechas de revisión y quién revisa cada página.",
+    "h1": "Cómo calculamos y revisamos los datos de Frilo",
+    "ogType": "website",
+    "tiposSchema": "WebPage + BreadcrumbList",
+    "breadcrumb": "Inicio › Metodología",
+    "frecuencia": "Cuando cambie el proceso",
+    "notas": "Destino de los enlaces \"Cómo calculamos\" y \"Cómo hacemos nuestras guías\" de la línea de confianza.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/metodologia",
+          "url": "https://frilo.dev/metodologia",
+          "name": "Cómo calculamos y revisamos los datos de Frilo",
+          "description": "Así calculamos los aportes, cesantías y tasas que muestra Frilo: fuentes oficiales, fechas de revisión y quién revisa cada página.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Metodología"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "Inst-3",
+    "nombre": "Transparencia",
+    "ruta": "/transparencia",
+    "tipo": "Institucional",
+    "wireframe": "— (falta wireframe)",
+    "estado": "Por diseñar",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/transparencia",
+    "keyword": "No aplica",
+    "title": "Transparencia: qué hace y qué no hace Frilo con tu dinero | Frilo",
+    "description": "Frilo es gratis, no recibe pagos de las entidades que compara y no vende tus datos. Te contamos cómo elegimos qué mostrar y cómo lo revisamos.",
+    "h1": "Transparencia",
+    "ogType": "website",
+    "tiposSchema": "WebPage + BreadcrumbList",
+    "breadcrumb": "Inicio › Transparencia",
+    "frecuencia": "Cuando cambie la monetización",
+    "notas": "Cuando haya referidos: actualizar el aviso aquí y en las tablas (rel=\"sponsored\").",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/transparencia",
+          "url": "https://frilo.dev/transparencia",
+          "name": "Transparencia",
+          "description": "Frilo es gratis, no recibe pagos de las entidades que compara y no vende tus datos. Te contamos cómo elegimos qué mostrar y cómo lo revisamos.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Transparencia"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "Legal-1",
+    "nombre": "Términos de uso",
+    "ruta": "/terminos",
+    "tipo": "Legal",
+    "wireframe": "Existe en la app (Claude Code)",
+    "estado": "Existe; migrar al sitio",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/terminos",
+    "keyword": "No aplica",
+    "title": "Términos de uso | Frilo",
+    "description": "Condiciones de uso de Frilo, la app gratuita de finanzas para freelancers y contratistas en Colombia.",
+    "h1": "Términos de uso",
+    "ogType": "website",
+    "tiposSchema": "WebPage",
+    "breadcrumb": "Inicio › Términos de uso",
+    "frecuencia": "Cuando cambie",
+    "notas": "Hoy viven en la app. Servirlas desde frilo.dev y redirigir con 301 la ruta vieja si cambia. Title corto aceptado por ser legal.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/terminos",
+          "url": "https://frilo.dev/terminos",
+          "name": "Términos de uso",
+          "description": "Condiciones de uso de Frilo, la app gratuita de finanzas para freelancers y contratistas en Colombia.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Términos de uso"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "Legal-2",
+    "nombre": "Política de datos",
+    "ruta": "/politica-de-datos",
+    "tipo": "Legal",
+    "wireframe": "Existe en la app (Claude Code)",
+    "estado": "Existe; migrar al sitio",
+    "robots": "index, follow",
+    "enSitemap": true,
+    "canonical": "https://frilo.dev/politica-de-datos",
+    "keyword": "No aplica",
+    "title": "Política de tratamiento de datos personales | Frilo",
+    "description": "Cómo Frilo recolecta, usa y protege tus datos personales según la Ley 1581 de 2012, y cómo ejercer tus derechos como titular.",
+    "h1": "Política de tratamiento de datos personales",
+    "ogType": "website",
+    "tiposSchema": "WebPage",
+    "breadcrumb": "Inicio › Política de datos",
+    "frecuencia": "Cuando cambie",
+    "notas": "Enlazada desde el consentimiento del banner de registro. Misma nota de migración que Términos.",
+    "jsonld": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://frilo.dev/#organization",
+          "name": "Frilo",
+          "url": "https://frilo.dev",
+          "logo": "https://frilo.dev/logos/isotipo-oliva.png",
+          "slogan": "Tus finanzas, mejor con Frilo",
+          "areaServed": "CO"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://frilo.dev/#website",
+          "url": "https://frilo.dev",
+          "name": "Frilo",
+          "inLanguage": "es-CO",
+          "publisher": {
+            "@id": "https://frilo.dev/#organization"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://frilo.dev/#nicolas",
+          "name": "Nicolás Suárez",
+          "jobTitle": "Fundador de Frilo",
+          "url": "https://frilo.dev/quienes-somos"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://frilo.dev/politica-de-datos",
+          "url": "https://frilo.dev/politica-de-datos",
+          "name": "Política de tratamiento de datos personales",
+          "description": "Cómo Frilo recolecta, usa y protege tus datos personales según la Ley 1581 de 2012, y cómo ejercer tus derechos como titular.",
+          "inLanguage": "es-CO",
+          "isPartOf": {
+            "@id": "https://frilo.dev/#website"
+          },
+          "dateModified": "2026-10-20"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://frilo.dev"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Política de datos"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "SEM",
+    "nombre": "Landing de pauta",
+    "ruta": "/lp/planilla-independientes",
+    "tipo": "Landing SEM",
+    "wireframe": "LandingSEM.dc.html",
+    "estado": "Wireframe aprobado",
+    "robots": "noindex, follow",
+    "enSitemap": false,
+    "canonical": "https://frilo.dev/lp/planilla-independientes (autocanónica, noindex)",
+    "keyword": "No aplica (noindex). Grupo de anuncios: calculadora de aportes",
+    "title": "¿Cuánto pagas de planilla como independiente? | Frilo",
+    "description": "(no aplica: noindex)",
+    "h1": "¿Cuánto pagas de planilla como independiente en 2026?",
+    "ogType": "website",
+    "tiposSchema": "Ninguno",
+    "breadcrumb": "Sin breadcrumb ni navegación",
+    "frecuencia": "Por campaña",
+    "notas": "Bloqueada en robots.txt (/lp/) y fuera del sitemap. Reforzar presupuesto en enero.",
+    "jsonld": null
+  }
+]

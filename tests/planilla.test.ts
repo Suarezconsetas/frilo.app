@@ -13,6 +13,43 @@ describe('festivos de Colombia', () => {
   });
 });
 
+describe('festivos: lista de referencia de años posteriores', () => {
+  // 2028 y 2030 contrastados con calendarios publicados (no oficiales). Si una ley cambia un festivo, se actualiza aquí
+  // y en EXCEPCIONES_FESTIVOS.
+  const REFERENCIA: Record<number, string[]> = {
+    2028: ['01-01', '01-10', '03-20', '04-13', '04-14', '05-01', '05-29', '06-19', '06-26', '07-03', '07-20', '08-07', '08-21', '10-16', '11-06', '11-13', '12-08', '12-25'],
+    2030: ['01-01', '01-07', '03-25', '04-18', '04-19', '05-01', '06-03', '06-24', '07-01', '07-20', '08-07', '08-19', '10-14', '11-04', '11-11', '12-08', '12-25'],
+  };
+  it.each(Object.entries(REFERENCIA))('%s coincide con la referencia', (anio, lista) => {
+    expect([...festivosCo(Number(anio))].sort()).toEqual(lista.map((f) => `${anio}-${f}`));
+  });
+  it('2029 y 2031 también generan 17 o 18 fechas distintas, todas dentro del año', () => {
+    for (const a of [2029, 2031]) {
+      const f = [...festivosCo(a)];
+      expect(f.length).toBeGreaterThanOrEqual(17);
+      expect(f.every((d) => d.startsWith(String(a)))).toBe(true);
+    }
+  });
+});
+
+describe('festivos: excepciones y aviso de validación', () => {
+  it('las excepciones agregan y quitan fechas sin tocar el algoritmo', async () => {
+    const { EXCEPCIONES_FESTIVOS } = await import('@/lib/app/planilla');
+    EXCEPCIONES_FESTIVOS[2035] = { agregar: ['2035-05-02'], quitar: ['2035-12-25'] };
+    const f = festivosCo(2035);
+    expect(f.has('2035-05-02')).toBe(true);
+    expect(f.has('2035-12-25')).toBe(false);
+    delete EXCEPCIONES_FESTIVOS[2035];
+  });
+  it('avisa cuando falta validar el año (y en diciembre, el siguiente)', async () => {
+    const { festivosPorValidar } = await import('@/lib/app/planilla');
+    expect(festivosPorValidar('2026-11-20')).toBeNull();
+    expect(festivosPorValidar('2027-06-10')).toBeNull();
+    expect(festivosPorValidar('2027-12-01')).toBe(2028);
+    expect(festivosPorValidar('2028-02-01')).toBe(2028);
+  });
+});
+
 describe('día hábil según los dos últimos dígitos (Decreto 1990 de 2016)', () => {
   it('cubre toda la tabla', () => {
     const casos: [string, number][] = [['00', 2], ['07', 2], ['08', 3], ['14', 3], ['15', 4], ['28', 5], ['35', 6], ['42', 7], ['49', 8], ['56', 9], ['57', 10], ['63', 10], ['64', 11], ['69', 11], ['70', 12], ['75', 12], ['76', 13], ['81', 13], ['82', 14], ['87', 14], ['88', 15], ['93', 15], ['94', 16], ['99', 16]];
