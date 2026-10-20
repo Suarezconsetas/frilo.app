@@ -36,13 +36,14 @@ export const CUENTAS_MVP: CuentaAhorro[] = [
     nota: 'La página anuncia "hasta 11% E.A." en pesos, sin montos mínimos y con el dinero disponible 24/7.',
   },
   {
-    // Dato del 24-sep-2026 y recopilado de nuevo el 20-oct; la página y la ayuda de Lulo no cargaron para confirmarlo
-    // (el centro de ayuda indicaría 7,5% / 9,25%). Confirmar en la app: Ajustes > Rentabilidad y tarifas.
+    // Confirmado por la persona responsable de Frilo el 20-oct-2026: Bolsillos hasta 10% E.A. (con Lulo Pro), CDT hasta
+    // 13% E.A. y cubierta por Fogafín. La página y la ayuda de Lulo no cargan para automatizar la revisión.
     id: 'lulo-flex', entidad: 'Lulo Bank', producto: 'Bolsillos Flex',
     tasaBaseEA: 0.095, tasaCondicionadaEA: 0.10,
     condicion: 'Lulo PRO: nómina en Lulo o ingresos recurrentes > $3.000.000/mes',
-    pagoRendimientos: 'mensual', fechaConsulta: '2026-09-24', verificada: true,
-    url: 'https://www.lulobank.com/', patrocinado: false,
+    pagoRendimientos: 'mensual', fechaConsulta: '2026-10-20', verificada: true,
+    url: 'https://www.lulobank.com/', patrocinado: false, fogafin: 'Sí',
+    nota: 'Sus CDT pagan hasta 13% E.A., pero el dinero queda bloqueado por el plazo: no los comparamos aquí.',
   },
   {
     id: 'rappipay-bolsillos', entidad: 'RappiPay', producto: 'Bolsillos RappiCuenta',
