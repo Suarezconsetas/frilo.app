@@ -69,7 +69,7 @@ export function ContenidoP02({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
           </p>
           <p>
             {"¿Por qué el 40%? Porque se supone que el otro 60% cubre los costos de tu actividad. Un empleado cotiza sobre todo su salario y su empleador paga la mayor parte; tú pagas el 100% de los aportes, pero sobre una base menor. Si trabajas por cuenta propia, desde el "}
-            <a href="https://www.ugpp.gov.co/wp-content/uploads/2026/07/Decreto_379_de_2026_MinSalud.pdf" target="_blank" rel="noopener">
+            <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=275076" target="_blank" rel="noopener">
               Decreto 379 de 2026
             </a>
             {" el 40% se aplica sobre tu ingreso neto, después de costos."}
@@ -179,7 +179,7 @@ export function ContenidoP02({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
             </summary>
             <p>
               Si tienes contrato de prestación de servicios, sobre el 40% del valor mensualizado del contrato, sin IVA. Como cotizas mes vencido, pagas en la planilla del mes siguiente. Si trabajas por cuenta propia, sin contrato de prestación de servicios, primero descuentas tus costos y sacas el 40% del ingreso neto (
-              <a href="https://www.ugpp.gov.co/wp-content/uploads/2026/07/Decreto_379_de_2026_MinSalud.pdf" target="_blank" rel="noopener">
+              <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=275076" target="_blank" rel="noopener">
                 Decreto 379 de 2026
               </a>
               ).
@@ -218,7 +218,7 @@ export function ContenidoP02({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
                 Decreto 1273 de 2018
               </a>
               {" · "}
-              <a href="https://www.ugpp.gov.co/wp-content/uploads/2026/07/Decreto_379_de_2026_MinSalud.pdf" target="_blank" rel="noopener">
+              <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=275076" target="_blank" rel="noopener">
                 Decreto 379 de 2026
               </a>
               {" · "}

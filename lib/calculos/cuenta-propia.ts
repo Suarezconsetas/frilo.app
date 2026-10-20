@@ -5,10 +5,9 @@
  * No aplica a contratistas de prestación de servicios personales (OPS): ellos siguen con el 40% del valor bruto
  * mensualizado del contrato, sin descontar costos (Ley 2277 de 2022, art. 89).
  *
- * [VERIFICAR] Pendiente confirmar con el texto oficial del decreto (el enlace de la UGPP dio 404 el 21-oct-2026):
- *  - fecha exacta de vigencia (las fuentes secundarias dicen 7 de abril de 2026);
- *  - tabla de presunción de costos de la UGPP por código CIIU (Resolución 532 de 2024): esta función solo recibe
- *    los costos que la persona declara; no aplica porcentajes de presunción.
+ * Vigente desde el 7 de abril de 2026 (Función Pública, gestor normativo).
+ * No aplica la presunción de costos de la UGPP por código CIIU (Resolución 532 de 2024): solo recibe los costos que la
+ * persona declara y puede soportar.
  */
 import { calcularAportes, type EntradaAportes, type ResultadoAportes } from './aportes';
 import type { ParametrosAnio } from './parametros';

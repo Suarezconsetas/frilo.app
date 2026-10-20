@@ -147,8 +147,8 @@ export function ContenidoP06({ dinamicos = {} }: { dinamicos?: {  } }) {
             Aportes en Línea, novedades durante una SLN
           </a>
           {" · "}
-          <a href="https://www.minsalud.gov.co/proteccionsocial/Financiamiento/Documents/CASO%205%20-%20Trabajador%20con%20%20novedad%20de%20SLN.pdf" target="_blank" rel="noopener">
-            Ministerio de Salud, caso práctico de SLN
+          <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/OT/anexo-tecnico1-glosario.pdf" target="_blank" rel="noopener">
+            Ministerio de Salud, glosario de términos PILA (Anexo Técnico 1)
           </a>
           {" · "}
           <a href="https://normativa.colpensiones.gov.co/compilacion/docs/resolucion_minsaludps_2388_2016.htm" target="_blank" rel="noopener">

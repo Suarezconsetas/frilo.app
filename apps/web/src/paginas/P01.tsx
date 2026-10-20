@@ -515,7 +515,7 @@ export function ContenidoP01({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
             </summary>
             <p>
               {"Desde el "}
-              <a href="https://www.ugpp.gov.co/wp-content/uploads/2026/07/Decreto_379_de_2026_MinSalud.pdf" target="_blank" rel="noopener">
+              <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=275076" target="_blank" rel="noopener">
                 Decreto 379 de 2026
               </a>
               , primero descuentas tus costos (o aplicas la presunción de costos de la UGPP) y sacas el 40% del ingreso neto. Esta calculadora está pensada para contratistas de prestación de servicios.
@@ -563,7 +563,7 @@ export function ContenidoP01({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
               Decreto 1772 de 1994 (tarifas de riesgos laborales)
             </li>
             <li>
-              <a href="https://www.ugpp.gov.co/wp-content/uploads/2026/07/Decreto_379_de_2026_MinSalud.pdf" target="_blank" rel="noopener">
+              <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=275076" target="_blank" rel="noopener">
                 Decreto 379 de 2026
               </a>
               {" (independientes por cuenta propia)"}

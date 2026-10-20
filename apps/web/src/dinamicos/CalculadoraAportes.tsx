@@ -87,8 +87,8 @@ export function CalculadoraAportes() {
                 Costos reales y soportados. Tu IBC es el 40% del ingreso neto: {pesos((r as { ingresoNeto?: number }).ingresoNeto ?? ingreso)} ({pct(P.porcentajeIbc, 0)} → {pesos(r.ibcTeorico)}).
               </span>
             </div>
-            <p className="verificar" style={{ margin: 0, fontSize: 13, lineHeight: 1.5 }}>
-              [VERIFICAR] Decreto 379 de 2026: falta confirmar con el texto oficial la fecha de vigencia y la presunción de costos de la UGPP por actividad. Esta calculadora solo usa los costos que escribes.
+            <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5, color: '#4A6158' }}>
+              Decreto 379 de 2026, vigente desde el 7 de abril de 2026. Esta calculadora usa los costos que escribes: si no puedes soportarlos, la UGPP aplica su presunción de costos según tu actividad, que no calculamos aquí.
             </p>
           </>
         )}

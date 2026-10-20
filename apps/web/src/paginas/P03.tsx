@@ -235,7 +235,7 @@ export function ContenidoP03({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
           </summary>
           <p>
             Debe pagar una sanción moratoria: un día de salario por cada día de retraso en la consignación (
-            <a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_0050_1990.html" target="_blank" rel="noopener">
+            <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=281" target="_blank" rel="noopener">
               Ley 50 de 1990, artículo 99
             </a>
             ).
@@ -275,7 +275,7 @@ export function ContenidoP03({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
             , artículos 249 y siguientes
           </li>
           <li>
-            <a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_0050_1990.html" target="_blank" rel="noopener">
+            <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=281" target="_blank" rel="noopener">
               Ley 50 de 1990
             </a>
             , artículo 99

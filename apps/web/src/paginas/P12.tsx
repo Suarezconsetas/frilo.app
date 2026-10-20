@@ -192,7 +192,7 @@ export function ContenidoP12({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode,
                 Código Sustantivo del Trabajo, artículos 249 y siguientes
               </a>
               {" · "}
-              <a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_0050_1990.html" target="_blank" rel="noopener">
+              <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=281" target="_blank" rel="noopener">
                 Ley 50 de 1990, artículo 99
               </a>
               {" · Ley 52 de 1975 · "}
