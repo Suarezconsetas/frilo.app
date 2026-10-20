@@ -45,7 +45,7 @@ export default function PoliticaDeDatos() {
           </li>
           <li>
             <strong>Datos de tu perfil:</strong> cómo te pagan (dólares, pesos o ambos), un rango de ingreso (nunca la cifra exacta en el perfil), tu clase de riesgo
-            ARL, si activas la ARL voluntaria y, si lo indicas, el día del mes en que te pagan.
+            ARL, si activas la ARL voluntaria y, si lo indicas, el día del mes en que te pagan y los dos últimos dígitos de tu documento (nunca el número completo), que sirven solo para calcular la fecha límite de pago de tu planilla.
           </li>
           <li>
             <strong>Datos de la herramienta:</strong> el nombre de quien te paga, los montos que registras, la tasa que te pagaron o la retención practicada (si
@@ -69,6 +69,7 @@ export default function PoliticaDeDatos() {
           <li>Crear y mantener tu cuenta, y que puedas entrar con seguridad.</li>
           <li>Calcular tus aportes a seguridad social, tu ahorro de prima y cesantías y lo que te queda cada mes, y guardar esos cálculos para ti.</li>
           <li>Enviarte las alertas del dólar que tú configures y los correos necesarios para el servicio (por ejemplo, el código para entrar).</li>
+          <li>Si lo activas, recordarte por correo la fecha límite de pago de tu planilla (unos días hábiles antes y el mismo día). Es un servicio que tú pides: no depende de la casilla de novedades y puedes apagarlo cuando quieras, desde la app o con el enlace de cada correo.</li>
           <li>Conservar la prueba de tus autorizaciones, como exige la ley.</li>
           <li>Proteger el servicio, prevenir fraudes y atender solicitudes de autoridades competentes.</li>
           <li>Mejorar Frilo con estadísticas de uso agregadas (páginas visitadas, país, navegador y tipo de dispositivo), sin identificarte, mediante Vercel Web Analytics, y medir la velocidad de la aplicación (tiempos de carga) mediante Vercel Speed Insights.</li>

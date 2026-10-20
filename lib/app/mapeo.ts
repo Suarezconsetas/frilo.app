@@ -4,7 +4,7 @@ import { fuenteDe } from './derivados';
 import type { EstadoApp, FormaDePago, IngresoInicial } from './tipos';
 
 /** Versión del texto de autorización que firma el usuario. Cambiarla pide una autorización nueva al volver a entrar. */
-export const VERSION_POLITICA = '2026-10-15';
+export const VERSION_POLITICA = '2026-10-20';
 
 /** En el perfil se guarda un rango, nunca la cifra exacta (Ley 1581 de 2012: solo lo necesario). */
 export function rangoIngreso(ingresoBrutoCop: number, anio = 2026): string {
@@ -34,6 +34,8 @@ export function filasDesdeEstado(e: EstadoApp, ingresoBrutoCop: number | null): 
       clase_riesgo: ing?.clase ?? null,
       arl_voluntaria: e.arlVoluntaria,
       dia_de_pago: e.diaDePago ?? null,
+      // El recordatorio de planilla (dígitos, activo, anticipación) se guarda aparte: un enlace de baja del correo
+      // lo puede apagar sin sesión, y la sincronización general no debe volver a encenderlo.
     },
     fuente: fuente ? { nombre: fuente.nombre, moneda: fuente.moneda, tipo_contrato: fuente.tipoContrato, contratante: fuente.contratante } : null,
     pago:
@@ -47,7 +49,7 @@ export function filasDesdeEstado(e: EstadoApp, ingresoBrutoCop: number | null): 
 
 /** Filas tal como las devuelve PostgREST (los numeric pueden llegar como texto). */
 export interface FilasLeidas {
-  perfil: { forma_de_pago: string | null; clase_riesgo: number | null; arl_voluntaria: boolean; dia_de_pago?: number | null } | null;
+  perfil: { forma_de_pago: string | null; clase_riesgo: number | null; arl_voluntaria: boolean; dia_de_pago?: number | null; digitos_documento?: string | null; recordatorio_planilla?: boolean; dias_anticipacion?: number } | null;
   fuente: { id: string; nombre: string; moneda: string; contratante: string } | null;
   /** Último mes guardado (el que manda para los valores del ingreso). */
   pago: { mes: string; monto: number | string; tasa_recibida: number | string | null; retencion_practicada: number | string | null } | null;
@@ -64,6 +66,9 @@ export function estadoDesdeFilas(f: FilasLeidas): Partial<EstadoApp> {
     formaDePago: (f.perfil?.forma_de_pago as FormaDePago | null) ?? undefined,
     arlVoluntaria: f.perfil?.arl_voluntaria ?? false,
     diaDePago: f.perfil?.dia_de_pago ?? undefined,
+    digitosDocumento: f.perfil?.digitos_documento?.trim() || undefined,
+    recordatorioPlanilla: f.perfil?.recordatorio_planilla ?? false,
+    diasAnticipacion: f.perfil?.dias_anticipacion ?? 3,
     fuenteId: f.fuente?.id,
     cobros: f.cobros.map((c): Cobro => ({ mes: c.mes, bolsillo: c.bolsillo as Cobro['bolsillo'] })),
     alertas: f.alertas.map(

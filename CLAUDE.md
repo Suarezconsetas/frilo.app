@@ -66,4 +66,4 @@ Monetización: afiliados (enlaces de referidos en el comparador, marcados si son
 4. TRM diaria y alertas por correo.
 5. Lanzamiento: textos legales, analítica, dominio.
 
-Ideas para después: pedir los dos últimos dígitos del documento para avisar la fecha límite de pago de la planilla; inicio con Apple; app móvil; modo oscuro en las pantallas.
+Hecho: recordatorio de la fecha límite de pago de la planilla (dos últimos dígitos del documento, `lib/app/planilla.ts`). Ideas para después: inicio con Apple; app móvil; modo oscuro en las pantallas.

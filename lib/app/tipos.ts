@@ -22,6 +22,12 @@ export interface EstadoApp {
   mesIngreso?: string;
   /** Día del mes (1-31) en que le pagan: ese día le avisamos que guarde su mes. */
   diaDePago?: number;
+  /** Dos últimos dígitos del documento (nunca el número completo): definen la fecha límite de la planilla. */
+  digitosDocumento?: string;
+  /** Si quiere recibir por correo el recordatorio de la fecha límite de la planilla. */
+  recordatorioPlanilla?: boolean;
+  /** Días hábiles de anticipación del primer aviso (0–5); además se avisa el mismo día. */
+  diasAnticipacion?: number;
   arlVoluntaria: boolean;
   cobros: Cobro[];
   alertas: Alerta[];

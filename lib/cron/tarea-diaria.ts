@@ -8,7 +8,11 @@ import { marketingOtorgado } from '@/lib/app/mapeo';
 import { normalizarRegistro, restarDias, trmVigente, type RegistroTrm } from '@/lib/calculos';
 import { construirCorreoAlerta, planificarAlertas, type AlertaFila } from './alertas';
 import { promocionDeEjemplo } from './mensajes';
+import { calcularMes } from '@/lib/app/derivados';
+import { fechaLimitePago, recordatorioDeHoy, type TipoRecordatorio } from '@/lib/app/planilla';
+import type { IngresoInicial } from '@/lib/app/tipos';
 import { construirCorreoGuardarMes, tocaAvisarHoy } from './guardarmes';
+import { construirCorreoPlanilla, type EstimadoPlanilla } from './planilla';
 import { construirCorreoRecordatorio, montoSugerido } from './recordatorio';
 import { construirCorreoResumen, datosDeSemana } from './resumen';
 
@@ -391,13 +395,117 @@ export async function ejecutarGuardarMes(deps: DependenciasGuardarMes): Promise<
   return r;
 }
 
+export interface DependenciasPlanilla {
+  db: SupabaseClient;
+  enviarCorreo: (c: CorreoSaliente) => Promise<void>;
+  hoy: string;
+  urlApp: string;
+  /** Enlace para apagar el recordatorio de una persona. */
+  urlBaja: (usuarioId: string) => string;
+  /** TRM de hoy, para estimar la planilla de quien cobra en dólares. */
+  trm: number | null;
+  /** Si viene, solo se envía un correo de muestra a esta dirección: ignora el día, no escribe en la base. */
+  prueba?: { correo: string; tipo: TipoRecordatorio };
+}
+
+/**
+ * Recordatorio de la fecha límite de la planilla. Va a quien lo activó y dio los dos últimos dígitos de su
+ * documento: N días hábiles antes (su anticipación) y el mismo día. Un correo por persona, mes y tipo: el registro
+ * en `recordatorios_enviados` se escribe DESPUÉS de que Resend confirma el envío, así un fallo se reintenta en la
+ * siguiente corrida (el del mismo día, solo ese día).
+ */
+export async function ejecutarRecordatoriosPlanilla(deps: DependenciasPlanilla): Promise<ResultadoResumen> {
+  const { db, hoy } = deps;
+  const r: ResultadoResumen = { fecha: hoy, trmCierre: deps.trm, destinatarios: 0, enviados: 0, fallidos: 0 };
+  const columnas = 'id, correo, digitos_documento, dias_anticipacion, clase_riesgo, arl_voluntaria';
+
+  const { data: perfiles } = deps.prueba
+    ? await db.from('perfiles').select(columnas).eq('correo', deps.prueba.correo)
+    : await db.from('perfiles').select(columnas).eq('recordatorio_planilla', true).not('digitos_documento', 'is', null);
+
+  type Pendiente = { id: string; correo: string; tipo: TipoRecordatorio; fechaLimite: string; periodo: string; dias: number; perfil: Record<string, unknown> };
+  const pendientes: Pendiente[] = [];
+  for (const p of perfiles ?? []) {
+    const digitos = String(p.digitos_documento ?? (deps.prueba ? '89' : '')).trim();
+    if (!/^\d{2}$/.test(digitos)) continue;
+    const dias = Number(p.dias_anticipacion ?? 3);
+    if (deps.prueba) {
+      const periodo = hoy.slice(0, 7);
+      pendientes.push({ id: String(p.id), correo: String(p.correo), tipo: deps.prueba.tipo, fechaLimite: fechaLimitePago(digitos, Number(hoy.slice(0, 4)), Number(hoy.slice(5, 7))), periodo, dias, perfil: p });
+      continue;
+    }
+    const toca = recordatorioDeHoy(digitos, hoy, dias);
+    if (toca) pendientes.push({ id: String(p.id), correo: String(p.correo), tipo: toca.tipo, fechaLimite: toca.fechaLimite, periodo: toca.periodo, dias, perfil: p });
+  }
+  if (!pendientes.length) return r;
+
+  // Para el valor estimado: su fuente de ingreso y su último pago guardado.
+  const ids = pendientes.map((x) => x.id);
+  const { data: fuentes } = await db.from('fuentes_ingreso').select('id, usuario_id, nombre, moneda, contratante').in('usuario_id', ids);
+  const fuenteIds = (fuentes ?? []).map((f) => String(f.id));
+  const { data: pagos } = fuenteIds.length
+    ? await db.from('pagos').select('fuente_id, mes, monto, tasa_recibida, retencion_practicada').in('fuente_id', fuenteIds).order('mes', { ascending: false })
+    : { data: [] };
+  const { data: yaEnviados } = deps.prueba
+    ? { data: [] }
+    : await db.from('recordatorios_enviados').select('user_id, periodo, tipo').in('user_id', ids).eq('periodo', hoy.slice(0, 7));
+  const enviados = new Set((yaEnviados ?? []).map((x) => `${x.user_id}|${x.periodo}|${x.tipo}`));
+
+  for (const x of pendientes) {
+    if (enviados.has(`${x.id}|${x.periodo}|${x.tipo}`)) continue;
+    r.destinatarios++;
+
+    let estimado: EstimadoPlanilla | null = null;
+    const fuente = (fuentes ?? []).find((f) => String(f.usuario_id) === x.id);
+    const pago = fuente ? (pagos ?? []).find((g) => String(g.fuente_id) === String(fuente.id)) : undefined;
+    if (fuente && pago) {
+      const ingreso: IngresoInicial = {
+        cliente: String(fuente.nombre),
+        moneda: fuente.moneda as IngresoInicial['moneda'],
+        monto: Number(pago.monto),
+        tasaRecibida: pago.tasa_recibida === null ? undefined : Number(pago.tasa_recibida),
+        retencion: pago.retencion_practicada === null ? undefined : Number(pago.retencion_practicada),
+        clase: (x.perfil.clase_riesgo ?? 1) as IngresoInicial['clase'],
+        publico: fuente.contratante === 'publico',
+      };
+      const resumen = calcularMes(ingreso, Boolean(x.perfil.arl_voluntaria), deps.trm);
+      if (resumen) {
+        const a = resumen.aportes;
+        estimado = { total: a.totalUsuario, salud: a.salud, pension: a.pension, arl: a.arlACargoDelUsuario ? a.arl : 0, fsp: a.fsp };
+      }
+    }
+
+    const urlBaja = deps.urlBaja(x.id);
+    const c = construirCorreoPlanilla({ tipo: x.tipo, fechaLimite: x.fechaLimite, periodo: x.periodo, diasAnticipacion: x.dias, estimado, urlApp: deps.urlApp, urlBaja });
+    try {
+      await deps.enviarCorreo({
+        para: x.correo,
+        asunto: deps.prueba ? `[Prueba] ${c.asunto}` : c.asunto,
+        html: c.html,
+        texto: c.texto,
+        idempotencia: `planilla-${x.id}-${x.periodo}-${x.tipo}${deps.prueba ? '-prueba' : ''}`,
+        cabeceras: { 'List-Unsubscribe': `<${urlBaja}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' },
+      });
+      r.enviados++;
+      if (!deps.prueba) {
+        const { error } = await db.from('recordatorios_enviados').insert({ user_id: x.id, periodo: x.periodo, tipo: x.tipo });
+        if (error) console.error('Frilo: no se pudo registrar el recordatorio enviado:', error.message);
+      }
+    } catch (e) {
+      r.fallidos++;
+      console.error('Frilo: no se pudo enviar el recordatorio de planilla:', e instanceof Error ? e.message : e);
+    }
+  }
+  return r;
+}
+
 /** Fila de `cron_ejecuciones` para el resumen semanal o el recordatorio mensual. */
 export function filaDeResumen(
   r: ResultadoResumen | null,
   duracionMs: number,
   hoy: string,
   error?: string,
-  tarea: 'resumen' | 'recordatorio' | 'guardarmes' = 'resumen',
+  tarea: 'resumen' | 'recordatorio' | 'guardarmes' | 'planilla' = 'resumen',
 ): FilaEjecucion {
   const base = filaDeEjecucion(null, duracionMs, hoy, error);
   return {
@@ -432,7 +540,7 @@ export function enviarConResend(apiKey: string, from: string, traer: typeof fetc
 
 /** Fila de `cron_ejecuciones`: qué pasó en esta corrida. No lleva datos personales. */
 export interface FilaEjecucion {
-  tarea: 'trm' | 'resumen' | 'recordatorio' | 'guardarmes';
+  tarea: 'trm' | 'resumen' | 'recordatorio' | 'guardarmes' | 'planilla';
   fecha: string;
   ok: boolean;
   trm_hoy: number | null;

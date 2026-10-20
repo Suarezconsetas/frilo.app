@@ -3,9 +3,10 @@ import { timingSafeEqual } from 'node:crypto';
 import type { NextRequest } from 'next/server';
 import { esUltimoDiaDelMes, hoyColombia } from '@/lib/app/fechas';
 import { URL_SITIO } from '@/lib/sitio';
-import { urlDeBaja } from '@/lib/cron/baja';
+import { urlDeBaja, urlDeBajaPlanilla } from '@/lib/cron/baja';
 import {
   ejecutarGuardarMes,
+  ejecutarRecordatoriosPlanilla,
   ejecutarRecordatorioMensual,
   ejecutarTareaDiaria,
   enviarConResend,
@@ -97,6 +98,30 @@ export async function GET(req: NextRequest) {
       const mensaje = e instanceof Error ? e.message : 'error desconocido';
       console.error('Frilo guardar-mes: error', mensaje);
       await registrarEjecucion(db, filaDeResumen(null, Date.now() - inicioGuardar, hoy, mensaje, 'guardarmes'));
+    }
+    // Cada día: recordatorio de la fecha límite de la planilla a quien lo activó.
+    // `?planilla_prueba=correo&tipo=previo|dia` envía solo un correo de muestra a esa dirección.
+    const inicioPlanilla = Date.now();
+    try {
+      const parametros = new URL(req.url).searchParams;
+      const correoPrueba = parametros.get('planilla_prueba');
+      const r = await ejecutarRecordatoriosPlanilla({
+        db,
+        enviarCorreo: enviarConResend(resend, remitente),
+        hoy,
+        urlApp: URL_SITIO,
+        urlBaja: (id) => urlDeBajaPlanilla(URL_SITIO, id, clave),
+        trm: resultado.trmHoy,
+        prueba: correoPrueba ? { correo: correoPrueba, tipo: parametros.get('tipo') === 'dia' ? 'dia' : 'previo' } : undefined,
+      });
+      if (r.destinatarios > 0) {
+        console.log('Frilo planilla:', JSON.stringify(r));
+        await registrarEjecucion(db, filaDeResumen(r, Date.now() - inicioPlanilla, hoy, undefined, 'planilla'));
+      }
+    } catch (e) {
+      const mensaje = e instanceof Error ? e.message : 'error desconocido';
+      console.error('Frilo planilla: error', mensaje);
+      await registrarEjecucion(db, filaDeResumen(null, Date.now() - inicioPlanilla, hoy, mensaje, 'planilla'));
     }
     // Si la fuente de la TRM falló, el cron se marca como fallido para que se note en Vercel.
     return Response.json({ ok: resultado.trmSincronizada, ...resultado }, { status: resultado.trmSincronizada ? 200 : 502 });

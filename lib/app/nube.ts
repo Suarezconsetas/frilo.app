@@ -23,7 +23,7 @@ export async function registrarAutorizaciones(db: SupabaseClient, userId: string
 
 export async function cargarDeNube(db: SupabaseClient, userId: string): Promise<Partial<EstadoApp>> {
   const [perfil, fuente, cobros, alertas] = await Promise.all([
-    db.from('perfiles').select('forma_de_pago, clase_riesgo, arl_voluntaria, dia_de_pago').eq('id', userId).maybeSingle().then((r) => ok(r, 'leer perfil')),
+    db.from('perfiles').select('forma_de_pago, clase_riesgo, arl_voluntaria, dia_de_pago, digitos_documento, recordatorio_planilla, dias_anticipacion').eq('id', userId).maybeSingle().then((r) => ok(r, 'leer perfil')),
     db
       .from('fuentes_ingreso')
       .select('id, nombre, moneda, contratante')
@@ -126,7 +126,7 @@ export async function guardarMarketing(db: SupabaseClient, userId: string, otorg
 /** Todo lo que Frilo guarda de la persona, leído con su propia sesión (el RLS garantiza que solo es lo suyo). */
 export async function exportarMisDatos(db: SupabaseClient, userId: string, cuenta: { correo: string | null; creada_en: string | null }): Promise<ExportacionDatos> {
   const [perfil, fuentes, pagos, cobros, alertas, autorizaciones, ahorros] = await Promise.all([
-    db.from('perfiles').select('correo, nombre, proveedor, creado_en, ciudad, forma_de_pago, rango_ingreso, clase_riesgo, arl_voluntaria, dia_de_pago').eq('id', userId).maybeSingle().then((r) => ok(r, 'leer perfil')),
+    db.from('perfiles').select('correo, nombre, proveedor, creado_en, ciudad, forma_de_pago, rango_ingreso, clase_riesgo, arl_voluntaria, dia_de_pago, digitos_documento, recordatorio_planilla, dias_anticipacion').eq('id', userId).maybeSingle().then((r) => ok(r, 'leer perfil')),
     db.from('fuentes_ingreso').select('nombre, moneda, tipo_contrato, contratante, creado_en').eq('usuario_id', userId).order('creado_en').then((r) => ok(r, 'leer fuentes')),
     db.from('pagos').select('mes, monto, tasa_recibida, retencion_practicada, creado_en').eq('usuario_id', userId).order('mes').then((r) => ok(r, 'leer pagos')),
     db.from('cobros').select('mes, bolsillo, creado_en').eq('usuario_id', userId).order('creado_en').then((r) => ok(r, 'leer cobros')),
@@ -183,4 +183,25 @@ export async function leerPagosGuardados(db: SupabaseClient, userId: string): Pr
     tasaRecibida: f.tasa_recibida === null ? undefined : Number(f.tasa_recibida),
     retencion: f.retencion_practicada === null ? undefined : Number(f.retencion_practicada),
   }));
+}
+
+// ── Recordatorio de la planilla ───────────────────────────────────────────
+
+export interface AjustesPlanilla {
+  digitos?: string;
+  activo: boolean;
+  dias: number;
+}
+
+export async function leerRecordatorioPlanilla(db: SupabaseClient, userId: string): Promise<AjustesPlanilla> {
+  const f = ok(await db.from('perfiles').select('digitos_documento, recordatorio_planilla, dias_anticipacion').eq('id', userId).maybeSingle(), 'leer recordatorio');
+  return { digitos: f?.digitos_documento?.trim() || undefined, activo: f?.recordatorio_planilla ?? false, dias: f?.dias_anticipacion ?? 3 };
+}
+
+/** Se guarda directo (no por la sincronización general) para que apagarlo desde el correo no se pise. */
+export async function guardarRecordatorioPlanilla(db: SupabaseClient, userId: string, a: AjustesPlanilla) {
+  ok(
+    await db.from('perfiles').update({ digitos_documento: a.digitos ?? null, recordatorio_planilla: a.activo && !!a.digitos, dias_anticipacion: a.dias }).eq('id', userId),
+    'guardar recordatorio',
+  );
 }

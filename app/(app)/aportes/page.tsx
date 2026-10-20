@@ -6,6 +6,7 @@ import { useMes } from '@/lib/app/usarMes';
 import { capitalizar, nombreMes, pct, pesos } from '@/lib/formato';
 import { Icono } from '../../_ui/Icono';
 import { Logo } from '../../_ui/Logo';
+import { RecordatorioPlanilla } from '../../_ui/RecordatorioPlanilla';
 import { Interruptor } from '../../_ui/controles';
 
 const MI_PLANILLA = 'https://independientes2.miplanilla.com/PublicoIndependientes/Publico/IndexIndependientes';
@@ -91,6 +92,8 @@ export default function Aportes() {
             operador.
           </p>
         </section>
+
+        <RecordatorioPlanilla />
 
         <section className="tarjeta">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
