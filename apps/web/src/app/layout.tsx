@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
-import { Footer } from '../components/Footer';
-import { Header } from '../components/Header';
 import { PrimerContacto } from '../components/PrimerContacto';
 import { URL_SITIO } from '../lib/config';
 import './globals.css';
+import '../paginas/wireframes.css';
+import './legal.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(URL_SITIO),
@@ -24,12 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link href="https://fonts.googleapis.com/css2?family=Clarity+City:wght@300;400;600;700&display=swap" rel="stylesheet" />
       </head>
       <body suppressHydrationWarning>
-        <a href="#contenido" className="saltar">
-          Saltar al contenido
-        </a>
-        <Header />
-        <main id="contenido">{children}</main>
-        <Footer />
+        {children}
         <PrimerContacto />
       </body>
     </html>

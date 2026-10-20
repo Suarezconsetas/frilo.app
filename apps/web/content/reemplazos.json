@@ -1,0 +1,29 @@
+{
+  "_nota": "Correcciones al copy de los wireframes por decisiones posteriores. Prima y cesantías se calculan como 1/12 cada una (16,67% en total), igual que la app, no con el 16,66% del brief. Los ejemplos numéricos se recalculan con $8.000.000 de ingreso, 9% E.A. y 12 meses. El salario mínimo 2026 se cita con ambos decretos (1469 de 2025 y el transitorio 0159 de 2026); pendiente enlazar el texto oficial del 0159 en las listas de fuentes.",
+  "reemplazos": [
+    [
+      "16,66%",
+      "16,67%"
+    ],
+    [
+      "$1.332.800",
+      "$1.333.300"
+    ],
+    [
+      "$16.643.072",
+      "$16.649.316"
+    ],
+    [
+      "$15.993.600",
+      "$15.999.600"
+    ],
+    [
+      "$649.472",
+      "$649.716"
+    ],
+    [
+      "Decreto 1469 de 2025)",
+      "Decretos 1469 de 2025 y 0159 de 2026)"
+    ]
+  ]
+}

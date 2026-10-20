@@ -1,15 +1,15 @@
 /** Isotipo (la F) y wordmark. Manzana solo sobre oliva; oliva sobre fondos claros; nunca menos de 24 px de alto. */
 type Tono = 'manzana' | 'oliva';
 
-export function Isotipo({ tono = 'oliva', alto = 34, className }: { tono?: Tono; alto?: number; className?: string }) {
+export function Isotipo({ tono = 'oliva', alto = 34, altoCss, className }: { tono?: Tono; alto?: number; altoCss?: string; className?: string }) {
   // Decorativo: el texto "Frilo" lo aporta el wordmark o un `sr-only` (el H1 de la Home lleva texto real).
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={`/logos/isotipo-${tono}.svg`} alt="" aria-hidden="true" height={Math.max(24, alto)} style={{ height: Math.max(24, alto), width: 'auto' }} className={className} />;
+  return <img src={`/logos/isotipo-${tono}.svg`} alt="" aria-hidden="true" height={Math.max(24, alto)} style={{ height: altoCss ?? Math.max(24, alto), width: 'auto', display: altoCss ? 'block' : undefined }} className={className} />;
 }
 
-export function Wordmark({ tono = 'oliva', alto = 24, className }: { tono?: Tono; alto?: number; className?: string }) {
+export function Wordmark({ tono = 'oliva', alto = 24, altoCss, className }: { tono?: Tono; alto?: number; altoCss?: string; className?: string }) {
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={`/logos/wordmark-${tono}.svg`} alt="" aria-hidden="true" height={Math.max(24, alto)} style={{ height: Math.max(24, alto), width: 'auto' }} className={className} />;
+  return <img src={`/logos/wordmark-${tono}.svg`} alt="" aria-hidden="true" height={Math.max(24, alto)} style={{ height: altoCss ?? Math.max(24, alto), width: 'auto', display: altoCss ? 'block' : undefined }} className={className} />;
 }
 
 /** Isotipo + wordmark con nombre accesible "Frilo". */

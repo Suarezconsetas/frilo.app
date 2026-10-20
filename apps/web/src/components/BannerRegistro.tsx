@@ -1,11 +1,9 @@
 'use client';
 
-import { createBrowserClient } from '@supabase/ssr';
 import Link from 'next/link';
-import { useRef, useState, type FormEvent } from 'react';
-import { CORREO_VALIDO, mensajeDeError } from '@/lib/app/acceso';
-import { COOKIE_DOMINIO, GOOGLE_ACTIVO, LARGO_CODIGO, URL_APP } from '../lib/config';
-import { guardarIntencion, registrarEvento, type Intencion } from '../lib/medicion';
+import { GOOGLE_ACTIVO, LARGO_CODIGO } from '../lib/config';
+import type { Intencion } from '../lib/medicion';
+import { useRegistro } from '../lib/registro';
 import { Isotipo } from './Logo';
 
 export type VarianteRegistro = 'recordatorio' | 'dolar' | 'prima' | 'aportes' | 'general';
@@ -43,9 +41,6 @@ const TEXTOS: Record<VarianteRegistro, { eyebrow: string; titulo: string; cta: s
   },
 };
 
-/** Entra a la app tras registrarse: la app retoma la acción pendiente (cookie de intención) en /bienvenida. */
-const DESTINO = `${URL_APP}/bienvenida`;
-
 /**
  * Registro embebido (brief §2.9): Google y código de 6 dígitos por correo en el mismo bloque.
  * `intencion` es lo que la persona hizo en la página (p. ej. los dos dígitos de su documento); se deja en una cookie del
@@ -53,79 +48,7 @@ const DESTINO = `${URL_APP}/bienvenida`;
  */
 export function BannerRegistro({ variante, pagina, intencion }: { variante: VarianteRegistro; pagina: string; intencion?: Intencion }) {
   const t = TEXTOS[variante];
-  const [paso, setPaso] = useState<1 | 2>(1);
-  const [correo, setCorreo] = useState('');
-  const [codigo, setCodigo] = useState('');
-  const [error, setError] = useState<string>();
-  const [ocupado, setOcupado] = useState(false);
-  const cliente = useRef<ReturnType<typeof createBrowserClient> | null>(null);
-
-  const db = () => {
-    if (!cliente.current) {
-      const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-      const clave = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-      if (!url || !clave) throw new Error('Faltan NEXT_PUBLIC_SUPABASE_URL o NEXT_PUBLIC_SUPABASE_ANON_KEY');
-      cliente.current = createBrowserClient(url, clave, COOKIE_DOMINIO ? { cookieOptions: { domain: COOKIE_DOMINIO, path: '/', sameSite: 'lax' } } : undefined);
-    }
-    return cliente.current;
-  };
-
-  const preparar = (metodo: 'google' | 'correo') => {
-    if (intencion) guardarIntencion(intencion);
-    registrarEvento('signup_start', { pagina, variante, metodo });
-  };
-
-  async function conGoogle() {
-    setError(undefined);
-    setOcupado(true);
-    try {
-      preparar('google');
-      const { error: e } = await db().auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${URL_APP}/auth/callback?siguiente=/bienvenida` } });
-      if (e) throw e;
-    } catch {
-      setError('No pudimos entrar con Google. Inténtalo de nuevo o usa tu correo.');
-      setOcupado(false);
-    }
-  }
-
-  async function pedirCodigo(e: FormEvent) {
-    e.preventDefault();
-    setError(undefined);
-    if (!CORREO_VALIDO.test(correo.trim())) {
-      setError('Escribe un correo válido, por ejemplo tu@correo.com.');
-      return;
-    }
-    setOcupado(true);
-    try {
-      preparar('correo');
-      const { error: err } = await db().auth.signInWithOtp({ email: correo.trim(), options: { shouldCreateUser: true } });
-      if (err) throw err;
-      setPaso(2);
-    } catch (err) {
-      setError(mensajeDeError(err, 'enviar'));
-    } finally {
-      setOcupado(false);
-    }
-  }
-
-  async function verificar(e: FormEvent) {
-    e.preventDefault();
-    setError(undefined);
-    if (codigo.trim().length !== LARGO_CODIGO) {
-      setError(`El código tiene ${LARGO_CODIGO} dígitos.`);
-      return;
-    }
-    setOcupado(true);
-    try {
-      const { error: err } = await db().auth.verifyOtp({ email: correo.trim(), token: codigo.trim(), type: 'email' });
-      if (err) throw err;
-      registrarEvento('signup_complete', { pagina, variante, metodo: 'correo' });
-      window.location.assign(DESTINO);
-    } catch (err) {
-      setError(mensajeDeError(err, 'verificar'));
-      setOcupado(false);
-    }
-  }
+  const { paso, correo, setCorreo, codigo, setCodigo, error, ocupado, conGoogle, pedirCodigo, verificar, volver } = useRegistro({ variante, pagina, intencion: intencion ? () => intencion : undefined });
 
   return (
     <section id="registro" aria-label="Crea tu cuenta en Frilo" className="banner-registro">
@@ -200,11 +123,7 @@ export function BannerRegistro({ variante, pagina, intencion }: { variante: Vari
             <button
               type="button"
               className="boton-contorno"
-              onClick={() => {
-                setPaso(1);
-                setCodigo('');
-                setError(undefined);
-              }}
+              onClick={volver}
             >
               Usar otro correo
             </button>

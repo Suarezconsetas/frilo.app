@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { BannerRegistro } from '../../components/BannerRegistro';
-import { BannerRendimiento } from '../../components/BannerRendimiento';
-import { Breadcrumb } from '../../components/Breadcrumb';
-import { Faq } from '../../components/Faq';
-import { FuentesOficiales } from '../../components/FuentesOficiales';
-import { JsonLd } from '../../components/JsonLd';
-import { LineaConfianza } from '../../components/LineaConfianza';
-import { ES_PRODUCCION } from '../../lib/config';
-import { marcadoresPendientes } from '../../lib/seo';
+import { BannerRegistro } from '../../../components/BannerRegistro';
+import { BannerRendimiento } from '../../../components/BannerRendimiento';
+import { Breadcrumb } from '../../../components/Breadcrumb';
+import { Faq } from '../../../components/Faq';
+import { FuentesOficiales } from '../../../components/FuentesOficiales';
+import { JsonLd } from '../../../components/JsonLd';
+import { LineaConfianza } from '../../../components/LineaConfianza';
+import { ES_PRODUCCION } from '../../../lib/config';
+import { marcadoresPendientes } from '../../../lib/seo';
 
 export const metadata: Metadata = { title: 'Componentes (vista previa interna)', robots: { index: false, follow: false } };
 

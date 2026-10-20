@@ -1,0 +1,69 @@
+/* GENERADO a partir de app/globals.css: estilos de las páginas legales (Términos y Política de datos), que el sitio sirve con el mismo componente de la app.
+   Limitados a `.app-legal` para no chocar con las clases del sitio (`.contenido`, `.logo`…). */
+.app-legal { --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px; --radius-m: 12px; --radius-l: 16px; --tinta: #0f372d; --tinta-suave: #4a6158; --fondo: #f3f6f4; --superficie: #ffffff; --linea: #d6e0da; --tinte: #e6eee9; --oliva-suave: #b5ccc1; --borde-control: #7e948b; color: var(--tinta); }
+.app-legal .pantalla {width: 100%;
+  max-width: 480px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  position: relative;
+  background: var(--fondo);}
+.app-legal .pantalla.con-nav {padding-bottom: 104px;}
+.app-legal .contenido {padding: var(--space-2) var(--space-6) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);}
+.app-legal .contenido.formulario {padding-top: var(--space-5);
+  gap: 22px;}
+.app-legal .encabezado {padding: 28px var(--space-6) var(--space-2);}
+.app-legal .encabezado .logo {margin-bottom: var(--space-5);}
+.app-legal .titulo-pantalla {font-size: 26px;
+  line-height: 32px;
+  font-weight: 600;}
+.app-legal .subtitulo {margin-top: 6px;
+  font-size: 15px;
+  line-height: 21px;
+  color: var(--tinta-suave);}
+.app-legal .ayuda {font-size: 13px;
+  line-height: 19px;
+  color: var(--tinta-suave);}
+.app-legal .chip-oliva .ayuda {color: var(--oliva-suave);}
+.app-legal .volver {display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-left: -10px;
+  color: var(--tinta);
+  background: none;
+  border: 0;
+  cursor: pointer;}
+.app-legal .campo .ayuda {display: block;
+  margin-top: 6px;}
+.app-legal .pantalla.ancha {max-width: 720px;}
+.app-legal .doc-legal {gap: 0;}
+.app-legal .doc-legal section {margin-top: var(--space-6);}
+.app-legal .doc-legal h2 {font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+  margin-bottom: var(--space-2);}
+.app-legal .doc-legal p, .app-legal .doc-legal li {font-size: 15px;
+  line-height: 23px;}
+.app-legal .doc-legal p + p, .app-legal .doc-legal p + ul, .app-legal .doc-legal ul + p {margin-top: var(--space-3);}
+.app-legal .doc-legal ul {margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);}
+.app-legal .doc-legal a {font-weight: 600;}
+.app-legal .banner-borrador {padding: var(--space-4);
+  border: 1px solid var(--borde-control);
+  border-radius: var(--radius-m);
+  background: var(--tinte);
+  font-size: 14px;
+  line-height: 21px;}
+.app-legal .resumen-legal {margin-top: 0 !important;
+  padding: var(--space-5);
+  border-radius: var(--radius-l);
+  background: var(--superficie);
+  border: 1px solid var(--linea);}
+.app-legal .resumen-legal h2 {margin-top: 0;}
