@@ -1,7 +1,8 @@
 import path from 'node:path';
 import type { NextConfig } from 'next';
 
-const ES_PRODUCCION = process.env.VERCEL_ENV === 'production';
+// Doble candado (ver src/lib/config.ts): producción de Vercel Y PUBLICAR_SITIO=si.
+const ES_PRODUCCION = process.env.VERCEL_ENV === 'production' && process.env.PUBLICAR_SITIO === 'si';
 
 const nextConfig: NextConfig = {
   distDir: process.env.NEXT_DIST_DIR || '.next',
