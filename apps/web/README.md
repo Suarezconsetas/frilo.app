@@ -9,3 +9,9 @@ Sitio SEO de Frilo. La app sigue en la raíz del repositorio; este sitio importa
 - Fuera de producción (por ese candado): `X-Robots-Tag: noindex, nofollow` y `robots.txt` con `Disallow: /`.
 - Variables: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_APP_URL`, `NEXT_PUBLIC_COOKIE_DOMAIN`, `NEXT_PUBLIC_GOOGLE_ACTIVO`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
 - Las tasas de las cuentas y los parámetros del año viven solo en `lib/calculos` (una sola fuente para la app y el sitio).
+
+## Despliegue en Vercel (proyecto `frilo-web`)
+
+- Directorio raíz: `apps/web`, con "incluir archivos fuera del directorio raíz". Comando de instalación: `cd ../.. && npm install --legacy-peer-deps`.
+- Instala las dependencias **solo en la raíz del repositorio**, igual que en local: así `lib/` y `app/` (que el sitio importa) y el sitio usan una sola copia de React. Dos copias dan el error "Cannot read properties of null (reading 'useState')".
+- La rama `main` no se construye en este proyecto (paso de compilación ignorado); la vista previa sale de `web-staging`.

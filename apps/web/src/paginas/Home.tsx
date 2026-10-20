@@ -180,12 +180,12 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
               </div>
             </div>
             <div style={{ background: "#E6EEE9", borderRadius: "16px", maxHeight: "420px", overflow: "hidden" }}>
-              <img src="/capturas/aportes.jpg" alt="Pantalla Aportes de la app de Frilo: total de la planilla de $1.079.400 con el desglose de IBC, salud, pensión, Fondo de Solidaridad y ARL." loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
+              <img src="/capturas/aportes.jpg" width="640" height="1385" alt="Pantalla Aportes de la app de Frilo: total de la planilla de $1.079.400 con el desglose de IBC, salud, pensión, Fondo de Solidaridad y ARL." loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
             </div>
           </article>
           <article className="card" style={{ padding: "40px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "40px", alignItems: "center" }}>
             <div style={{ background: "#E6EEE9", borderRadius: "16px", maxHeight: "420px", overflow: "hidden" }}>
-              <img src="/capturas/ahorro.jpg" alt="Pantalla de Ahorro de la app de Frilo: bolsillos de prima y cesantías con su saldo y lo que llevas guardado." loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
+              <img src="/capturas/ahorro.jpg" width="640" height="1385" alt="Pantalla de Ahorro de la app de Frilo: bolsillos de prima y cesantías con su saldo y lo que llevas guardado." loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               <span style={{ fontSize: "14px", fontWeight: "600", color: "#4A6158" }}>
@@ -228,7 +228,7 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
               </div>
             </div>
             <div style={{ background: "#E6EEE9", borderRadius: "16px", maxHeight: "420px", overflow: "hidden" }}>
-              <img src="/capturas/dolar.jpg" alt="Pantalla Dólar hoy de la app de Frilo: TRM del día, comparación con la semana, el mes y el año, y las alertas del dólar." loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
+              <img src="/capturas/dolar.jpg" width="640" height="1385" alt="Pantalla Dólar hoy de la app de Frilo: TRM del día, comparación con la semana, el mes y el año, y las alertas del dólar." loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
             </div>
           </article>
         </div>

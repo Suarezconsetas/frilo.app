@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import { PrimerContacto } from '../components/PrimerContacto';
 import { URL_SITIO } from '../lib/config';
+import './fuentes.css';
 import './globals.css';
 import '../paginas/wireframes.css';
 import './legal.css';
@@ -19,9 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es-CO" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Clarity+City:wght@300;400;600;700&display=swap" rel="stylesheet" />
+        <link rel="preload" href="/fonts/clarity-city.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body suppressHydrationWarning>
         {children}

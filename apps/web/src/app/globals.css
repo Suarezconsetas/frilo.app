@@ -46,7 +46,7 @@ p { margin: 0 0 14px; }
 .boton-degradado { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: 14px; border: 0; background: var(--degradado); color: var(--oliva); font: 700 15px/1 inherit; font-family: inherit; text-decoration: none; cursor: pointer; }
 .boton-degradado.grande { min-height: 52px; font-size: 16px; width: 100%; }
 .boton-degradado:disabled { opacity: 0.7; cursor: progress; }
-.boton-manzana { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 12px; background: var(--manzana); color: var(--oliva); font-weight: 700; font-size: 15px; text-decoration: none; margin-top: 4px; }
+.banner-rendimiento .boton-manzana, .boton-manzana { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 12px; background: var(--manzana); color: var(--oliva); font-weight: 700; font-size: 15px; text-decoration: none; margin-top: 4px; }
 .boton-contorno { min-height: 44px; border: 1px solid var(--oliva-suave); border-radius: 12px; background: transparent; color: #fff; font: 600 14px/1 inherit; font-family: inherit; cursor: pointer; }
 .boton-google { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border-radius: 14px; border: 0; background: #fff; color: var(--oliva); font: 700 16px/1 inherit; font-family: inherit; cursor: pointer; }
 
@@ -95,7 +95,7 @@ p { margin: 0 0 14px; }
 .banner-tasa { font-size: 30px; line-height: 1; font-weight: 700; color: var(--manzana); letter-spacing: -0.015em; }
 .banner-detalle { font-size: 13px; color: var(--oliva-suave); }
 .banner-pie { display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; align-items: center; }
-.banner-pie a { color: var(--manzana); font-weight: 600; font-size: 15px; }
+.banner-rendimiento .banner-pie a { color: var(--manzana); font-weight: 600; font-size: 15px; }
 .banner-pie span { font-size: 12px; line-height: 18px; color: var(--oliva-suave); max-width: 640px; }
 
 /* Banner de registro */
@@ -115,7 +115,7 @@ p { margin: 0 0 14px; }
 .registro-input.codigo { font-weight: 700; font-size: 22px; letter-spacing: 0.3em; }
 .registro-error { margin: 0; font-size: 14px; color: #ffd2d2; }
 .registro-legal { font-size: 12px; line-height: 18px; color: var(--oliva-suave); }
-.registro-legal a { color: #fff; }
+.banner-registro .registro-legal a { color: #fff; }
 
 @media (max-width: 720px) {
   .header-acciones { margin-left: 0; width: 100%; }

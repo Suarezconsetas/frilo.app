@@ -75,6 +75,29 @@ for (const p of paginas) {
       }
     }
     if (/\[VERIFICAR\]/.test(html)) falla.push('la página muestra [VERIFICAR]');
+    // FAQPage: solo puede llevar preguntas y respuestas que se ven en la página (<details>).
+    const visibles = [...html.matchAll(/<details[^>]*>([\s\S]*?)<\/details>/g)].map((m) => {
+      const resumen = m[1].match(/<summary[^>]*>([\s\S]*?)<\/summary>/);
+      return { q: quitaTags(resumen?.[1] ?? ''), a: quitaTags(m[1].replace(/<summary[\s\S]*?<\/summary>/, '')) };
+    });
+    for (const [, j] of ld) {
+      let o;
+      try {
+        o = JSON.parse(j);
+      } catch {
+        continue;
+      }
+      const faq = (o['@graph'] ?? []).find((g) => g['@type'] === 'FAQPage');
+      for (const q of faq?.mainEntity ?? []) {
+        const v = visibles.find((x) => x.q === q.name);
+        if (!v) falla.push(`FAQ del JSON-LD sin pregunta visible: "${q.name.slice(0, 60)}"`);
+        else {
+          const texto = (q.acceptedAnswer?.text ?? '').replace(/\s+/g, ' ').trim();
+          const sinEspacios = (x) => x.replace(/\s+/g, '');
+          if (texto && !sinEspacios(v.a).includes(sinEspacios(texto).slice(0, 50))) falla.push(`la respuesta de "${q.name.slice(0, 50)}" difiere de la visible`);
+        }
+      }
+    }
   } else if (!robots.includes('noindex')) {
     falla.push(`en borrador pero sin noindex ("${robots}")`);
   }
