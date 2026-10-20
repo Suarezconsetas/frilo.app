@@ -1,6 +1,7 @@
 /** Cálculos de pantalla: toman lo que escribió el usuario y lo pasan por la lógica de `lib/calculos`. Funciones puras. */
 import {
   CUENTAS_MVP,
+  CUENTAS_USD,
   type CuentaAhorro,
   ahorroMensual,
   mesSiguiente,
@@ -314,3 +315,23 @@ export function mesEstaGuardado(mesIngreso: string | undefined, mesInicio: strin
 
 /** Último mes con ingreso guardado (el que se copia si la persona guarda el mes tal cual). */
 export const ultimoMesGuardado = (mesIngreso: string | undefined, mesInicio: string | undefined): string | undefined => mesIngreso ?? mesInicio;
+
+// ── Cuentas destacadas ───────────────────────────────────────────────────
+
+export interface CuentasDestacadas {
+  /** La(s) cuenta(s) en pesos con la tasa más alta sin condiciones (varias si empatan). */
+  pesos: CuentaAhorro[];
+  /** La(s) cuenta(s) en dólares con la tasa más alta sin condiciones (varias si empatan). */
+  dolares: CuentaAhorro[];
+}
+
+const masAltas = (cuentas: CuentaAhorro[]): CuentaAhorro[] => {
+  const visibles = cuentas.filter((c) => c.verificada);
+  const tope = Math.max(...visibles.map((c) => c.tasaBaseEA));
+  return visibles.filter((c) => c.tasaBaseEA === tope);
+};
+
+/** Regla de Frilo: se destaca la cuenta en pesos y la cuenta en dólares con la tasa más alta sin condiciones. */
+export function cuentasDestacadas(pesos: CuentaAhorro[] = CUENTAS_MVP, dolares: CuentaAhorro[] = CUENTAS_USD): CuentasDestacadas {
+  return { pesos: masAltas(pesos), dolares: masAltas(dolares) };
+}

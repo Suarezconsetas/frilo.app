@@ -9,6 +9,7 @@ import { useApp } from '@/lib/app/estado';
 import { useMes } from '@/lib/app/usarMes';
 import { capitalizar, nombreMes, pct, pesos, pesosConDecimales, usd } from '@/lib/formato';
 import { Comparacion } from '../../_ui/Comparacion';
+import { CuentasDestacadas } from '../../_ui/CuentasDestacadas';
 import { GuardarMes } from '../../_ui/GuardarMes';
 import { Icono } from '../../_ui/Icono';
 import { Logo } from '../../_ui/Logo';
@@ -100,6 +101,8 @@ export default function Inicio() {
         </section>
 
         <Comparacion e={e} proy={proyeccionAnual(resumen.ingresoBrutoMes)} />
+
+        <CuentasDestacadas href="/ahorro#donde-guardarlo" compacta />
 
         {conDolar && trm && (
           <section className="tarjeta">

@@ -256,3 +256,16 @@ describe('comparador: cuentas con tope de saldo remunerado', () => {
     expect(tasas).toEqual([...tasas].sort((a, b) => b - a));
   });
 });
+
+describe('cuentas destacadas', () => {
+  it('destaca la(s) de mayor tasa sin condiciones en pesos y en dólares, solo verificadas', async () => {
+    const { cuentasDestacadas } = await import('@/lib/app/derivados');
+    const d = cuentasDestacadas();
+    expect(d.pesos.map((c) => c.id)).toEqual(['pibank-cuenta', 'global66-cop']); // empatan en 11%
+    expect(d.dolares.map((c) => c.id)).toEqual(['global66-cuenta-usd']);
+    const mk = (id: string, tasaBaseEA: number, verificada: boolean) => ({ id, entidad: id, producto: id, tasaBaseEA, pagoRendimientos: 'diario' as const, fechaConsulta: '2026-10-20', verificada, url: 'https://x.co', patrocinado: false });
+    const solo = cuentasDestacadas([mk('a', 0.12, false), mk('b', 0.1, true)], [mk('c', 0.05, true)]);
+    expect(solo.pesos.map((c) => c.id)).toEqual(['b']);
+    expect(solo.dolares.map((c) => c.id)).toEqual(['c']);
+  });
+});

@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { AVISOS, CUENTAS_MVP, CUENTAS_USD, compararCuentas } from '@/lib/calculos';
-import { bolsas, calcularMes, dolarVisible, montoComparador, resumenAhorro, tasaProyeccion, type Bolsa } from '@/lib/app/derivados';
+import { bolsas, calcularMes, montoComparador, resumenAhorro, tasaProyeccion, type Bolsa } from '@/lib/app/derivados';
 import { useApp } from '@/lib/app/estado';
 import { confirmarAhorro, leerAhorrosConfirmados, leerPagosGuardados, quitarAhorroConfirmado, type AhorroConfirmado } from '@/lib/app/nube';
 import { AHORRO_EXPLICACION_LARGA } from '@/lib/app/textos';
 import { useMes } from '@/lib/app/usarMes';
 import { capitalizar, fechaCorta, nombreMes, pct, pesos, usd } from '@/lib/formato';
+import { CuentasDestacadas } from '../../_ui/CuentasDestacadas';
 import { Guardado } from '../../_ui/Guardado';
 import { Logo } from '../../_ui/Logo';
 
@@ -66,10 +67,9 @@ export default function Ahorro() {
   const mensual = resumen.ahorroPrima + resumen.ahorroCesantias;
   const { monto, dias, meses } = montoComparador(resumen.ingresoBrutoMes);
   const cuentas = compararCuentas(monto, dias, CUENTAS_MVP);
-  // Cuentas en dólares: solo para quien cobra en dólares y solo las verificadas. El ejemplo usa lo que apartaría en 6 meses, en dólares.
-  const mostrarUsd = dolarVisible(estado.formaDePago, ingreso);
+  // Cuentas en dólares: para todos (cualquiera puede guardar en dólares) y solo las verificadas. El ejemplo usa lo que apartaría en 6 meses, en dólares.
   const montoUsd = Math.max(100, Math.round(monto / (trm?.hoy ?? 4000)));
-  const cuentasUsd = mostrarUsd ? compararCuentas(montoUsd, dias, CUENTAS_USD.filter((c) => c.verificada)) : [];
+  const cuentasUsd = compararCuentas(montoUsd, dias, CUENTAS_USD.filter((c) => c.verificada));
   const mesFinal = (b: Bolsa) => nombreMes(Number(b.mesFinal.slice(5, 7)));
 
   async function confirmar(mes: string, montoAhorro: number) {
@@ -153,10 +153,12 @@ export default function Ahorro() {
 
         <Guardado resumen={guardado} mesHoy={mesHoy} onConfirmar={confirmar} onQuitar={quitarConfirmacion} error={errorAhorro} />
 
-        <section className="tarjeta">
-          <h2 className="titulo-tarjeta">¿Dónde guardarlo?</h2>
+        <CuentasDestacadas href="#donde-guardarlo" />
+
+        <section id="donde-guardarlo" className="tarjeta" style={{ scrollMarginTop: 16 }}>
+          <h2 className="titulo-tarjeta">¿Dónde guardarlo en pesos?</h2>
           <p className="texto-suave" style={{ margin: '6px 0 14px', fontSize: 14, lineHeight: '21px' }}>
-            Cuentas de ahorro que puedes retirar en cualquier momento, ordenadas por tasa. Rendimiento de {pesos(monto)} durante {meses} meses.
+            Cuentas de ahorro que puedes retirar en cualquier momento, ordenadas por tasa. Rendimiento de {pesos(monto)} durante {meses} meses, en pesos.
           </p>
           {cuentas.map(({ cuenta: c, rendimientoBase }) => (
             <div key={c.id} className="cuenta">
@@ -202,7 +204,7 @@ export default function Ahorro() {
         {cuentasUsd.length > 0 && (
           <section className="tarjeta" aria-labelledby="en-dolares">
             <h2 id="en-dolares" className="titulo-tarjeta">
-              ¿Prefieres guardar en dólares?
+              ¿Dónde guardarlo en dólares?
             </h2>
             <p className="texto-suave" style={{ margin: '6px 0 14px', fontSize: 14, lineHeight: '21px' }}>
               Cuentas para guardar tus dólares sin convertirlos a pesos. Rendimiento de {usd(montoUsd)} durante {meses} meses, en dólares.
