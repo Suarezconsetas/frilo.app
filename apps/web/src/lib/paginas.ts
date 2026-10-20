@@ -6,11 +6,14 @@
 export type EstadoPagina = 'construida' | 'borrador' | 'pendiente';
 
 export const ESTADO_PAGINAS: Record<string, EstadoPagina> = {
-  Home: 'borrador', // 3 capturas de la app pendientes ([VERIFICAR])
   'Hub-C': 'construida',
   'Hub-G': 'construida',
   P04: 'construida',
-  P06: 'borrador', // la tabla de siglas de novedades PILA lleva [VERIFICAR] (pendiente en el brief)
+  P06: 'construida',
+  P12: 'construida',
+  Home: 'construida',
+  'Inst-2': 'construida',
+  'Inst-3': 'construida',
   P08: 'construida',
   P09: 'construida',
   SEM: 'construida', // noindex por su `meta robots` en el Excel
@@ -23,12 +26,8 @@ export const ESTADO_PAGINAS: Record<string, EstadoPagina> = {
   P11: 'construida',
   'Legal-1': 'construida',
   'Legal-2': 'construida',
-  // Con marcadores [VERIFICAR] visibles (capturas de la app y párrafos pendientes): no se indexan hasta completarlos.
-  P12: 'borrador',
   'Hub-Glo': 'borrador',
   'Inst-1': 'borrador',
-  'Inst-2': 'borrador',
-  'Inst-3': 'borrador',
 };
 
 export const FECHA_EDICION: Record<string, string> = {};

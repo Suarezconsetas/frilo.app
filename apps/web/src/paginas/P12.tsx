@@ -66,7 +66,13 @@ export function ContenidoP12({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode,
             Qué son las cesantías y por qué no las tienes
           </h2>
           <p>
-            <span className="verificar">{"[VERIFICAR] 2–3 párrafos: qué recibe un empleado con contrato laboral, cuándo se consignan y por qué el contrato de prestación de servicios no las incluye. Fuente: Código Sustantivo del Trabajo."}</span>
+            Un empleado con contrato laboral recibe, además de su salario, prestaciones sociales. Una de ellas es la cesantía: un mes de salario por cada año trabajado, o la parte proporcional si no completó el año (Código Sustantivo del Trabajo, artículo 249).
+          </p>
+          <p>
+            Su empleador no se la paga en efectivo cada mes: la consigna en un fondo de cesantías a más tardar el 14 de febrero del año siguiente. Los intereses del 12% anual sobre ese saldo se los paga directamente a más tardar el 31 de enero (Ley 50 de 1990, artículo 99, y Ley 52 de 1975).
+          </p>
+          <p>
+            Un contrato por prestación de servicios es distinto: no hay relación laboral, tienes un contratante en lugar de un empleador y recibes honorarios, no salario. Por eso no genera cesantías, prima ni vacaciones, y nadie las aparta por ti. Si las quieres, las creas tú, y de eso trata el resto de esta guía. Si en la práctica tu contrato tiene horario y subordinación como el de un empleado, consulta a un abogado laboral.
           </p>
           <h2>
             Cuánto apartar cada mes

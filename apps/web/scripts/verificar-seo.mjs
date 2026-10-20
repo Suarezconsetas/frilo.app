@@ -44,7 +44,8 @@ for (const p of paginas) {
     if (titulo(html) !== p.title) falla.push(`title: "${titulo(html)}" ≠ "${p.title}"`);
     if (p.description && meta(html, 'description') !== p.description) falla.push(`meta description distinta`);
     const canon = canonico(html);
-    if (!canon.endsWith(p.ruta === '/' ? '/' : p.ruta)) falla.push(`canonical: ${canon}`);
+    const raiz = p.ruta === '/';
+    if (raiz ? canon.replace(/\/$/, '') !== p.canonical.replace(/\/$/, '') : !canon.endsWith(p.ruta)) falla.push(`canonical: ${canon}`);
     const esperaIndex = p.robots.toLowerCase().startsWith('index');
     // En pruebas/local la cabecera X-Robots-Tag es noindex; aquí se mira la meta de la página.
     if (esperaIndex !== !robots.includes('noindex')) falla.push(`meta robots: "${robots}" (Excel: ${p.robots})`);

@@ -226,6 +226,10 @@ export function ContenidoP02({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
                 Decreto 1469 de 2025
               </a>
               {" · "}
+              <a href="https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=192181&dt=S" target="_blank" rel="noopener">
+                Decreto 159 de 2026
+              </a>
+              {" · "}
               <a href="https://www.ugpp.gov.co/" target="_blank" rel="noopener">
                 UGPP
               </a>

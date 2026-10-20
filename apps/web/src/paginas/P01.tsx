@@ -575,6 +575,12 @@ export function ContenidoP01({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
               {" (salario mínimo 2026)"}
             </li>
             <li>
+              <a href="https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=192181&dt=S" target="_blank" rel="noopener">
+                Decreto 159 de 2026
+              </a>
+              {" (salario mínimo 2026, transitorio y vigente)"}
+            </li>
+            <li>
               <a href="https://www.ugpp.gov.co/" target="_blank" rel="noopener">
                 UGPP
               </a>

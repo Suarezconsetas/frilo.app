@@ -67,7 +67,7 @@ export function ContenidoP11({ dinamicos = {} }: { dinamicos?: { tablaPesos?: Re
           La respuesta corta
         </span>
         <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.6", color: "#2B4A40" }}>
-          Las cuentas de ahorro de alto rendimiento en Colombia pagan hoy entre 8,25% y 11% efectivo anual sin condiciones, sin plazo fijo y con el dinero disponible (Ualá llega a 10,5% si cumples sus condiciones de compra). Para decidir dónde ahorrar dinero en Colombia mira tres cosas: la tasa E.A., los costos (cuota de manejo y 4x1000) y que la entidad esté vigilada y cubierta por Fogafín.
+          Las cuentas de ahorro de alto rendimiento en Colombia pagan hoy entre 5% y 11% efectivo anual sin condiciones, sin plazo fijo y con el dinero disponible (Ualá paga 5% y llega a 10,5% si cumples sus condiciones de compra). Para decidir dónde ahorrar dinero en Colombia mira tres cosas: la tasa E.A., los costos (cuota de manejo y 4x1000) y que la entidad esté vigilada y cubierta por Fogafín.
         </p>
       </section>
       <div role="note" style={{ fontSize: "14px", lineHeight: "1.55", color: "#4A6158", maxWidth: "812px" }}>

@@ -150,6 +150,10 @@ export function ContenidoP06({ dinamicos = {} }: { dinamicos?: {  } }) {
           <a href="https://www.minsalud.gov.co/proteccionsocial/Financiamiento/Documents/CASO%205%20-%20Trabajador%20con%20%20novedad%20de%20SLN.pdf" target="_blank" rel="noopener">
             Ministerio de Salud, caso práctico de SLN
           </a>
+          {" · "}
+          <a href="https://normativa.colpensiones.gov.co/compilacion/docs/resolucion_minsaludps_2388_2016.htm" target="_blank" rel="noopener">
+            Resolución 2388 de 2016, Anexo Técnico 1 (glosario de la PILA)
+          </a>
         </p>
         <h2>
           Otras novedades de la planilla
@@ -157,7 +161,7 @@ export function ContenidoP06({ dinamicos = {} }: { dinamicos?: {  } }) {
         <div style={{ overflowX: "auto", border: "1px solid #D6E0DA", borderRadius: "16px", background: "#FFFFFF" }}>
           <table className="t">
             <caption style={{ textAlign: "left", padding: "12px 16px", fontSize: "14px", color: "#4A6158" }}>
-              Siglas de novedades en la PILA [VERIFICAR]
+              Siglas de novedades en la PILA, según el glosario de la Resolución 2388 de 2016 (Anexo Técnico 1)
             </caption>
             <thead>
               <tr>
@@ -188,34 +192,34 @@ export function ContenidoP06({ dinamicos = {} }: { dinamicos?: {  } }) {
               </tr>
               <tr>
                 <td>
-                  SLN
+                  TDE
                 </td>
                 <td>
-                  Suspensión temporal o licencia no remunerada
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  IGE
-                </td>
-                <td>
-                  Incapacidad general
+                  Traslado desde otra EPS o EOC
                 </td>
               </tr>
               <tr>
                 <td>
-                  LMA
+                  TAE
                 </td>
                 <td>
-                  Licencia de maternidad o paternidad
+                  Traslado a otra EPS o EOC
                 </td>
               </tr>
               <tr>
                 <td>
-                  VAC
+                  TDP
                 </td>
                 <td>
-                  Vacaciones o licencia remunerada
+                  Traslado desde otra administradora de pensiones
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  TAP
+                </td>
+                <td>
+                  Traslado a otra administradora de pensiones
                 </td>
               </tr>
               <tr>
@@ -228,10 +232,74 @@ export function ContenidoP06({ dinamicos = {} }: { dinamicos?: {  } }) {
               </tr>
               <tr>
                 <td>
-                  IRL
+                  —
                 </td>
                 <td>
-                  Incapacidad por riesgo laboral
+                  Correcciones (se reportan con una A o una C; no tienen sigla propia)
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  VST
+                </td>
+                <td>
+                  Variación transitoria del salario
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  SLN
+                </td>
+                <td>
+                  Suspensión temporal del contrato de trabajo o licencia no remunerada o comisión de servicios
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  IGE
+                </td>
+                <td>
+                  Incapacidad temporal por enfermedad general o licencia por cuidado de la niñez
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  LMA
+                </td>
+                <td>
+                  Licencia de maternidad o de paternidad
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  VAC-LR
+                </td>
+                <td>
+                  Vacaciones o licencia remunerada
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  AVP
+                </td>
+                <td>
+                  Aporte voluntario
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  VCT
+                </td>
+                <td>
+                  Variación de centros de trabajo
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  IRP / IRL
+                </td>
+                <td>
+                  Incapacidad por accidente de trabajo o enfermedad laboral (el glosario la llama IRP; el campo de días de la planilla se llama IRL)
                 </td>
               </tr>
             </tbody>

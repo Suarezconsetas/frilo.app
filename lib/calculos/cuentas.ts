@@ -88,11 +88,11 @@ export const CUENTAS_USD: CuentaAhorro[] = [
   },
   {
     id: 'littio-bolsillos-usd', entidadLegal: 'Selenio S.A.S.', moneda: 'USD', tasaEAHasta: 0.08, cuotaManejo: '$0 cuota; USD 2,99 por enviar o recibir de EE. UU. o Europa', vigiladaSFC: false, entidad: 'Littio', producto: 'Bolsillos en dólares (USDC)',
-    tasaBaseEA: 0.04, tasaCondicionadaEA: 0.08,
+    tasaBaseEA: 0.06, tasaCondicionadaEA: 0.08,
     condicion: 'Bóvedas a 30 o 90 días, hasta 8% (el dinero queda bloqueado)',
     pagoRendimientos: 'diario', fechaConsulta: '2026-10-20', verificada: true,
     url: 'https://littio.co/cuenta-en-dolares', patrocinado: false, fogafin: 'No',
     aviso: 'Littio no está vigilada por la Superintendencia Financiera: opera con activos digitales (USDC), no tiene seguro de depósitos de Fogafín y no garantiza rendimientos.',
-    nota: 'Su página de inicio muestra 4% E.A. para Bolsillos y la de la cuenta en dólares dice "hasta 6% o 8%": usamos la menor.',
+    nota: 'Según su página de la cuenta en dólares: hasta 6% E.A. en Bolsillos y hasta 8% en Bóvedas. Las tasas no están garantizadas.',
   },
 ];

@@ -56,7 +56,7 @@ describe('JSON-LD y metadatos desde el Excel', () => {
     expect(lista[0]!.item.interestRate.value).toBe(Math.round(esperadas[0]!.tasaBaseEA * 10000) / 100);
   });
   it('una página en borrador no se indexa aunque el Excel diga index', () => {
-    const m = metadataDe('P12');
+    const m = metadataDe('Inst-1');
     expect(m.robots).toMatchObject({ index: false });
   });
   it('la landing de pauta sale noindex, follow', () => {
@@ -76,10 +76,8 @@ describe('el texto de las guías coincide con las tasas de cuentas.ts', () => {
     const m = leer('P11').match(/entre (\d+(?:,\d+)?)% y (\d+(?:,\d+)?)%/);
     expect(m, 'no se encontró la frase "entre X% y Y%"').not.toBeNull();
     const tasas = verif(CUENTAS_MVP).map((c) => c.tasaBaseEA);
+    expect(m![1]).toBe(pctEs(Math.min(...tasas)));
     expect(m![2]).toBe(pctEs(Math.max(...tasas)));
-    // PENDIENTE (ver informe de la Fase 2): el texto aprobado dice 8,25% como mínimo, pero Ualá paga 5% sin condiciones.
-    // Cuando el texto se corrija, este debe ser pctEs(Math.min(...tasas)).
-    expect(m![1]).toBe('8,25');
   });
   it('P11: la tasa más alta de Ualá con condiciones es la de los datos', () => {
     const uala = CUENTAS_MVP.find((c) => c.id === 'uala-deposito')!;

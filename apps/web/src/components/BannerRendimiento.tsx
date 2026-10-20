@@ -46,12 +46,14 @@ function detallePesos(c: CuentaAhorro, empatan: CuentaAhorro[]): string {
     .join(' · ');
 }
 
-function detalleDolares(c: CuentaAhorro): string {
+function detalleDolares(c: CuentaAhorro, empatan: CuentaAhorro[]): string {
+  const otras = empatan.filter((x) => x.id !== c.id).map((x) => x.entidad);
   return [
     'En dólares',
     'sin garantía de rendimiento',
     c.vigiladaSFC === false ? 'no vigilada por la Superfinanciera' : undefined,
     c.fogafin === 'No' ? 'sin Fogafín' : undefined,
+    otras.length ? `empata con ${otras.join(' y ')}` : undefined,
   ]
     .filter(Boolean)
     .join(' · ');
@@ -70,7 +72,7 @@ export function BannerRendimiento({ variante, pagina }: { variante: VarianteBann
   const consulta = [...CUENTAS_MVP, ...CUENTAS_USD].filter((c) => c.verificada).map((c) => c.fechaConsulta).sort().at(-1) ?? '';
   const tarjetas = [
     { pos: 'La más alta en pesos', c: p, tasa: `${pct(p.tasaBaseEA, 0)} E.A.`, detalle: detallePesos(p, pesos) },
-    { pos: 'La más alta en dólares', c: d, tasa: `Hasta ${pct(d.tasaEAHasta ?? d.tasaBaseEA, 0)} E.A.`, detalle: detalleDolares(d) },
+    { pos: 'La más alta en dólares', c: d, tasa: `Hasta ${pct(d.tasaEAHasta ?? d.tasaBaseEA, 0)} E.A.`, detalle: detalleDolares(d, dolares) },
   ];
 
   return (
