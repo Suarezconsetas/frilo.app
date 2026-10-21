@@ -36,6 +36,21 @@ def filas(nombre):
         yield celdas
 
 
+REEMPLAZOS = json.loads((RAIZ / 'apps/web/content/reemplazos.json').read_text(encoding='utf-8'))['reemplazos']
+
+
+def corregir(o):
+    """Aplica las correcciones de copy (content/reemplazos.json) también a los textos del JSON-LD, para que sigan iguales a lo visible."""
+    if isinstance(o, dict):
+        return {k: corregir(v) for k, v in o.items()}
+    if isinstance(o, list):
+        return [corregir(x) for x in o]
+    if isinstance(o, str):
+        for a, b in REEMPLAZOS:
+            o = o.replace(a, b)
+    return o
+
+
 def quitar_same_as(o):
     if isinstance(o, dict):
         return {k: quitar_same_as(v) for k, v in o.items() if k != 'sameAs'}
@@ -49,7 +64,7 @@ for f in list(filas('Datos estructurados'))[1:]:
     if not f.get('A') or not f.get('D', '').lstrip().startswith('{'):
         continue  # p. ej. la landing de pauta: "Ninguno"
     try:
-        jsonld[f['A']] = quitar_same_as(json.loads(f['D']))
+        jsonld[f['A']] = corregir(quitar_same_as(json.loads(f['D'])))
     except json.JSONDecodeError as e:
         sys.exit(f'JSON-LD inválido en {f["A"]}: {e}')
 

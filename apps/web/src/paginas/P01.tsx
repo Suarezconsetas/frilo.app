@@ -518,7 +518,7 @@ export function ContenidoP01({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
               <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=275076" target="_blank" rel="noopener">
                 Decreto 379 de 2026
               </a>
-              , primero descuentas tus costos (o aplicas la presunción de costos de la UGPP) y sacas el 40% del ingreso neto. Esta calculadora está pensada para contratistas de prestación de servicios.
+              , primero descuentas tus costos (o aplicas la presunción de costos de la UGPP) y sacas el 40% del ingreso neto. Esta calculadora tiene un modo para independientes por cuenta propia: escribe tus costos y calcula sobre tu ingreso neto. Si eres contratista de prestación de servicios, tu IBC es el 40% del valor de tu contrato, sin descontar costos.
             </p>
           </details>
           <h2 id="fuentes">
