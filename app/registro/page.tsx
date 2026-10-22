@@ -113,6 +113,12 @@ export default function Registro() {
           Crea tu cuenta para ver el detalle, guardar tus cálculos y recibir alertas del dólar.
         </p>
 
+        {/* Casilla opcional y desmarcada por defecto (Ley 1581 de 2012). Va antes de los botones porque aplica a ambos (Google y correo), pero no condiciona el registro. */}
+        <label className="casilla">
+          <input type="checkbox" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} />
+          <span>(Opcional) Quiero recibir novedades, ofertas y recomendaciones de Frilo por correo.</span>
+        </label>
+
         {GOOGLE_ACTIVO && (
           <>
             <BotonGoogle onClick={conGoogle} />
@@ -131,11 +137,6 @@ export default function Registro() {
           {enviando ? 'Enviando…' : 'Enviarme un código'}
         </button>
 
-        {/* Casilla opcional y desmarcada por defecto (Ley 1581 de 2012). */}
-        <label className="casilla" style={{ marginTop: 6 }}>
-          <input type="checkbox" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} />
-          <span>Quiero recibir novedades, ofertas y recomendaciones de Frilo por correo.</span>
-        </label>
         <p className="legal">
           Al continuar autorizas el tratamiento de tus datos personales según la{' '}
           <Link href="/politica-de-datos" target="_blank" rel="noopener" style={{ fontWeight: 600 }}>
