@@ -58,3 +58,12 @@ export type Intencion =
 export function guardarIntencion(i: Intencion) {
   escribirCookie('frilo_intencion', JSON.stringify(i), 1);
 }
+
+/**
+ * Casilla opcional de novedades del registro: solo existe la cookie si la persona la marcó (consentimiento expreso).
+ * La app la lee al iniciar sesión, registra la autorización `marketing_frilo` y la borra.
+ */
+export function guardarMarketing(marcada: boolean) {
+  if (marcada) escribirCookie('frilo_marketing', '1', 1);
+  else escribirCookie('frilo_marketing', '', 0);
+}

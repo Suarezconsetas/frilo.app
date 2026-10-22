@@ -14,6 +14,17 @@ import { ESTADO_VACIO, type DatosTrm, type EstadoApp } from './tipos';
 
 const CLAVE = 'frilo.estado.v1';
 
+/** Casilla de novedades marcada en el registro del sitio de contenido (cookie `frilo_marketing=1`, solo si la marcó). Se lee una vez y se borra. */
+function marketingDelSitio(): boolean {
+  if (typeof document === 'undefined') return false;
+  const marcada = document.cookie.split('; ').includes('frilo_marketing=1');
+  if (marcada) {
+    const dominio = process.env.NEXT_PUBLIC_COOKIE_DOMAIN ? `; domain=${process.env.NEXT_PUBLIC_COOKIE_DOMAIN}` : '';
+    document.cookie = `frilo_marketing=; max-age=0; path=/${dominio}`;
+  }
+  return marcada;
+}
+
 interface Contexto {
   estado: EstadoApp;
   /** false hasta leer localStorage: evita redirigir antes de saber si ya hay datos. */
@@ -153,7 +164,7 @@ export function ProveedorApp({ trm: trmInicial, children }: { trm: DatosTrm | nu
       const local = estadoRef.current;
       try {
         const [, remoto] = await Promise.all([
-          registrarAutorizaciones(cliente, userId, local.autorizacionPendiente?.marketing ?? false, navigator.userAgent),
+          registrarAutorizaciones(cliente, userId, (local.autorizacionPendiente?.marketing ?? false) || marketingDelSitio(), navigator.userAgent),
           cargarDeNube(cliente, userId),
         ]);
         if (cancelado) return;

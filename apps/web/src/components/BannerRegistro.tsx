@@ -41,6 +41,9 @@ const TEXTOS: Record<VarianteRegistro, { eyebrow: string; titulo: string; cta: s
   },
 };
 
+/** Casilla opcional y desmarcada (Ley 1581 de 2012): no condiciona el registro. */
+export const TEXTO_NOVEDADES = '(Opcional) Quiero recibir novedades, ofertas y recomendaciones de Frilo por correo (alertas de tasas de ahorro y cambios en la planilla).';
+
 /**
  * Registro embebido (brief §2.9): Google y código de 6 dígitos por correo en el mismo bloque.
  * `intencion` es lo que la persona hizo en la página (p. ej. los dos dígitos de su documento); se deja en una cookie del
@@ -48,7 +51,7 @@ const TEXTOS: Record<VarianteRegistro, { eyebrow: string; titulo: string; cta: s
  */
 export function BannerRegistro({ variante, pagina, intencion }: { variante: VarianteRegistro; pagina: string; intencion?: Intencion }) {
   const t = TEXTOS[variante];
-  const { paso, correo, setCorreo, codigo, setCodigo, error, ocupado, conGoogle, pedirCodigo, verificar, volver } = useRegistro({ variante, pagina, intencion: intencion ? () => intencion : undefined });
+  const { novedades, setNovedades, paso, correo, setCorreo, codigo, setCodigo, error, ocupado, conGoogle, pedirCodigo, verificar, volver } = useRegistro({ variante, pagina, intencion: intencion ? () => intencion : undefined });
 
   return (
     <section id="registro" aria-label="Crea tu cuenta en Frilo" className="banner-registro">
@@ -74,6 +77,10 @@ export function BannerRegistro({ variante, pagina, intencion }: { variante: Vari
         {paso === 1 ? (
           <form onSubmit={pedirCodigo} noValidate>
             <span className="registro-titulo">Crea tu cuenta gratis</span>
+            <label className="registro-casilla">
+              <input type="checkbox" checked={novedades} onChange={(e) => setNovedades(e.target.checked)} />
+              <span>{TEXTO_NOVEDADES}</span>
+            </label>
             {GOOGLE_ACTIVO && (
               <>
                 <button type="button" className="boton-google" onClick={conGoogle} disabled={ocupado}>

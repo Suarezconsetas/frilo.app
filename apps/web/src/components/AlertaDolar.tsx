@@ -4,13 +4,14 @@ import { useState } from 'react';
 import { GOOGLE_ACTIVO, LARGO_CODIGO } from '../lib/config';
 import { miles, soloEnteros } from '../lib/entradas';
 import { useRegistro } from '../lib/registro';
+import { TEXTO_NOVEDADES } from './BannerRegistro';
 
 const ETIQUETA = { fontSize: 14, color: '#B5CCC1' } as const;
 
 /** Alerta del dólar: el valor objetivo queda como intención y se crea en la app al terminar el registro (mismo flujo que el banner). */
 export function AlertaDolar() {
   const [valor, setValor] = useState(0);
-  const { paso, correo, setCorreo, codigo, setCodigo, error, ocupado, conGoogle, pedirCodigo, verificar, volver } = useRegistro({
+  const { novedades, setNovedades, paso, correo, setCorreo, codigo, setCodigo, error, ocupado, conGoogle, pedirCodigo, verificar, volver } = useRegistro({
     variante: 'dolar',
     pagina: 'P07',
     intencion: () => (valor > 0 ? { tipo: 'alerta_dolar', valor } : undefined),
@@ -35,6 +36,10 @@ export function AlertaDolar() {
             Tu correo
           </label>
           <input id="alerta-correo" className="field" type="email" autoComplete="email" placeholder="tu@correo.com" value={correo} onChange={(e) => setCorreo(e.target.value)} />
+          <label className="registro-casilla">
+            <input type="checkbox" checked={novedades} onChange={(e) => setNovedades(e.target.checked)} />
+            <span>{TEXTO_NOVEDADES}</span>
+          </label>
           <button type="submit" className="btn btn-m" disabled={ocupado} style={{ border: 0, cursor: 'pointer', fontFamily: 'inherit' }}>
             {ocupado ? 'Enviando…' : 'Crear alerta gratis'}
           </button>

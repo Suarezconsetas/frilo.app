@@ -114,6 +114,8 @@ p { margin: 0 0 14px; }
 .registro-input { min-height: 52px; border: 0; border-radius: 12px; padding: 0 16px; font: 600 17px/1 inherit; font-family: inherit; color: var(--oliva); background: #fff; width: 100%; }
 .registro-input.codigo { font-weight: 700; font-size: 22px; letter-spacing: 0.3em; }
 .registro-error { margin: 0; font-size: 14px; color: #ffd2d2; }
+.registro-casilla { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 20px; color: #fff; cursor: pointer; }
+.registro-casilla input { width: 20px; height: 20px; margin: 0; flex: none; accent-color: #6FFF8F; }
 .registro-legal { font-size: 12px; line-height: 18px; color: var(--oliva-suave); }
 .banner-registro .registro-legal a { color: #fff; }
 

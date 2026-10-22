@@ -15,7 +15,7 @@ Actualizado el 21 de octubre de 2026 (después de la Fase 3). La publicación (F
    - Ojo: con la cookie en `.frilo.dev`, esa sesión de prueba también la ve `frilo.dev` en ese navegador; conviene probar en una ventana privada.
 3. ~~`/quienes-somos`~~ — listo el 22-oct-2026 con el texto de Nicolás ; la línea de revisión ahora es "Escrito y revisado por Nicolás Suárez con fuentes oficiales".
 4. **Revisión del texto de P12** (cesantías para independientes): lo redactó Claude; Nicolás lo revisa contra fuentes oficiales (o lo valida un contador).
-5. **Política de datos** (para el abogado): cookies `frilo_ft` (primer contacto: UTM, gclid, referrer, página de entrada) y `frilo_intencion` (acción pendiente del registro); recordatorio de planilla; cambios acumulados.
+5. **Política de datos** (para el abogado): cookies `frilo_marketing` (solo existe si la persona marcó la casilla opcional de novedades en el sitio; la app la lee, registra la autorización y la borra), `frilo_ft` (primer contacto: UTM, gclid, referrer, página de entrada) y `frilo_intencion` (acción pendiente del registro); recordatorio de planilla; cambios acumulados.
 6. **URL de redes** (cuando existan): agregar `sameAs` al JSON-LD de la Organización y de la Persona.
 
 ## De Claude (cuando Nicolás lo indique)

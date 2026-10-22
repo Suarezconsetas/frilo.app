@@ -5,7 +5,7 @@ import { useRef, useState, type FormEvent } from 'react';
 import { CORREO_VALIDO, mensajeDeError } from '@/lib/app/acceso';
 import { COOKIE_DOMINIO, LARGO_CODIGO, URL_APP } from './config';
 import { intencionActual } from './intencion';
-import { guardarIntencion, registrarEvento, type Intencion } from './medicion';
+import { guardarIntencion, guardarMarketing, registrarEvento, type Intencion } from './medicion';
 
 /** Entra a la app tras registrarse: la app retoma la acción pendiente (cookie de intención) en /bienvenida. */
 export const DESTINO_REGISTRO = `${URL_APP}/bienvenida`;
@@ -20,6 +20,7 @@ export function useRegistro({ variante, pagina, intencion }: { variante: string;
   const [codigo, setCodigo] = useState('');
   const [error, setError] = useState<string>();
   const [ocupado, setOcupado] = useState(false);
+  const [novedades, setNovedades] = useState(false);
   const cliente = useRef<ReturnType<typeof createBrowserClient> | null>(null);
 
   const db = () => {
@@ -35,6 +36,7 @@ export function useRegistro({ variante, pagina, intencion }: { variante: string;
   const preparar = (metodo: 'google' | 'correo') => {
     const pendiente = intencion?.() ?? intencionActual();
     if (pendiente) guardarIntencion(pendiente);
+    guardarMarketing(novedades);
     registrarEvento('signup_start', { pagina, variante, metodo });
   };
 
@@ -96,5 +98,5 @@ export function useRegistro({ variante, pagina, intencion }: { variante: string;
     setError(undefined);
   };
 
-  return { paso, correo, setCorreo, codigo, setCodigo, error, ocupado, conGoogle, pedirCodigo, verificar, volver };
+  return { novedades, setNovedades, paso, correo, setCorreo, codigo, setCodigo, error, ocupado, conGoogle, pedirCodigo, verificar, volver };
 }

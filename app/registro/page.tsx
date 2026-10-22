@@ -116,7 +116,7 @@ export default function Registro() {
         {/* Casilla opcional y desmarcada por defecto (Ley 1581 de 2012). Va antes de los botones porque aplica a ambos (Google y correo), pero no condiciona el registro. */}
         <label className="casilla">
           <input type="checkbox" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} />
-          <span>(Opcional) Quiero recibir novedades, ofertas y recomendaciones de Frilo por correo.</span>
+          <span>(Opcional) Quiero recibir novedades, ofertas y recomendaciones de Frilo por correo (alertas de tasas de ahorro y cambios en la planilla).</span>
         </label>
 
         {GOOGLE_ACTIVO && (
