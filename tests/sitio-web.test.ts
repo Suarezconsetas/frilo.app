@@ -56,7 +56,7 @@ describe('JSON-LD y metadatos desde el Excel', () => {
     expect(lista[0]!.item.interestRate.value).toBe(Math.round(esperadas[0]!.tasaBaseEA * 10000) / 100);
   });
   it('una página en borrador no se indexa aunque el Excel diga index', () => {
-    const m = metadataDe('Inst-1');
+    const m = metadataDe('Hub-Glo');
     expect(m.robots).toMatchObject({ index: false });
   });
   it('la landing de pauta sale noindex, follow', () => {

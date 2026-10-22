@@ -27,7 +27,7 @@ export const ESTADO_PAGINAS: Record<string, EstadoPagina> = {
   'Legal-1': 'construida',
   'Legal-2': 'construida',
   'Hub-Glo': 'borrador',
-  'Inst-1': 'borrador',
+  'Inst-1': 'construida',
 };
 
 export const FECHA_EDICION: Record<string, string> = {};

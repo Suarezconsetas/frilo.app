@@ -13,7 +13,7 @@ Actualizado el 21 de octubre de 2026 (después de la Fase 3). La publicación (F
    - **Google Cloud → OAuth:** agregar `https://staging.frilo.dev` y `https://app-staging.frilo.dev` como orígenes de JavaScript autorizados (la URI de redirección de Supabase no cambia).
    - Claude agrega los alias en Vercel cuando Nicolás lo pida.
    - Ojo: con la cookie en `.frilo.dev`, esa sesión de prueba también la ve `frilo.dev` en ese navegador; conviene probar en una ventana privada.
-3. **`/quienes-somos`:** Nicolás redacta la bio (trayectoria y experiencia) y el criterio de quien revisa el contenido ("equipo de finanzas Frilo"). Con eso se completa la página, se quita el borrador y entra al sitemap.
+3. ~~`/quienes-somos`~~ — listo el 22-oct-2026 con el texto de Nicolás (queda por decidir la línea "Revisado por el equipo de finanzas Frilo", ver abajo).
 4. **Revisión del texto de P12** (cesantías para independientes): lo redactó Claude; que lo revise el equipo de finanzas.
 5. **Política de datos** (para el abogado): cookies `frilo_ft` (primer contacto: UTM, gclid, referrer, página de entrada) y `frilo_intencion` (acción pendiente del registro); recordatorio de planilla; cambios acumulados.
 6. **URL de redes** (cuando existan): agregar `sameAs` al JSON-LD de la Organización y de la Persona.
