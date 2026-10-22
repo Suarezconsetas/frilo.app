@@ -30,7 +30,7 @@ export const ESTADO_PAGINAS: Record<string, EstadoPagina> = {
   'Inst-1': 'construida',
 };
 
-export const FECHA_EDICION: Record<string, string> = {};
+export const FECHA_EDICION: Record<string, string> = { 'Legal-2': '2026-10-22', 'Inst-1': '2026-10-22' };
 /** Fecha de los textos aprobados (wireframes) cuando una página aún no tiene una propia. */
 export const FECHA_CONTENIDO_BASE = '2026-10-20';
 

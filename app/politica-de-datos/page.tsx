@@ -55,6 +55,9 @@ export default function PoliticaDeDatos() {
             <strong>Prueba de tus autorizaciones:</strong> qué autorizaste, la fecha, la versión de esta política y el navegador desde el que lo hiciste.
           </li>
           <li>
+            <strong>Cómo llegaste al sitio:</strong> si entras a frilo.dev, guardamos en tu navegador, por hasta 90 días, la página por la que entraste y, si el enlace los traía, los parámetros de campaña (por ejemplo utm o gclid) y el sitio desde el que llegaste. Sirve para saber qué contenido funciona; no lleva tu nombre ni tu correo, no se vincula a tu cuenta y no se comparte con terceros.
+          </li>
+          <li>
             <strong>Datos técnicos mínimos:</strong> registros de seguridad y funcionamiento (por ejemplo, errores y accesos), necesarios para proteger el servicio.
           </li>
         </ul>
@@ -70,11 +73,12 @@ export default function PoliticaDeDatos() {
           <li>Calcular tus aportes a seguridad social, tu ahorro de prima y cesantías y lo que te queda cada mes, y guardar esos cálculos para ti.</li>
           <li>Enviarte las alertas del dólar que tú configures y los correos necesarios para el servicio (por ejemplo, el código para entrar).</li>
           <li>Si lo activas, recordarte por correo la fecha límite de pago de tu planilla (unos días hábiles antes y el mismo día). Es un servicio que tú pides: no depende de la casilla de novedades y puedes apagarlo cuando quieras, desde la app o con el enlace de cada correo.</li>
+          <li>Retomar lo que hiciste en el sitio antes de registrarte (por ejemplo, el cálculo de tu planilla, la alerta del dólar o el recordatorio de pago) para dejarlo guardado en tu cuenta.</li>
           <li>Conservar la prueba de tus autorizaciones, como exige la ley.</li>
           <li>Proteger el servicio, prevenir fraudes y atender solicitudes de autoridades competentes.</li>
           <li>Mejorar Frilo con estadísticas de uso agregadas (páginas visitadas, país, navegador y tipo de dispositivo), sin identificarte, mediante Vercel Web Analytics, y medir la velocidad de la aplicación (tiempos de carga) mediante Vercel Speed Insights.</li>
           <li>
-            <strong>Solo si tú lo autorizas</strong> (casilla opcional): enviarte novedades, ofertas y recomendaciones de Frilo por correo, entre ellas un resumen semanal del dólar, un recordatorio a fin de mes y un aviso el día de pago para que guardes tu mes, con invitaciones a conocer cuentas de ahorro con rentabilidad. Cada correo trae un enlace para dejar de recibirlos. Puedes retirar esta
+            <strong>Solo si tú lo autorizas</strong> (casilla opcional): enviarte novedades, ofertas y recomendaciones de Frilo por correo, entre ellas alertas de tasas de ahorro y cambios en la planilla, un resumen semanal del dólar, un recordatorio a fin de mes y un aviso el día de pago para que guardes tu mes, con invitaciones a conocer cuentas de ahorro con rentabilidad. Cada correo trae un enlace para dejar de recibirlos. Puedes retirar esta
             autorización cuando quieras.
           </li>
         </ul>
@@ -122,7 +126,7 @@ export default function PoliticaDeDatos() {
             ver esta política.
           </li>
           <li>
-            <strong>Novedades y ofertas de Frilo (opcional):</strong> la casilla viene desmarcada. Decir que no no limita el uso de la herramienta.
+            <strong>Novedades y ofertas de Frilo (opcional):</strong> la casilla, que aparece al registrarte en la aplicación y en el sitio, viene desmarcada y no condiciona el registro. Decir que no no limita el uso de la herramienta.
           </li>
         </ul>
         <p>
@@ -181,8 +185,24 @@ export default function PoliticaDeDatos() {
 
       <Seccion n={11} titulo="Cookies y almacenamiento en tu dispositivo">
         <p>
-          Usamos una cookie de sesión para mantenerte dentro de tu cuenta y guardamos en tu dispositivo (almacenamiento local) los cálculos de tu mes para que no
-          los pierdas. No usamos cookies publicitarias. Las estadísticas de uso y de velocidad las medimos con Vercel Web Analytics y Speed Insights, que no usan cookies ni te siguen entre sitios web: cuentan visitas y tiempos de carga de las páginas de Frilo de forma agregada y no identifican a las personas. Cerrar sesión borra esos datos de tu dispositivo.
+          No usamos cookies publicitarias ni de seguimiento entre sitios. Usamos solo estas, propias de Frilo, y guardamos en tu dispositivo (almacenamiento local) los cálculos de tu mes para que no los pierdas:
+        </p>
+        <ul>
+          <li>
+            <strong>Sesión:</strong> mantiene tu cuenta abierta. Se comparte entre el sitio (frilo.dev) y la aplicación para que no tengas que entrar dos veces. Es necesaria para el servicio.
+          </li>
+          <li>
+            <strong>frilo_intencion:</strong> recuerda, por un día, lo que hiciste en el sitio antes de registrarte (el cálculo, la alerta o el recordatorio) para guardarlo en tu cuenta. La aplicación la borra al usarla.
+          </li>
+          <li>
+            <strong>frilo_marketing:</strong> existe solo si marcaste la casilla opcional de novedades al registrarte en el sitio. Dura un día; la aplicación la lee para registrar tu autorización y la borra.
+          </li>
+          <li>
+            <strong>frilo_ft:</strong> guarda por hasta 90 días la página por la que entraste y los parámetros de campaña del enlace. No se vincula a tu cuenta ni se comparte con terceros.
+          </li>
+        </ul>
+        <p>
+          Las estadísticas de uso y de velocidad las medimos con Vercel Web Analytics y Speed Insights, que no usan cookies ni te siguen entre sitios web: cuentan visitas y tiempos de carga de las páginas de Frilo de forma agregada y no identifican a las personas. Cerrar sesión borra tus datos de este dispositivo; puedes borrar las cookies cuando quieras desde tu navegador.
         </p>
       </Seccion>
 

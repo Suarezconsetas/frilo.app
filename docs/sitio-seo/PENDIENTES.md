@@ -4,17 +4,12 @@ Actualizado el 22 de octubre de 2026. La publicación (Fase 4) solo ocurre con l
 
 ## De Nicolás
 
-Hechos el 22-oct-2026: claves públicas de Supabase en `frilo-web` (las puso Claude), alias `staging.frilo.dev` y `app-staging.frilo.dev`, URL en Supabase Auth y Google OAuth, prueba de registro con código y con Google, `/quienes-somos` con su texto y la línea "Escrito y revisado por Nicolás Suárez con fuentes oficiales".
+Hechos hasta el 22-oct-2026: claves de Supabase y alias de staging, URL en Supabase Auth y Google OAuth, pruebas de registro (código y Google), `/quienes-somos` (sin foto ni redes por ahora), línea "Escrito y revisado por Nicolás Suárez con fuentes oficiales", revisión de P12, revisión legal de la política de datos, versión de la política `2026-10-22` (cookies, recordatorio, casilla de novedades en el sitio), plantilla de correo de Supabase, Home con las capturas actuales (decisión de Nicolás).
 
 1. **Probar la casilla de novedades:** marcada y sin marcar, y revisar la fila `marketing_frilo` en `autorizaciones` (otorgada true/false).
-2. **Revisión del texto de P12** (cesantías para independientes): lo redactó Claude; Nicolás lo revisa contra fuentes oficiales (o lo valida un contador).
-3. **Política de datos** (para el abogado): cookies `frilo_marketing`, `frilo_ft` y `frilo_intencion`; recordatorio de planilla; cambios acumulados; subir `VERSION_POLITICA` si él lo indica.
-4. **Capturas del Home:** muestran datos reales de la cuenta de Nicolás; cambiarlas por una cuenta de prueba antes de publicar.
-5. **Vercel Cron:** confirmar que aparecen los dos cron (`/api/cron/trm` diario y `/api/cron/resumen-semanal` los viernes).
-6. **Plantilla de correo de Supabase:** revisar el texto del código de verificación.
-7. **Tasas de Lulo:** no se verifican automáticamente; revisar a mano cada semana (tarea programada, informe los lunes).
-8. **URL de redes** (cuando existan): agregar `sameAs` al JSON-LD de la Organización y de la Persona.
-9. **Foto para `/quienes-somos`** (opcional).
+2. **Cron en Vercel:** confirmar que aparecen los dos cron (ver pasos en la respuesta del 22-oct). Solo corren en producción.
+3. **Tasas de Lulo:** revisar a mano cada semana (tarea programada, informe los lunes).
+4. **Redes sociales y foto de `/quienes-somos`:** fuera de alcance por ahora.
 
 ## De Claude (cuando Nicolás lo indique)
 
