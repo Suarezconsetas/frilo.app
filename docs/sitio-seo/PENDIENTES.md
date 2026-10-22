@@ -1,6 +1,13 @@
 # Pendientes del sitio de contenido
 
-Actualizado el 22 de octubre de 2026. La publicación (Fase 4) solo ocurre con la instrucción explícita de Nicolás: "Publica el sitio en producción".
+Actualizado el 22 de octubre de 2026. **Fase 4 completada el 22-oct-2026**: sitio en `frilo.dev`, app en `app.frilo.dev`. La publicación (Fase 4) solo ocurre con la instrucción explícita de Nicolás: "Publica el sitio en producción".
+
+## Después de publicar (Nicolás)
+
+1. **Search Console:** agregar la propiedad `frilo.dev` (dominio), verificar y enviar `https://frilo.dev/sitemap.xml`. Pedir indexación de la Home y de las 4 calculadoras.
+2. **GTM y GA4:** crear las etiquetas (ver sección Analítica) y probar con la vista previa de GTM en `https://frilo.dev` aceptando el aviso de cookies.
+3. **Supabase Auth:** cuando quieras, cambiar el *Site URL* a `https://app.frilo.dev` y dejar las Redirect URLs existentes un tiempo.
+4. **Prueba de humo de usuarios actuales:** iniciar sesión en `app.frilo.dev` (deben volver a entrar una vez) y confirmar que el correo de recordatorio y las bajas funcionan.
 
 ## De Nicolás
 
@@ -25,8 +32,8 @@ No se incluyó la etiqueta `<noscript>` de GTM: cargaría Google sin consentimie
 
 ## De Claude (cuando Nicolás lo indique)
 
-1. **Fase 4, publicación:** `app.frilo.dev` en el proyecto de la app; Supabase Auth, Google OAuth, enlaces de Resend y `NEXT_PUBLIC_APP_URL` a `app.frilo.dev`; `noindex` en la app; mover `frilo.dev` al proyecto del sitio; redirecciones (308 para `/api/*` de bajas en correos ya enviados); crear `PUBLICAR_SITIO=si`; verificar; Search Console.
-2. **Merge de `web-staging` a `main`** (incluye `/bienvenida` y las cookies compartidas, inactivas sin variable).
+1. ~~**Fase 4, publicación:**~~ (hecha) `app.frilo.dev` en el proyecto de la app; Supabase Auth, Google OAuth, enlaces de Resend y `NEXT_PUBLIC_APP_URL` a `app.frilo.dev`; `noindex` en la app; mover `frilo.dev` al proyecto del sitio; redirecciones (308 para `/api/*` de bajas en correos ya enviados); crear `PUBLICAR_SITIO=si`; verificar; Search Console.
+2. ~~**Merge de `web-staging` a `main`**~~ (hecho) (incluye `/bienvenida` y las cookies compartidas, inactivas sin variable).
 3. **Páginas por diseñar:** `/glosario` (se indexa con 3 entradas).
 4. **Actualización anual:** P01, P02, P03 y P05 en la primera quincena de diciembre; confirmar los festivos del año siguiente contra el calendario oficial (`ULTIMO_ANIO_FESTIVOS_VALIDADO` en `lib/app/planilla.ts`).
 5. **Seguridad:** 2 avisos de PostCSS dentro de Next 15 (se corrigen con Next 16; afectan la compilación, no a los visitantes).

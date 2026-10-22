@@ -14,4 +14,5 @@ Sitio SEO de Frilo. La app sigue en la raíz del repositorio; este sitio importa
 
 - Directorio raíz: `apps/web`, con "incluir archivos fuera del directorio raíz". Comando de instalación: `cd ../.. && npm install --legacy-peer-deps`.
 - Instala las dependencias **solo en la raíz del repositorio**, igual que en local: así `lib/` y `app/` (que el sitio importa) y el sitio usan una sola copia de React. Dos copias dan el error "Cannot read properties of null (reading 'useState')".
-- La rama `main` no se construye en este proyecto (paso de compilación ignorado); la vista previa sale de `web-staging`.
+- Desde el 22-oct-2026 `main` es producción: `frilo.dev` y `www.frilo.dev` (308 a `frilo.dev`) apuntan a este proyecto y la app vive en `app.frilo.dev` (proyecto `frilo-app`). Variables de producción: ver arriba más `NEXT_PUBLIC_GTM_ID` y `PUBLICAR_SITIO=si`. La protección de Vercel cubre solo las vistas previas (`web-staging` en `staging.frilo.dev`).
+- `next.config.ts` redirige con 308 las rutas antiguas de la app (`/entrar`, `/api/*`, `/inicio`…) a `app.frilo.dev`, para que sigan funcionando los enlaces de correos ya enviados.
