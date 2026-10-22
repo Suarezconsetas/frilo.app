@@ -4,12 +4,11 @@ Actualizado el 22 de octubre de 2026. La publicación (Fase 4) solo ocurre con l
 
 ## De Nicolás
 
-Hechos hasta el 22-oct-2026: claves de Supabase y alias de staging, URL en Supabase Auth y Google OAuth, pruebas de registro (código y Google), `/quienes-somos` (sin foto ni redes por ahora), línea "Escrito y revisado por Nicolás Suárez con fuentes oficiales", revisión de P12, revisión legal de la política de datos, versión de la política `2026-10-22` (cookies, recordatorio, casilla de novedades en el sitio), plantilla de correo de Supabase, Home con las capturas actuales (decisión de Nicolás).
+Hechos hasta el 22-oct-2026: claves de Supabase y alias de staging, URL en Supabase Auth y Google OAuth, pruebas de registro (código y Google), `/quienes-somos` (sin foto ni redes por ahora), línea "Escrito y revisado por Nicolás Suárez con fuentes oficiales", revisión de P12, revisión legal de la política de datos, versión de la política `2026-10-22` (cookies, recordatorio, casilla de novedades en el sitio), cron de Vercel verificados, plantilla de correo de Supabase, Home con las capturas actuales (decisión de Nicolás).
 
 1. **Probar la casilla de novedades:** marcada y sin marcar, y revisar la fila `marketing_frilo` en `autorizaciones` (otorgada true/false).
-2. **Cron en Vercel:** confirmar que aparecen los dos cron (ver pasos en la respuesta del 22-oct). Solo corren en producción.
-3. **Tasas de Lulo:** revisar a mano cada semana (tarea programada, informe los lunes).
-4. **Redes sociales y foto de `/quienes-somos`:** fuera de alcance por ahora.
+2. **Tasas de Lulo:** revisar a mano cada semana (tarea programada, informe los lunes).
+3. **Redes sociales y foto de `/quienes-somos`:** fuera de alcance por ahora.
 
 ## De Claude (cuando Nicolás lo indique)
 
