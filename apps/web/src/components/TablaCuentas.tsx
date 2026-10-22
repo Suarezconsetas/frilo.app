@@ -67,7 +67,7 @@ export function TablaCuentasPesos() {
               <td>{c.fogafin ?? 'No lo indica'}</td>
               <td>{fechaCorta(c.fechaConsulta)}</td>
               <td>
-                <a className="ver" href={c.url} target="_blank" rel="noopener">
+                <a className="ver" href={c.url} target="_blank" rel="noopener" data-evento="bank_click" data-entidad={c.entidad}>
                   Ver en {c.entidad}
                 </a>
               </td>
@@ -113,7 +113,7 @@ export function TablaCuentasDolares() {
               <td>{c.aviso ?? (c.vigiladaSFC === false ? 'No vigilada por la Superintendencia Financiera' : 'Vigilada por la Superintendencia Financiera')}</td>
               <td>{fechaCorta(c.fechaConsulta)}</td>
               <td>
-                <a className="ver" href={c.url} target="_blank" rel="noopener">
+                <a className="ver" href={c.url} target="_blank" rel="noopener" data-evento="bank_click" data-entidad={c.entidad}>
                   Ver en {c.entidad}
                 </a>
               </td>

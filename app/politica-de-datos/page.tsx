@@ -76,6 +76,9 @@ export default function PoliticaDeDatos() {
           <li>Retomar lo que hiciste en el sitio antes de registrarte (por ejemplo, el cálculo de tu planilla, la alerta del dólar o el recordatorio de pago) para dejarlo guardado en tu cuenta.</li>
           <li>Conservar la prueba de tus autorizaciones, como exige la ley.</li>
           <li>Proteger el servicio, prevenir fraudes y atender solicitudes de autoridades competentes.</li>
+          <li>
+            En el sitio frilo.dev, <strong>solo si lo aceptas</strong> en el aviso de cookies: medir con Google Analytics (mediante Google Tag Manager) qué páginas se visitan, qué calculadoras se usan, qué enlaces a entidades se pulsan y cuántas personas se registran. No incluye lo que escribes en las calculadoras, tus ingresos ni tu correo, y no se usa para publicidad.
+          </li>
           <li>Mejorar Frilo con estadísticas de uso agregadas (páginas visitadas, país, navegador y tipo de dispositivo), sin identificarte, mediante Vercel Web Analytics, y medir la velocidad de la aplicación (tiempos de carga) mediante Vercel Speed Insights.</li>
           <li>
             <strong>Solo si tú lo autorizas</strong> (casilla opcional): enviarte novedades, ofertas y recomendaciones de Frilo por correo, entre ellas alertas de tasas de ahorro y cambios en la planilla, un resumen semanal del dólar, un recordatorio a fin de mes y un aviso el día de pago para que guardes tu mes, con invitaciones a conocer cuentas de ahorro con rentabilidad. Cada correo trae un enlace para dejar de recibirlos. Puedes retirar esta
@@ -87,6 +90,7 @@ export default function PoliticaDeDatos() {
       <Seccion n={4} titulo="Lo que no hacemos">
         <ul>
           <li>No vendemos tus datos.</li>
+          <li>No usamos Google Analytics para publicidad ni personalización de anuncios, y solo funciona si lo aceptas.</li>
           <li>No los compartimos con terceros para sus propios fines (publicidad, perfilamiento, cobranza o similares).</li>
           <li>
             Al comparar cuentas de ahorro mostramos información pública de entidades financieras. Si hacemos clic en un enlace de una entidad, sales de Frilo; no le
@@ -108,7 +112,7 @@ export default function PoliticaDeDatos() {
             <strong>Resend:</strong> envío de correos (código de acceso y alertas).
           </li>
           <li>
-            <strong>Google:</strong> solo si eliges entrar con tu cuenta de Google.
+            <strong>Google:</strong> solo si eliges entrar con tu cuenta de Google y, en el sitio frilo.dev, solo si aceptas las cookies de analítica (Google Analytics y Tag Manager; servidores en Estados Unidos).
           </li>
         </ul>
         <p>
@@ -196,6 +200,9 @@ export default function PoliticaDeDatos() {
           </li>
           <li>
             <strong>frilo_marketing:</strong> existe solo si marcaste la casilla opcional de novedades al registrarte en el sitio. Dura un día; la aplicación la lee para registrar tu autorización y la borra.
+          </li>
+          <li>
+            <strong>_ga y _ga_*</strong> (Google Analytics): solo en el sitio frilo.dev y solo si las aceptas. Identifican de forma anónima tu navegador para contar visitas y usos, duran hasta dos años y no se usan para publicidad. Si las rechazas, o cambias de idea en «Preferencias de cookies» al final de la página, no se cargan o se borran.
           </li>
           <li>
             <strong>frilo_ft:</strong> guarda por hasta 90 días la página por la que entraste y los parámetros de campaña del enlace. No se vincula a tu cuenta ni se comparte con terceros.

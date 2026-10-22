@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { Analitica } from '../components/Analitica';
 import { PrimerContacto } from '../components/PrimerContacto';
 import { URL_SITIO } from '../lib/config';
 import './fuentes.css';
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body suppressHydrationWarning>
         {children}
         <PrimerContacto />
+        <Analitica />
       </body>
     </html>
   );

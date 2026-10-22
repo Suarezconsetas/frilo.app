@@ -5,6 +5,8 @@ import type { NextConfig } from 'next';
 const ES_PRODUCCION = process.env.VERCEL_ENV === 'production' && process.env.PUBLICAR_SITIO === 'si';
 
 const nextConfig: NextConfig = {
+  // El doble candado se calcula al compilar y se expone al navegador (VERCEL_ENV y PUBLICAR_SITIO no existen allí).
+  env: { NEXT_PUBLIC_ES_PRODUCCION: ES_PRODUCCION ? 'si' : 'no' },
   distDir: process.env.NEXT_DIST_DIR || '.next',
   // El sitio importa la lógica compartida de `lib/` (en la raíz del repositorio, donde vive la app).
   experimental: { externalDir: true },

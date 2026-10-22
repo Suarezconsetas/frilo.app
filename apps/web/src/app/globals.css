@@ -124,3 +124,15 @@ p { margin: 0 0 14px; }
   .header-nav { width: 100%; flex-basis: 100%; }
   .banner-rendimiento, .banner-registro { padding: 22px; }
 }
+
+/* Aviso de cookies de analítica: aceptar y rechazar pesan igual; controles de 44px. */
+.aviso-cookies { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 60; max-width: 760px; margin: 0 auto; background: var(--oliva); color: #fff; border-radius: 20px; padding: 18px 20px; display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; box-shadow: 0 12px 40px rgba(15, 55, 45, 0.35); }
+.aviso-cookies-texto { flex: 1 1 320px; font-size: 14px; line-height: 21px; }
+.aviso-cookies-texto p { margin: 0; }
+.aviso-cookies-titulo { font-weight: 700; font-size: 16px; margin-bottom: 4px !important; }
+.aviso-cookies a { color: #fff; text-decoration: underline; }
+.aviso-cookies-botones { display: flex; gap: 10px; flex: 0 0 auto; }
+.aviso-cookies-botones button { min-height: 44px; min-width: 112px; padding: 0 20px; border-radius: 14px; font: 700 15px/1 inherit; font-family: inherit; cursor: pointer; border: 2px solid #6FFF8F; }
+.aviso-cookies-si { background: #6FFF8F; color: var(--oliva); }
+.aviso-cookies-no { background: transparent; color: #fff; }
+.enlace-cookies { background: none; border: 0; padding: 0; margin-left: 8px; min-height: 44px; font: inherit; color: var(--tinta-suave); text-decoration: underline; cursor: pointer; }

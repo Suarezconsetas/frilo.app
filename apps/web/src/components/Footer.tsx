@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { RUTA_CUENTAS, URL_APP } from '../lib/config';
+import { PreferenciasCookies } from './PreferenciasCookies';
 import { LogoFrilo } from './Logo';
 
 const COLUMNAS: { titulo: string; enlaces: [string, string][] }[] = [
@@ -71,7 +72,9 @@ export function Footer() {
           Frilo es gratis, no recibe pagos de las entidades que compara y no vende tus datos. Los cálculos son estimados: no incluyen el 4x1000 ni las retenciones de
           Colombia o del país contratante. No es asesoría financiera, legal ni tributaria.
         </p>
-        <p>© {new Date().getFullYear()} Frilo.</p>
+        <p>
+          © {new Date().getFullYear()} Frilo. <PreferenciasCookies />
+        </p>
       </div>
     </footer>
   );

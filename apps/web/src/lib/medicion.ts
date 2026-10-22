@@ -1,8 +1,9 @@
 'use client';
 
-import { COOKIE_DOMINIO, ES_PRODUCCION } from './config';
+import { COOKIE_DOMINIO, ES_PRODUCCION, GTM_ID } from './config';
+import { leerConsentimiento } from './consentimiento';
 
-/** Eventos del brief §8: `signup_start`, `signup_complete`, `calc_result`, `bank_click`. Solo se envían en producción. */
+/** Eventos del brief §8: `signup_start`, `signup_complete`, `calc_result`, `bank_click`. Solo en producción y con la analítica aceptada. Nunca llevan montos, ingresos ni correos. */
 export type Evento = 'signup_start' | 'signup_complete' | 'calc_result' | 'bank_click';
 
 declare global {
@@ -12,7 +13,8 @@ declare global {
 }
 
 export function registrarEvento(evento: Evento, datos: Record<string, string | number | boolean | undefined> = {}) {
-  if (!ES_PRODUCCION || typeof window === 'undefined') return;
+  // Sin aceptar las cookies de analítica no se registra nada, ni siquiera en la lista local del navegador.
+  if (!ES_PRODUCCION || !GTM_ID || typeof window === 'undefined' || leerConsentimiento() !== 'si') return;
   window.dataLayer = window.dataLayer ?? [];
   window.dataLayer.push({ event: evento, ...datos });
 }

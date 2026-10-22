@@ -10,6 +10,19 @@ Hechos hasta el 22-oct-2026: claves de Supabase y alias de staging, URL en Supab
 2. **Tasas de Lulo:** revisar a mano cada semana (tarea programada, informe los lunes).
 3. **Redes sociales y foto de `/quienes-somos`:** fuera de alcance por ahora.
 
+## Analítica (GTM + GA4), preparada el 22-oct-2026
+
+El sitio ya trae el aviso de cookies y carga GTM (`GTM-NPF6MT3S`) solo si la persona acepta y solo en producción publicada (variable `NEXT_PUBLIC_GTM_ID` en `frilo-web`). Falta, del lado de Nicolás:
+
+1. **Crear la propiedad GA4** y copiar su ID de medición (`G-XXXXXXX`).
+2. **En el contenedor GTM**, etiqueta *Google tag / GA4 config* con ese ID, con disparador *All Pages* y en *Configuración de consentimiento* exigir `analytics_storage`.
+3. **Cuatro etiquetas de evento GA4** con disparador de *evento personalizado*: `signup_start`, `signup_complete`, `calc_result`, `bank_click`. Parámetros del dataLayer: `pagina`, `variante`, `metodo`, `entidad`. Marcar `signup_complete` y `bank_click` como eventos clave en GA4.
+4. **GA4 → Administrar → Recopilación de datos:** desactivar señales de Google y el uso compartido de datos con Google; retención de datos en 14 meses.
+5. **Vista previa de GTM** (Tag Assistant) apuntando al sitio publicado, con el aviso aceptado, para ver los eventos.
+6. El abogado revisa los textos nuevos de la política (versión `2026-10-22.2`): Google Analytics, cookies `_ga` y el aviso.
+
+No se incluyó la etiqueta `<noscript>` de GTM: cargaría Google sin consentimiento.
+
 ## De Claude (cuando Nicolás lo indique)
 
 1. **Fase 4, publicación:** `app.frilo.dev` en el proyecto de la app; Supabase Auth, Google OAuth, enlaces de Resend y `NEXT_PUBLIC_APP_URL` a `app.frilo.dev`; `noindex` en la app; mover `frilo.dev` al proyecto del sitio; redirecciones (308 para `/api/*` de bajas en correos ya enviados); crear `PUBLICAR_SITIO=si`; verificar; Search Console.
