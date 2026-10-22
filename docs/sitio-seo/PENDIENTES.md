@@ -5,7 +5,7 @@ Actualizado el 22 de octubre de 2026. **Fase 4 completada el 22-oct-2026**: siti
 ## Después de publicar (Nicolás)
 
 1. **Search Console:** agregar la propiedad `frilo.dev` (dominio), verificar y enviar `https://frilo.dev/sitemap.xml`. Pedir indexación de la Home y de las 4 calculadoras.
-2. **GTM y GA4:** crear las etiquetas (ver sección Analítica) y probar con la vista previa de GTM en `https://frilo.dev` aceptando el aviso de cookies.
+2. ~~**GTM y GA4**~~ configurados el 22-oct-2026 (ver sección Analítica).
 3. **Supabase Auth:** cuando quieras, cambiar el *Site URL* a `https://app.frilo.dev` y dejar las Redirect URLs existentes un tiempo.
 4. **Prueba de humo de usuarios actuales:** iniciar sesión en `app.frilo.dev` (deben volver a entrar una vez) y confirmar que el correo de recordatorio y las bajas funcionan.
 
@@ -17,18 +17,37 @@ Hechos hasta el 22-oct-2026: claves de Supabase y alias de staging, URL en Supab
 2. **Tasas de Lulo:** revisar a mano cada semana (tarea programada, informe los lunes).
 3. **Redes sociales y foto de `/quienes-somos`:** fuera de alcance por ahora.
 
-## Analítica (GTM + GA4), preparada el 22-oct-2026
+## Analítica (GTM + GA4): configuración de los tags
 
-El sitio ya trae el aviso de cookies y carga GTM (`GTM-NPF6MT3S`) solo si la persona acepta y solo en producción publicada (variable `NEXT_PUBLIC_GTM_ID` en `frilo-web`). Falta, del lado de Nicolás:
+GTM `GTM-NPF6MT3S` se carga en `frilo.dev` solo si la persona acepta el aviso de cookies (consentimiento: analítica concedida; publicidad y personalización denegadas). Nunca viajan montos, ingresos ni correos. Nicolás configuró GTM y GA4 el 22-oct-2026; esta es la especificación de referencia.
 
-1. **Crear la propiedad GA4** y copiar su ID de medición (`G-XXXXXXX`).
-2. **En el contenedor GTM**, etiqueta *Google tag / GA4 config* con ese ID, con disparador *All Pages* y en *Configuración de consentimiento* exigir `analytics_storage`.
-3. **Cuatro etiquetas de evento GA4** con disparador de *evento personalizado*: `signup_start`, `signup_complete`, `calc_result`, `bank_click`. Parámetros del dataLayer: `pagina`, `variante`, `metodo`, `entidad`. Marcar `signup_complete` y `bank_click` como eventos clave en GA4.
-4. **GA4 → Administrar → Recopilación de datos:** desactivar señales de Google y el uso compartido de datos con Google; retención de datos en 14 meses.
-5. **Vista previa de GTM** (Tag Assistant) apuntando al sitio publicado, con el aviso aceptado, para ver los eventos.
-6. El abogado revisa los textos nuevos de la política (versión `2026-10-22.2`): Google Analytics, cookies `_ga` y el aviso.
+**Eventos que el sitio ya envía al `dataLayer`**
 
-No se incluyó la etiqueta `<noscript>` de GTM: cargaría Google sin consentimiento.
+| Evento | Cuándo | Parámetros |
+|---|---|---|
+| `signup_start` | Al pedir el código o pulsar Google en el bloque de registro (banners de aportes, prima, dólar, general y alerta del dólar) | `pagina`, `variante` (`aportes`, `prima`, `dolar`, `recordatorio`, `general`), `metodo` (`correo` o `google`) |
+| `signup_complete` | Al verificar el código del correo | `pagina`, `variante`, `metodo` |
+| `calc_result` | La primera vez que la persona usa una calculadora de la página | `pagina` (ruta) |
+| `bank_click` | Clic en un enlace a un banco: banner de rendimiento y tabla de cuentas | `entidad`, `pagina` (ruta) |
+
+Limitación: con Google, `signup_complete` no se dispara en el sitio (la persona sale a Google y vuelve a la app); el registro con Google se mide con `signup_start` y las altas nuevas de la app.
+
+**En GTM**
+1. Variables de capa de datos (versión 2): `pagina`, `variante`, `metodo`, `entidad`.
+2. Una etiqueta *Google tag / GA4 config* con el ID `G-…` (disparador *All Pages*, consentimiento adicional `analytics_storage`).
+3. Cuatro etiquetas *GA4 Event* con disparador *Evento personalizado* (nombre exacto del evento) y esos parámetros.
+4. Los banners de rendimiento llevan además UTM en el enlace al banco: `utm_source=frilo&utm_medium=banner&utm_campaign={pagina}-{variante}`.
+
+**En GA4**
+1. Dimensiones personalizadas de alcance *evento*: `variante`, `metodo`, `entidad`, `pagina`.
+2. Eventos clave: `signup_complete` y `bank_click`.
+3. Administrar → Recopilación de datos: señales de Google y uso compartido de datos desactivados; retención 14 meses.
+4. Informes sugeridos: embudo `calc_result` → `signup_start` → `signup_complete` por `pagina`; `bank_click` por `entidad`.
+
+**Mejoras para después (código mío, cuando Nicolás lo pida)**
+- `banner_view`: medir cuántas veces se ve cada banner (visibilidad al hacer scroll), con `variante` y `pagina`, para tener tasa de clic.
+- Enviar `variante` en `bank_click` y un `cta_click` para los botones de "Probar la app" (ahora van a `app.frilo.dev` sin evento).
+- Medir `signup_complete` de Google en la app (`/bienvenida`) con el mismo consentimiento.
 
 ## De Claude (cuando Nicolás lo indique)
 
