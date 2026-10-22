@@ -4,7 +4,6 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
 import { Isotipo, Wordmark } from '../components/Logo';
-import { URL_APP } from '../lib/config';
 
 export type VarsP01b1 = { apartaTxt: string; arl: boolean; filas: any[]; ibcTxt: string; ingresoTxt: string; onArl: (e: any) => void; onIngreso: (e: any) => void; onRiesgo: (e: any) => void; primaTxt: string; quedaTxt: string; rendTxt: string; riesgo: string; tasaTxt: string; totalTxt: string; };
 
@@ -112,7 +111,7 @@ export function VistaP01b1({ apartaTxt, arl, filas, ibcTxt, ingresoTxt, onArl, o
             </Link>
           </div>
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-            <a className="btn btn-m" href={URL_APP} style={{ flex: "1 1 220px" }}>
+            <a className="btn btn-m" href="#registro" style={{ flex: "1 1 220px" }}>
               Guardar y recibir el recordatorio de pago
             </a>
             <a className="btn btn-g" href="#operadores" style={{ flex: "0 1 auto" }}>

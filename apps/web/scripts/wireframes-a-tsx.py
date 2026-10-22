@@ -14,6 +14,11 @@ RAIZ = Path(__file__).resolve().parents[3]
 REEMPLAZOS = json.loads((RAIZ / 'apps/web/content/reemplazos.json').read_text(encoding='utf-8'))['reemplazos']
 
 
+# Botones de guardar/registrarse junto a un resultado: llevan al registro de la misma página (no a la portada de la app,
+# que pediría calcular otra vez). Los CTA de cierre de página siguen yendo a la app.
+CTA_A_REGISTRO = ('btn btn-m', 'btn btn-p')
+
+
 def corregir(t):
     for a, b in REEMPLAZOS:
         t = t.replace(a, b)
@@ -200,6 +205,9 @@ class Convertidor:
             if k in ('support', 'hint-placeholder-count', 'hint-placeholder-val', 'hint-size') or k.startswith('on'):
                 continue
             if k == 'href' and (v or '').rstrip('/') == 'https://frilo.dev':
+                if n.attrs.get('class') in CTA_A_REGISTRO:
+                    res.append('href="#registro"')
+                    continue
                 self.usa_app = True
                 res.append('href={URL_APP}')
             elif k == 'style':
@@ -473,6 +481,8 @@ def escribir_vista(ident, nombre, nodo):
     v = Vista(ident)
     Vista.locales = set()
     cuerpo = v.jsx(nodo, 3)
+    for clase in CTA_A_REGISTRO:
+        cuerpo = cuerpo.replace(f'className="{clase}" href={{URL_APP}}', f'className="{clase}" href="#registro"')
     nombres = sorted(v.vars)
     tipos = ' '.join(f'{k}: {tipo_ts(v.vars[k])};' for k in nombres)
     usa_link = '<Link' in cuerpo

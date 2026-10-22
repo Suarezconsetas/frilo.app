@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { ahorroMensual, parametrosDe, redondearMultiplo, TASA_INTERESES_CESANTIAS } from '@/lib/calculos';
 import { pesos } from '@/lib/formato';
-import { URL_APP } from '../lib/config';
 import { miles, soloEnteros } from '../lib/entradas';
 import { VistaP03b1 } from './VistaP03b1';
 
@@ -27,7 +26,7 @@ export function CalculadoraCesantias() {
   return (
     <VistaP03b1
       cta={lab ? '¿Trabajas también por tu cuenta? Prueba Frilo' : 'Lleva tus cesantías en Frilo'}
-      ctaHref={URL_APP}
+      ctaHref="#registro"
       dias={String(dias)}
       eInd={lab ? OFF : ON}
       eLab={lab ? ON : OFF}

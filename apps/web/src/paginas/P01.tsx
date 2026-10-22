@@ -4,7 +4,6 @@
  */
 import type { ReactNode } from 'react';
 import Link from 'next/link';
-import { URL_APP } from '../lib/config';
 import { BannerRendimiento } from '../components/BannerRendimiento';
 import { BannerRegistro } from '../components/BannerRegistro';
 
@@ -450,7 +449,7 @@ export function ContenidoP01({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
             <span style={{ color: "#4A6158" }}>
               Con tu cuenta te avisamos cada mes según los dos últimos dígitos de tu documento.
             </span>
-            <a className="btn btn-p" href={URL_APP} style={{ alignSelf: "flex-start" }}>
+            <a className="btn btn-p" href="#registro" style={{ alignSelf: "flex-start" }}>
               Probar la app gratis
             </a>
           </aside>
