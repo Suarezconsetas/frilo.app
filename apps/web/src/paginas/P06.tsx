@@ -40,7 +40,7 @@ export function ContenidoP06({ dinamicos = {} }: { dinamicos?: {  } }) {
           {" es la novedad de la planilla PILA que reporta una suspensión temporal del contrato de trabajo, una licencia no remunerada o una comisión de servicios. Durante esos días el trabajador no aporta a salud ni a pensión, no se paga ARL y el aporte a salud lo asume el empleador."}
         </p>
         <p style={{ margin: "0", fontSize: "14px", color: "#4A6158" }}>
-          {"Actualizado el 20 de octubre de 2026 · Revisado por el equipo de finanzas Frilo · Fuente: "}
+          {"Actualizado el 20 de octubre de 2026 · Escrito y revisado por Nicolás Suárez con fuentes oficiales · Fuente: "}
           <a href="https://www.unidadvictimas.gov.co/wp-content/uploads/Documentos/resoluciones/RESOLUCI%c3%93N_2388_2016.pdf" target="_blank" rel="noopener" style={{ color: "#4A6158" }}>
             Resolución 2388 de 2016 del Ministerio de Salud
           </a>

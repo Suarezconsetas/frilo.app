@@ -296,11 +296,7 @@
             "@id": "https://frilo.dev/#nicolas"
           },
           "reviewedBy": {
-            "@type": "Organization",
-            "name": "Equipo de finanzas Frilo",
-            "parentOrganization": {
-              "@id": "https://frilo.dev/#organization"
-            }
+            "@id": "https://frilo.dev/#nicolas"
           },
           "lastReviewed": "2026-10-20"
         },
@@ -470,11 +466,7 @@
           },
           "dateModified": "2026-10-20",
           "reviewedBy": {
-            "@type": "Organization",
-            "name": "Equipo de finanzas Frilo",
-            "parentOrganization": {
-              "@id": "https://frilo.dev/#organization"
-            }
+            "@id": "https://frilo.dev/#nicolas"
           },
           "lastReviewed": "2026-10-20",
           "mainEntity": {
@@ -619,11 +611,7 @@
             "@id": "https://frilo.dev/#nicolas"
           },
           "reviewedBy": {
-            "@type": "Organization",
-            "name": "Equipo de finanzas Frilo",
-            "parentOrganization": {
-              "@id": "https://frilo.dev/#organization"
-            }
+            "@id": "https://frilo.dev/#nicolas"
           },
           "lastReviewed": "2026-10-20"
         },
@@ -769,11 +757,7 @@
           },
           "dateModified": "2026-10-20",
           "reviewedBy": {
-            "@type": "Organization",
-            "name": "Equipo de finanzas Frilo",
-            "parentOrganization": {
-              "@id": "https://frilo.dev/#organization"
-            }
+            "@id": "https://frilo.dev/#nicolas"
           },
           "lastReviewed": "2026-10-20",
           "mainEntity": {
@@ -918,11 +902,7 @@
             "@id": "https://frilo.dev/#nicolas"
           },
           "reviewedBy": {
-            "@type": "Organization",
-            "name": "Equipo de finanzas Frilo",
-            "parentOrganization": {
-              "@id": "https://frilo.dev/#organization"
-            }
+            "@id": "https://frilo.dev/#nicolas"
           },
           "lastReviewed": "2026-10-20"
         },
@@ -1071,11 +1051,7 @@
             "@id": "https://frilo.dev/#nicolas"
           },
           "reviewedBy": {
-            "@type": "Organization",
-            "name": "Equipo de finanzas Frilo",
-            "parentOrganization": {
-              "@id": "https://frilo.dev/#organization"
-            }
+            "@id": "https://frilo.dev/#nicolas"
           },
           "lastReviewed": "2026-10-20",
           "mainEntity": {
@@ -1182,11 +1158,7 @@
             "@id": "https://frilo.dev/#nicolas"
           },
           "reviewedBy": {
-            "@type": "Organization",
-            "name": "Equipo de finanzas Frilo",
-            "parentOrganization": {
-              "@id": "https://frilo.dev/#organization"
-            }
+            "@id": "https://frilo.dev/#nicolas"
           }
         },
         {
@@ -1322,11 +1294,7 @@
           },
           "dateModified": "2026-10-20",
           "reviewedBy": {
-            "@type": "Organization",
-            "name": "Equipo de finanzas Frilo",
-            "parentOrganization": {
-              "@id": "https://frilo.dev/#organization"
-            }
+            "@id": "https://frilo.dev/#nicolas"
           },
           "lastReviewed": "2026-10-20",
           "mainEntity": {
@@ -1465,11 +1433,7 @@
           },
           "dateModified": "2026-10-20",
           "reviewedBy": {
-            "@type": "Organization",
-            "name": "Equipo de finanzas Frilo",
-            "parentOrganization": {
-              "@id": "https://frilo.dev/#organization"
-            }
+            "@id": "https://frilo.dev/#nicolas"
           },
           "lastReviewed": "2026-10-20",
           "mainEntity": {
@@ -1614,11 +1578,7 @@
             "@id": "https://frilo.dev/#nicolas"
           },
           "reviewedBy": {
-            "@type": "Organization",
-            "name": "Equipo de finanzas Frilo",
-            "parentOrganization": {
-              "@id": "https://frilo.dev/#organization"
-            }
+            "@id": "https://frilo.dev/#nicolas"
           },
           "lastReviewed": "2026-10-20"
         },
@@ -1780,11 +1740,7 @@
           },
           "dateModified": "2026-10-20",
           "reviewedBy": {
-            "@type": "Organization",
-            "name": "Equipo de finanzas Frilo",
-            "parentOrganization": {
-              "@id": "https://frilo.dev/#organization"
-            }
+            "@id": "https://frilo.dev/#nicolas"
           },
           "lastReviewed": "2026-10-20",
           "mainEntity": {
@@ -2057,11 +2013,7 @@
           },
           "dateModified": "2026-10-20",
           "reviewedBy": {
-            "@type": "Organization",
-            "name": "Equipo de finanzas Frilo",
-            "parentOrganization": {
-              "@id": "https://frilo.dev/#organization"
-            }
+            "@id": "https://frilo.dev/#nicolas"
           },
           "lastReviewed": "2026-10-20",
           "mainEntity": {

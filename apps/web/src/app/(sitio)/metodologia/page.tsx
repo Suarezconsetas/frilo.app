@@ -56,7 +56,7 @@ export default function Pagina() {
 
         <h2>Quién revisa y cada cuánto</h2>
         <p>
-          El contenido lo escribe <Link href="/quienes-somos">Nicolás Suárez</Link> y lo revisa el equipo de finanzas de Frilo. Cada página muestra la fecha de su última actualización. Las calculadoras de
+          El contenido lo escribe <Link href="/quienes-somos">Nicolás Suárez</Link> con fuentes oficiales, y él mismo lo revisa. Cada página muestra la fecha de su última actualización. Las calculadoras de
           aportes, cesantías y fechas de pago se actualizan en diciembre, cuando cambian el salario mínimo y las tarifas del año.
         </p>
 

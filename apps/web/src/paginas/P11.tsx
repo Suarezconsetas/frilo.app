@@ -47,7 +47,7 @@ export function ContenidoP11({ dinamicos = {} }: { dinamicos?: { tablaPesos?: Re
           <Isotipo tono="manzana" alto={48} />
           <div style={{ display: "flex", flexDirection: "column", gap: "2px", fontSize: "14px" }}>
             <span style={{ fontWeight: "600" }}>
-              Por Nicolás Suárez · Revisado por el equipo de finanzas Frilo
+              Escrito y revisado por Nicolás Suárez con fuentes oficiales
             </span>
             <span style={{ color: "#4A6158" }}>
               {"Tasas consultadas el 20 de octubre de 2026 · "}

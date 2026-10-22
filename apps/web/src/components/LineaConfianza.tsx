@@ -5,7 +5,7 @@ import { fechaDe, fechaLarga } from '../lib/paginas';
 export function LineaConfianza({ id, tipo = 'calculadora' }: { id: string; tipo?: 'calculadora' | 'guia' }) {
   return (
     <p className="linea-confianza">
-      Por <Link href="/quienes-somos">Nicolás Suárez</Link> · Revisado por el equipo de finanzas Frilo · Actualizado el {fechaLarga(fechaDe(id))} ·{' '}
+      Escrito y revisado por <Link href="/quienes-somos">Nicolás Suárez</Link> con fuentes oficiales · Actualizado el {fechaLarga(fechaDe(id))} ·{' '}
       <Link href="/metodologia">{tipo === 'guia' ? 'Cómo hacemos nuestras guías' : 'Cómo calculamos'}</Link>
     </p>
   );

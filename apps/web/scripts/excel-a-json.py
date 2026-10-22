@@ -42,7 +42,8 @@ REEMPLAZOS = json.loads((RAIZ / 'apps/web/content/reemplazos.json').read_text(en
 def corregir(o):
     """Aplica las correcciones de copy (content/reemplazos.json) también a los textos del JSON-LD, para que sigan iguales a lo visible."""
     if isinstance(o, dict):
-        return {k: corregir(v) for k, v in o.items()}
+        # Quien revisa es la misma persona que escribe (decisión del 22-10-2026): sin «equipo de finanzas».
+        return {k: ({'@id': 'https://frilo.dev/#nicolas'} if k == 'reviewedBy' else corregir(v)) for k, v in o.items()}
     if isinstance(o, list):
         return [corregir(x) for x in o]
     if isinstance(o, str):

@@ -37,7 +37,7 @@ export function ContenidoP01({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
           Un independiente cotiza sobre el 40% de lo que factura (IBC). Sobre esa base paga 12,5% de salud, 16% de pensión, ARL según su riesgo y, desde 4 salarios mínimos, Fondo de Solidaridad. Escribe tu ingreso y la calculadora hace la liquidación de aportes en línea.
         </p>
         <p style={{ margin: "0", fontSize: "14px", color: "#4A6158" }}>
-          {"Actualizada el 20 de octubre de 2026 · Por Nicolás Suárez · Revisada por el equipo de finanzas Frilo · "}
+          {"Actualizada el 20 de octubre de 2026 · Escrito y revisado por Nicolás Suárez con fuentes oficiales · "}
           <a href="#metodo" style={{ color: "#4A6158" }}>
             Cómo calculamos
           </a>

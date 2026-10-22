@@ -36,7 +36,7 @@ export function ContenidoP05({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode,
           La fecha de pago de la planilla de seguridad social depende de los dos últimos dígitos de tu documento: va del segundo al decimosexto día hábil de cada mes. Escribe tus dígitos y te decimos tu día límite.
         </p>
         <p style={{ margin: "0", fontSize: "14px", color: "#4A6158" }}>
-          {"Actualizada el 20 de octubre de 2026 · Revisada por el equipo de finanzas Frilo · Fuente: "}
+          {"Actualizada el 20 de octubre de 2026 · Escrito y revisado por Nicolás Suárez con fuentes oficiales · Fuente: "}
           <a href="https://normativa.colpensiones.gov.co/compilacion/docs/decreto_1990_2016.htm" target="_blank" rel="noopener" style={{ color: "#4A6158" }}>
             Decreto 1990 de 2016, artículo 3.2.2.1
           </a>

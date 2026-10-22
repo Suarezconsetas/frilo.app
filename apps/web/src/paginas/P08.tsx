@@ -37,7 +37,7 @@ export function ContenidoP08({ dinamicos = {} }: { dinamicos?: {  } }) {
           <div aria-hidden="true" style={{ width: "48px", height: "48px", borderRadius: "999px", background: "#E6EEE9" }} />
           <div style={{ display: "flex", flexDirection: "column", gap: "2px", fontSize: "14px" }}>
             <span style={{ fontWeight: "600" }}>
-              Por Nicolás Suárez · Revisado por el equipo de finanzas Frilo
+              Escrito y revisado por Nicolás Suárez con fuentes oficiales
             </span>
             <span style={{ color: "#4A6158" }}>
               Actualizado el 20 de octubre de 2026 · Datos consultados en la web de cada entidad el 20 de octubre de 2026
