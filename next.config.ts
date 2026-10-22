@@ -3,14 +3,9 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   // Permite probar en un segundo servidor sin pisar el .next del que ya corre (NEXT_DIST_DIR=.next-prueba).
   distDir: process.env.NEXT_DIST_DIR || '.next',
-  // Las pantallas con datos de la persona no deben aparecer en buscadores (la bienvenida, el acceso y los textos legales sí).
+  // La app vive en app.frilo.dev y no se indexa: el contenido que posiciona es el del sitio (frilo.dev).
   async headers() {
-    return [
-      {
-        source: '/:ruta(inicio|aportes|ahorro|dolar|cuenta|cuenta-eliminada|ingreso|registro|codigo|bienvenida)',
-        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
-      },
-    ];
+    return [{ source: '/:ruta*', headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] }];
   },
 };
 

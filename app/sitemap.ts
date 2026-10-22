@@ -1,14 +1,6 @@
 import type { MetadataRoute } from 'next';
-import { URL_SITIO } from '@/lib/sitio';
 
-// Solo las páginas públicas: la bienvenida, el acceso y los textos legales.
+// La app no se indexa (ver robots.ts), así que no publica sitemap.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paginas: { ruta: string; prioridad: number }[] = [
-    { ruta: '/', prioridad: 1 },
-    { ruta: '/entrar', prioridad: 0.5 },
-    { ruta: '/instalar', prioridad: 0.4 },
-    { ruta: '/politica-de-datos', prioridad: 0.3 },
-    { ruta: '/terminos', prioridad: 0.3 },
-  ];
-  return paginas.map((p) => ({ url: `${URL_SITIO}${p.ruta}`, changeFrequency: 'monthly', priority: p.prioridad }));
+  return [];
 }
