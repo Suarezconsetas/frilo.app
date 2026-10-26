@@ -78,6 +78,19 @@ export interface DinamicosJsonLd {
   trm?: { fechaTitulo: string; hoyTxt: string; desde: string; fechaIso: string; desdeIso: string; hastaIso: string };
 }
 
+const CLAVES_FECHA = ['dateModified', 'lastReviewed', 'datePublished', 'dateCreated'];
+
+/** Google pide fecha y hora ISO 8601 con zona horaria: «2026-10-20» pasa a «2026-10-20T00:00:00-05:00» (hora de Colombia). */
+function conFechasCompletas(nodo: unknown): unknown {
+  if (Array.isArray(nodo)) return nodo.map(conFechasCompletas);
+  if (nodo && typeof nodo === 'object') {
+    return Object.fromEntries(
+      Object.entries(nodo).map(([k, v]) => [k, CLAVES_FECHA.includes(k) && typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? `${v}T00:00:00-05:00` : conFechasCompletas(v)]),
+    );
+  }
+  return nodo;
+}
+
 /** JSON-LD de la página con las fechas reales de edición (`dateModified`, `lastReviewed`, `datePublished`) y los datos del día. */
 export function jsonLdDe(id: string, dinamicos: DinamicosJsonLd = {}): unknown {
   const p = paginaPorId(id);
@@ -104,7 +117,7 @@ export function jsonLdDe(id: string, dinamicos: DinamicosJsonLd = {}): unknown {
     if (o && typeof o === 'object') return Object.fromEntries(Object.entries(o).map(([k, v]) => [k, recorrer(v, k)]));
     return typeof o === 'string' ? texto(o, clave) : o;
   };
-  return enriquecerGrafo(id, arreglarDatasets(recorrer(base)));
+  return conFechasCompletas(enriquecerGrafo(id, arreglarDatasets(recorrer(base))));
 }
 
 type Nodo = Record<string, unknown>;

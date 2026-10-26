@@ -212,3 +212,11 @@ describe('enlazado interno', () => {
     expect(readFileSync('apps/web/src/paginas/P02.tsx', 'utf8')).not.toContain('href="/glosario#ibc"');
   });
 });
+
+describe('fechas de los datos estructurados', () => {
+  it('dateModified, lastReviewed y datePublished llevan fecha, hora y zona', () => {
+    const fechas = [...JSON.stringify(jsonLdDe('P01')).matchAll(/"(?:dateModified|lastReviewed|datePublished|dateCreated)":"([^"]+)"/g)].map((m) => m[1]);
+    expect(fechas.length).toBeGreaterThan(0);
+    for (const f of fechas) expect(f).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[-+]\d{2}:\d{2}$/);
+  });
+});
