@@ -16,9 +16,9 @@ export function ContenidoP06({ dinamicos = {} }: { dinamicos?: {  } }) {
         <span aria-hidden="true">
           /
         </span>
-        <a href="#" style={{ color: "#4A6158" }}>
+        <Link href="/glosario" style={{ color: "#4A6158" }}>
           Glosario
-        </a>
+        </Link>
         <span aria-hidden="true">
           /
         </span>

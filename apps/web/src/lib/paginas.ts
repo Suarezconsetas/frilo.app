@@ -26,11 +26,11 @@ export const ESTADO_PAGINAS: Record<string, EstadoPagina> = {
   P11: 'construida',
   'Legal-1': 'construida',
   'Legal-2': 'construida',
-  'Hub-Glo': 'borrador',
+  'Hub-Glo': 'construida',
   'Inst-1': 'construida',
 };
 
-export const FECHA_EDICION: Record<string, string> = { 'Legal-2': '2026-10-22', 'Inst-1': '2026-10-22' };
+export const FECHA_EDICION: Record<string, string> = { 'Legal-2': '2026-10-22', 'Inst-1': '2026-10-22', 'Hub-Glo': '2026-10-26' };
 /** Fecha de los textos aprobados (wireframes) cuando una página aún no tiene una propia. */
 export const FECHA_CONTENIDO_BASE = '2026-10-20';
 

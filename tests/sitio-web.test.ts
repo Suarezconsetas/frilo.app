@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { CUENTAS_MVP } from '@/lib/calculos';
 import { jsonLdDe, marcadoresPendientes, metadataDe, PAGINAS } from '../apps/web/src/lib/seo';
+import { estadoDe } from '../apps/web/src/lib/paginas';
 import { datosDePagina } from '../apps/web/src/lib/trm';
 
 const serie = [
@@ -56,8 +57,9 @@ describe('JSON-LD y metadatos desde el Excel', () => {
     expect(lista[0]!.item.interestRate.value).toBe(Math.round(esperadas[0]!.tasaBaseEA * 10000) / 100);
   });
   it('una página en borrador no se indexa aunque el Excel diga index', () => {
-    const m = metadataDe('Hub-Glo');
-    expect(m.robots).toMatchObject({ index: false });
+    const noConstruida = PAGINAS.find((p) => p.robots.startsWith('index') && estadoDe(p.id) !== 'construida');
+    if (!noConstruida) return; // todas las páginas del Excel ya están construidas
+    expect(metadataDe(noConstruida.id).robots).toMatchObject({ index: false });
   });
   it('la landing de pauta sale noindex, follow', () => {
     expect(metadataDe('SEM').robots).toMatchObject({ index: false, follow: true });
@@ -90,5 +92,27 @@ describe('el texto de las guías coincide con las tasas de cuentas.ts', () => {
     const littio = CUENTAS_USD.find((c) => c.id === 'littio-bolsillos-usd')!;
     expect(texto).toContain(`${pctEs(global66.tasaEAHasta!)}% E.A.`);
     expect(texto).toContain(`${pctEs(littio.tasaEAHasta!)}% E.A.`);
+  });
+});
+
+import { TERMINOS } from '../apps/web/src/lib/glosario';
+
+describe('glosario', () => {
+  it('el hub solo se publica con al menos tres términos', () => {
+    if (estadoDe('Hub-Glo') === 'construida') expect(TERMINOS.length).toBeGreaterThanOrEqual(3);
+  });
+  it('el JSON-LD del hub lista todos los términos y repite la definición visible', () => {
+    const grafo = (jsonLdDe('Hub-Glo') as { '@graph': Record<string, unknown>[] })['@graph'];
+    const set = grafo.find((g) => g['@type'] === 'CollectionPage') as { mainEntity: { hasDefinedTerm: { '@id': string }[] } };
+    expect(set.mainEntity.hasDefinedTerm).toHaveLength(TERMINOS.length);
+    for (const t of TERMINOS.filter((x) => !x.pagina)) {
+      const nodo = grafo.find((g) => g['@type'] === 'DefinedTerm' && g.name === t.sigla) as { description: string };
+      expect(nodo.description).toBe(t.definicion);
+    }
+  });
+  it('las cifras del glosario salen de los parámetros del año', () => {
+    const ibc = TERMINOS.find((t) => t.id === 'ibc')!.definicion;
+    expect(ibc).toContain('$1.750.905');
+    expect(ibc).toContain('$43.772.625');
   });
 });

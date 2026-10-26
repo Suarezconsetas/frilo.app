@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { CUENTAS_MVP } from '@/lib/calculos';
 import datos from '../../content/seo.json';
 import { URL_SITIO } from './config';
+import { NOMBRE_GLOSARIO, TERMINOS } from './glosario';
 import { estadoDe, fechaDe } from './paginas';
 
 export interface PaginaSeo {
@@ -82,7 +83,7 @@ export function jsonLdDe(id: string, dinamicos: DinamicosJsonLd = {}): unknown {
   if (!p.jsonld) return null;
   const fecha = fechaDe(id);
   // La lista de cuentas de P11 sale de cuentas.ts (una sola fuente de tasas), no del Excel.
-  const base = id === 'P11' ? conCuentasActuales(p.jsonld) : p.jsonld;
+  const base = id === 'P11' ? conCuentasActuales(p.jsonld) : id === 'Hub-Glo' ? conTerminosActuales(p.jsonld) : p.jsonld;
   const t = dinamicos.trm;
   const texto = (s: string, clave: string): string => {
     if (!MARCADOR.test(s)) return s;
@@ -115,6 +116,32 @@ export function marcadoresPendientes(id: string, dinamicos: DinamicosJsonLd = {}
   };
   recorrer(jsonLdDe(id, dinamicos));
   return [...encontrados];
+}
+
+/** El DefinedTermSet del glosario sale de `glosario.ts`: los mismos términos y definiciones que muestra la página. */
+function conTerminosActuales(jsonld: unknown): unknown {
+  const grafo = (jsonld as { '@graph'?: Record<string, unknown>[] })['@graph'];
+  if (!grafo) return jsonld;
+  const idDe = (t: (typeof TERMINOS)[number]) => (t.pagina ? `${URL_SITIO}${t.pagina}#term` : `${URL_SITIO}/glosario#${t.id}`);
+  const nodos = TERMINOS.filter((t) => !t.pagina).map((t) => ({
+    '@type': 'DefinedTerm',
+    '@id': idDe(t),
+    name: t.sigla,
+    alternateName: t.nombre,
+    description: t.definicion,
+    inDefinedTermSet: { '@type': 'DefinedTermSet', '@id': `${URL_SITIO}/glosario`, name: NOMBRE_GLOSARIO },
+  }));
+  return {
+    ...(jsonld as object),
+    '@graph': [
+      ...grafo.map((g) =>
+        g['@type'] === 'CollectionPage'
+          ? { ...g, mainEntity: { '@type': 'DefinedTermSet', '@id': `${URL_SITIO}/glosario`, name: NOMBRE_GLOSARIO, hasDefinedTerm: TERMINOS.map((t) => ({ '@id': idDe(t) })) } }
+          : g,
+      ),
+      ...nodos,
+    ],
+  };
 }
 
 function conCuentasActuales(jsonld: unknown): unknown {

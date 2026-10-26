@@ -553,6 +553,8 @@ def convertir(archivo):
         + '\n'.join(imports)
         + f"\n\nexport function {comp}({{ dinamicos = {{}}{', d' if c.usa_datos else ''} }}: {{ dinamicos?: {{ {claves} }}{'; d: DatosTrm' if c.usa_datos else ''} }}) {{\n  return (\n    <div className=\"wf wf-{ident}\">\n{cuerpo}\n    </div>\n  );\n}}\n"
     )
+    if ident == 'P06':  # la miga «Glosario» del wireframe apunta a «#»: ahora existe el hub
+        tsx = re.sub(r'<a href="#" (style=\{\{[^}]*\}\}>\s*Glosario\s*)</a>', r'<Link href="/glosario" \1</Link>', tsx)
     (SALIDA / f'{ident}.tsx').write_text(tsx, encoding='utf-8')
     CSS_ACUMULADO.append(f'/* {archivo} */\n' + css_de(archivo, ident))
     print(f'{archivo:34} → paginas/{ident}.tsx   dinámicos: {len(c.dinamicos)}')
