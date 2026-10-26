@@ -37,8 +37,8 @@ export function paginaPorId(id: string): PaginaSeo {
 }
 export const paginaPorRuta = (ruta: string): PaginaSeo | undefined => PAGINAS.find((p) => p.ruta === ruta);
 
-/** Imagen para compartir (1200×630) de cada página: `/og/<ruta>.png` (`/og/home.png` para la raíz). */
-export const rutaOg = (ruta: string): string => `/og/${ruta === '/' ? 'home' : ruta.replace(/^\//, '')}.png`;
+/** Imagen para compartir (1200×630): la misma para todas las páginas, `public/og/frilo.jpg`. */
+export const rutaOg = (_ruta: string): string => '/og/frilo.jpg';
 
 /** Metadatos de una página tomados del Excel: title, description, canonical, robots, Open Graph y Twitter. */
 export function metadataDe(id: string): Metadata {
