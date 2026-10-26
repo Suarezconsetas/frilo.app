@@ -137,3 +137,44 @@ describe('sitemap', () => {
     expect(urls).toHaveLength(PAGINAS.filter((p) => p.enSitemap && estadoDe(p.id) === 'construida').length);
   });
 });
+
+import { existsSync } from 'node:fs';
+
+describe('datos estructurados enriquecidos', () => {
+  const grafoDe = (id: string) => ((jsonLdDe(id) as { '@graph': Record<string, unknown>[] } | null)?.['@graph'] ?? []) as Record<string, any>[];
+  const conJsonLd = PAGINAS.filter((p) => jsonLdDe(p.id));
+
+  it('el logo de Organization existe como archivo PNG cuadrado', () => {
+    for (const p of conJsonLd) {
+      const org = grafoDe(p.id).find((g) => g['@type'] === 'Organization')!;
+      expect(org.logo.url).toMatch(/\.png$/);
+      expect(existsSync(`apps/web/public${new URL(org.logo.url).pathname}`)).toBe(true);
+      expect(org.founder['@id']).toContain('#nicolas');
+    }
+  });
+  it('cada página enlaza su ruta de navegación por @id', () => {
+    for (const p of conJsonLd) {
+      const g = grafoDe(p.id);
+      const ruta = g.find((x) => x['@type'] === 'BreadcrumbList');
+      if (!ruta) continue;
+      expect(ruta['@id']).toMatch(/#breadcrumb$/);
+      const pagina = g.find((x) => ['WebPage', 'CollectionPage'].includes(x['@type']) || (Array.isArray(x['@type']) && x['@type'].includes('AboutPage')));
+      expect(pagina?.breadcrumb?.['@id']).toBe(ruta['@id']);
+    }
+  });
+  it('Nicolás tiene descripción y rol, y /quienes-somos es página de perfil', () => {
+    const nicolas = grafoDe('Inst-1').find((g) => g['@type'] === 'Person')!;
+    expect(nicolas.description).toContain('SEO');
+    expect(nicolas.worksFor['@id']).toContain('#organization');
+    const pagina = grafoDe('Inst-1').find((g) => Array.isArray(g['@type']) && g['@type'].includes('ProfilePage'))!;
+    expect(pagina.mainEntity['@id']).toContain('#nicolas');
+  });
+  it('las guías enlazan los términos del glosario que tratan', () => {
+    const pagina = grafoDe('P02').find((g) => g['@type'] === 'WebPage')!;
+    expect(pagina.about[0].name).toBe('IBC');
+    expect(pagina.about[0].url).toBe('https://frilo.dev/glosario#ibc');
+  });
+  it('no se publican calificaciones ni reseñas inventadas', () => {
+    for (const p of conJsonLd) expect(JSON.stringify(jsonLdDe(p.id))).not.toMatch(/AggregateRating|"Review"|ratingValue/);
+  });
+});

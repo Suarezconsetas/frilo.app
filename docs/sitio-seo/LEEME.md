@@ -22,3 +22,5 @@ Los wireframes de `Wireframes_sitio_Frilo/` se editaron para resolver pendientes
 - **CuentasRentables.dc.html (P11):** el rango de tasas sin condiciones ahora es 5% a 11% (Ualá paga 5% sin condiciones).
 
 Otras correcciones de copy (16,67%, ejemplos de P10, "Decretos 1469 de 2025 y 0159 de 2026") viven en `apps/web/content/reemplazos.json`.
+
+- **Datos estructurados (26-oct-2026):** además del JSON-LD del Excel, `seo.ts` (`enriquecerGrafo`) agrega a todas las páginas logo PNG válido, `founder`/`contactPoint` en Organization, descripción y `worksFor` en Person, `breadcrumb` enlazado a su BreadcrumbList (con `@id`), `about`/`mentions` con términos del glosario en P01, P02, P04 y P06, `ProfilePage` en /quienes-somos, y datos extra de WebApplication y Dataset. Si cambia el Excel, estas mejoras se mantienen porque se aplican al leerlo.

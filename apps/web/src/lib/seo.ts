@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { CUENTAS_MVP } from '@/lib/calculos';
 import datos from '../../content/seo.json';
 import { URL_SITIO } from './config';
+import { LEGAL } from '@/lib/legal';
 import { NOMBRE_GLOSARIO, TERMINOS } from './glosario';
 import { estadoDe, fechaDe } from './paginas';
 
@@ -103,7 +104,98 @@ export function jsonLdDe(id: string, dinamicos: DinamicosJsonLd = {}): unknown {
     if (o && typeof o === 'object') return Object.fromEntries(Object.entries(o).map(([k, v]) => [k, recorrer(v, k)]));
     return typeof o === 'string' ? texto(o, clave) : o;
   };
-  return arreglarDatasets(recorrer(base));
+  return enriquecerGrafo(id, arreglarDatasets(recorrer(base)));
+}
+
+type Nodo = Record<string, unknown>;
+
+/** Términos del glosario que cada página trata de verdad (se verificó en el texto visible): `about` = tema principal, `mentions` = los demás. */
+const TERMINOS_POR_PAGINA: Record<string, { about?: string[]; mentions?: string[] }> = {
+  P01: { about: ['ibc'], mentions: ['pila', 'arl', 'fsp'] },
+  P02: { about: ['ibc'], mentions: ['arl'] },
+  P04: { about: ['pila'], mentions: ['sln'] },
+  P06: { mentions: ['pila'] },
+};
+
+/** Descripción corta de lo que hace cada calculadora (WebApplication), solo con lo que la página realmente ofrece. */
+const FUNCIONES: Record<string, string[]> = {
+  '/calculadoras/aportes-independientes': ['Aportes a salud, pensión, ARL y Fondo de Solidaridad', 'Modo para contratistas por prestación de servicios y para independientes por cuenta propia'],
+  '/calculadoras/cesantias': ['Cesantías e intereses de un contrato laboral', 'Ahorro mensual de cesantías para quien trabaja por cuenta propia'],
+  '/calculadoras/fecha-pago-planilla': ['Fecha límite de pago según los dos últimos dígitos del documento', 'Tiene en cuenta los días hábiles y los festivos de Colombia'],
+  '/calculadoras/interes-compuesto': ['Simula cuánto rinde un ahorro con aporte mensual, saldo inicial, tasa y plazo', 'Calcula cuánto ahorrar para llegar a una meta'],
+};
+
+const enlaceTermino = (t: (typeof TERMINOS)[number]) => ({
+  '@type': 'DefinedTerm',
+  '@id': t.pagina ? `${URL_SITIO}${t.pagina}#term` : `${URL_SITIO}/glosario#${t.id}`,
+  name: t.sigla,
+  url: t.pagina ? `${URL_SITIO}${t.pagina}` : `${URL_SITIO}/glosario#${t.id}`,
+});
+
+/**
+ * Mejoras comunes a todos los JSON-LD: logo válido, autor/fundador conectados, ruta de navegación enlazada a su página,
+ * términos del glosario que cada página trata, página de perfil del fundador y datos extra de Dataset/WebApplication.
+ * Todo con datos reales de la página o de /quienes-somos: nada de calificaciones ni reseñas.
+ */
+function enriquecerGrafo(id: string, jsonld: unknown): unknown {
+  const raiz = jsonld as { '@graph'?: Nodo[] } | null;
+  if (!raiz?.['@graph']) return jsonld;
+  const p = paginaPorId(id);
+  const grafo = raiz['@graph'].map((g): Nodo => {
+    switch (g['@type']) {
+      case 'Organization':
+        return {
+          ...g,
+          logo: { '@type': 'ImageObject', url: g.logo as string, width: 512, height: 512 },
+          founder: { '@id': `${URL_SITIO}/#nicolas` },
+          contactPoint: { '@type': 'ContactPoint', contactType: 'privacy', email: LEGAL.correoPrivacidad, availableLanguage: 'es' },
+        };
+      case 'Person':
+        return {
+          ...g,
+          description: 'Fundador de Frilo. Experto en SEO y marketing de contenidos, con más de 7 años de experiencia con marcas de consumo masivo, medios de comunicación y agencias de publicidad.',
+          knowsAbout: ['SEO', 'Marketing de contenidos', 'Finanzas personales de freelancers e independientes en Colombia'],
+          worksFor: { '@id': `${URL_SITIO}/#organization` },
+        };
+      case 'WebApplication':
+        return {
+          ...g,
+          description: g.description ?? p.description,
+          browserRequirements: 'Requiere JavaScript',
+          ...(FUNCIONES[p.ruta] ? { featureList: FUNCIONES[p.ruta] } : {}),
+        };
+      case 'Dataset':
+        return { ...g, keywords: ['TRM', 'dólar', 'tasa de cambio', 'Colombia'], spatialCoverage: 'Colombia', inLanguage: 'es-CO' };
+      default:
+        return g;
+    }
+  });
+  // Ruta de navegación: la página apunta a su BreadcrumbList (que ahora tiene @id).
+  const urlPagina = `${URL_SITIO}${p.ruta === '/' ? '' : p.ruta}`;
+  const hayRuta = grafo.some((g) => g['@type'] === 'BreadcrumbList');
+  const idRuta = `${urlPagina}#breadcrumb`;
+  const tipoPagina = (g: Nodo) => ['WebPage', 'CollectionPage', 'AboutPage'].includes(String(Array.isArray(g['@type']) ? g['@type'][0] : g['@type']));
+  const t = TERMINOS_POR_PAGINA[id];
+  const conTerminos = (ids: string[] | undefined) => ids?.map((x) => enlaceTermino(TERMINOS.find((y) => y.id === x)!));
+  const final = grafo.map((g): Nodo => {
+    if (g['@type'] === 'BreadcrumbList') return { '@id': idRuta, ...g };
+    if (!tipoPagina(g)) return g;
+    let r: Nodo = hayRuta ? { ...g, breadcrumb: { '@id': idRuta } } : g;
+    if (t?.about) r = { ...r, about: conTerminos(t.about) };
+    if (t?.mentions) r = { ...r, mentions: conTerminos(t.mentions) };
+    // Página de perfil del fundador: Google la entiende como la página del autor.
+    if (id === 'Inst-1') {
+      r = {
+        ...r,
+        '@type': ['ProfilePage', 'AboutPage'],
+        mainEntity: { '@id': `${URL_SITIO}/#nicolas` },
+        about: { '@id': `${URL_SITIO}/#organization` },
+        dateCreated: '2026-10-22',
+      };
+    }
+    return r;
+  });
+  return { ...raiz, '@graph': final };
 }
 
 /**
