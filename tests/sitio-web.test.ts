@@ -178,3 +178,37 @@ describe('datos estructurados enriquecidos', () => {
     for (const p of conJsonLd) expect(JSON.stringify(jsonLdDe(p.id))).not.toMatch(/AggregateRating|"Review"|ratingValue/);
   });
 });
+
+import { MENU_CALCULADORAS, MENU_GUIAS, SIGUE_CON } from '../apps/web/src/lib/enlaces';
+
+describe('enlazado interno', () => {
+  const rutas = new Set(PAGINAS.map((p) => p.ruta));
+  const destinos = [...MENU_CALCULADORAS.enlaces, ...MENU_GUIAS.enlaces, ...Object.values(SIGUE_CON).flat()].map((e) => e.href);
+
+  it('el menú y los bloques «Sigue con» solo apuntan a páginas que existen', () => {
+    for (const href of destinos) expect(rutas.has(href), href).toBe(true);
+  });
+
+  it('cada página de contenido tiene entre 2 y 5 enlaces «Sigue con» y ninguno a sí misma', () => {
+    for (const [id, enlaces] of Object.entries(SIGUE_CON)) {
+      expect(enlaces.length, id).toBeGreaterThanOrEqual(2);
+      expect(enlaces.length, id).toBeLessThanOrEqual(5);
+      const propia = PAGINAS.find((p) => p.id === id)?.ruta;
+      expect(enlaces.map((e) => e.href), id).not.toContain(propia);
+    }
+  });
+
+  it('la calculadora de cesantías y la cuenta en dólares tienen entradas desde varias páginas (E5)', () => {
+    const entrantes = (href: string) => Object.entries(SIGUE_CON).filter(([, l]) => l.some((e) => e.href === href)).length;
+    expect(entrantes('/calculadoras/cesantias')).toBeGreaterThanOrEqual(5);
+    expect(entrantes('/guias/cuenta-en-dolares-colombia')).toBeGreaterThanOrEqual(5);
+  });
+
+  it('las páginas generadas enlazan siglas al glosario y la línea de confianza a quiénes somos', () => {
+    const p01 = readFileSync('apps/web/src/paginas/P01.tsx', 'utf8');
+    expect(p01).toContain('href="/glosario#');
+    expect(p01).toContain('href="/quienes-somos"');
+    expect(p01).toContain('href="/metodologia"');
+    expect(readFileSync('apps/web/src/paginas/P02.tsx', 'utf8')).not.toContain('href="/glosario#ibc"');
+  });
+});

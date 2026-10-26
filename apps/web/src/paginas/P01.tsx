@@ -36,10 +36,10 @@ export function ContenidoP01({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
           Un independiente cotiza sobre el 40% de lo que factura (IBC). Sobre esa base paga 12,5% de salud, 16% de pensión, ARL según su riesgo y, desde 4 salarios mínimos, Fondo de Solidaridad. Escribe tu ingreso y la calculadora hace la liquidación de aportes en línea.
         </p>
         <p style={{ margin: "0", fontSize: "14px", color: "#4A6158" }}>
-          {"Actualizada el 20 de octubre de 2026 · Escrito y revisado por Nicolás Suárez con fuentes oficiales · "}
-          <a href="#metodo" style={{ color: "#4A6158" }}>
+          {"Actualizada el 20 de octubre de 2026 · Escrito y revisado por "}<Link href="/quienes-somos" style={{ color: "inherit", textDecoration: "underline" }}>Nicolás Suárez</Link>{" con fuentes oficiales · "}
+          <Link href="/metodologia" style={{ color: "#4A6158" }}>
             Cómo calculamos
-          </a>
+          </Link>
         </p>
       </header>
       {dinamicos.b1}
@@ -160,13 +160,13 @@ export function ContenidoP01({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
             </table>
           </div>
           <p>
-            La PILA redondea cada aporte al múltiplo de 100 más cercano.
+            {"La "}<Link href="/glosario#pila" style={{ color: "inherit", textDecoration: "underline" }}>PILA</Link>{" redondea cada aporte al múltiplo de 100 más cercano."}
           </p>
           <h2 id="arl">
             Tarifas de ARL por clase de riesgo
           </h2>
           <p>
-            La tarifa de ARL depende del riesgo de tu actividad. Si eres contratista en riesgo I, II o III pagas tú la ARL; en riesgo IV y V la paga el contratante.
+            {"La tarifa de "}<Link href="/glosario#arl" style={{ color: "inherit", textDecoration: "underline" }}>ARL</Link>{" depende del riesgo de tu actividad. Si eres contratista en riesgo I, II o III pagas tú la ARL; en riesgo IV y V la paga el contratante."}
           </p>
           <div style={{ overflowX: "auto", border: "1px solid #D6E0DA", borderRadius: "16px", background: "#FFFFFF" }}>
             <table className="t">
@@ -267,7 +267,7 @@ export function ContenidoP01({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
             Fondo de Solidaridad Pensional
           </h2>
           <p>
-            Si tu IBC llega a 4 salarios mínimos ($7.003.620 en 2026) pagas un aporte adicional al Fondo de Solidaridad Pensional. La reforma pensional (Ley 2381 de 2024) entraría en vigencia el 1 de abril de 2027, así que en 2026 sigue esta tabla:
+            {"Si tu "}<Link href="/glosario#ibc" style={{ color: "inherit", textDecoration: "underline" }}>IBC</Link>{" llega a 4 salarios mínimos ($7.003.620 en 2026) pagas un aporte adicional al Fondo de Solidaridad Pensional. La reforma pensional (Ley 2381 de 2024) entraría en vigencia el 1 de abril de 2027, así que en 2026 sigue esta tabla:"}
           </p>
           <div style={{ overflowX: "auto", border: "1px solid #D6E0DA", borderRadius: "16px", background: "#FFFFFF" }}>
             <table className="t">

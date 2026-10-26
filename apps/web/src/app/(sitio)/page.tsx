@@ -3,6 +3,8 @@ import { JsonLd } from '../../components/JsonLd';
 import { ContenidoHome } from '../../paginas/Home';
 import { metadataDe } from '../../lib/seo';
 import { cargarSerieTrm, datosDePagina } from '../../lib/trm';
+import { TerminosClave } from '../../components/TerminosClave';
+import { SigueCon } from '../../components/SigueCon';
 
 export const metadata = metadataDe('Home');
 // La tarjeta de ejemplo muestra la TRM del día: la página se regenera cada 24 horas.
@@ -13,6 +15,8 @@ export default async function Pagina() {
   return (
     <>
       <ContenidoHome d={d} dinamicos={{ hero: <HeroCalculo trm={d.hoy} /> }} />
+      <TerminosClave />
+      <SigueCon id="Home" />
       <JsonLd id="Home" />
     </>
   );

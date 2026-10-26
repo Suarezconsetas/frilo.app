@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { RUTA_CUENTAS, URL_APP } from '../lib/config';
+import { MENU_CALCULADORAS, MENU_GUIAS } from '../lib/enlaces';
 import { LogoFrilo } from './Logo';
+import { MenuDesplegable } from './MenuDesplegable';
 import { NavLink } from './NavLink';
 
 /** Header de todas las páginas (sobre oliva). El CTA lleva a la app. */
@@ -12,11 +14,9 @@ export function Header() {
           <LogoFrilo tono="manzana" alto={34} />
         </Link>
         <nav aria-label="Principal" className="header-nav">
-          <NavLink href="/calculadoras">Calculadoras</NavLink>
+          <MenuDesplegable {...MENU_CALCULADORAS} />
           <NavLink href="/dolar-hoy">Dólar hoy</NavLink>
-          <NavLink href="/guias" coincide="exacta">
-            Guías
-          </NavLink>
+          <MenuDesplegable {...MENU_GUIAS} />
           <NavLink href={RUTA_CUENTAS}>Cuentas que rinden</NavLink>
         </nav>
         <div className="header-acciones">

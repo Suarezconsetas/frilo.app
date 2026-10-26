@@ -39,7 +39,7 @@ export function ContenidoP04({ dinamicos = {} }: { dinamicos?: {  } }) {
           <div aria-hidden="true" style={{ width: "48px", height: "48px", borderRadius: "999px", background: "#E6EEE9" }} />
           <div style={{ display: "flex", flexDirection: "column", gap: "2px", fontSize: "14px" }}>
             <span style={{ fontWeight: "600" }}>
-              Escrito y revisado por Nicolás Suárez con fuentes oficiales
+              Escrito y revisado por <Link href="/quienes-somos" style={{ color: "inherit", textDecoration: "underline" }}>Nicolás Suárez</Link> con fuentes oficiales
             </span>
             <span style={{ color: "#4A6158" }}>
               Actualizado el 20 de octubre de 2026
@@ -61,7 +61,7 @@ export function ContenidoP04({ dinamicos = {} }: { dinamicos?: {  } }) {
             Cómo descargar la planilla de seguridad social
           </h2>
           <p>
-            Puedes descargar tu planilla o certificado de seguridad social (PILA) directamente en el portal del operador de información autorizado donde pagaste:
+            {"Puedes descargar tu planilla o certificado de seguridad social ("}<Link href="/glosario#pila" style={{ color: "inherit", textDecoration: "underline" }}>PILA</Link>{") directamente en el portal del operador de información autorizado donde pagaste:"}
           </p>
           <ul>
             <li>
@@ -130,7 +130,7 @@ export function ContenidoP04({ dinamicos = {} }: { dinamicos?: {  } }) {
             Cómo verificar una planilla de seguridad social
           </h2>
           <p>
-            Busca la planilla por su número en el portal del operador donde pagaste: debe aparecer como pagada. Si quieres confirmar que el pago llegó a cada entidad, revisa tu historial en la EPS, el fondo de pensiones y la ARL.
+            {"Busca la planilla por su número en el portal del operador donde pagaste: debe aparecer como pagada. Si quieres confirmar que el pago llegó a cada entidad, revisa tu historial en la EPS, el fondo de pensiones y la "}<Link href="/glosario#arl" style={{ color: "inherit", textDecoration: "underline" }}>ARL</Link>{"."}
           </p>
           <div style={{ overflowX: "auto", border: "1px solid #D6E0DA", borderRadius: "16px", background: "#FFFFFF" }}>
             <table className="t">

@@ -39,7 +39,7 @@ export function ContenidoP02({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
           <div aria-hidden="true" style={{ width: "48px", height: "48px", borderRadius: "999px", background: "#E6EEE9" }} />
           <div style={{ display: "flex", flexDirection: "column", gap: "2px", fontSize: "14px" }}>
             <span style={{ fontWeight: "600" }}>
-              Escrito y revisado por Nicolás Suárez con fuentes oficiales
+              Escrito y revisado por <Link href="/quienes-somos" style={{ color: "inherit", textDecoration: "underline" }}>Nicolás Suárez</Link> con fuentes oficiales
             </span>
             <span style={{ color: "#4A6158" }}>
               Actualizado el 20 de octubre de 2026
@@ -61,7 +61,7 @@ export function ContenidoP02({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
             Qué es el IBC para independientes
           </h2>
           <p>
-            El IBC (ingreso base de cotización) es el valor sobre el que se calculan tus aportes a salud, pensión y ARL. Para el IBC de seguridad social de los independientes, la ley fija el 40% del valor mensualizado de tus contratos o de tus ingresos (
+            {"El IBC (ingreso base de cotización) es el valor sobre el que se calculan tus aportes a salud, pensión y "}<Link href="/glosario#arl" style={{ color: "inherit", textDecoration: "underline" }}>ARL</Link>{". Para el IBC de seguridad social de los independientes, la ley fija el 40% del valor mensualizado de tus contratos o de tus ingresos ("}
             <a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_2277_2022.html" target="_blank" rel="noopener">
               artículo 89 de la Ley 2277 de 2022
             </a>

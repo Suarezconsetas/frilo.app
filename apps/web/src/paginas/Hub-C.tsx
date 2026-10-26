@@ -34,22 +34,22 @@ export function ContenidoHubCalculadoras({ dinamicos = {} }: { dinamicos?: {  } 
           Aportes a seguridad social
         </h2>
         <div className="grid">
-          <Link href="/calculadoras/aportes-independientes" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              Calculadora de aportes para independientes 2026
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/calculadoras/aportes-independientes" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+Calculadora de aportes para independientes 2026
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               Salud, pensión, ARL y Fondo de Solidaridad sobre el 40% de lo que facturas.
             </span>
-          </Link>
-          <Link href="/calculadoras/fecha-pago-planilla" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              Fechas de pago de la planilla de seguridad social 2026
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+</div>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/calculadoras/fecha-pago-planilla" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+Fechas de pago de la planilla de seguridad social 2026
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               Tu día límite según los dos últimos dígitos de tu documento.
             </span>
-          </Link>
+</div>
         </div>
       </section>
       <section aria-labelledby="g-prima" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -57,14 +57,14 @@ export function ContenidoHubCalculadoras({ dinamicos = {} }: { dinamicos?: {  } 
           Prima y cesantías
         </h2>
         <div className="grid">
-          <Link href="/calculadoras/cesantias" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              Calculadora de cesantías e intereses de cesantías 2026
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/calculadoras/cesantias" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+Calculadora de cesantías e intereses de cesantías 2026
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               Con contrato laboral o como independiente, para este año o años anteriores.
             </span>
-          </Link>
+</div>
           <div className="card" style={{ display: "flex", flexDirection: "column", gap: "8px", background: "#E6EEE9", borderStyle: "dashed" }}>
             <span style={{ fontWeight: "700", fontSize: "19px" }}>
               Calculadora de prima para independientes
@@ -80,14 +80,14 @@ export function ContenidoHubCalculadoras({ dinamicos = {} }: { dinamicos?: {  } 
           Dólar
         </h2>
         <div className="grid">
-          <Link href="/dolar-hoy" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              Dólar hoy en Colombia (TRM)
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/dolar-hoy" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+Dólar hoy en Colombia (TRM)
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               La TRM oficial, el conversor y alertas por correo.
             </span>
-          </Link>
+</div>
           <div className="card" style={{ display: "flex", flexDirection: "column", gap: "8px", background: "#E6EEE9", borderStyle: "dashed" }}>
             <span style={{ fontWeight: "700", fontSize: "19px" }}>
               De dólares a pesos, con planilla
@@ -103,22 +103,22 @@ export function ContenidoHubCalculadoras({ dinamicos = {} }: { dinamicos?: {  } 
           Ahorro
         </h2>
         <div className="grid">
-          <Link href="/calculadoras/interes-compuesto" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              Calculadora de interés compuesto y simulador de ahorro
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/calculadoras/interes-compuesto" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+Calculadora de interés compuesto y simulador de ahorro
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               Cuánto crece lo que apartas cada mes, con tu tasa y tu plazo.
             </span>
-          </Link>
-          <Link href="/guias/cuentas-de-ahorro-alto-rendimiento" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              Cuentas de ahorro de alto rendimiento en Colombia
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+</div>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/guias/cuentas-de-ahorro-alto-rendimiento" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+Cuentas de ahorro de alto rendimiento en Colombia
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               Guía comparativa por tasa, costos y respaldo de Fogafín.
             </span>
-          </Link>
+</div>
         </div>
       </section>
       <BannerRegistro variante="general" pagina="Hub-C" />

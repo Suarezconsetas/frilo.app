@@ -42,10 +42,10 @@ export function ContenidoP10({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode,
           , más lo que aportes cada mes. Usa esta calculadora de interés compuesto para saber cuánto tendrás, cuánto ahorrar al mes para llegar a una meta o cuánto tiempo te tomará.
         </p>
         <p style={{ margin: "0", fontSize: "14px", color: "#4A6158" }}>
-          {"Actualizada el 20 de octubre de 2026 · Escrito y revisado por Nicolás Suárez con fuentes oficiales · "}
-          <a href="#como" style={{ color: "#4A6158" }}>
+          {"Actualizada el 20 de octubre de 2026 · Escrito y revisado por "}<Link href="/quienes-somos" style={{ color: "inherit", textDecoration: "underline" }}>Nicolás Suárez</Link>{" con fuentes oficiales · "}
+          <Link href="/metodologia" style={{ color: "#4A6158" }}>
             Cómo calculamos
-          </a>
+          </Link>
         </p>
       </header>
       {dinamicos.b1}

@@ -36,10 +36,10 @@ export function ContenidoP03({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
           Las cesantías equivalen a un mes de salario por año trabajado: salario × días trabajados ÷ 360. Los intereses de cesantías son el 12% anual sobre ese valor y los paga el empleador. Esta calculadora de intereses de cesantías en Colombia sirve con contrato laboral o como independiente.
         </p>
         <p style={{ margin: "0", fontSize: "14px", color: "#4A6158" }}>
-          {"Actualizada el 20 de octubre de 2026 · Escrito y revisado por Nicolás Suárez con fuentes oficiales · "}
-          <a href="#como" style={{ color: "#4A6158" }}>
+          {"Actualizada el 20 de octubre de 2026 · Escrito y revisado por "}<Link href="/quienes-somos" style={{ color: "inherit", textDecoration: "underline" }}>Nicolás Suárez</Link>{" con fuentes oficiales · "}
+          <Link href="/metodologia" style={{ color: "#4A6158" }}>
             Cómo calculamos
-          </a>
+          </Link>
         </p>
       </header>
       {dinamicos.b1}

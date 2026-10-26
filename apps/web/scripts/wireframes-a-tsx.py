@@ -511,6 +511,115 @@ DIN = RAIZ / 'apps/web/src/dinamicos'
 CSS_ACUMULADO = []
 
 
+# ---------------------------------------------------------------------------------------------------------------------
+# Enlazado interno (diagnóstico SEO E3, E4 y E6). Se aplica al TSX ya generado para que regenerar no lo pierda.
+# ---------------------------------------------------------------------------------------------------------------------
+SIGLAS = {'ARL': '/glosario#arl', 'FSP': '/glosario#fsp', 'IBC': '/glosario#ibc', 'PILA': '/glosario#pila', 'SLN': '/glosario/sln'}
+SIN_SIGLA = {'P02': {'IBC'}, 'P06': {'SLN'}}  # la página que explica el término no se enlaza a sí misma
+ESTILO_ENLACE_TEXTO = '{{ color: "inherit", textDecoration: "underline" }}'
+
+
+def _enlazar_siglas(tsx, ident):
+    """Primera mención de cada sigla del glosario, dentro del cuerpo (`<article className="prose">`), enlaza al glosario."""
+    lineas = tsx.split('\n')
+    dentro, profundidad_articulo, saltar, hechas = False, 0, 0, set(SIN_SIGLA.get(ident, set()))
+    for i, linea in enumerate(lineas):
+        t = linea.strip()
+        if not dentro:
+            if t.startswith('<article') and 'className="prose"' in t:
+                dentro, profundidad_articulo = True, 1
+            continue
+        if t.startswith('<article'):
+            profundidad_articulo += 1
+        if t.startswith('</article'):
+            profundidad_articulo -= 1
+            if profundidad_articulo == 0:
+                break
+        abre = re.match(r'<(a|Link|h[1-6]|table|th|strong)\b', t) and '</' not in t and not t.endswith('/>')
+        cierra = re.match(r'</(a|Link|h[1-6]|table|th|strong)>', t)
+        if abre:
+            saltar += 1
+            continue
+        if cierra:
+            saltar = max(0, saltar - 1)
+            continue
+        if saltar or t.startswith('<') or not t:
+            continue
+        cadena = t.startswith('{"') and t.endswith('"}')
+        texto_linea = json.loads(t[1:-1]) if cadena else t
+        if cadena is False and ('{' in t or '}' in t):
+            continue
+        pendientes = [(m.start(), m.group(1)) for m in re.finditer(r'(?<![\w/#-])(' + '|'.join(SIGLAS) + r')(?![\w-])', texto_linea) if m.group(1) not in hechas]
+        if not pendientes:
+            continue
+        sangria = linea[: len(linea) - len(linea.lstrip())]
+        piezas, cursor = [], 0
+        for inicio, sigla in pendientes:
+            if sigla in hechas:
+                continue
+            hechas.add(sigla)
+            piezas.append(('t', texto_linea[cursor:inicio]))
+            piezas.append(('l', sigla))
+            cursor = inicio + len(sigla)
+        piezas.append(('t', texto_linea[cursor:]))
+        salida = ''
+        for tipo, valor in piezas:
+            if tipo == 'l':
+                salida += f'<Link href="{SIGLAS[valor]}" style={ESTILO_ENLACE_TEXTO}>{valor}</Link>'
+            elif valor:
+                salida += '{' + json.dumps(valor, ensure_ascii=False) + '}'
+        lineas[i] = sangria + salida
+    return '\n'.join(lineas)
+
+
+def _enlazar_confianza(tsx):
+    """E4: «Nicolás Suárez» → /quienes-somos y «Cómo calculamos / Cómo hacemos nuestras guías» → /metodologia."""
+    autor = 'Escrito y revisado por Nicolás Suárez con fuentes oficiales'
+    est = '{{ color: "inherit", textDecoration: "underline" }}'
+    # texto dentro de una cadena JSX: {"… Escrito y revisado por Nicolás Suárez con fuentes oficiales · "}
+    tsx = re.sub(
+        r'\{"([^"{}]*?)' + re.escape(autor) + r'([^"{}]*)"\}',
+        lambda m: '{"' + m.group(1) + 'Escrito y revisado por "}<Link href="/quienes-somos" style=' + est + '>Nicolás Suárez</Link>{" con fuentes oficiales' + m.group(2) + '"}',
+        tsx,
+    )
+    # texto suelto dentro de un <span>
+    tsx = re.sub(
+        r'(>\s*\n\s*)' + re.escape(autor) + r'(\s*\n\s*</span>)',
+        lambda m: m.group(1) + 'Escrito y revisado por <Link href="/quienes-somos" style=' + est + '>Nicolás Suárez</Link> con fuentes oficiales' + m.group(2),
+        tsx,
+    )
+    tsx = re.sub(r'<a href="(?:#metodo|#como|#)" (style=\{\{[^}]*\}\}>\s*(?:Cómo calculamos|Cómo hacemos nuestras guías)\s*)</a>', r'<Link href="/metodologia" \1</Link>', tsx)
+    return tsx
+
+
+_TARJETA = re.compile(
+    r'<Link href="([^"]+)" className="card" style=\{\{([^}]*)\}\}>\s*'
+    r'<span style=\{\{([^}]*)\}\}>\s*([^<]*?)\s*</span>\s*'
+    r'(<span style=\{\{[^}]*\}\}>\s*[^<]*?\s*</span>)\s*</Link>'
+)
+
+
+def _limpiar_tarjetas(tsx):
+    """E6: en las tarjetas solo el título es el texto del enlace; la descripción queda fuera del <a> y la tarjeta entera sigue siendo clicable."""
+    def cambia(m):
+        href, estilo_tarjeta, estilo_titulo, titulo, descripcion = m.groups()
+        estilo_tarjeta += ', position: "relative"'
+        color = '' if 'color:' in estilo_titulo else ', color: "inherit"'
+        return (
+            f'<div className="card" style={{{{{estilo_tarjeta}}}}}>\n'
+            f'<Link href="{href}" className="card-enlace" style={{{{{estilo_titulo}{color}, textDecoration: "none"}}}}>\n{titulo}\n</Link>\n'
+            f'{descripcion}\n</div>'
+        )
+    return _TARJETA.sub(cambia, tsx)
+
+
+def enlazar(tsx, ident):
+    tsx = _limpiar_tarjetas(_enlazar_confianza(_enlazar_siglas(tsx, ident)))
+    if 'Link' in tsx and "import Link from 'next/link';" not in tsx:
+        tsx = tsx.replace("import type { ReactNode } from 'react';", "import type { ReactNode } from 'react';\nimport Link from 'next/link';", 1)
+    return tsx
+
+
 def convertir(archivo):
     ident, comp = PAGINAS[archivo]
     html = (WF / archivo).read_text(encoding='utf-8')
@@ -555,6 +664,7 @@ def convertir(archivo):
     )
     if ident == 'P06':  # la miga «Glosario» del wireframe apunta a «#»: ahora existe el hub
         tsx = re.sub(r'<a href="#" (style=\{\{[^}]*\}\}>\s*Glosario\s*)</a>', r'<Link href="/glosario" \1</Link>', tsx)
+    tsx = enlazar(tsx, ident)
     (SALIDA / f'{ident}.tsx').write_text(tsx, encoding='utf-8')
     CSS_ACUMULADO.append(f'/* {archivo} */\n' + css_de(archivo, ident))
     print(f'{archivo:34} → paginas/{ident}.tsx   dinámicos: {len(c.dinamicos)}')

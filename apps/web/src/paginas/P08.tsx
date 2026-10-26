@@ -37,7 +37,7 @@ export function ContenidoP08({ dinamicos = {} }: { dinamicos?: {  } }) {
           <div aria-hidden="true" style={{ width: "48px", height: "48px", borderRadius: "999px", background: "#E6EEE9" }} />
           <div style={{ display: "flex", flexDirection: "column", gap: "2px", fontSize: "14px" }}>
             <span style={{ fontWeight: "600" }}>
-              Escrito y revisado por Nicolás Suárez con fuentes oficiales
+              Escrito y revisado por <Link href="/quienes-somos" style={{ color: "inherit", textDecoration: "underline" }}>Nicolás Suárez</Link> con fuentes oficiales
             </span>
             <span style={{ color: "#4A6158" }}>
               Actualizado el 20 de octubre de 2026 · Datos consultados en la web de cada entidad el 20 de octubre de 2026
@@ -229,22 +229,22 @@ export function ContenidoP08({ dinamicos = {} }: { dinamicos?: {  } }) {
           </table>
         </div>
         <div style={{ margin: "40px 0", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px" }}>
-          <Link href="/guias/recibir-pagos-en-dolares-colombia" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" }}>
-            <span style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" }}>
-              Siguiente paso
-            </span>
-            <span style={{ fontWeight: "600", fontSize: "17px" }}>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" , position: "relative"}}>
+<Link href="/guias/recibir-pagos-en-dolares-colombia" className="card-enlace" style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
+Siguiente paso
+</Link>
+<span style={{ fontWeight: "600", fontSize: "17px" }}>
               Cómo recibir pagos del exterior en dólares en Colombia
             </span>
-          </Link>
-          <Link href="/dolar-hoy" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" }}>
-            <span style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" }}>
-              Alerta gratis
-            </span>
-            <span style={{ fontWeight: "600", fontSize: "17px" }}>
+</div>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" , position: "relative"}}>
+<Link href="/dolar-hoy" className="card-enlace" style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
+Alerta gratis
+</Link>
+<span style={{ fontWeight: "600", fontSize: "17px" }}>
               Avísame cuando el dólar llegue a mi precio
             </span>
-          </Link>
+</div>
         </div>
         <p style={{ fontSize: "15px", lineHeight: "1.6", color: "#4A6158" }}>
           <strong style={{ color: "#0F372D" }}>

@@ -1,6 +1,6 @@
 # Diagnóstico SEO: datos estructurados y enlazado interno (26-oct-2026)
 
-**Estado:** S1 a S5 aprobados e implementados el 26-oct-2026 (enriquecimiento en `apps/web/src/lib/seo.ts`, función `enriquecerGrafo`; logo nuevo en `apps/web/public/logos/isotipo-oliva.png`). E1 a E7 siguen pendientes de aprobación.
+**Estado:** S1 a S5 aprobados e implementados el 26-oct-2026 (enriquecimiento en `apps/web/src/lib/seo.ts`, función `enriquecerGrafo`; logo nuevo en `apps/web/public/logos/isotipo-oliva.png`). E1 a E7 aprobados e implementados el 26-oct-2026: menú del header (`MenuDesplegable`, `lib/enlaces.ts`), bloques «Sigue con» (`SigueCon`, por página en `SIGUE_CON`), siglas al glosario, línea de confianza, tarjetas con ancla limpia (estas tres en `post-proceso` de `scripts/wireframes-a-tsx.py`, función `enlazar`, para que regenerar no las pierda) y `TerminosClave` en el Home y los hubs.
 
 Hecho rastreando el HTML de producción (`frilo.dev`, 22 páginas: las 21 del sitemap más la landing de pauta). **No se cambió nada en el sitio.** Pendiente de aprobación de Nicolás, por número.
 

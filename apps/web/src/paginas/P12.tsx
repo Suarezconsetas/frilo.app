@@ -41,13 +41,13 @@ export function ContenidoP12({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode,
           <div aria-hidden="true" style={{ width: "48px", height: "48px", borderRadius: "999px", background: "#E6EEE9" }} />
           <div style={{ display: "flex", flexDirection: "column", gap: "2px", fontSize: "14px" }}>
             <span style={{ fontWeight: "600" }}>
-              Escrito y revisado por Nicolás Suárez con fuentes oficiales
+              Escrito y revisado por <Link href="/quienes-somos" style={{ color: "inherit", textDecoration: "underline" }}>Nicolás Suárez</Link> con fuentes oficiales
             </span>
             <span style={{ color: "#4A6158" }}>
               {"Actualizado el 20 de octubre de 2026 · "}
-              <a href="#" style={{ color: "#4A6158" }}>
+              <Link href="/metodologia" style={{ color: "#4A6158" }}>
                 Cómo hacemos nuestras guías
-              </a>
+              </Link>
             </span>
           </div>
         </div>
@@ -245,30 +245,30 @@ export function ContenidoP12({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode,
           Sigue leyendo
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px" }}>
-          <Link href="/guias/cuentas-de-ahorro-alto-rendimiento" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" }}>
-            <span style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" }}>
-              Ahorro
-            </span>
-            <span style={{ fontWeight: "600", fontSize: "17px" }}>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" , position: "relative"}}>
+<Link href="/guias/cuentas-de-ahorro-alto-rendimiento" className="card-enlace" style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
+Ahorro
+</Link>
+<span style={{ fontWeight: "600", fontSize: "17px" }}>
               Cuentas de ahorro de alto rendimiento en Colombia
             </span>
-          </Link>
-          <Link href="/guias/ibc-independientes" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" }}>
-            <span style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" }}>
-              Aportes
-            </span>
-            <span style={{ fontWeight: "600", fontSize: "17px" }}>
+</div>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" , position: "relative"}}>
+<Link href="/guias/ibc-independientes" className="card-enlace" style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
+Aportes
+</Link>
+<span style={{ fontWeight: "600", fontSize: "17px" }}>
               IBC para independientes: qué es y cómo se calcula
             </span>
-          </Link>
-          <Link href="/calculadoras/aportes-independientes" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" }}>
-            <span style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" }}>
-              Herramienta
-            </span>
-            <span style={{ fontWeight: "600", fontSize: "17px" }}>
+</div>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" , position: "relative"}}>
+<Link href="/calculadoras/aportes-independientes" className="card-enlace" style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
+Herramienta
+</Link>
+<span style={{ fontWeight: "600", fontSize: "17px" }}>
               Calculadora de aportes para independientes 2026
             </span>
-          </Link>
+</div>
         </div>
       </section>
     </div>

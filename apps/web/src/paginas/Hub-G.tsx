@@ -34,30 +34,30 @@ export function ContenidoHubGuias({ dinamicos = {} }: { dinamicos?: {  } }) {
           Aportes y planilla
         </h2>
         <div className="grid">
-          <Link href="/guias/ibc-independientes" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              IBC para independientes 2026: qué es y cómo calcularlo
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/guias/ibc-independientes" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+IBC para independientes 2026: qué es y cómo calcularlo
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               La base sobre la que pagas salud y pensión, y cómo cambiarla en SOI.
             </span>
-          </Link>
-          <Link href="/guias/descargar-planilla-seguridad-social" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              Cómo descargar y verificar tu planilla de seguridad social
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+</div>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/guias/descargar-planilla-seguridad-social" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+Cómo descargar y verificar tu planilla de seguridad social
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               Paso a paso para descargar el comprobante y confirmar que el pago quedó registrado.
             </span>
-          </Link>
-          <Link href="/glosario/sln" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              Qué significa SLN en la planilla de seguridad social
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+</div>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/glosario/sln" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+Qué significa SLN en la planilla de seguridad social
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               La novedad SLN y las demás siglas de la PILA.
             </span>
-          </Link>
+</div>
         </div>
       </section>
       <section aria-labelledby="c-prima" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -65,30 +65,30 @@ export function ContenidoHubGuias({ dinamicos = {} }: { dinamicos?: {  } }) {
           Prima, cesantías y ahorro
         </h2>
         <div className="grid">
-          <Link href="/guias/cesantias-independientes" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              Cesantías para independientes: cómo crear las tuyas
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/guias/cesantias-independientes" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+Cesantías para independientes: cómo crear las tuyas
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               Cuánto apartar, dónde guardarlas y cuándo tendrías tu dinero.
             </span>
-          </Link>
-          <Link href="/guias/cuentas-de-ahorro-alto-rendimiento" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              Cuentas de ahorro de alto rendimiento en Colombia
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+</div>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/guias/cuentas-de-ahorro-alto-rendimiento" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+Cuentas de ahorro de alto rendimiento en Colombia
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               Cuáles pagan más en 2026, sin cuota de manejo y con respaldo de Fogafín.
             </span>
-          </Link>
-          <Link href="/calculadoras/interes-compuesto" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              Calculadora de interés compuesto
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+</div>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/calculadoras/interes-compuesto" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+Calculadora de interés compuesto
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               Simula cuánto rinde tu ahorro mes a mes.
             </span>
-          </Link>
+</div>
         </div>
       </section>
       <section aria-labelledby="c-dolar" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -96,22 +96,22 @@ export function ContenidoHubGuias({ dinamicos = {} }: { dinamicos?: {  } }) {
           Pagos en dólares
         </h2>
         <div className="grid">
-          <Link href="/guias/recibir-pagos-en-dolares-colombia" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              Cómo recibir pagos del exterior en dólares en Colombia
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/guias/recibir-pagos-en-dolares-colombia" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+Cómo recibir pagos del exterior en dólares en Colombia
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               Opciones, costos, tiempos y qué debes declarar.
             </span>
-          </Link>
-          <Link href="/guias/cuenta-en-dolares-colombia" className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <span style={{ fontWeight: "700", fontSize: "19px" }}>
-              Cuenta en dólares en Colombia: opciones, requisitos y costos
-            </span>
-            <span style={{ color: "#4A6158", lineHeight: "1.5" }}>
+</div>
+          <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/guias/cuenta-en-dolares-colombia" className="card-enlace" style={{ fontWeight: "700", fontSize: "19px" , color: "inherit", textDecoration: "none"}}>
+Cuenta en dólares en Colombia: opciones, requisitos y costos
+</Link>
+<span style={{ color: "#4A6158", lineHeight: "1.5" }}>
               Qué entidades la ofrecen y qué necesitas para abrirla.
             </span>
-          </Link>
+</div>
         </div>
       </section>
       <BannerRegistro variante="general" pagina="Hub-G" />

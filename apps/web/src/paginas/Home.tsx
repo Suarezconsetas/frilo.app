@@ -299,38 +299,38 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
             </Link>
           </div>
           <div className="grid3">
-            <Link href="/calculadoras/aportes-independientes" className="card" style={{ textDecoration: "none", background: "#F3F6F4", display: "flex", flexDirection: "column", gap: "8px" }}>
-              <span style={{ fontWeight: "600", fontSize: "17px" }}>
-                Calculadora de aportes para independientes 2026
-              </span>
-              <span style={{ color: "#4A6158", fontSize: "15px" }}>
+            <div className="card" style={{ textDecoration: "none", background: "#F3F6F4", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/calculadoras/aportes-independientes" className="card-enlace" style={{ fontWeight: "600", fontSize: "17px" , color: "inherit", textDecoration: "none"}}>
+Calculadora de aportes para independientes 2026
+</Link>
+<span style={{ color: "#4A6158", fontSize: "15px" }}>
                 Salud, pensión, ARL y FSP sobre tu IBC.
               </span>
-            </Link>
-            <Link href="/calculadoras/cesantias" className="card" style={{ textDecoration: "none", background: "#F3F6F4", display: "flex", flexDirection: "column", gap: "8px" }}>
-              <span style={{ fontWeight: "600", fontSize: "17px" }}>
-                Calculadora de cesantías e intereses
-              </span>
-              <span style={{ color: "#4A6158", fontSize: "15px" }}>
+</div>
+            <div className="card" style={{ textDecoration: "none", background: "#F3F6F4", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/calculadoras/cesantias" className="card-enlace" style={{ fontWeight: "600", fontSize: "17px" , color: "inherit", textDecoration: "none"}}>
+Calculadora de cesantías e intereses
+</Link>
+<span style={{ color: "#4A6158", fontSize: "15px" }}>
                 Cesantías e intereses del 12%, con contrato o como independiente.
               </span>
-            </Link>
-            <Link href="/calculadoras/fecha-pago-planilla" className="card" style={{ textDecoration: "none", background: "#F3F6F4", display: "flex", flexDirection: "column", gap: "8px" }}>
-              <span style={{ fontWeight: "600", fontSize: "17px" }}>
-                Fecha de pago de la planilla
-              </span>
-              <span style={{ color: "#4A6158", fontSize: "15px" }}>
+</div>
+            <div className="card" style={{ textDecoration: "none", background: "#F3F6F4", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/calculadoras/fecha-pago-planilla" className="card-enlace" style={{ fontWeight: "600", fontSize: "17px" , color: "inherit", textDecoration: "none"}}>
+Fecha de pago de la planilla
+</Link>
+<span style={{ color: "#4A6158", fontSize: "15px" }}>
                 Según los dos últimos dígitos de tu documento.
               </span>
-            </Link>
-            <Link href="/dolar-hoy" className="card" style={{ textDecoration: "none", background: "#F3F6F4", display: "flex", flexDirection: "column", gap: "8px" }}>
-              <span style={{ fontWeight: "600", fontSize: "17px" }}>
-                Dólar hoy en Colombia (TRM)
-              </span>
-              <span style={{ color: "#4A6158", fontSize: "15px" }}>
+</div>
+            <div className="card" style={{ textDecoration: "none", background: "#F3F6F4", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/dolar-hoy" className="card-enlace" style={{ fontWeight: "600", fontSize: "17px" , color: "inherit", textDecoration: "none"}}>
+Dólar hoy en Colombia (TRM)
+</Link>
+<span style={{ color: "#4A6158", fontSize: "15px" }}>
                 Hoy, hace una semana, un mes y un año.
               </span>
-            </Link>
+</div>
             <a href="#" className="card" style={{ textDecoration: "none", background: "#F3F6F4", display: "flex", flexDirection: "column", gap: "8px" }}>
               <span style={{ fontWeight: "600", fontSize: "17px" }}>
                 Calculadora de prima para independientes
@@ -339,14 +339,14 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
                 Cuánto apartar y cuánto tendrás en junio.
               </span>
             </a>
-            <Link href="/calculadoras/interes-compuesto" className="card" style={{ textDecoration: "none", background: "#F3F6F4", display: "flex", flexDirection: "column", gap: "8px" }}>
-              <span style={{ fontWeight: "600", fontSize: "17px" }}>
-                Calculadora de interés compuesto
-              </span>
-              <span style={{ color: "#4A6158", fontSize: "15px" }}>
+            <div className="card" style={{ textDecoration: "none", background: "#F3F6F4", display: "flex", flexDirection: "column", gap: "8px" , position: "relative"}}>
+<Link href="/calculadoras/interes-compuesto" className="card-enlace" style={{ fontWeight: "600", fontSize: "17px" , color: "inherit", textDecoration: "none"}}>
+Calculadora de interés compuesto
+</Link>
+<span style={{ color: "#4A6158", fontSize: "15px" }}>
                 Simula cuánto rinden tu prima y tus cesantías.
               </span>
-            </Link>
+</div>
           </div>
         </div>
       </section>
