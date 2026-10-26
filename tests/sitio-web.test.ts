@@ -116,3 +116,13 @@ describe('glosario', () => {
     expect(ibc).toContain('$43.772.625');
   });
 });
+
+describe('datos estructurados de /dolar-hoy', () => {
+  it('el Dataset de la TRM tiene creator válido (Organization) y licencia', () => {
+    const grafo = (jsonLdDe('P07') as { '@graph': Record<string, unknown>[] })['@graph'];
+    const d = grafo.find((g) => g['@type'] === 'Dataset') as { creator: { '@type': string; name: string }; license: string };
+    expect(d.creator['@type']).toBe('Organization');
+    expect(d.creator.name).toBe('Superintendencia Financiera de Colombia');
+    expect(d.license).toMatch(/^https:\/\/creativecommons\.org\//);
+  });
+});

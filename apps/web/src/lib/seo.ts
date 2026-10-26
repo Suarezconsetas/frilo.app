@@ -103,7 +103,30 @@ export function jsonLdDe(id: string, dinamicos: DinamicosJsonLd = {}): unknown {
     if (o && typeof o === 'object') return Object.fromEntries(Object.entries(o).map(([k, v]) => [k, recorrer(v, k)]));
     return typeof o === 'string' ? texto(o, clave) : o;
   };
-  return recorrer(base);
+  return arreglarDatasets(recorrer(base));
+}
+
+/**
+ * Google exige en un Dataset `creator` de tipo Organization o Person (no GovernmentOrganization) y recomienda `license`.
+ * La TRM se publica en datos.gov.co bajo Creative Commons Atribución-CompartirIgual 4.0 (campo de licencia del conjunto 32sa-8pi3).
+ */
+const LICENCIA_TRM = 'https://creativecommons.org/licenses/by-sa/4.0/';
+function arreglarDatasets(o: unknown): unknown {
+  if (Array.isArray(o)) return o.map(arreglarDatasets);
+  if (o && typeof o === 'object') {
+    const r = Object.fromEntries(Object.entries(o).map(([k, v]) => [k, arreglarDatasets(v)])) as Record<string, unknown>;
+    if (r['@type'] === 'Dataset') {
+      const creador = r.creator as Record<string, unknown> | undefined;
+      return {
+        ...r,
+        creator: creador ? { ...creador, '@type': 'Organization', url: creador.url ?? 'https://www.superfinanciera.gov.co/' } : creador,
+        license: r.license ?? LICENCIA_TRM,
+        isAccessibleForFree: true,
+      };
+    }
+    return r;
+  }
+  return o;
 }
 
 /** Marcadores `[...]` que siguen sin resolver en el JSON-LD de una página (para el checklist y los avisos `[VERIFICAR]`). */
