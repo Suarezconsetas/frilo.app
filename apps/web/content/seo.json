@@ -2220,7 +2220,7 @@
     "wireframe": "— (falta wireframe)",
     "estado": "Por diseñar",
     "robots": "index, follow (cuando tenga 3 o más entradas; antes, noindex)",
-    "enSitemap": false,
+    "enSitemap": true,
     "canonical": "https://frilo.dev/glosario",
     "keyword": "glosario seguridad social",
     "title": "Glosario de seguridad social para independientes | Frilo",

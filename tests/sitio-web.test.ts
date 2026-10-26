@@ -126,3 +126,14 @@ describe('datos estructurados de /dolar-hoy', () => {
     expect(d.license).toMatch(/^https:\/\/creativecommons\.org\//);
   });
 });
+
+import sitemap from '../apps/web/src/app/sitemap';
+
+describe('sitemap', () => {
+  it('incluye el hub del glosario y su entrada SLN, y solo páginas construidas', () => {
+    const urls = sitemap().map((u) => u.url);
+    expect(urls).toContain('https://frilo.dev/glosario');
+    expect(urls).toContain('https://frilo.dev/glosario/sln');
+    expect(urls).toHaveLength(PAGINAS.filter((p) => p.enSitemap && estadoDe(p.id) === 'construida').length);
+  });
+});

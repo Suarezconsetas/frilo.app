@@ -84,7 +84,7 @@ for f in list(filas('URLs'))[1:]:
         'wireframe': f.get('F', ''),
         'estado': f.get('G', ''),
         'robots': f.get('H', ''),
-        'enSitemap': f.get('I', '') == 'Sí',
+        'enSitemap': f.get('I', '').startswith('Sí'),  # «Sí, cuando sea indexable»: entra cuando la página está construida
         'canonical': f.get('J', ''),
         'keyword': f.get('L', ''),
         'title': f.get('R', ''),
