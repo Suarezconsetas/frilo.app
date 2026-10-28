@@ -30,7 +30,7 @@ export function ConversorDolares({ trm }: { trm: number }) {
           Ver cuánto pago de planilla
         </Link>
       </div>
-      <span style={{ fontSize: 13, color: '#4A6158' }}>
+      <span style={{ fontSize: 14, color: '#4A6158' }}>
         Tu banco o plataforma aplica su propia tasa y comisiones; la TRM es la referencia oficial.{' '}
         <Link href="/guias/recibir-pagos-en-dolares-colombia" style={{ color: '#4A6158' }}>
           Cómo recibir pagos del exterior en dólares

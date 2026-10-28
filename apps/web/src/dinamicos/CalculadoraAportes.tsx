@@ -84,11 +84,11 @@ export function CalculadoraAportes() {
                 Costos de tu actividad al mes (COP)
               </label>
               <input id="costos" className="field" inputMode="numeric" value={miles(costos)} onChange={(e) => setCostos(soloEnteros(e))} />
-              <span style={{ fontSize: 13, color: '#4A6158' }}>
+              <span style={{ fontSize: 14, color: '#4A6158' }}>
                 Costos reales y soportados. Tu IBC es el 40% del ingreso neto: {pesos((r as { ingresoNeto?: number }).ingresoNeto ?? ingreso)} ({pct(P.porcentajeIbc, 0)} → {pesos(r.ibcTeorico)}).
               </span>
             </div>
-            <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5, color: '#4A6158' }}>
+            <p style={{ margin: 0, fontSize: 14, lineHeight: 1.5, color: '#4A6158' }}>
               Decreto 379 de 2026, vigente desde el 7 de abril de 2026. Esta calculadora usa los costos que escribes: si no puedes soportarlos, la UGPP aplica su presunción de costos según tu actividad, que no calculamos aquí.
             </p>
           </>

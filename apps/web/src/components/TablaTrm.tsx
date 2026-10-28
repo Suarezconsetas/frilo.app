@@ -5,7 +5,7 @@ export function TablaTrm({ filas }: { filas: DatosTrm['filas'] }) {
   return (
     <div style={{ overflowX: 'auto', border: '1px solid #D6E0DA', borderRadius: 16, background: '#FFFFFF' }}>
       <table className="t">
-        <caption style={{ textAlign: 'left', padding: '12px 14px', fontSize: 13, color: '#4A6158' }}>TRM oficial por fecha de vigencia. Fuente: Superintendencia Financiera.</caption>
+        <caption style={{ textAlign: 'left', padding: '12px 14px', fontSize: 14, color: '#4A6158' }}>TRM oficial por fecha de vigencia. Fuente: Superintendencia Financiera.</caption>
         <thead>
           <tr>
             <th scope="col">Fecha</th>

@@ -53,7 +53,7 @@ export function ContenidoP07({ dinamicos = {}, d }: { dinamicos?: { grafico?: Re
               {d.varAyerTxt}{" frente a ayer"}
             </span>
           </div>
-          <div style={{ flex: "2 1 520px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "12px" }}>
+          <div style={{ flex: "2 1 520px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(160px, 100%), 1fr))", gap: "12px" }}>
             <div style={{ background: "#164538", borderRadius: "16px", padding: "20px", display: "flex", flexDirection: "column", gap: "6px" }}>
               <span style={{ color: "#B5CCC1", fontSize: "14px" }}>
                 Hace una semana

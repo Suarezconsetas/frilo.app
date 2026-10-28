@@ -81,7 +81,7 @@ export function ContenidoP11({ dinamicos = {} }: { dinamicos?: { tablaPesos?: Re
           Las cuentas de ahorro con mayor rentabilidad, comparadas con los mismos criterios y con la fecha en que consultamos cada dato.
         </p>
         {dinamicos.tablaPesos}
-        <p style={{ margin: "0", fontSize: "13px", color: "#4A6158", maxWidth: "812px" }}>
+        <p style={{ margin: "0", fontSize: "14px", color: "#4A6158", maxWidth: "812px" }}>
           Todas son entidades vigiladas por la Superintendencia Financiera de Colombia. Las tasas cambian seguido: revisamos esta tabla cada semana.
         </p>
       </section>
@@ -90,7 +90,7 @@ export function ContenidoP11({ dinamicos = {} }: { dinamicos?: { tablaPesos?: Re
           Si ahorras en dólares
         </h3>
         {dinamicos.tablaDolares}
-        <p style={{ margin: "0", fontSize: "13px", color: "#4A6158", maxWidth: "812px" }}>
+        <p style={{ margin: "0", fontSize: "14px", color: "#4A6158", maxWidth: "812px" }}>
           {"Una cuenta en dólares no tiene la misma protección que una cuenta de ahorros en pesos. Lee la guía de "}
           <Link href="/guias/cuenta-en-dolares-colombia" style={{ color: "#4A6158" }}>
             cuenta en dólares en Colombia
@@ -105,7 +105,7 @@ export function ContenidoP11({ dinamicos = {} }: { dinamicos?: { tablaPesos?: Re
         </h2>
         {dinamicos.b1}
         {dinamicos.b2}
-        <p style={{ margin: "0", fontSize: "13px", color: "#B5CCC1" }}>
+        <p style={{ margin: "0", fontSize: "14px", color: "#B5CCC1" }}>
           {"Antes de retención en la fuente y 4x1000. Para más opciones (monto inicial, tasa nominal, plazos largos) usa la "}
           <Link href="/calculadoras/interes-compuesto" style={{ color: "#FFFFFF" }}>
             calculadora de interés compuesto

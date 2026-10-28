@@ -17,7 +17,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
               Atajo: mi prima y mis cesantías
             </span>
             <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center" }}>
-              <label htmlFor="ic-ingreso" style={{ fontSize: "13px", color: "#4A6158", flex: "1 1 100%" }}>
+              <label htmlFor="ic-ingreso" style={{ fontSize: "14px", color: "#4A6158", flex: "1 1 100%" }}>
                 Tu ingreso mensual (COP)
               </label>
               <input id="ic-ingreso" className="field" inputMode="numeric" value={ingresoTxt} onChange={onIngreso} style={{ flex: "1 1 160px", minHeight: "44px" }} />
@@ -85,7 +85,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
               Comparar con una tasa ± (puntos)
             </label>
             <input id="ic-rango" className="field" inputMode="decimal" value={rango} onChange={onRango} />
-            <span style={{ fontSize: "13px", color: "#4A6158" }}>
+            <span style={{ fontSize: "14px", color: "#4A6158" }}>
               Ve qué pasa si la tasa baja o sube: las tasas de las cuentas cambian seguido.
             </span>
           </div>
@@ -126,7 +126,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
               </select>
             </div>
           </div>
-          <span style={{ fontSize: "13px", color: "#4A6158" }}>
+          <span style={{ fontSize: "14px", color: "#4A6158" }}>
             Con tasa E.A. la capitalización ya está incluida en la tasa; solo cambia el resultado si la tasa es nominal.
           </span>
           <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", minHeight: "44px", cursor: "pointer" }}>
@@ -134,7 +134,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
               <span style={{ fontWeight: "600" }}>
                 Descontar retención en la fuente
               </span>
-              <span style={{ fontSize: "13px", color: "#4A6158" }}>
+              <span style={{ fontSize: "14px", color: "#4A6158" }}>
                 7% de los intereses (tarifa 2026 para rendimientos financieros)
               </span>
             </span>
@@ -142,7 +142,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
           </label>
         </form>
         <section aria-label="Resultado" style={{ flex: "1 1 440px", background: "#0F372D", color: "#FFFFFF", borderRadius: "24px", padding: "28px", display: "flex", flexDirection: "column", gap: "18px", boxSizing: "border-box" }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "13px", fontWeight: "600", color: "#6FFF8F" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "14px", fontWeight: "600", color: "#6FFF8F" }}>
             <Isotipo tono="manzana" alto={24} />
             Calculado con Frilo
           </span>
@@ -159,7 +159,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "10px" }}>
             <div style={{ background: "#164538", borderRadius: "16px", padding: "14px", display: "flex", flexDirection: "column", gap: "4px" }}>
-              <span style={{ fontSize: "12px", color: "#B5CCC1" }}>
+              <span style={{ fontSize: "14px", color: "#B5CCC1" }}>
                 Capital aportado
               </span>
               <span style={{ fontSize: "19px", fontWeight: "700" }}>
@@ -167,7 +167,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
               </span>
             </div>
             <div style={{ background: "#164538", borderRadius: "16px", padding: "14px", display: "flex", flexDirection: "column", gap: "4px" }}>
-              <span style={{ fontSize: "12px", color: "#B5CCC1" }}>
+              <span style={{ fontSize: "14px", color: "#B5CCC1" }}>
                 Intereses
               </span>
               <span style={{ fontSize: "19px", fontWeight: "700", color: "#6FFF8F" }}>
@@ -175,7 +175,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
               </span>
             </div>
             <div style={{ background: "#164538", borderRadius: "16px", padding: "14px", display: "flex", flexDirection: "column", gap: "4px" }}>
-              <span style={{ fontSize: "12px", color: "#B5CCC1" }}>
+              <span style={{ fontSize: "14px", color: "#B5CCC1" }}>
                 Capital + intereses
               </span>
               <span style={{ fontSize: "19px", fontWeight: "700" }}>
@@ -185,7 +185,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
           </div>
           {ret ? (
             <>
-              <p style={{ margin: "0", fontSize: "13px", color: "#B5CCC1" }}>
+              <p style={{ margin: "0", fontSize: "14px", color: "#B5CCC1" }}>
                 {"Retención en la fuente estimada: "}{retTxt}{" (ya descontada)."}
               </p>
             </>
@@ -205,7 +205,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
               </Fragment>
             ))}
           </div>
-          <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", fontSize: "12px", color: "#B5CCC1" }}>
+          <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", fontSize: "14px", color: "#B5CCC1" }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
               <span aria-hidden="true" style={{ width: "12px", height: "12px", borderRadius: "3px", background: "#B5CCC1" }} />
               Capital aportado
@@ -222,7 +222,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
             {escenarios.map((e: any, i: number) => (
               <Fragment key={i}>
                 <div style={cssAObjeto(e.estilo)}>
-                  <span style={{ fontSize: "12px", color: "#B5CCC1" }}>
+                  <span style={{ fontSize: "14px", color: "#B5CCC1" }}>
                     {e.label}
                   </span>
                   <span style={{ fontSize: "17px", fontWeight: "700" }}>
@@ -232,7 +232,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
               </Fragment>
             ))}
           </div>
-          <p style={{ margin: "0", fontSize: "12px", lineHeight: "18px", color: "#B5CCC1" }}>
+          <p style={{ margin: "0", fontSize: "14px", lineHeight: "18px", color: "#B5CCC1" }}>
             Simulación con tasa constante, sin 4x1000. No es asesoría financiera.
           </p>
           <Link href="/guias/cuentas-de-ahorro-alto-rendimiento" className="btn btn-m">

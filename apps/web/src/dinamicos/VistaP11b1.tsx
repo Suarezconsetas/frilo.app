@@ -7,7 +7,7 @@ export type VarsP11b1 = { meses: string; montoTxt: string; onMeses: (e: any) => 
 
 export function VistaP11b1({ meses, montoTxt, onMeses, onMonto, onTasa, tasa }: VarsP11b1) {
   return (
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(200px, 100%), 1fr))", gap: "16px" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           <label htmlFor="s-monto" style={{ fontSize: "14px", color: "#B5CCC1" }}>
             Aportas cada mes (COP)

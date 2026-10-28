@@ -58,7 +58,7 @@ p { margin: 0 0 14px; }
 .footer ul { list-style: none; margin: 0; padding: 0; }
 .footer li a { display: inline-block; padding: 7px 0; color: var(--tinta-suave); text-decoration: none; font-size: 15px; }
 .footer li a:hover { color: var(--tinta); text-decoration: underline; }
-.footer-aviso { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--linea); color: var(--tinta-suave); font-size: 13px; line-height: 1.5; }
+.footer-aviso { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--linea); color: var(--tinta-suave); font-size: 14px; line-height: 1.5; }
 
 /* Contenido */
 .breadcrumb ol { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 8px; font-size: 14px; color: var(--tinta-suave); }
@@ -76,7 +76,7 @@ p { margin: 0 0 14px; }
 .tabla caption { text-align: left; font-weight: 600; padding: 0 0 8px; }
 .tabla th, .tabla td { padding: 10px 12px; border-bottom: 1px solid var(--linea); text-align: left; vertical-align: top; }
 .tabla th { background: var(--tinte); font-weight: 700; }
-.aviso { font-size: 13px; line-height: 1.5; color: var(--tinta-suave); }
+.aviso { font-size: 14px; line-height: 1.5; color: var(--tinta-suave); }
 .verificar { background: #fff3c4; color: #5a4300; border-radius: 6px; padding: 1px 6px; font-weight: 700; }
 .borrador { background: #fff3c4; border: 1px solid #e0c85a; border-radius: 12px; padding: 12px 16px; margin-bottom: 20px; }
 
@@ -87,16 +87,16 @@ p { margin: 0 0 14px; }
 .banner-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--manzana); }
 .banner-titulo { margin: 10px 0 8px; font-size: 26px; line-height: 1.2; font-weight: 700; letter-spacing: -0.015em; }
 .banner-texto { margin: 0; color: var(--oliva-suave); font-size: 16px; }
-.etiqueta-referencia { font-size: 12px; font-weight: 600; color: var(--oliva); background: var(--oliva-suave); border-radius: 999px; padding: 4px 10px; }
+.etiqueta-referencia { font-size: 14px; font-weight: 600; color: var(--oliva); background: var(--oliva-suave); border-radius: 999px; padding: 4px 10px; }
 .banner-cuentas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
 .banner-cuentas li { background: var(--oliva-2); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
-.banner-pos { font-size: 12px; font-weight: 700; color: var(--manzana); }
+.banner-pos { font-size: 14px; font-weight: 700; color: var(--manzana); }
 .banner-nombre { font-weight: 700; font-size: 17px; }
 .banner-tasa { font-size: 30px; line-height: 1; font-weight: 700; color: var(--manzana); letter-spacing: -0.015em; }
-.banner-detalle { font-size: 13px; color: var(--oliva-suave); }
+.banner-detalle { font-size: 14px; color: var(--oliva-suave); }
 .banner-pie { display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; align-items: center; }
 .banner-rendimiento .banner-pie a { color: var(--manzana); font-weight: 600; font-size: 15px; }
-.banner-pie span { font-size: 12px; line-height: 18px; color: var(--oliva-suave); max-width: 640px; }
+.banner-pie span { font-size: 14px; line-height: 18px; color: var(--oliva-suave); max-width: 640px; }
 
 /* Banner de registro */
 .banner-registro { background: var(--oliva); color: #fff; border-radius: var(--radio-l); padding: 32px; display: flex; flex-wrap: wrap; gap: 28px; align-items: center; margin: 40px 0; }
@@ -109,19 +109,17 @@ p { margin: 0 0 14px; }
 .registro-caja form { display: flex; flex-direction: column; gap: 14px; }
 .registro-titulo { font-weight: 700; font-size: 18px; }
 .registro-ayuda { font-size: 14px; color: var(--oliva-suave); }
-.registro-o { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--oliva-suave); }
+.registro-o { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--oliva-suave); }
 .registro-o span { flex: 1; height: 1px; background: var(--oliva-3); }
 .registro-input { min-height: 52px; border: 0; border-radius: 12px; padding: 0 16px; font-weight:600;font-size:17px;line-height:1;font-family:inherit; font-family: inherit; color: var(--oliva); background: #fff; width: 100%; }
 .registro-input.codigo { font-weight: 700; font-size: 22px; letter-spacing: 0.3em; }
 .registro-error { margin: 0; font-size: 14px; color: #ffd2d2; }
 .registro-casilla { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 20px; color: #fff; cursor: pointer; }
 .registro-casilla input { width: 20px; height: 20px; margin: 0; flex: none; accent-color: #6FFF8F; }
-.registro-legal { font-size: 12px; line-height: 18px; color: var(--oliva-suave); }
+.registro-legal { font-size: 14px; line-height: 18px; color: var(--oliva-suave); }
 .banner-registro .registro-legal a { color: #fff; }
 
 @media (max-width: 720px) {
-  .header-acciones { margin-left: 0; width: 100%; }
-  .header-nav { width: 100%; flex-basis: 100%; }
   .banner-rendimiento, .banner-registro { padding: 22px; }
 }
 
@@ -188,3 +186,49 @@ p { margin: 0 0 14px; }
 @media (max-width: 480px) {
   .wf select.field { font-size: 16px; padding: 0 10px; }
 }
+.ajuste-ingreso.oscuro input[type='range'] { accent-color: var(--manzana); }
+.ajuste-ingreso.oscuro .ajuste-boton { background: transparent; border-color: var(--manzana); color: var(--manzana); }
+.ajuste-ingreso.oscuro .ajuste-boton:active { background: var(--manzana); color: var(--oliva); }
+
+/* Encabezado en móvil: logo y botón de menú; el resto se pliega */
+.header-colapsable { display: contents; }
+.header-movil-acciones { display: none; }
+@media (max-width: 768px) {
+  .header-fila { gap: 0 12px; padding: 8px 20px; }
+  .header-movil-acciones { display: flex; margin-left: auto; }
+  .header-menu-boton { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--oliva-suave, #2B4A40); border-radius: 12px; color: #fff; cursor: pointer; }
+  .header-colapsable { display: none; width: 100%; flex-direction: column; gap: 8px; padding: 4px 0 12px; }
+  .header-abierto .header-colapsable { display: flex; }
+  .header-nav { flex: none; width: 100%; flex-direction: column; flex-wrap: nowrap; gap: 0; }
+  .nav-enlace { min-height: 48px; }
+  .nav-menu { width: 100%; }
+  .nav-menu > .nav-enlace { flex: 1; }
+  .nav-menu-boton { min-width: 48px; min-height: 48px; }
+  .header-acciones { width: 100%; margin: 0; justify-content: space-between; }
+}
+
+/* Móvil: áreas táctiles de 44 px, aviso de cookies más compacto, hero sin logo repetido e índice de página en una fila */
+.footer li a { display: flex; align-items: center; min-height: 44px; padding: 0; }
+.sigue-con-item a { display: inline-flex; align-items: center; min-height: 44px; }
+.sigue-con-pie { display: flex; flex-wrap: wrap; align-items: center; gap: 0 6px; }
+.sigue-con-pie a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px; }
+@media (max-width: 768px) {
+  .aviso-cookies { left: 12px; right: 12px; bottom: 12px; padding: 14px 16px; gap: 10px 14px; border: 1px solid rgba(111, 255, 143, 0.55); }
+  .aviso-cookies-texto { font-size: 14px; line-height: 20px; }
+  .aviso-cookies-botones { width: 100%; }
+  .aviso-cookies-botones button { flex: 1; }
+  .aviso-cookies a { display: inline-block; padding: 10px 0; }
+  .wf-Home h1 > :not(.sr-only) { display: none !important; }
+  .wf-Home nav[aria-label='Ruta de navegación'] a,
+  .wf nav[aria-label='Ruta de navegación'] a { display: inline-flex; align-items: center; min-height: 44px; }
+  /* títulos y entradillas más compactos para que la calculadora aparezca antes */
+  .wf header h1 { font-size: 30px !important; line-height: 1.15 !important; }
+  .wf header > p:not(:last-child) { font-size: 16px !important; line-height: 1.5 !important; }
+  .wf div > a:only-child:not([class]) { display: flex; align-items: center; min-height: 44px; }
+  .wf li:has(> a:only-child) > a { display: inline-flex; align-items: center; min-height: 44px; }
+  /* «En esta página»: una fila con desplazamiento en vez de una columna de 300 px */
+  .wf nav[aria-label='En esta página'] { flex: 1 1 100% !important; flex-direction: row !important; align-items: center; overflow-x: auto; gap: 8px 18px !important; white-space: nowrap; padding: 6px 16px; }
+  .wf nav[aria-label='En esta página'] > span { flex: none; }
+  .wf nav[aria-label='En esta página'] a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+div[style*='overflow-x:auto'], div[style*='overflow-x: auto'] { position: relative; }

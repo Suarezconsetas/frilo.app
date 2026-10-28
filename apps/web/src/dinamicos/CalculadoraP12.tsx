@@ -4,6 +4,7 @@ import { createContext, useContext, useState, type ReactNode } from 'react';
 import { ahorroMensual, parametrosDe, redondearMultiplo } from '@/lib/calculos';
 import { pesos } from '@/lib/formato';
 import { miles, soloEnteros } from '../lib/entradas';
+import { AjusteIngreso } from './AjusteIngreso';
 import { VistaP12b1 } from './VistaP12b1';
 import { VistaP12b2 } from './VistaP12b2';
 
@@ -24,7 +25,7 @@ const usar = () => {
 
 export function EntradaP12() {
   const { ingreso, setIngreso } = usar();
-  return <VistaP12b1 ingresoTxt={miles(ingreso)} onIngreso={(e) => setIngreso(soloEnteros(e))} />;
+  return <VistaP12b1 ajuste={<AjusteIngreso valor={ingreso} onCambio={setIngreso} />} ingresoTxt={miles(ingreso)} onIngreso={(e) => setIngreso(soloEnteros(e))} />;
 }
 
 export function ResultadoP12() {

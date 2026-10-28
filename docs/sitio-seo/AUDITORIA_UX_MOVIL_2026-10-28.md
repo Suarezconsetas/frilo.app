@@ -1,6 +1,6 @@
 # Auditoría UX móvil de frilo.dev — 28-oct-2026
 
-**Alcance:** las 21 páginas del sitemap en producción, medidas con anchos de iPhone (390 y 375) y Samsung (360 y 412). Se midió el DOM real (desborde horizontal, tamaños táctiles, texto, campos) y se revisó el Home en pantalla. **No se cambió nada en el sitio.** Pendiente: ejecutar en un teléfono real y con VoiceOver/TalkBack lo que aquí no se puede medir.
+**Alcance:** las 21 páginas del sitemap en producción, medidas con anchos de iPhone (390 y 375) y Samsung (360 y 412). Se midió el DOM real (desborde horizontal, tamaños táctiles, texto, campos) y se revisó el Home en pantalla. **Estado: U1–U9 implementados el mismo día** (ver «Implementado» al final). Pendiente: ejecutar en un teléfono real y con VoiceOver/TalkBack lo que aquí no se puede medir.
 
 ## Hallazgos priorizados
 
@@ -27,3 +27,15 @@
 2. U5, U6, U7 (ajustes de CSS).
 3. U8 y U4 (hero y encabezado del Home y de las calculadoras, con un borrador visual).
 4. U9 (estructura de páginas largas).
+
+## Implementado (28-oct-2026)
+- **U1** `TablaCuentas` y los contenedores con scroll llevan `position: relative`; el texto oculto usa la clase `sr-only`.
+- **U2** El generador (`ajustes_moviles` en `scripts/wireframes-a-tsx.py`) convierte `minmax(Npx, 1fr)` en `minmax(min(Npx, 100%), 1fr)`.
+- **U3** `font: 600 18px/1 inherit` era inválido; se expandió a propiedades sueltas en CSS, generador y componentes (hay una prueba que lo impide).
+- **U4** Encabezado plegable en móvil (`EncabezadoMovil`): 60 px en vez de 250. Títulos y entradillas más compactos en móvil: la calculadora de aportes baja de 1.220 px a unos 975 px.
+- **U5** Aviso de cookies más compacto en móvil (borde manzana, botones a todo el ancho).
+- **U6** Pie, «Sigue con», migas y enlaces sueltos con 44 px de alto.
+- **U7** Texto mínimo de 14 px (generador y CSS).
+- **U8** Se oculta en móvil el logo grande repetido del Home. El `h1` sigue siendo «Frilo», como en la especificación SEO (decisión pendiente: ver informe al usuario).
+- **U9** «En esta página» pasa a una fila con desplazamiento en móvil (58 px en vez de ~330 px).
+- Extra: control de ingreso (barra y botones ±) en la calculadora de aportes, el hero del Home, cesantías (salario e ingreso) y la guía de cesantías; campo de plazo del interés compuesto; selectores sin texto cortado.

@@ -14,7 +14,7 @@ export function VistaP05b1({ diaTxt, digitos, fechaTxt, mes, meses, onDig, onMes
             Dos últimos dígitos de tu documento
           </label>
           <input id="digitos" className="field" inputMode="numeric" maxLength={2} value={digitos} onChange={onDig} style={{ maxWidth: "160px" }} />
-          <span style={{ fontSize: "13px", color: "#4A6158" }}>
+          <span style={{ fontSize: "14px", color: "#4A6158" }}>
             Ejemplo: si tu cédula termina en 1.234.567
             <strong>
               89
@@ -35,7 +35,7 @@ export function VistaP05b1({ diaTxt, digitos, fechaTxt, mes, meses, onDig, onMes
           </select>
         </form>
         <section aria-label="Tu fecha límite" style={{ flex: "1 1 420px", background: "#0F372D", color: "#FFFFFF", borderRadius: "24px", padding: "28px", display: "flex", flexDirection: "column", gap: "14px", boxSizing: "border-box" }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "13px", fontWeight: "600", color: "#6FFF8F" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "14px", fontWeight: "600", color: "#6FFF8F" }}>
             <Isotipo tono="manzana" alto={24} />
             Calculado con Frilo
           </span>

@@ -22,7 +22,7 @@ export function ContenidoSEM({ dinamicos = {} }: { dinamicos?: {  } }) {
               Probar la app gratis
             </a>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "48px", alignItems: "center" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(340px, 100%), 1fr))", gap: "48px", alignItems: "center" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               <h1 style={{ margin: "0", fontSize: "clamp(36px, 4.6vw, 54px)", lineHeight: "1.05", letterSpacing: "-0.02em" }}>
                 ¿Cuánto pagas de planilla como independiente en 2026?
@@ -59,7 +59,7 @@ export function ContenidoSEM({ dinamicos = {} }: { dinamicos?: {  } }) {
               <Link href="/calculadoras/aportes-independientes" className="btn btn-m">
                 Calcular mi planilla
               </Link>
-              <span style={{ fontSize: "13px", color: "#B5CCC1" }}>
+              <span style={{ fontSize: "14px", color: "#B5CCC1" }}>
                 Ves el resultado sin registrarte.
               </span>
             </form>
@@ -67,7 +67,7 @@ export function ContenidoSEM({ dinamicos = {} }: { dinamicos?: {  } }) {
         </div>
       </section>
       <section style={{ padding: "72px 0" }}>
-        <div className="wrap" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px" }}>
+        <div className="wrap" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: "16px" }}>
           <div className="card" style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             <span style={{ fontWeight: "700", fontSize: "32px" }}>
               1
@@ -140,7 +140,7 @@ export function ContenidoSEM({ dinamicos = {} }: { dinamicos?: {  } }) {
         </div>
       </section>
       <footer style={{ borderTop: "1px solid #D6E0DA", padding: "24px 0", background: "#FFFFFF" }}>
-        <div className="wrap" style={{ display: "flex", justifyContent: "space-between", gap: "12px", flexWrap: "wrap", fontSize: "12px", color: "#4A6158" }}>
+        <div className="wrap" style={{ display: "flex", justifyContent: "space-between", gap: "12px", flexWrap: "wrap", fontSize: "14px", color: "#4A6158" }}>
           <span>
             Contenido educativo. No es asesoría financiera. No incluye el 4x1000 ni retenciones.
           </span>

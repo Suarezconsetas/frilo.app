@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ahorroMensual, parametrosDe, redondearMultiplo, TASA_INTERESES_CESANTIAS } from '@/lib/calculos';
 import { pesos } from '@/lib/formato';
 import { miles, soloEnteros } from '../lib/entradas';
+import { AjusteIngreso } from './AjusteIngreso';
 import { VistaP03b1 } from './VistaP03b1';
 
 const P = parametrosDe(2026);
@@ -25,6 +26,8 @@ export function CalculadoraCesantias() {
 
   return (
     <VistaP03b1
+      ajuste={<AjusteIngreso valor={ingreso} onCambio={setIngreso} />}
+      ajusteSalario={<AjusteIngreso valor={salario} onCambio={setSalario} min={1_000_000} max={15_000_000} paso={50_000} />}
       cta={lab ? '¿Trabajas también por tu cuenta? Prueba Frilo' : 'Lleva tus cesantías en Frilo'}
       ctaHref="#registro"
       dias={String(dias)}

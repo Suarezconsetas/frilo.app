@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
+import { AjusteIngreso } from '../dinamicos/AjusteIngreso';
 import { miles, soloEnteros } from '../lib/entradas';
 
 /** Clave de sessionStorage con la que el hero le pasa su ingreso a la calculadora de aportes (misma pestaña, sin URL). */
@@ -29,19 +30,23 @@ export function HeroCalculo({ trm }: { trm: number }) {
       <label htmlFor="hero-ingreso" style={{ fontWeight: 600, fontSize: 15 }}>
         ¿Cuánto cobras al mes?
       </label>
-      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-        <div style={{ display: 'flex', flex: '1 1 220px', minHeight: 52, borderRadius: 12, background: '#FFFFFF', overflow: 'hidden' }}>
-          <select aria-label="Moneda" value={moneda} onChange={(e) => setMoneda(e.target.value as 'COP' | 'USD')} style={{ border: 0, background: '#E6EEE9', color: '#0F372D', fontWeight: 600, fontSize: "15px", lineHeight: 1, fontFamily: "inherit", padding: '0 12px' }}>
-            <option value="COP">COP</option>
-            <option value="USD">USD</option>
-          </select>
-          <input id="hero-ingreso" inputMode="numeric" placeholder="8.000.000" value={monto ? miles(monto) : ''} onChange={(e) => setMonto(soloEnteros(e))} style={{ flex: 1, minWidth: 0, border: 0, padding: '0 16px', fontWeight: 600, fontSize: "18px", lineHeight: 1, fontFamily: "inherit", color: '#0F372D' }} />
-        </div>
-        <button type="submit" className="btn btn-m" style={{ border: 0, cursor: 'pointer', fontFamily: 'inherit' }}>
-          Ver mi mes
-        </button>
+      <div style={{ display: 'flex', minHeight: 52, borderRadius: 12, background: '#FFFFFF', overflow: 'hidden' }}>
+        <select aria-label="Moneda" value={moneda} onChange={(e) => setMoneda(e.target.value as 'COP' | 'USD')} style={{ border: 0, background: '#E6EEE9', color: '#0F372D', fontWeight: 600, fontSize: 16, lineHeight: 1, fontFamily: 'inherit', padding: '0 12px' }}>
+          <option value="COP">COP</option>
+          <option value="USD">USD</option>
+        </select>
+        <input id="hero-ingreso" inputMode="numeric" placeholder="8.000.000" value={monto ? miles(monto) : ''} onChange={(e) => setMonto(soloEnteros(e))} style={{ flex: 1, minWidth: 0, border: 0, padding: '0 16px', fontWeight: 600, fontSize: 18, lineHeight: 1, fontFamily: 'inherit', color: '#0F372D' }} />
       </div>
-      <p style={{ margin: 0, fontSize: 13, color: '#B5CCC1' }}>Sin registro para ver tu resultado. Antes de impuestos y sin IVA.</p>
+      <AjusteIngreso
+        oscuro
+        valor={monto}
+        onCambio={setMonto}
+        {...(moneda === 'USD' ? { min: 500, max: 10_000, paso: 100, formato: (n: number) => `US$${miles(n)}` } : {})}
+      />
+      <button type="submit" className="btn btn-m" style={{ border: 0, cursor: 'pointer', fontFamily: 'inherit', alignSelf: 'flex-start' }}>
+        Ver mi mes
+      </button>
+      <p style={{ margin: 0, fontSize: 14, color: '#B5CCC1' }}>Sin registro para ver tu resultado. Antes de impuestos y sin IVA.</p>
     </form>
   );
 }

@@ -17,7 +17,7 @@ export function VistaP01b1({ ajuste, apartaTxt, arl, filas, ibcTxt, ingresoTxt, 
             </label>
             <input id="ingreso" className="field" inputMode="numeric" value={ingresoTxt} onChange={onIngreso} />
             {ajuste}
-            <span style={{ fontSize: "13px", color: "#4A6158" }}>
+            <span style={{ fontSize: "14px", color: "#4A6158" }}>
               {"Antes de impuestos y sin IVA. ¿Te pagan en dólares? "}
               <Link href="/dolar-hoy" style={{ color: "#4A6158" }}>
                 Convierte con la TRM de hoy
@@ -51,7 +51,7 @@ export function VistaP01b1({ ajuste, apartaTxt, arl, filas, ibcTxt, ingresoTxt, 
               <span style={{ fontWeight: "600" }}>
                 Incluir ARL
               </span>
-              <span style={{ fontSize: "13px", color: "#4A6158" }}>
+              <span style={{ fontSize: "14px", color: "#4A6158" }}>
                 Voluntaria si trabajas por tu cuenta en riesgo I a III
               </span>
             </span>
@@ -59,7 +59,7 @@ export function VistaP01b1({ ajuste, apartaTxt, arl, filas, ibcTxt, ingresoTxt, 
           </label>
         </form>
         <section aria-label="Resultado" style={{ flex: "1 1 420px", background: "#0F372D", color: "#FFFFFF", borderRadius: "24px", padding: "28px", display: "flex", flexDirection: "column", gap: "20px", boxSizing: "border-box" }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "13px", fontWeight: "600", color: "#6FFF8F" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "14px", fontWeight: "600", color: "#6FFF8F" }}>
             <Isotipo tono="manzana" alto={24} />
             Calculado con Frilo
           </span>
@@ -85,7 +85,7 @@ export function VistaP01b1({ ajuste, apartaTxt, arl, filas, ibcTxt, ingresoTxt, 
                     <span style={{ fontWeight: "600" }}>
                       {f.nombre}
                     </span>
-                    <span style={{ fontSize: "13px", color: "#B5CCC1" }}>
+                    <span style={{ fontSize: "14px", color: "#B5CCC1" }}>
                       {f.detalle}
                     </span>
                   </span>
@@ -119,7 +119,7 @@ export function VistaP01b1({ ajuste, apartaTxt, arl, filas, ibcTxt, ingresoTxt, 
               Dónde pagar la planilla
             </a>
           </div>
-          <p style={{ margin: "0", fontSize: "12px", lineHeight: "18px", color: "#B5CCC1" }}>
+          <p style={{ margin: "0", fontSize: "14px", lineHeight: "18px", color: "#B5CCC1" }}>
             Estimado para independientes y contratistas por prestación de servicios. No incluye el 4x1000, retenciones ni renta.
           </p>
         </section>

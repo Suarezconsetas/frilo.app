@@ -8,7 +8,7 @@ export type VarsP10b1 = { e1: string; e2: string; e3: string; m1: (e: any) => vo
 
 export function VistaP10b1({ e1, e2, e3, m1, m2, m3, p1, p2, p3 }: VarsP10b1) {
   return (
-      <div role="group" aria-label="¿Qué quieres calcular?" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "6px", background: "#E6EEE9", borderRadius: "16px", padding: "6px", maxWidth: "840px" }}>
+      <div role="group" aria-label="¿Qué quieres calcular?" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(200px, 100%), 1fr))", gap: "6px", background: "#E6EEE9", borderRadius: "16px", padding: "6px", maxWidth: "840px" }}>
         <button type="button" aria-pressed={p1} onClick={m1} style={cssAObjeto(e1)}>
           ¿Cuánto tendré?
         </button>

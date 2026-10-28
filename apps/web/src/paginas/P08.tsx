@@ -228,9 +228,9 @@ export function ContenidoP08({ dinamicos = {} }: { dinamicos?: {  } }) {
             </tbody>
           </table>
         </div>
-        <div style={{ margin: "40px 0", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px" }}>
+        <div style={{ margin: "40px 0", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: "16px" }}>
           <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" , position: "relative"}}>
-<Link href="/guias/recibir-pagos-en-dolares-colombia" className="card-enlace" style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
+<Link href="/guias/recibir-pagos-en-dolares-colombia" className="card-enlace" style={{ fontSize: "14px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
 Siguiente paso
 </Link>
 <span style={{ fontWeight: "600", fontSize: "17px" }}>
@@ -238,7 +238,7 @@ Siguiente paso
             </span>
 </div>
           <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" , position: "relative"}}>
-<Link href="/dolar-hoy" className="card-enlace" style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
+<Link href="/dolar-hoy" className="card-enlace" style={{ fontSize: "14px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
 Alerta gratis
 </Link>
 <span style={{ fontWeight: "600", fontSize: "17px" }}>

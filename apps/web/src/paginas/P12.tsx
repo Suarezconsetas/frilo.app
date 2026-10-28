@@ -244,9 +244,9 @@ export function ContenidoP12({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode,
         <h2 style={{ margin: "0", fontSize: "28px" }}>
           Sigue leyendo
         </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: "16px" }}>
           <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" , position: "relative"}}>
-<Link href="/guias/cuentas-de-ahorro-alto-rendimiento" className="card-enlace" style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
+<Link href="/guias/cuentas-de-ahorro-alto-rendimiento" className="card-enlace" style={{ fontSize: "14px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
 Ahorro
 </Link>
 <span style={{ fontWeight: "600", fontSize: "17px" }}>
@@ -254,7 +254,7 @@ Ahorro
             </span>
 </div>
           <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" , position: "relative"}}>
-<Link href="/guias/ibc-independientes" className="card-enlace" style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
+<Link href="/guias/ibc-independientes" className="card-enlace" style={{ fontSize: "14px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
 Aportes
 </Link>
 <span style={{ fontWeight: "600", fontSize: "17px" }}>
@@ -262,7 +262,7 @@ Aportes
             </span>
 </div>
           <div className="card" style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "6px" , position: "relative"}}>
-<Link href="/calculadoras/aportes-independientes" className="card-enlace" style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
+<Link href="/calculadoras/aportes-independientes" className="card-enlace" style={{ fontSize: "14px", fontWeight: "600", color: "#4A6158" , textDecoration: "none"}}>
 Herramienta
 </Link>
 <span style={{ fontWeight: "600", fontSize: "17px" }}>

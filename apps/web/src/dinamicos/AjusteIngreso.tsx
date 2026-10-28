@@ -3,22 +3,19 @@
 import { useEffect, useRef } from 'react';
 import { pesos } from '@/lib/formato';
 
-const MIN = 1_000_000;
-const MAX = 30_000_000;
-const PASO = 100_000;
 
 /**
- * Para probar montos sin teclear: barra deslizante (de $1.000.000 a $30.000.000) y dos botones de ±$100.000 que se pueden mantener
+ * Para probar montos sin teclear: barra deslizante  y dos botones de ±$100.000 que se pueden mantener
  * oprimidos. El campo de texto sigue siendo la fuente: si escribes un valor fuera de la barra, la barra queda en el extremo.
  */
-export function AjusteIngreso({ valor, onCambio }: { valor: number; onCambio: (v: number) => void }) {
+export function AjusteIngreso({ valor, onCambio, min = 1_000_000, max = 30_000_000, paso = 100_000, formato = pesos, oscuro = false }: { oscuro?: boolean; valor: number; onCambio: (v: number) => void; min?: number; max?: number; paso?: number; formato?: (n: number) => string }) {
   const actual = useRef(valor);
   actual.current = valor;
   const retardo = useRef<ReturnType<typeof setTimeout>>(undefined);
   const repite = useRef<ReturnType<typeof setInterval>>(undefined);
 
   const mover = (delta: number) => {
-    const siguiente = Math.max(0, Math.round((actual.current + delta) / PASO) * PASO);
+    const siguiente = Math.max(0, Math.round((actual.current + delta) / paso) * paso);
     actual.current = siguiente;
     onCambio(siguiente);
   };
@@ -60,19 +57,19 @@ export function AjusteIngreso({ valor, onCambio }: { valor: number; onCambio: (v
   );
 
   return (
-    <div className="ajuste-ingreso" role="group" aria-label="Ajustar el ingreso con la barra o los botones">
-      {boton(-PASO, '−', `Bajar el ingreso ${pesos(PASO)}`)}
+    <div className={`ajuste-ingreso${oscuro ? ' oscuro' : ''}`} role="group" aria-label="Ajustar el ingreso con la barra o los botones">
+      {boton(-paso, '−', `Bajar el ingreso ${formato(paso)}`)}
       <input
         type="range"
-        min={MIN}
-        max={MAX}
-        step={PASO}
-        value={Math.min(Math.max(valor, MIN), MAX)}
+        min={min}
+        max={max}
+        step={paso}
+        value={Math.min(Math.max(valor, min), max)}
         onChange={(e) => onCambio(parseInt(e.target.value, 10))}
         aria-label="Ingreso mensual bruto"
-        aria-valuetext={pesos(valor)}
+        aria-valuetext={formato(valor)}
       />
-      {boton(PASO, '+', `Subir el ingreso ${pesos(PASO)}`)}
+      {boton(paso, '+', `Subir el ingreso ${formato(paso)}`)}
     </div>
   );
 }

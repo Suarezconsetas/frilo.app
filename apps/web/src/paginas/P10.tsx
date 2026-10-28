@@ -274,7 +274,7 @@ export function ContenidoP10({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode,
         <h2 id="h-otras" style={{ margin: "0", fontSize: "26px" }}>
           Otras calculadoras para independientes
         </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(240px, 100%), 1fr))", gap: "16px" }}>
           <Link href="/calculadoras/aportes-independientes" className="card" style={{ textDecoration: "none", fontWeight: "600" }}>
             Calculadora de aportes para independientes
           </Link>

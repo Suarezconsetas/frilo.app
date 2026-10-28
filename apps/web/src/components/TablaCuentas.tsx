@@ -4,7 +4,7 @@ import { decimalEs } from '../lib/entradas';
 
 const tasa = (x: number) => `${decimalEs(x * 100, 2)}%`;
 const ordenar = (cs: CuentaAhorro[]) => [...cs].filter((c) => c.verificada).sort((a, b) => b.tasaBaseEA - a.tasaBaseEA);
-const MARCO = { overflowX: 'auto', border: '1px solid #D6E0DA', borderRadius: 16, background: '#FFFFFF' } as const;
+const MARCO = { position: 'relative', overflowX: 'auto', border: '1px solid #D6E0DA', borderRadius: 16, background: '#FFFFFF' } as const;
 
 /**
  * Tabla de cuentas en pesos de P11. Sale de `lib/calculos/cuentas.ts`: la misma fuente que usa la app, así que una tasa que cambia
@@ -16,7 +16,7 @@ export function TablaCuentasPesos() {
   return (
     <div style={MARCO}>
       <table className="t" style={{ minWidth: 1040 }}>
-        <caption style={{ textAlign: 'left', padding: '12px 14px', fontSize: 13, color: '#4A6158' }}>
+        <caption style={{ textAlign: 'left', padding: '12px 14px', fontSize: 14, color: '#4A6158' }}>
           Ordenada por la tasa E.A. que pagan sin condiciones, de mayor a menor. Datos de la web oficial de cada entidad, última consulta el {fechaCorta(consulta)}. &quot;No lo indica&quot; =
           la entidad no lo publica en esa página.
         </caption>
@@ -31,7 +31,7 @@ export function TablaCuentasPesos() {
             <th scope="col">Fogafín</th>
             <th scope="col">Consultado</th>
             <th scope="col">
-              <span style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden' }}>Ver cuenta</span>
+              <span className="sr-only">Ver cuenta</span>
             </th>
           </tr>
         </thead>
@@ -52,7 +52,7 @@ export function TablaCuentasPesos() {
                 {c.tasaCondicionadaEA !== undefined && (
                   <>
                     <br />
-                    <span style={{ fontSize: 13, fontWeight: 400, color: '#4A6158' }}>
+                    <span style={{ fontSize: 14, fontWeight: 400, color: '#4A6158' }}>
                       {tasa(c.tasaCondicionadaEA)} con condiciones: {c.condicion}
                     </span>
                   </>
@@ -92,7 +92,7 @@ export function TablaCuentasDolares() {
             <th scope="col">Regulación</th>
             <th scope="col">Consultado</th>
             <th scope="col">
-              <span style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden' }}>Ver cuenta</span>
+              <span className="sr-only">Ver cuenta</span>
             </th>
           </tr>
         </thead>
@@ -108,7 +108,7 @@ export function TablaCuentasDolares() {
                 {tasa(c.tasaBaseEA)} E.A. sin condiciones
                 {c.tasaEAHasta !== undefined && c.tasaEAHasta > c.tasaBaseEA ? `; hasta ${tasa(c.tasaEAHasta)} según el producto` : ''}
                 {c.condicion ? ` (${c.condicion})` : ''}. No garantiza rendimientos.
-                {c.nota ? <><br /><span style={{ fontSize: 13, color: '#4A6158' }}>{c.nota}</span></> : null}
+                {c.nota ? <><br /><span style={{ fontSize: 14, color: '#4A6158' }}>{c.nota}</span></> : null}
               </td>
               <td>{c.aviso ?? (c.vigiladaSFC === false ? 'No vigilada por la Superintendencia Financiera' : 'Vigilada por la Superintendencia Financiera')}</td>
               <td>{fechaCorta(c.fechaConsulta)}</td>

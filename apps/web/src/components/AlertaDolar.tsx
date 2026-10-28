@@ -48,7 +48,7 @@ export function AlertaDolar() {
               O continuar con Google
             </button>
           )}
-          <span style={{ fontSize: 12, color: '#B5CCC1' }}>Crea tu cuenta con un código que te llega al correo.</span>
+          <span style={{ fontSize: 14, color: '#B5CCC1' }}>Crea tu cuenta con un código que te llega al correo.</span>
         </form>
       ) : (
         <form onSubmit={verificar} noValidate style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>

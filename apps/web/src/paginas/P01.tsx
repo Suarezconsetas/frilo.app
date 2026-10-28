@@ -397,7 +397,7 @@ export function ContenidoP01({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
           <p>
             Frilo calcula el valor, pero la planilla se paga en un operador de información autorizado. Estos son los más usados por independientes:
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "12px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(220px, 100%), 1fr))", gap: "12px" }}>
             <div className="card" style={{ padding: "18px" }}>
               <p style={{ margin: "0", fontWeight: "600", color: "#0F372D" }}>
                 Miplanilla
@@ -593,7 +593,7 @@ export function ContenidoP01({ dinamicos = {} }: { dinamicos?: { b1?: ReactNode 
         <h2 style={{ margin: "0", fontSize: "28px" }}>
           Otras calculadoras y guías para independientes
         </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(240px, 100%), 1fr))", gap: "16px" }}>
           <Link href="/calculadoras/fecha-pago-planilla" className="card" style={{ textDecoration: "none", fontWeight: "600" }}>
             Fecha de pago de la planilla
           </Link>

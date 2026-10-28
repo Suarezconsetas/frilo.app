@@ -14,7 +14,7 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
     <div className="wf wf-Home">
     <div style={{ background: "#F3F6F4" }}>
       <section style={{ background: "#0F372D", color: "#FFFFFF", padding: "64px 0 96px" }}>
-        <div className="wrap" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "56px", alignItems: "center" }}>
+        <div className="wrap" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(340px, 100%), 1fr))", gap: "56px", alignItems: "center" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
             <h1 style={{ margin: "0", display: "flex", alignItems: "center", gap: "20px" }}>
               <Isotipo tono="manzana" alto={28} altoCss="clamp(72px, 8vw, 104px)" />
@@ -35,12 +35,12 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
                 <Isotipo tono="oliva" alto={26} />
                 Así se ve tu mes
               </p>
-              <p style={{ margin: "0", fontSize: "13px", color: "#4A6158" }}>
+              <p style={{ margin: "0", fontSize: "14px", color: "#4A6158" }}>
                 Ejemplo con $8.000.000
               </p>
             </div>
             <div>
-              <p style={{ margin: "0", fontSize: "13px", color: "#4A6158" }}>
+              <p style={{ margin: "0", fontSize: "14px", color: "#4A6158" }}>
                 Te queda para gastos y metas
               </p>
               <p style={{ margin: "4px 0 0", fontSize: "44px", lineHeight: "48px", fontWeight: "700", letterSpacing: "-0.02em" }}>
@@ -55,7 +55,7 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "16px" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "4px", padding: "16px", background: "#F3F6F4", borderRadius: "12px" }}>
-                <span style={{ fontSize: "13px", color: "#4A6158" }}>
+                <span style={{ fontSize: "14px", color: "#4A6158" }}>
                   Planilla (salud, pensión, ARL)
                 </span>
                 <span style={{ fontSize: "20px", fontWeight: "700" }}>
@@ -63,7 +63,7 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
                 </span>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "4px", padding: "16px", background: "#F3F6F4", borderRadius: "12px" }}>
-                <span style={{ fontSize: "13px", color: "#4A6158" }}>
+                <span style={{ fontSize: "14px", color: "#4A6158" }}>
                   Aparta para prima
                 </span>
                 <span style={{ fontSize: "20px", fontWeight: "700" }}>
@@ -71,7 +71,7 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
                 </span>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "4px", padding: "16px", background: "#F3F6F4", borderRadius: "12px" }}>
-                <span style={{ fontSize: "13px", color: "#4A6158" }}>
+                <span style={{ fontSize: "14px", color: "#4A6158" }}>
                   Aparta para cesantías
                 </span>
                 <span style={{ fontSize: "20px", fontWeight: "700" }}>
@@ -79,7 +79,7 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
                 </span>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "4px", padding: "16px", background: "#F3F6F4", borderRadius: "12px" }}>
-                <span style={{ fontSize: "13px", color: "#4A6158" }}>
+                <span style={{ fontSize: "14px", color: "#4A6158" }}>
                   Dólar hoy (TRM)
                 </span>
                 <span style={{ fontSize: "20px", fontWeight: "700" }}>
@@ -87,7 +87,7 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
                 </span>
               </div>
             </div>
-            <p style={{ margin: "0", fontSize: "12px", lineHeight: "18px", color: "#4A6158" }}>
+            <p style={{ margin: "0", fontSize: "14px", lineHeight: "18px", color: "#4A6158" }}>
               Cálculo estimado con el salario mínimo 2026 y ARL riesgo I. No incluye el 4x1000, retenciones ni renta.
             </p>
           </div>
@@ -159,7 +159,7 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
             <Isotipo tono="oliva" alto={36} />
             Todo lo que calcula Frilo: planilla, cesantías y dólar
           </h2>
-          <article className="card" style={{ padding: "40px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "40px", alignItems: "center" }}>
+          <article className="card" style={{ padding: "40px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(320px, 100%), 1fr))", gap: "40px", alignItems: "center" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               <span style={{ fontSize: "14px", fontWeight: "600", color: "#4A6158" }}>
                 01 · Aportes
@@ -183,7 +183,7 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
               <img src="/capturas/aportes.jpg" width="640" height="1385" alt="Pantalla Aportes de la app de Frilo: total de la planilla de $1.079.400 con el desglose de IBC, salud, pensión, Fondo de Solidaridad y ARL." loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
             </div>
           </article>
-          <article className="card" style={{ padding: "40px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "40px", alignItems: "center" }}>
+          <article className="card" style={{ padding: "40px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(320px, 100%), 1fr))", gap: "40px", alignItems: "center" }}>
             <div style={{ background: "#E6EEE9", borderRadius: "16px", maxHeight: "420px", overflow: "hidden" }}>
               <img src="/capturas/ahorro.jpg" width="640" height="1385" alt="Pantalla de Ahorro de la app de Frilo: bolsillos de prima y cesantías con su saldo y lo que llevas guardado." loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
             </div>
@@ -207,7 +207,7 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
               </div>
             </div>
           </article>
-          <article className="card" style={{ padding: "40px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "40px", alignItems: "center" }}>
+          <article className="card" style={{ padding: "40px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(320px, 100%), 1fr))", gap: "40px", alignItems: "center" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               <span style={{ fontSize: "14px", fontWeight: "600", color: "#4A6158" }}>
                 03 · Dólar
@@ -480,11 +480,11 @@ Calculadora de interés compuesto
               Todas las guías
             </Link>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(240px, 100%), 1fr))", gap: "16px" }}>
             <Link href="/guias/descargar-planilla-seguridad-social" className="card" style={{ textDecoration: "none", padding: "0", overflow: "hidden", display: "flex", flexDirection: "column" }}>
               <div style={{ height: "140px", background: "#E6EEE9" }} />
               <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "8px" }}>
-                <span style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" }}>
+                <span style={{ fontSize: "14px", fontWeight: "600", color: "#4A6158" }}>
                   Aportes
                 </span>
                 <span style={{ fontSize: "18px", fontWeight: "600" }}>
@@ -495,7 +495,7 @@ Calculadora de interés compuesto
             <Link href="/guias/ibc-independientes" className="card" style={{ textDecoration: "none", padding: "0", overflow: "hidden", display: "flex", flexDirection: "column" }}>
               <div style={{ height: "140px", background: "#E6EEE9" }} />
               <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "8px" }}>
-                <span style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" }}>
+                <span style={{ fontSize: "14px", fontWeight: "600", color: "#4A6158" }}>
                   Aportes
                 </span>
                 <span style={{ fontSize: "18px", fontWeight: "600" }}>
@@ -506,7 +506,7 @@ Calculadora de interés compuesto
             <Link href="/guias/cesantias-independientes" className="card" style={{ textDecoration: "none", padding: "0", overflow: "hidden", display: "flex", flexDirection: "column" }}>
               <div style={{ height: "140px", background: "#E6EEE9" }} />
               <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "8px" }}>
-                <span style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" }}>
+                <span style={{ fontSize: "14px", fontWeight: "600", color: "#4A6158" }}>
                   Prima y cesantías
                 </span>
                 <span style={{ fontSize: "18px", fontWeight: "600" }}>
@@ -517,7 +517,7 @@ Calculadora de interés compuesto
             <Link href="/guias/recibir-pagos-en-dolares-colombia" className="card" style={{ textDecoration: "none", padding: "0", overflow: "hidden", display: "flex", flexDirection: "column" }}>
               <div style={{ height: "140px", background: "#E6EEE9" }} />
               <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "8px" }}>
-                <span style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" }}>
+                <span style={{ fontSize: "14px", fontWeight: "600", color: "#4A6158" }}>
                   Dólar
                 </span>
                 <span style={{ fontSize: "18px", fontWeight: "600" }}>
@@ -528,7 +528,7 @@ Calculadora de interés compuesto
             <Link href="/guias/cuentas-de-ahorro-alto-rendimiento" className="card" style={{ textDecoration: "none", padding: "0", overflow: "hidden", display: "flex", flexDirection: "column" }}>
               <div style={{ height: "140px", background: "#E6EEE9" }} />
               <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "8px" }}>
-                <span style={{ fontSize: "13px", fontWeight: "600", color: "#4A6158" }}>
+                <span style={{ fontSize: "14px", fontWeight: "600", color: "#4A6158" }}>
                   Ahorro
                 </span>
                 <span style={{ fontSize: "18px", fontWeight: "600" }}>
@@ -540,7 +540,7 @@ Calculadora de interés compuesto
         </div>
       </section>
       <section id="preguntas" style={{ background: "#FFFFFF", padding: "96px 0", borderTop: "1px solid #D6E0DA" }}>
-        <div className="wrap" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "48px" }}>
+        <div className="wrap" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: "48px" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             <h2 style={{ margin: "0", fontSize: "36px", letterSpacing: "-0.015em" }}>
               Preguntas frecuentes sobre Frilo y sus calculadoras

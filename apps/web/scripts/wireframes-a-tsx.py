@@ -503,7 +503,7 @@ def escribir_vista(ident, nombre, nodo):
         + f"export function Vista{ident.replace('-', '')}{nombre}({{ {', '.join(nombres)} }}: Vars{ident.replace('-', '')}{nombre}) {{\n  return (\n{cuerpo}\n  );\n}}\n"
     )
     DIN.mkdir(parents=True, exist_ok=True)
-    (DIN / f'Vista{ident.replace("-", "")}{nombre}.tsx').write_text(ajustes_vista(ident, arreglar_font(tsx)), encoding='utf-8')
+    (DIN / f'Vista{ident.replace("-", "")}{nombre}.tsx').write_text(ajustes_vista(ident, ajustes_moviles(arreglar_font(tsx))), encoding='utf-8')
     return nombres
 
 
@@ -628,6 +628,14 @@ def arreglar_font(t):
     return t
 
 
+def ajustes_moviles(t):
+    """Teléfonos de 360 px: las columnas `minmax(340px, 1fr)` no caben con el relleno de la página (desborde de 25 px), y el texto
+    de 12-13 px es ilegible en pantalla pequeña (mínimo 14 px)."""
+    t = re.sub(r'minmax\((\d+)px, 1fr\)', r'minmax(min(\1px, 100%), 1fr)', t)
+    t = re.sub(r'fontSize: "1[23]px"', 'fontSize: "14px"', t)
+    t = re.sub(r'font-size:1[23]px', 'font-size:14px', t)
+    return t
+
 def ajustes_vista(ident, tsx):
     """Plazo del interés compuesto: en móvil la columna mide ~134 px y el selector fijo de 104 px dejaba el campo de meses en 34 px
     (sin espacio para escribir). Ahora el campo tiene un mínimo de 88 px y el selector baja de línea si no caben."""
@@ -640,6 +648,12 @@ def ajustes_vista(ident, tsx):
         i = tsx.find(parte, tsx.find(parte) + 1)
         if i > 0:
             tsx = tsx[:i] + '<div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "14px" }}>' + tsx[i + len(parte):]
+    for ident_aj, id_campo, nombre_vista in (('P03', 'ingresoInd', 'VistaP03b1'), ('P12', 'g-ingreso', 'VistaP12b1')):
+        if ident == ident_aj and f'id="{id_campo}"' in tsx:
+            tsx = re.sub(r'(<input id="' + id_campo + r'"[^>]*/>)', r'\1\n            {ajuste}', tsx, count=1)
+            if ident == 'P03':  # el salario del modo con contrato laboral (el que abre por defecto) lleva su propia barra
+                tsx = re.sub(r'(<input id="salario"[^>]*/>)', r'\1\n                  {ajusteSalario}', tsx, count=1)
+            tsx = tsx.replace('export type Vars' + ident_aj + 'b1 = { ', 'export type Vars' + ident_aj + 'b1 = { ajuste?: any; ' + ('ajusteSalario?: any; ' if ident_aj == 'P03' else ''), 1).replace('export function ' + nombre_vista + '({ ', 'export function ' + nombre_vista + '({ ajuste, ' + ('ajusteSalario, ' if ident_aj == 'P03' else ''), 1)
     if ident == 'P01':  # el ajuste del ingreso (barra y botones ±) se pinta justo debajo del campo
         tsx = tsx.replace('<input id="ingreso" className="field" inputMode="numeric" value={ingresoTxt} onChange={onIngreso} />', '<input id="ingreso" className="field" inputMode="numeric" value={ingresoTxt} onChange={onIngreso} />\n            {ajuste}')
         # etiquetas más cortas: en un teléfono de 360 px el selector cerrado cortaba «(0,522%)»
@@ -691,7 +705,7 @@ def convertir(archivo):
     )
     if ident == 'P06':  # la miga «Glosario» del wireframe apunta a «#»: ahora existe el hub
         tsx = re.sub(r'<a href="#" (style=\{\{[^}]*\}\}>\s*Glosario\s*)</a>', r'<Link href="/glosario" \1</Link>', tsx)
-    tsx = arreglar_font(enlazar(tsx, ident))
+    tsx = ajustes_moviles(arreglar_font(enlazar(tsx, ident)))
     (SALIDA / f'{ident}.tsx').write_text(tsx, encoding='utf-8')
     CSS_ACUMULADO.append(f'/* {archivo} */\n' + css_de(archivo, ident))
     print(f'{archivo:34} → paginas/{ident}.tsx   dinámicos: {len(c.dinamicos)}')
@@ -710,4 +724,4 @@ if __name__ == '__main__':
     for a in objetivo:
         convertir(a)
     if not sys.argv[1:]:
-        (SALIDA / 'wireframes.css').write_text('/* GENERADO por scripts/wireframes-a-tsx.py: estilos de cada wireframe, limitados a su página. */\n' + arreglar_font('\n\n'.join(CSS_ACUMULADO)) + '\n', encoding='utf-8')
+        (SALIDA / 'wireframes.css').write_text('/* GENERADO por scripts/wireframes-a-tsx.py: estilos de cada wireframe, limitados a su página. */\n' + ajustes_moviles(arreglar_font('\n\n'.join(CSS_ACUMULADO))) + '\n', encoding='utf-8')

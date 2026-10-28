@@ -227,3 +227,14 @@ describe('CSS de los campos (móvil)', () => {
     for (const a of archivos) expect(readFileSync(a, 'utf8'), a).not.toMatch(/font:\s*['"]?\d{3} [\d.]+px\/[\d.]+ inherit/);
   });
 });
+
+describe('móvil', () => {
+  it('las columnas de las páginas generadas no fijan un mínimo mayor que el ancho disponible', () => {
+    for (const f of ['Home', 'P01', 'Hub-C']) expect(readFileSync(`apps/web/src/paginas/${f}.tsx`, 'utf8'), f).not.toMatch(/minmax\(\d+px, 1fr\)/);
+  });
+  it('el ajuste del ingreso está en las calculadoras principales', () => {
+    expect(readFileSync('apps/web/src/dinamicos/VistaP01b1.tsx', 'utf8')).toContain('{ajuste}');
+    expect(readFileSync('apps/web/src/components/HeroCalculo.tsx', 'utf8')).toContain('AjusteIngreso');
+    expect(readFileSync('apps/web/src/dinamicos/VistaP03b1.tsx', 'utf8')).toContain('{ajusteSalario}');
+  });
+});
