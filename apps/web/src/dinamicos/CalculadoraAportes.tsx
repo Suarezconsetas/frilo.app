@@ -6,6 +6,7 @@ import { pct, pesos } from '@/lib/formato';
 import { decimalEs, miles, soloEnteros } from '../lib/entradas';
 import { CLAVE_INGRESO } from '../components/HeroCalculo';
 import { fijarIntencion } from '../lib/intencion';
+import { AjusteIngreso } from './AjusteIngreso';
 import { VistaP01b1 } from './VistaP01b1';
 
 const P = parametrosDe(2026);
@@ -94,6 +95,7 @@ export function CalculadoraAportes() {
         )}
       </div>
       <VistaP01b1
+        ajuste={<AjusteIngreso valor={ingreso} onCambio={setIngreso} />}
         apartaTxt={pesos(aparta)}
         arl={arl}
         filas={filas}

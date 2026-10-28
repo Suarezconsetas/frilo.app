@@ -31,11 +31,11 @@ export function HeroCalculo({ trm }: { trm: number }) {
       </label>
       <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
         <div style={{ display: 'flex', flex: '1 1 220px', minHeight: 52, borderRadius: 12, background: '#FFFFFF', overflow: 'hidden' }}>
-          <select aria-label="Moneda" value={moneda} onChange={(e) => setMoneda(e.target.value as 'COP' | 'USD')} style={{ border: 0, background: '#E6EEE9', color: '#0F372D', font: '600 15px/1 inherit', fontFamily: 'inherit', padding: '0 12px' }}>
+          <select aria-label="Moneda" value={moneda} onChange={(e) => setMoneda(e.target.value as 'COP' | 'USD')} style={{ border: 0, background: '#E6EEE9', color: '#0F372D', fontWeight: 600, fontSize: "15px", lineHeight: 1, fontFamily: "inherit", padding: '0 12px' }}>
             <option value="COP">COP</option>
             <option value="USD">USD</option>
           </select>
-          <input id="hero-ingreso" inputMode="numeric" placeholder="8.000.000" value={monto ? miles(monto) : ''} onChange={(e) => setMonto(soloEnteros(e))} style={{ flex: 1, minWidth: 0, border: 0, padding: '0 16px', font: '600 18px/1 inherit', fontFamily: 'inherit', color: '#0F372D' }} />
+          <input id="hero-ingreso" inputMode="numeric" placeholder="8.000.000" value={monto ? miles(monto) : ''} onChange={(e) => setMonto(soloEnteros(e))} style={{ flex: 1, minWidth: 0, border: 0, padding: '0 16px', fontWeight: 600, fontSize: "18px", lineHeight: 1, fontFamily: "inherit", color: '#0F372D' }} />
         </div>
         <button type="submit" className="btn btn-m" style={{ border: 0, cursor: 'pointer', fontFamily: 'inherit' }}>
           Ver mi mes

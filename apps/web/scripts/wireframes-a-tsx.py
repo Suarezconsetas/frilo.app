@@ -503,7 +503,7 @@ def escribir_vista(ident, nombre, nodo):
         + f"export function Vista{ident.replace('-', '')}{nombre}({{ {', '.join(nombres)} }}: Vars{ident.replace('-', '')}{nombre}) {{\n  return (\n{cuerpo}\n  );\n}}\n"
     )
     DIN.mkdir(parents=True, exist_ok=True)
-    (DIN / f'Vista{ident.replace("-", "")}{nombre}.tsx').write_text(tsx, encoding='utf-8')
+    (DIN / f'Vista{ident.replace("-", "")}{nombre}.tsx').write_text(ajustes_vista(ident, arreglar_font(tsx)), encoding='utf-8')
     return nombres
 
 
@@ -620,6 +620,33 @@ def enlazar(tsx, ident):
     return tsx
 
 
+def arreglar_font(t):
+    """`font: 600 18px/1 inherit` es inválido en CSS (`inherit` no puede ir dentro del atajo): el navegador lo descarta y deja
+    el campo en 13,3 px, y iOS hace zoom al tocarlo. Se expande a propiedades sueltas."""
+    t = re.sub(r'font:\s*(\d{3}) ([\d.]+)px/([\d.]+) inherit', r'font-weight:\1;font-size:\2px;line-height:\3;font-family:inherit', t)
+    t = re.sub(r'font: (["\'])(\d{3}) ([\d.]+)px/([\d.]+) inherit\1', r'fontWeight: \2, fontSize: "\3px", lineHeight: \4, fontFamily: "inherit"', t)
+    return t
+
+
+def ajustes_vista(ident, tsx):
+    """Plazo del interés compuesto: en móvil la columna mide ~134 px y el selector fijo de 104 px dejaba el campo de meses en 34 px
+    (sin espacio para escribir). Ahora el campo tiene un mínimo de 88 px y el selector baja de línea si no caben."""
+    if ident == 'P10':
+        tsx = tsx.replace('<div style={{ display: "flex", gap: "8px" }}>\n                    <input id="ic-meses"', '<div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>\n                    <input id="ic-meses"')
+        tsx = tsx.replace('style={{ flex: "1 1 0", minWidth: "0" }} />\n                    <select aria-label="Unidad del plazo"', 'style={{ flex: "1 1 88px", minWidth: "88px" }} />\n                    <select aria-label="Unidad del plazo"')
+        tsx = tsx.replace('style={{ flex: "0 0 104px", padding: "0 8px" }}', 'style={{ flex: "1 1 104px", padding: "0 8px" }}')
+        # «Efectiva anual (E.A.)» se cortaba en el selector de media columna: tipo de tasa y capitalización se apilan en pantallas angostas
+        parte = '<div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "14px" }}>'
+        i = tsx.find(parte, tsx.find(parte) + 1)
+        if i > 0:
+            tsx = tsx[:i] + '<div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "14px" }}>' + tsx[i + len(parte):]
+    if ident == 'P01':  # el ajuste del ingreso (barra y botones ±) se pinta justo debajo del campo
+        tsx = tsx.replace('<input id="ingreso" className="field" inputMode="numeric" value={ingresoTxt} onChange={onIngreso} />', '<input id="ingreso" className="field" inputMode="numeric" value={ingresoTxt} onChange={onIngreso} />\n            {ajuste}')
+        # etiquetas más cortas: en un teléfono de 360 px el selector cerrado cortaba «(0,522%)»
+        tsx = tsx.replace('I · oficina, trabajo digital (0,522%)', 'I · oficina (0,522%)').replace('(4,350%) · la paga el contratante', '(4,350%) · paga contratante').replace('(6,960%) · la paga el contratante', '(6,960%) · paga contratante')
+        tsx = tsx.replace('export type VarsP01b1 = { ', 'export type VarsP01b1 = { ajuste?: any; ', 1).replace('export function VistaP01b1({ ', 'export function VistaP01b1({ ajuste, ', 1)
+    return tsx
+
 def convertir(archivo):
     ident, comp = PAGINAS[archivo]
     html = (WF / archivo).read_text(encoding='utf-8')
@@ -664,7 +691,7 @@ def convertir(archivo):
     )
     if ident == 'P06':  # la miga «Glosario» del wireframe apunta a «#»: ahora existe el hub
         tsx = re.sub(r'<a href="#" (style=\{\{[^}]*\}\}>\s*Glosario\s*)</a>', r'<Link href="/glosario" \1</Link>', tsx)
-    tsx = enlazar(tsx, ident)
+    tsx = arreglar_font(enlazar(tsx, ident))
     (SALIDA / f'{ident}.tsx').write_text(tsx, encoding='utf-8')
     CSS_ACUMULADO.append(f'/* {archivo} */\n' + css_de(archivo, ident))
     print(f'{archivo:34} → paginas/{ident}.tsx   dinámicos: {len(c.dinamicos)}')
@@ -683,4 +710,4 @@ if __name__ == '__main__':
     for a in objetivo:
         convertir(a)
     if not sys.argv[1:]:
-        (SALIDA / 'wireframes.css').write_text('/* GENERADO por scripts/wireframes-a-tsx.py: estilos de cada wireframe, limitados a su página. */\n' + '\n\n'.join(CSS_ACUMULADO) + '\n', encoding='utf-8')
+        (SALIDA / 'wireframes.css').write_text('/* GENERADO por scripts/wireframes-a-tsx.py: estilos de cada wireframe, limitados a su página. */\n' + arreglar_font('\n\n'.join(CSS_ACUMULADO)) + '\n', encoding='utf-8')

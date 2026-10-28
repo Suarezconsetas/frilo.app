@@ -7,8 +7,8 @@ import { miles, soloEnteros } from '../lib/entradas';
 import { VistaP03b1 } from './VistaP03b1';
 
 const P = parametrosDe(2026);
-const ON = 'min-height: 44px; border: 0; border-radius: 9px; background: #FFFFFF; color: #0F372D; font: 700 15px/1.2 inherit; padding: 8px; cursor: pointer; box-shadow: 0 1px 2px rgba(15,55,45,0.15)';
-const OFF = 'min-height: 44px; border: 0; border-radius: 9px; background: transparent; color: #4A6158; font: 600 15px/1.2 inherit; padding: 8px; cursor: pointer';
+const ON = 'min-height: 44px; border: 0; border-radius: 9px; background: #FFFFFF; color: #0F372D; font-weight:700;font-size:15px;line-height:1.2;font-family:inherit; padding: 8px; cursor: pointer; box-shadow: 0 1px 2px rgba(15,55,45,0.15)';
+const OFF = 'min-height: 44px; border: 0; border-radius: 9px; background: transparent; color: #4A6158; font-weight:600;font-size:15px;line-height:1.2;font-family:inherit; padding: 8px; cursor: pointer';
 
 /** P03: cesantías con contrato laboral (días/360 e intereses del 12%) o como independiente (apartar 1/12 de cada pago). */
 export function CalculadoraCesantias() {

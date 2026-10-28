@@ -43,12 +43,12 @@ p { margin: 0 0 14px; }
 .nav-enlace[aria-current='page'] { border-bottom-color: var(--manzana); }
 .header-acciones { display: flex; gap: 14px; align-items: center; margin-left: auto; }
 .enlace-claro { color: #fff; font-weight: 600; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
-.boton-degradado { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: 14px; border: 0; background: var(--degradado); color: var(--oliva); font: 700 15px/1 inherit; font-family: inherit; text-decoration: none; cursor: pointer; }
+.boton-degradado { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: 14px; border: 0; background: var(--degradado); color: var(--oliva); font-weight:700;font-size:15px;line-height:1;font-family:inherit; font-family: inherit; text-decoration: none; cursor: pointer; }
 .boton-degradado.grande { min-height: 52px; font-size: 16px; width: 100%; }
 .boton-degradado:disabled { opacity: 0.7; cursor: progress; }
 .banner-rendimiento .boton-manzana, .boton-manzana { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 12px; background: var(--manzana); color: var(--oliva); font-weight: 700; font-size: 15px; text-decoration: none; margin-top: 4px; }
-.boton-contorno { min-height: 44px; border: 1px solid var(--oliva-suave); border-radius: 12px; background: transparent; color: #fff; font: 600 14px/1 inherit; font-family: inherit; cursor: pointer; }
-.boton-google { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border-radius: 14px; border: 0; background: #fff; color: var(--oliva); font: 700 16px/1 inherit; font-family: inherit; cursor: pointer; }
+.boton-contorno { min-height: 44px; border: 1px solid var(--oliva-suave); border-radius: 12px; background: transparent; color: #fff; font-weight:600;font-size:14px;line-height:1;font-family:inherit; font-family: inherit; cursor: pointer; }
+.boton-google { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border-radius: 14px; border: 0; background: #fff; color: var(--oliva); font-weight:700;font-size:16px;line-height:1;font-family:inherit; font-family: inherit; cursor: pointer; }
 
 /* Footer */
 .footer { background: #fff; border-top: 1px solid var(--linea); margin-top: 64px; padding: 40px 0 24px; }
@@ -111,7 +111,7 @@ p { margin: 0 0 14px; }
 .registro-ayuda { font-size: 14px; color: var(--oliva-suave); }
 .registro-o { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--oliva-suave); }
 .registro-o span { flex: 1; height: 1px; background: var(--oliva-3); }
-.registro-input { min-height: 52px; border: 0; border-radius: 12px; padding: 0 16px; font: 600 17px/1 inherit; font-family: inherit; color: var(--oliva); background: #fff; width: 100%; }
+.registro-input { min-height: 52px; border: 0; border-radius: 12px; padding: 0 16px; font-weight:600;font-size:17px;line-height:1;font-family:inherit; font-family: inherit; color: var(--oliva); background: #fff; width: 100%; }
 .registro-input.codigo { font-weight: 700; font-size: 22px; letter-spacing: 0.3em; }
 .registro-error { margin: 0; font-size: 14px; color: #ffd2d2; }
 .registro-casilla { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 20px; color: #fff; cursor: pointer; }
@@ -132,7 +132,7 @@ p { margin: 0 0 14px; }
 .aviso-cookies-titulo { font-weight: 700; font-size: 16px; margin-bottom: 4px !important; }
 .aviso-cookies a { color: #fff; text-decoration: underline; }
 .aviso-cookies-botones { display: flex; gap: 10px; flex: 0 0 auto; }
-.aviso-cookies-botones button { min-height: 44px; min-width: 112px; padding: 0 20px; border-radius: 14px; font: 700 15px/1 inherit; font-family: inherit; cursor: pointer; border: 2px solid #6FFF8F; }
+.aviso-cookies-botones button { min-height: 44px; min-width: 112px; padding: 0 20px; border-radius: 14px; font-weight:700;font-size:15px;line-height:1;font-family:inherit; font-family: inherit; cursor: pointer; border: 2px solid #6FFF8F; }
 .aviso-cookies-si { background: #6FFF8F; color: var(--oliva); }
 .aviso-cookies-no { background: transparent; color: #fff; }
 .enlace-cookies { background: none; border: 0; padding: 0; margin-left: 8px; min-height: 44px; font: inherit; color: var(--tinta-suave); text-decoration: underline; cursor: pointer; }
@@ -153,7 +153,7 @@ p { margin: 0 0 14px; }
 .nav-panel-todos a { font-weight: 700; color: var(--oliva); }
 @media (max-width: 768px) {
   .nav-menu { flex-wrap: wrap; }
-  .nav-panel { position: static; width: 100%; flex-basis: 100%; box-shadow: none; margin-top: 4px; }
+  .nav-panel { position: static; width: 100%; min-width: 0; flex-basis: 100%; box-shadow: none; margin-top: 4px; }
 }
 
 /* Tarjetas con solo el título como enlace: el enlace cubre toda la tarjeta */
@@ -176,3 +176,15 @@ p { margin: 0 0 14px; }
 .terminos-clave ul { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
 .terminos-clave li a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--linea); border-radius: 999px; background: #fff; font-weight: 700; color: var(--oliva); text-decoration: none; }
 .terminos-clave li a:hover { border-color: var(--oliva); }
+
+/* Ajuste del ingreso (barra y botones ±) */
+.ajuste-ingreso { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.ajuste-ingreso input[type='range'] { flex: 1; min-width: 0; height: 44px; accent-color: var(--oliva); background: transparent; touch-action: pan-y; }
+.ajuste-boton { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--oliva); background: #fff; color: var(--oliva); font-size: 24px; font-weight: 700; line-height: 1; font-family: inherit; cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.ajuste-boton:active { background: var(--oliva); color: var(--manzana); }
+.ajuste-boton:disabled { opacity: 0.4; cursor: default; }
+
+/* Selectores largos en móvil: 16 px (el mínimo para que iOS no haga zoom) y menos relleno, para que el texto no se corte */
+@media (max-width: 480px) {
+  .wf select.field { font-size: 16px; padding: 0 10px; }
+}

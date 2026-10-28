@@ -41,8 +41,8 @@ function usar() {
 }
 
 const BASE = 'background: #164538; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 4px';
-const ON = 'min-height: 48px; border: 0; border-radius: 12px; background: #FFFFFF; color: #0F372D; font: 700 15px/1.2 inherit; padding: 8px 12px; cursor: pointer; box-shadow: 0 1px 2px rgba(15,55,45,0.15)';
-const OFF = 'min-height: 48px; border: 0; border-radius: 12px; background: transparent; color: #4A6158; font: 600 15px/1.2 inherit; padding: 8px 12px; cursor: pointer';
+const ON = 'min-height: 48px; border: 0; border-radius: 12px; background: #FFFFFF; color: #0F372D; font-weight:700;font-size:15px;line-height:1.2;font-family:inherit; padding: 8px 12px; cursor: pointer; box-shadow: 0 1px 2px rgba(15,55,45,0.15)';
+const OFF = 'min-height: 48px; border: 0; border-radius: 12px; background: transparent; color: #4A6158; font-weight:600;font-size:15px;line-height:1.2;font-family:inherit; padding: 8px 12px; cursor: pointer';
 
 const pctTxt = (t: number) => `${decimalEs(t * 100, 2)}%`;
 
@@ -180,7 +180,7 @@ export function CalculadoraInteres() {
       onInicial={(e) => set({ inicial: soloEnteros(e) })} onMeta={(e) => set({ meta: soloEnteros(e) })} onPlazo={(e) => set({ plazo: soloEnteros(e) })}
       onRango={(e) => set({ rango: String(e.target.value) })} onRet={(e) => set({ ret: e.target.checked })} onTasa={(e) => set({ tasa: String(e.target.value) })}
       onTipo={(e) => set({ tipo: e.target.value })} onUnidad={(e) => set({ unidad: e.target.value })}
-      plazo={String(st.plazo)} principal={c.principal} rango={st.rango} regla72={c.regla72} ret={st.ret} retTxt={c.retTxt}
+      plazo={st.plazo ? String(st.plazo) : ''} principal={c.principal} rango={st.rango} regla72={c.regla72} ret={st.ret} retTxt={c.retTxt}
       subtitular={c.subtitular} tasa={st.tasa} tipo={st.tipo} titular={c.titular} totalTxt={c.totalTxt} unidad={st.unidad}
       usarPreset={() => set({ aporte: redondearMultiplo(aportePrimaYCesantias(st.ingreso), 100) })}
     />

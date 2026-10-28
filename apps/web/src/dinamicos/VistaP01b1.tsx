@@ -5,9 +5,9 @@ import { Fragment } from 'react';
 import Link from 'next/link';
 import { Isotipo, Wordmark } from '../components/Logo';
 
-export type VarsP01b1 = { apartaTxt: string; arl: boolean; filas: any[]; ibcTxt: string; ingresoTxt: string; onArl: (e: any) => void; onIngreso: (e: any) => void; onRiesgo: (e: any) => void; primaTxt: string; quedaTxt: string; rendTxt: string; riesgo: string; tasaTxt: string; totalTxt: string; };
+export type VarsP01b1 = { ajuste?: any; apartaTxt: string; arl: boolean; filas: any[]; ibcTxt: string; ingresoTxt: string; onArl: (e: any) => void; onIngreso: (e: any) => void; onRiesgo: (e: any) => void; primaTxt: string; quedaTxt: string; rendTxt: string; riesgo: string; tasaTxt: string; totalTxt: string; };
 
-export function VistaP01b1({ apartaTxt, arl, filas, ibcTxt, ingresoTxt, onArl, onIngreso, onRiesgo, primaTxt, quedaTxt, rendTxt, riesgo, tasaTxt, totalTxt }: VarsP01b1) {
+export function VistaP01b1({ ajuste, apartaTxt, arl, filas, ibcTxt, ingresoTxt, onArl, onIngreso, onRiesgo, primaTxt, quedaTxt, rendTxt, riesgo, tasaTxt, totalTxt }: VarsP01b1) {
   return (
       <div style={{ display: "flex", flexWrap: "wrap", gap: "24px", alignItems: "flex-start" }}>
         <form className="card" aria-label="Calculadora de aportes" style={{ flex: "1 1 360px", display: "flex", flexDirection: "column", gap: "20px", padding: "28px" }}>
@@ -16,6 +16,7 @@ export function VistaP01b1({ apartaTxt, arl, filas, ibcTxt, ingresoTxt, onArl, o
               Ingreso mensual bruto (COP)
             </label>
             <input id="ingreso" className="field" inputMode="numeric" value={ingresoTxt} onChange={onIngreso} />
+            {ajuste}
             <span style={{ fontSize: "13px", color: "#4A6158" }}>
               {"Antes de impuestos y sin IVA. ¿Te pagan en dólares? "}
               <Link href="/dolar-hoy" style={{ color: "#4A6158" }}>
@@ -29,7 +30,7 @@ export function VistaP01b1({ apartaTxt, arl, filas, ibcTxt, ingresoTxt, onArl, o
             </label>
             <select id="riesgo" className="field" value={riesgo} onChange={onRiesgo}>
               <option value="0">
-                I · oficina, trabajo digital (0,522%)
+                I · oficina (0,522%)
               </option>
               <option value="1">
                 II (1,044%)
@@ -38,10 +39,10 @@ export function VistaP01b1({ apartaTxt, arl, filas, ibcTxt, ingresoTxt, onArl, o
                 III (2,436%)
               </option>
               <option value="3">
-                IV (4,350%) · la paga el contratante
+                IV (4,350%) · paga contratante
               </option>
               <option value="4">
-                V (6,960%) · la paga el contratante
+                V (6,960%) · paga contratante
               </option>
             </select>
           </div>

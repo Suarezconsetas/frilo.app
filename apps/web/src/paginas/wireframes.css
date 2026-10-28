@@ -35,7 +35,7 @@
 .wf-P01 .btn-g {border:1px solid #B5CCC1;color:#FFFFFF}
 .wf-P01 .btn-g:hover {color:#FFFFFF}
 .wf-P01 .card {background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
-.wf-P01 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font:600 18px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
+.wf-P01 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font-weight:600;font-size:18px;line-height:1;font-family:inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
 .wf-P01 .prose h2 {font-size:30px;line-height:1.2;margin:56px 0 16px;letter-spacing:-0.01em}
 .wf-P01 .prose h3 {font-size:20px;margin:28px 0 8px}
 .wf-P01 .prose p, .wf-P01 .prose li {font-size:17px;line-height:1.65;color:#2B4A40}
@@ -54,7 +54,7 @@
 .wf-P03 .btn-m {background:#6FFF8F;color:#0F372D}
 .wf-P03 .btn-m:hover {color:#0F372D}
 .wf-P03 .card {background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
-.wf-P03 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font:600 18px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
+.wf-P03 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font-weight:600;font-size:18px;line-height:1;font-family:inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
 .wf-P03 .prose h2 {font-size:30px;line-height:1.2;margin:56px 0 16px;letter-spacing:-0.01em}
 .wf-P03 .prose p, .wf-P03 .prose li {font-size:17px;line-height:1.65;color:#2B4A40}
 .wf-P03 table.t {width:100%;border-collapse:collapse;font-size:15px}
@@ -72,7 +72,7 @@
 .wf-P05 .btn-grad {background:linear-gradient(100deg,#6FFF8F 0%,#2FB35E 100%);color:#0F372D;font-weight:700}
 .wf-P05 .btn-grad:hover {color:#0F372D}
 .wf-P05 .card {background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
-.wf-P05 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font:700 22px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box;letter-spacing:0.1em}
+.wf-P05 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font-weight:700;font-size:22px;line-height:1;font-family:inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box;letter-spacing:0.1em}
 .wf-P05 .prose h2 {font-size:30px;line-height:1.2;margin:56px 0 16px;letter-spacing:-0.01em}
 .wf-P05 .prose p, .wf-P05 .prose li {font-size:17px;line-height:1.65;color:#2B4A40}
 .wf-P05 table.t {width:100%;border-collapse:collapse;font-size:15px}
@@ -90,7 +90,7 @@
 .wf-P10 .btn-m {background:#6FFF8F;color:#0F372D}
 .wf-P10 .btn-m:hover {color:#0F372D}
 .wf-P10 .card {background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
-.wf-P10 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font:600 18px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
+.wf-P10 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font-weight:600;font-size:18px;line-height:1;font-family:inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
 .wf-P10 .prose h2 {font-size:30px;line-height:1.2;margin:56px 0 16px;letter-spacing:-0.01em}
 .wf-P10 .prose p, .wf-P10 .prose li {font-size:17px;line-height:1.65;color:#2B4A40}
 .wf-P10 table.t {width:100%;border-collapse:collapse;font-size:15px}
@@ -110,7 +110,7 @@
 .wf-P07 .btn-m {background:#6FFF8F;color:#0F372D}
 .wf-P07 .btn-m:hover {color:#0F372D}
 .wf-P07 .card {background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
-.wf-P07 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font:600 18px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
+.wf-P07 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font-weight:600;font-size:18px;line-height:1;font-family:inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
 .wf-P07 table.t {width:100%;border-collapse:collapse;font-size:15px}
 .wf-P07 table.t th, .wf-P07 table.t td {padding:12px 16px;text-align:left;border-top:1px solid #D6E0DA}
 .wf-P07 table.t thead th {background:#E6EEE9;border-top:0}
@@ -136,7 +136,7 @@
 .wf-P02 .btn-grad {background:linear-gradient(100deg,#6FFF8F 0%,#2FB35E 100%);color:#0F372D;font-weight:700}
 .wf-P02 .btn-grad:hover {color:#0F372D}
 .wf-P02 .card {background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
-.wf-P02 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font:600 18px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
+.wf-P02 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font-weight:600;font-size:18px;line-height:1;font-family:inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
 .wf-P02 .prose h2 {font-size:30px;line-height:1.2;margin:56px 0 16px;letter-spacing:-0.01em}
 .wf-P02 .prose p, .wf-P02 .prose li {font-size:18px;line-height:1.7;color:#2B4A40}
 .wf-P02 table.t {width:100%;border-collapse:collapse;font-size:15px}
@@ -177,7 +177,7 @@
 .wf-P12 .prose p, .wf-P12 .prose li {font-size:18px;line-height:1.7;color:#2B4A40}
 .wf-P12 summary {cursor:pointer;font-weight:600;font-size:17px;padding:18px 0}
 .wf-P12 details {border-bottom:1px solid #D6E0DA}
-.wf-P12 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font:600 18px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
+.wf-P12 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font-weight:600;font-size:18px;line-height:1;font-family:inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
 
 /* GuiaCuentaDolares.dc.html */
 .wf-P08 {margin:0;background:#FFFFFF;color:#0F372D;font-family:"Clarity City","Helvetica Neue",Helvetica,Arial,sans-serif}
@@ -221,7 +221,7 @@
 .wf-P11 a:hover {color:#0A2820}
 .wf-P11 .wrap {max-width:1200px;margin:0 auto;padding:0 24px;box-sizing:border-box}
 .wf-P11 .card {background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
-.wf-P11 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font:600 18px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
+.wf-P11 .field {width:100%;min-height:52px;border:1px solid #7E948B;border-radius:12px;padding:0 16px;font-weight:600;font-size:18px;line-height:1;font-family:inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
 .wf-P11 .prose h2 {font-size:30px;line-height:1.2;margin:56px 0 16px;letter-spacing:-0.01em}
 .wf-P11 .prose p, .wf-P11 .prose li {font-size:18px;line-height:1.7;color:#2B4A40}
 .wf-P11 table.t {width:100%;border-collapse:collapse;font-size:14px;min-width:1040px}
@@ -254,6 +254,6 @@
 .wf-SEM .btn-p {background:#0F372D;color:#6FFF8F}
 .wf-SEM .btn-p:hover {color:#6FFF8F}
 .wf-SEM .card {background:#FFFFFF;border:1px solid #D6E0DA;border-radius:16px;padding:24px;box-sizing:border-box}
-.wf-SEM .field {width:100%;min-height:56px;border:0;border-radius:12px;padding:0 16px;font:600 20px/1 inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
+.wf-SEM .field {width:100%;min-height:56px;border:0;border-radius:12px;padding:0 16px;font-weight:600;font-size:20px;line-height:1;font-family:inherit;color:#0F372D;background:#FFFFFF;box-sizing:border-box}
 .wf-SEM summary {cursor:pointer;font-weight:600;font-size:17px;padding:18px 0}
 .wf-SEM details {border-bottom:1px solid #D6E0DA}

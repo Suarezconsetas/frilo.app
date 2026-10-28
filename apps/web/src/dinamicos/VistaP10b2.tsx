@@ -21,7 +21,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
                 Tu ingreso mensual (COP)
               </label>
               <input id="ic-ingreso" className="field" inputMode="numeric" value={ingresoTxt} onChange={onIngreso} style={{ flex: "1 1 160px", minHeight: "44px" }} />
-              <button type="button" onClick={usarPreset} style={{ minHeight: "44px", padding: "0 16px", border: "0", borderRadius: "12px", background: "#0F372D", color: "#6FFF8F", font: "700 14px/1 inherit", cursor: "pointer" }}>
+              <button type="button" onClick={usarPreset} style={{ minHeight: "44px", padding: "0 16px", border: "0", borderRadius: "12px", background: "#0F372D", color: "#6FFF8F", fontWeight: 700, fontSize: "14px", lineHeight: 1, fontFamily: "inherit", cursor: "pointer" }}>
                 Usar el 16,67%
               </button>
             </div>
@@ -65,9 +65,9 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
                   <label htmlFor="ic-meses" style={{ fontWeight: "600" }}>
                     Plazo
                   </label>
-                  <div style={{ display: "flex", gap: "8px" }}>
-                    <input id="ic-meses" className="field" inputMode="numeric" value={plazo} onChange={onPlazo} style={{ flex: "1 1 0", minWidth: "0" }} />
-                    <select aria-label="Unidad del plazo" className="field" value={unidad} onChange={onUnidad} style={{ flex: "0 0 104px", padding: "0 8px" }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                    <input id="ic-meses" className="field" inputMode="numeric" value={plazo} onChange={onPlazo} style={{ flex: "1 1 88px", minWidth: "88px" }} />
+                    <select aria-label="Unidad del plazo" className="field" value={unidad} onChange={onUnidad} style={{ flex: "1 1 104px", padding: "0 8px" }}>
                       <option value="meses">
                         meses
                       </option>
@@ -89,7 +89,7 @@ export function VistaP10b2({ ahorradoTxt, aporteTxt, barras, cap, conAporte, con
               Ve qué pasa si la tasa baja o sube: las tasas de las cuentas cambian seguido.
             </span>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "14px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "14px" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
               <label htmlFor="ic-tipo" style={{ fontWeight: "600" }}>
                 Tipo de tasa

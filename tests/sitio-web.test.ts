@@ -220,3 +220,10 @@ describe('fechas de los datos estructurados', () => {
     for (const f of fechas) expect(f).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[-+]\d{2}:\d{2}$/);
   });
 });
+
+describe('CSS de los campos (móvil)', () => {
+  it('ninguna regla usa «font: … inherit» (inválida: deja los campos en 13 px y iOS hace zoom)', () => {
+    const archivos = ['apps/web/src/app/globals.css', 'apps/web/src/paginas/wireframes.css', 'apps/web/src/components/HeroCalculo.tsx', 'apps/web/src/dinamicos/InteresCompuesto.tsx', 'apps/web/src/dinamicos/CalculadoraCesantias.tsx', 'apps/web/src/dinamicos/VistaP10b2.tsx'];
+    for (const a of archivos) expect(readFileSync(a, 'utf8'), a).not.toMatch(/font:\s*['"]?\d{3} [\d.]+px\/[\d.]+ inherit/);
+  });
+});
