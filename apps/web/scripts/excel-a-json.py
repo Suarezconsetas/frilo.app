@@ -21,6 +21,10 @@ rels = {r.get('Id'): r.get('Target') for r in ET.fromstring(z.read('xl/_rels/wor
 hojas = {s.get('name'): 'xl/' + rels[s.get('{%s}id' % NS['r'])].lstrip('/').replace('xl/', '') for s in libro.find('m:sheets', NS)}
 
 
+# El Excel dice «Frilo» como H1 del Home; se decidió (28-oct-2026) que el H1 lleve las palabras clave y «Frilo» pase a H2.
+H1_CORREGIDO = {'Home': 'Calculadoras gratis para independientes: aportes, cesantías y planilla'}
+
+
 def filas(nombre):
     raiz = ET.fromstring(z.read(hojas[nombre]))
     for fila in raiz.iter('{%s}row' % NS['m']):
@@ -89,7 +93,7 @@ for f in list(filas('URLs'))[1:]:
         'keyword': f.get('L', ''),
         'title': f.get('R', ''),
         'description': f.get('T', ''),
-        'h1': f.get('V', ''),
+        'h1': H1_CORREGIDO.get(ident, f.get('V', '')),
         'ogType': f.get('W', 'website'),
         'tiposSchema': f.get('X', ''),
         'breadcrumb': f.get('Y', ''),

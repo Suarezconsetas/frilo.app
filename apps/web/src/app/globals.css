@@ -218,7 +218,7 @@ p { margin: 0 0 14px; }
   .aviso-cookies-botones { width: 100%; }
   .aviso-cookies-botones button { flex: 1; }
   .aviso-cookies a { display: inline-block; padding: 10px 0; }
-  .wf-Home h1 > :not(.sr-only) { display: none !important; }
+  .wf-Home .home-marca > :not(.sr-only) { display: none !important; }
   .wf-Home nav[aria-label='Ruta de navegación'] a,
   .wf nav[aria-label='Ruta de navegación'] a { display: inline-flex; align-items: center; min-height: 44px; }
   /* títulos y entradillas más compactos para que la calculadora aparezca antes */
@@ -232,3 +232,19 @@ p { margin: 0 0 14px; }
   .wf nav[aria-label='En esta página'] a { display: inline-flex; align-items: center; min-height: 44px; }
 }
 div[style*='overflow-x:auto'], div[style*='overflow-x: auto'] { position: relative; }
+
+/* Home: el H1 (título con palabras clave) va primero en el código y el logo —H2 «Frilo»— se muestra encima */
+.home-columna > * { order: 3; }
+.home-columna > h1 { order: 2; }
+.home-columna > .home-marca { order: 1; }
+
+/* Móvil: en las calculadoras el resultado va antes que la explicación (título, línea de confianza, calculadora, y luego la entradilla) */
+@media (max-width: 768px) {
+  :is(.wf-P01, .wf-P03, .wf-P05, .wf-P10) .wrap > * { order: 3; }
+  :is(.wf-P01, .wf-P03, .wf-P05, .wf-P10) .wrap > nav:first-child { order: 0; }
+  :is(.wf-P01, .wf-P03, .wf-P05, .wf-P10) .wrap > header { display: contents !important; }
+  :is(.wf-P01, .wf-P03, .wf-P05, .wf-P10) .wrap > header > h1 { order: 1; }
+  :is(.wf-P01, .wf-P03, .wf-P05, .wf-P10) .wrap > header > p:last-child { order: 2; margin-top: -16px; }
+  :is(.wf-P01, .wf-P03, .wf-P05, .wf-P10) .wrap > header > p:not(:last-child) { order: 4; }
+  :is(.wf-P01, .wf-P03, .wf-P05, .wf-P10) .wrap > :is(article, div:has(article), section.banner-registro, section:last-child) { order: 5; }
+}

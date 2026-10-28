@@ -636,6 +636,19 @@ def ajustes_moviles(t):
     t = re.sub(r'font-size:1[23]px', 'font-size:14px', t)
     return t
 
+def h1_del_home(tsx):
+    """H1 del Home = el título con las palabras clave; «Frilo» (logo) pasa a H2. El título va primero en el código (orden de lectura y de
+    importancia) y el logo se muestra arriba con `order`."""
+    m_logo = re.search(r'            <h1 style=\{\{ margin: "0", display: "flex", alignItems: "center", gap: "20px" \}\}>(.*?)</h1>\n', tsx, re.S)
+    m_tit = re.search(r'            <h2 style=\{\{ margin: "0", fontSize: "clamp\(28px, 3\.4vw, 42px\)"([^>]*)>(.*?)</h2>\n', tsx, re.S)
+    if not (m_logo and m_tit):
+        return tsx
+    logo = '            <h2 className="home-marca" style={{ margin: "0", display: "flex", alignItems: "center", gap: "20px" }}>' + m_logo.group(1) + '</h2>\n'
+    titulo = '            <h1 style={{ margin: "0", fontSize: "clamp(28px, 3.4vw, 42px)"' + m_tit.group(1).replace('}}', '}}', 1) + '>' + m_tit.group(2) + '</h1>\n'
+    tsx = tsx[: m_logo.start()] + titulo + logo + tsx[m_tit.end() :] if m_logo.start() < m_tit.start() else tsx
+    return tsx.replace('<div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>\n            <h1', '<div className="home-columna" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>\n            <h1', 1)
+
+
 def ajustes_vista(ident, tsx):
     """Plazo del interés compuesto: en móvil la columna mide ~134 px y el selector fijo de 104 px dejaba el campo de meses en 34 px
     (sin espacio para escribir). Ahora el campo tiene un mínimo de 88 px y el selector baja de línea si no caben."""
@@ -706,6 +719,8 @@ def convertir(archivo):
     if ident == 'P06':  # la miga «Glosario» del wireframe apunta a «#»: ahora existe el hub
         tsx = re.sub(r'<a href="#" (style=\{\{[^}]*\}\}>\s*Glosario\s*)</a>', r'<Link href="/glosario" \1</Link>', tsx)
     tsx = ajustes_moviles(arreglar_font(enlazar(tsx, ident)))
+    if ident == 'Home':
+        tsx = h1_del_home(tsx)
     (SALIDA / f'{ident}.tsx').write_text(tsx, encoding='utf-8')
     CSS_ACUMULADO.append(f'/* {archivo} */\n' + css_de(archivo, ident))
     print(f'{archivo:34} → paginas/{ident}.tsx   dinámicos: {len(c.dinamicos)}')

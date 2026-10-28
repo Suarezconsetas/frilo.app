@@ -39,3 +39,5 @@
 - **U8** Se oculta en móvil el logo grande repetido del Home. El `h1` sigue siendo «Frilo», como en la especificación SEO (decisión pendiente: ver informe al usuario).
 - **U9** «En esta página» pasa a una fila con desplazamiento en móvil (58 px en vez de ~330 px).
 - Extra: control de ingreso (barra y botones ±) en la calculadora de aportes, el hero del Home, cesantías (salario e ingreso) y la guía de cesantías; campo de plazo del interés compuesto; selectores sin texto cortado.
+- **H1 del Home (28-oct-2026):** el H1 ahora es «Calculadoras gratis para independientes: aportes, cesantías y planilla» (`H1_CORREGIDO` en `scripts/excel-a-json.py`, porque el Excel aún dice «Frilo») y «Frilo» (logo) pasó a H2. En el código el título va primero y el logo se muestra encima con CSS `order`.
+- **Calculadora a la vista en móvil:** en P01, P03, P05 y P10 el orden en pantallas de hasta 768 px es título → línea de confianza → calculadora → banner → entradilla → resto. La calculadora de aportes empieza a ~430 px del inicio (antes 1.220 px).

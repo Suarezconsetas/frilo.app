@@ -15,14 +15,14 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
     <div style={{ background: "#F3F6F4" }}>
       <section style={{ background: "#0F372D", color: "#FFFFFF", padding: "64px 0 96px" }}>
         <div className="wrap" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(340px, 100%), 1fr))", gap: "56px", alignItems: "center" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-            <h1 style={{ margin: "0", display: "flex", alignItems: "center", gap: "20px" }}>
+          <div className="home-columna" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+            <h1 style={{ margin: "0", fontSize: "clamp(28px, 3.4vw, 42px)", lineHeight: "1.12", fontWeight: "700", letterSpacing: "-0.02em" }}>
+              Calculadoras gratis para independientes: aportes, cesantías y planilla
+            </h1>
+            <h2 className="home-marca" style={{ margin: "0", display: "flex", alignItems: "center", gap: "20px" }}>
               <Isotipo tono="manzana" alto={28} altoCss="clamp(72px, 8vw, 104px)" />
               <Wordmark tono="manzana" alto={28} altoCss="clamp(52px, 5.8vw, 76px)" />
               <span className="sr-only">Frilo</span>
-            </h1>
-            <h2 style={{ margin: "0", fontSize: "clamp(28px, 3.4vw, 42px)", lineHeight: "1.12", fontWeight: "700", letterSpacing: "-0.02em" }}>
-              Calculadoras gratis para independientes: aportes, cesantías y planilla
             </h2>
             <p style={{ margin: "0", fontSize: "19px", lineHeight: "1.5", color: "#B5CCC1", maxWidth: "560px" }}>
               Sabes cuánto cobras; Frilo te dice cuánto es tuyo. Calcula tu planilla de seguridad social, aparta tu prima y tus cesantías, ponlas a rendir y sigue el dólar. Para freelancers y contratistas en Colombia, en pesos o en dólares.

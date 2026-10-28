@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { CUENTAS_MVP } from '@/lib/calculos';
-import { jsonLdDe, marcadoresPendientes, metadataDe, PAGINAS } from '../apps/web/src/lib/seo';
+import { jsonLdDe, marcadoresPendientes, metadataDe, PAGINAS, paginaPorId } from '../apps/web/src/lib/seo';
 import { estadoDe } from '../apps/web/src/lib/paginas';
 import { datosDePagina } from '../apps/web/src/lib/trm';
 
@@ -236,5 +236,14 @@ describe('móvil', () => {
     expect(readFileSync('apps/web/src/dinamicos/VistaP01b1.tsx', 'utf8')).toContain('{ajuste}');
     expect(readFileSync('apps/web/src/components/HeroCalculo.tsx', 'utf8')).toContain('AjusteIngreso');
     expect(readFileSync('apps/web/src/dinamicos/VistaP03b1.tsx', 'utf8')).toContain('{ajusteSalario}');
+  });
+});
+
+describe('H1 del Home', () => {
+  it('lleva las palabras clave y «Frilo» es un H2', () => {
+    expect(paginaPorId('Home').h1).toMatch(/^Calculadoras gratis para independientes/);
+    const home = readFileSync('apps/web/src/paginas/Home.tsx', 'utf8');
+    expect(home).toMatch(/<h1[^>]*>\s*Calculadoras gratis/);
+    expect(home).toMatch(/<h2 className="home-marca"/);
   });
 });
