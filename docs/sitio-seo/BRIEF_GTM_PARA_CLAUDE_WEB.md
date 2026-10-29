@@ -1,11 +1,15 @@
 # Brief para crear las etiquetas de GTM y GA4 de Frilo (para pegar en Claude Web)
 
+**Instrucción para escribir al pegar este documento:**
+
+> Eres mi asistente de analítica. Usa el conector `gtm-mcp-server` sobre el contenedor `GTM-NPF6MT3S` (GA4: `G-256WBYTR4W`). Primero lista cuentas, contenedores, espacios de trabajo, etiquetas, disparadores y variables que ya existen y dime qué hay. Luego crea, en un espacio de trabajo nuevo llamado `eventos-frilo-oct-2026`, solo lo de las secciones 4.1 a 4.4 de este documento, reutilizando lo que ya exista. No publiques ninguna versión ni borres nada. Al terminar, dame un resumen de lo creado, lo reutilizado y lo que debo revisar en la vista previa.
+
 Pega este documento completo en Claude Web (con el conector `gtm-mcp-server` encendido) y pídele ejecutar el plan. Todo lo que está aquí sale del código real del sitio (`apps/web`), a 29-oct-2026.
 
 ## 1. Contexto del proyecto
 - **Frilo** (`https://frilo.dev`): calculadoras gratis para independientes y contratistas en Colombia (aportes de seguridad social, cesantías y prima, interés compuesto, dólar/TRM). Todo en español de Colombia.
 - Hay dos dominios: el **sitio de contenido** `frilo.dev` (Next.js, el que usa GTM) y la **app** `app.frilo.dev` (no lleva GTM; está en `noindex`).
-- **Contenedor GTM:** `GTM-NPF6MT3S` (tipo Web). **Propiedad GA4:** ya existe; el ID de medición `G-…` lo conoce Nicolás (si no está en el contenedor, pídeselo; no lo inventes).
+- **Contenedor GTM:** `GTM-NPF6MT3S` (tipo Web). **ID de medición GA4:** `G-256WBYTR4W` (propiedad ya creada).
 - **Privacidad (Ley 1581 de 2012):** GTM solo se carga si la persona acepta el aviso de cookies de analítica. Nunca viajan montos, ingresos ni correos. No se usa publicidad ni remarketing.
 
 ## 2. Consentimiento (importante para configurar las etiquetas)
@@ -49,7 +53,7 @@ Nombre del espacio de trabajo: `eventos-frilo-oct-2026`. **No publicar**; Nicol�
 Crear cuatro variables «Variable de capa de datos»: `dlv - pagina` (clave `pagina`), `dlv - variante` (`variante`), `dlv - metodo` (`metodo`), `dlv - entidad` (`entidad`). Valor por defecto: vacío.
 
 ### 4.2 Etiqueta de configuración (si no existe)
-- Tipo: **Etiqueta de Google (Google tag)**, ID de etiqueta `G-…` (el de la propiedad GA4 de Frilo).
+- Tipo: **Etiqueta de Google (Google tag)**, ID de etiqueta `G-256WBYTR4W`.
 - Disparador: **All Pages** (Inicialización).
 - Consentimiento adicional requerido: `analytics_storage`.
 
@@ -89,6 +93,6 @@ Cuando Nicolás quiera alguna, se pide a Claude Code (que edita el repositorio) 
 
 ## 8. Reglas de trabajo
 - Español de Colombia en nombres descriptivos y notas.
-- No inventar IDs (`G-…`, cuentas, contenedores): leerlos de GTM o preguntar.
+- No inventar IDs (cuentas, contenedores, espacios de trabajo): leerlos de GTM o preguntar. Los IDs de este proyecto son `GTM-NPF6MT3S` (contenedor) y `G-256WBYTR4W` (GA4).
 - No publicar versiones ni borrar etiquetas existentes sin confirmación expresa de Nicolás.
 - Después de crear todo, entregar un resumen: qué se creó (nombres y tipos), qué ya existía y se reutilizó, y qué debe revisar Nicolás en vista previa.
