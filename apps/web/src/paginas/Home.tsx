@@ -9,7 +9,7 @@ import { URL_APP } from '../lib/config';
 import type { DatosTrm } from '../lib/trm';
 import { BannerRendimiento } from '../components/BannerRendimiento';
 
-export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: ReactNode }; d: DatosTrm }) {
+export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: ReactNode; app?: ReactNode }; d: DatosTrm }) {
   return (
     <div className="wf wf-Home">
     <div style={{ background: "#F3F6F4" }}>
@@ -233,6 +233,7 @@ export function ContenidoHome({ dinamicos = {}, d }: { dinamicos?: { hero?: Reac
           </article>
         </div>
       </section>
+      {dinamicos.app}
       <section aria-labelledby="rinde" style={{ padding: "0 0 96px" }}>
         <div className="wrap" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
           <h2 id="rinde" style={{ margin: "0", fontSize: "36px", letterSpacing: "-0.015em" }}>

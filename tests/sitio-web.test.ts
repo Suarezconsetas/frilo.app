@@ -247,3 +247,13 @@ describe('H1 del Home', () => {
     expect(home).toMatch(/<h2 className="home-marca"/);
   });
 });
+
+describe('banner de la app en el Home', () => {
+  it('está en el Home, enlaza a la app y mide el clic', () => {
+    expect(readFileSync('apps/web/src/paginas/Home.tsx', 'utf8')).toContain('{dinamicos.app}');
+    const banner = readFileSync('apps/web/src/components/BannerApp.tsx', 'utf8');
+    expect(banner).toContain('href={URL_APP}');
+    expect(banner).toContain('data-evento="cta_click"');
+    for (const img of ['aportes', 'ahorro', 'dolar']) expect(existsSync(`apps/web/public/capturas/${img}.jpg`)).toBe(true);
+  });
+});

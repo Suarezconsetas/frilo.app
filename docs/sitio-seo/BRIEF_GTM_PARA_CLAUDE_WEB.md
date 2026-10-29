@@ -39,6 +39,7 @@ Formato: `window.dataLayer.push({ event: '<nombre>', ...parámetros })`. Los nom
 | `signup_complete` | Al verificar el código del correo (solo registro con correo; con Google no se dispara en el sitio) | `pagina`, `variante`, `metodo` (`correo`) |
 | `calc_result` | La primera vez que la persona usa una calculadora de la página | `pagina` (ruta, p. ej. `/calculadoras/aportes-independientes`) |
 | `bank_click` | Clic en un enlace a un banco (banner de rendimiento y tabla de cuentas) | `entidad` (nombre del banco), `pagina` (ruta) |
+| `cta_click` | Clic en «Probar la app gratis» del banner de la app del Home (desde el 30-oct-2026) | `variante` (`banner_app`), `pagina` (ruta) |
 
 Nota: el parámetro `pagina` no es igual en todos los eventos: en `signup_*` es el **id de la página** (`P01`, `P07`, `Hub-G`…) y en `calc_result` y `bank_click` es la **ruta** (`/calculadoras/cesantias`). En GA4 conviene tenerlo en cuenta al comparar; unificarlo sería una mejora de código.
 
@@ -58,9 +59,9 @@ Crear cuatro variables «Variable de capa de datos»: `dlv - pagina` (clave `pag
 - Consentimiento adicional requerido: `analytics_storage`.
 
 ### 4.3 Disparadores (tipo «Evento personalizado», coincidencia exacta)
-`ce - signup_start`, `ce - signup_complete`, `ce - calc_result`, `ce - bank_click`.
+`ce - signup_start`, `ce - signup_complete`, `ce - calc_result`, `ce - bank_click`, `ce - cta_click`.
 
-### 4.4 Cuatro etiquetas «Evento de GA4»
+### 4.4 Etiquetas «Evento de GA4» (una por evento)
 Todas con consentimiento adicional `analytics_storage` y la etiqueta de configuración del punto 4.2 como referencia.
 
 | Etiqueta | Nombre del evento | Parámetros del evento | Disparador |
@@ -69,6 +70,7 @@ Todas con consentimiento adicional `analytics_storage` y la etiqueta de configur
 | `GA4 - signup_complete` | `signup_complete` | `pagina`, `variante`, `metodo` | `ce - signup_complete` |
 | `GA4 - calc_result` | `calc_result` | `pagina` | `ce - calc_result` |
 | `GA4 - bank_click` | `bank_click` | `entidad`, `pagina` | `ce - bank_click` |
+| `GA4 - cta_click` | `cta_click` | `variante`, `pagina` | `ce - cta_click` |
 
 ## 5. Qué debe hacer Nicolás en GA4 (no hay conector para esto)
 1. Admin → Definiciones personalizadas → crear 4 **dimensiones de alcance «Evento»**: `variante`, `metodo`, `entidad`, `pagina`.
@@ -86,7 +88,7 @@ Todas con consentimiento adicional `analytics_storage` y la etiqueta de configur
 ## 7. Mejoras pendientes (requieren cambiar el código del sitio; NO crearlas en GTM todavía)
 - `banner_view`: visibilidad de cada banner (para tasa de clic), con `variante` y `pagina`.
 - Enviar `variante` en `bank_click`.
-- `cta_click` para los botones «Probar la app» (hoy van a `app.frilo.dev` sin evento).
+- Extender `cta_click` a los demás botones «Probar la app» (hoy solo lo lleva el banner de la app del Home).
 - Medir el registro con Google en `/bienvenida` de la app.
 
 Cuando Nicolás quiera alguna, se pide a Claude Code (que edita el repositorio) y después se crea su etiqueta en GTM.

@@ -1,3 +1,4 @@
+import { BannerApp } from '../../components/BannerApp';
 import { HeroCalculo } from '../../components/HeroCalculo';
 import { JsonLd } from '../../components/JsonLd';
 import { ContenidoHome } from '../../paginas/Home';
@@ -14,7 +15,7 @@ export default async function Pagina() {
   const d = datosDePagina(await cargarSerieTrm());
   return (
     <>
-      <ContenidoHome d={d} dinamicos={{ hero: <HeroCalculo trm={d.hoy} /> }} />
+      <ContenidoHome d={d} dinamicos={{ hero: <HeroCalculo trm={d.hoy} />, app: <BannerApp /> }} />
       <TerminosClave />
       <SigueCon id="Home" />
       <JsonLd id="Home" />

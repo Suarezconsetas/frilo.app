@@ -636,6 +636,12 @@ def ajustes_moviles(t):
     t = re.sub(r'font-size:1[23]px', 'font-size:14px', t)
     return t
 
+def banner_app_home(tsx):
+    """Ranura del banner de la app: va después de «Todo lo que calcula Frilo» y antes de «Cómo rinde»."""
+    tsx = tsx.replace('dinamicos?: { hero?: ReactNode }', 'dinamicos?: { hero?: ReactNode; app?: ReactNode }', 1)
+    return tsx.replace('      <section aria-labelledby="rinde"', '      {dinamicos.app}\n      <section aria-labelledby="rinde"', 1)
+
+
 def h1_del_home(tsx):
     """H1 del Home = el título con las palabras clave; «Frilo» (logo) pasa a H2. El título va primero en el código (orden de lectura y de
     importancia) y el logo se muestra arriba con `order`."""
@@ -720,7 +726,7 @@ def convertir(archivo):
         tsx = re.sub(r'<a href="#" (style=\{\{[^}]*\}\}>\s*Glosario\s*)</a>', r'<Link href="/glosario" \1</Link>', tsx)
     tsx = ajustes_moviles(arreglar_font(enlazar(tsx, ident)))
     if ident == 'Home':
-        tsx = h1_del_home(tsx)
+        tsx = banner_app_home(h1_del_home(tsx))
     (SALIDA / f'{ident}.tsx').write_text(tsx, encoding='utf-8')
     CSS_ACUMULADO.append(f'/* {archivo} */\n' + css_de(archivo, ident))
     print(f'{archivo:34} → paginas/{ident}.tsx   dinámicos: {len(c.dinamicos)}')

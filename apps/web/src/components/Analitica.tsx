@@ -68,8 +68,9 @@ export function Analitica() {
     if (eleccion !== 'si') return;
     const clic = (e: MouseEvent) => {
       const a = (e.target as Element | null)?.closest?.('[data-evento]') as HTMLElement | null;
-      if (!a || a.dataset.evento !== 'bank_click') return;
-      registrarEvento('bank_click', { entidad: a.dataset.entidad, pagina: location.pathname });
+      if (!a) return;
+      if (a.dataset.evento === 'bank_click') registrarEvento('bank_click', { entidad: a.dataset.entidad, pagina: location.pathname });
+      if (a.dataset.evento === 'cta_click') registrarEvento('cta_click', { variante: a.dataset.variante, pagina: location.pathname });
     };
     const campo = (e: Event) => {
       const el = e.target as HTMLInputElement | null;

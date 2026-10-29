@@ -4,7 +4,7 @@ import { COOKIE_DOMINIO, ES_PRODUCCION, GTM_ID } from './config';
 import { leerConsentimiento } from './consentimiento';
 
 /** Eventos del brief §8: `signup_start`, `signup_complete`, `calc_result`, `bank_click`. Solo en producción y con la analítica aceptada. Nunca llevan montos, ingresos ni correos. */
-export type Evento = 'signup_start' | 'signup_complete' | 'calc_result' | 'bank_click';
+export type Evento = 'signup_start' | 'signup_complete' | 'calc_result' | 'bank_click' | 'cta_click';
 
 declare global {
   interface Window {

@@ -248,3 +248,42 @@ div[style*='overflow-x:auto'], div[style*='overflow-x: auto'] { position: relati
   :is(.wf-P01, .wf-P03, .wf-P05, .wf-P10) .wrap > header > p:not(:last-child) { order: 4; }
   :is(.wf-P01, .wf-P03, .wf-P05, .wf-P10) .wrap > :is(article, div:has(article), section.banner-registro, section:last-child) { order: 5; }
 }
+
+/* Banner de la app en el Home */
+.banner-app { background: var(--oliva); color: #fff; padding: 80px 0; overflow: hidden; }
+.banner-app-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+.banner-app-texto { display: flex; flex-direction: column; gap: 18px; }
+.banner-app-etiqueta { align-self: flex-start; font-size: 14px; font-weight: 700; color: var(--manzana); border: 1px solid rgba(111, 255, 143, 0.5); border-radius: 999px; padding: 6px 14px; }
+.banner-app h2 { margin: 0; font-size: clamp(30px, 3.6vw, 44px); line-height: 1.1; letter-spacing: -0.02em; }
+.banner-app-resumen { margin: 0; font-size: 18px; line-height: 1.55; color: var(--oliva-suave); max-width: 560px; }
+.banner-app-lista { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.banner-app-lista li { display: flex; gap: 12px; align-items: flex-start; font-size: 16px; line-height: 1.5; color: #e6eee9; }
+.banner-app-lista svg { flex: none; margin-top: 2px; }
+.banner-app-lista strong { color: #fff; }
+.banner-app-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; margin-top: 6px; }
+.banner-app-acciones .btn { min-height: 52px; padding: 0 28px; }
+.banner-app-enlace { display: inline-flex; align-items: center; min-height: 44px; color: #fff; font-weight: 600; }
+.banner-app-nota { margin: 0; font-size: 14px; line-height: 1.5; color: var(--oliva-suave); max-width: 560px; }
+.banner-app-telefonos { position: relative; display: flex; justify-content: center; align-items: center; min-height: 520px; }
+.telefono { background: #0b2a22; border: 6px solid #1c4f41; border-radius: 36px; overflow: hidden; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35); }
+.telefono img { display: block; width: 100%; height: auto; }
+.telefono-centro { position: relative; z-index: 2; width: min(260px, 62%); }
+.telefono-lado { position: absolute; width: min(210px, 50%); opacity: 0.95; }
+.telefono-izq { left: 0; transform: rotate(-6deg) translateY(24px); z-index: 1; }
+.telefono-der { right: 0; transform: rotate(6deg) translateY(24px); z-index: 1; }
+@media (max-width: 900px) {
+  .banner-app { padding: 56px 0; }
+  /* móvil: etiqueta, título, resumen, teléfono (recortado), funciones, botón y nota */
+  .banner-app-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .banner-app-texto { display: contents; }
+  .banner-app-etiqueta { order: 1; }
+  .banner-app h2 { order: 2; }
+  .banner-app-resumen { order: 3; }
+  .banner-app-telefonos { order: 4; min-height: 0; max-height: 380px; overflow: hidden; margin: 6px 0; align-items: flex-start; }
+  .banner-app-lista { order: 5; gap: 12px; }
+  .banner-app-detalle { display: none; }
+  .banner-app-acciones { order: 6; }
+  .banner-app-nota { order: 7; }
+  .telefono-centro { width: min(240px, 70%); }
+  .telefono-lado { display: none; }
+}
